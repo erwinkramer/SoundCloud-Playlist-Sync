@@ -399,15 +399,58 @@ namespace Soundcloud_Playlist_Downloader
                     TagLib.File tagFile = TagLib.File.Create(song.LocalPath);
                     tagFile.Tag.Title = song.Title;
                     string artworkFilepath = null;
+                    List<string> listGenreAndTags = new List<string>();
 
                     if (!String.IsNullOrEmpty(song.Username))
                     {
                         tagFile.Tag.AlbumArtists = new string[] { song.Username };
                         tagFile.Tag.Performers = new string[] { song.Username };
-                    }                    
+                    }
                     if (!String.IsNullOrEmpty(song.genre))
                     {
-                        tagFile.Tag.Genres = new string[] { song.genre };
+                        listGenreAndTags.Add(song.genre);
+                        tagFile.Tag.Genres = listGenreAndTags.ToArray();
+                    }
+                    if (!String.IsNullOrEmpty(song.tag_list))
+                    {
+                        //NOTE      Tags behave very similar as genres in SoundCloud, 
+                        //          so tags will be added to the genre part of the metadata
+                        //WARNING   Tags are seperated by \" when a single tag includes a whitespace! (for instance: New Wave)
+                        //          Single worded tags are seperated by a single whitespace, this has led me to make
+                        //          this code longer than I initially thought it would be (could perhaps made easier)
+                        //FEATURES  Rare occasions, where the artist uses tags that include the seperation tags SoundCloud uses;
+                        //          like \" or \"Hip-Hop\", are handled, but NOT necessary, because the quote (") is an illegal sign to use in tags
+
+                        string tag = "";
+                        bool partOfLongertag = false;
+
+                        foreach (string word in song.tag_list.Split(' '))
+                        {
+                            if (word.EndsWith("\""))
+                            {
+                                tag += " " + word.Substring(0, word.Length - 1);
+                                partOfLongertag = false;
+                                listGenreAndTags.Add(tag);
+                                tag = "";
+                                continue;
+                            }
+                            else if (word.StartsWith("\""))
+                            {
+                                partOfLongertag = true;
+                                tag += word.Substring(1, word.Length - 1);
+                            }
+                            else if (partOfLongertag == true)
+                            {
+                                tag += " " + word;
+                            }
+                            else
+                            {
+                                tag = word;
+                                listGenreAndTags.Add(tag);
+                                tag = "";
+                            }
+                        }
+                        tagFile.Tag.Genres = listGenreAndTags.ToArray();
                     }
                     if (!String.IsNullOrEmpty(song.description))
                     {
