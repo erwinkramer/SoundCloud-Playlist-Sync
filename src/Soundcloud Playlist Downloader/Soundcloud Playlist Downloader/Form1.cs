@@ -221,5 +221,10 @@ namespace Soundcloud_Playlist_Downloader
                 syncButton.Text = AbortActionText;
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
