@@ -519,6 +519,7 @@ namespace Soundcloud_Playlist_Downloader
             {
                 using (WebClient client = new WebClient()) 
                 {
+                    client.Encoding = System.Text.Encoding.UTF8;
                     if (url != null && !url.Contains("client_id="))
                     {
                         url += (url.Contains("?") ? "&" : "?") + "client_id=" + clientId;
