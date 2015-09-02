@@ -417,9 +417,12 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         // download artwork
                         artworkFilepath = Path.GetTempFileName();
+
+                        string highResArtwork_url = song.artwork_url.Replace("large.jpg", "t500x500.jpg");
+
                         using (WebClient web = new WebClient()) 
                         {
-                            web.DownloadFile(song.artwork_url, artworkFilepath);
+                            web.DownloadFile(highResArtwork_url, artworkFilepath);
                         }
                         
                         tagFile.Tag.Pictures = new[] { new TagLib.Picture(artworkFilepath) };
