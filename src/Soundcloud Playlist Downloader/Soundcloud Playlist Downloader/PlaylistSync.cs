@@ -394,6 +394,11 @@ namespace Soundcloud_Playlist_Downloader
 
                     client.DownloadFile(song.EffectiveDownloadUrl+string.Format("?client_id={0}",apiKey), song.LocalPath);
 
+                    //Sets file creation time to creation time that matches with Soundcloud track.
+                    //If somehow the datetime string can't be parsed it will just use the current (now) datetime. 
+                    DateTime dt = DateTime.Now;
+                    DateTime.TryParse(song.created_at, out dt);
+                    File.SetCreationTime(song.LocalPath, dt);
 
                     // metadata tagging
                     TagLib.File tagFile = TagLib.File.Create(song.LocalPath);
@@ -470,7 +475,6 @@ namespace Soundcloud_Playlist_Downloader
                         
                         tagFile.Tag.Pictures = new[] { new TagLib.Picture(artworkFilepath) };
                     }
-                    
                     tagFile.Save();
 
                     if (artworkFilepath != null && File.Exists(artworkFilepath))
