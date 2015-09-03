@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Soundcloud_Playlist_Downloader.JsonPoco
 {
+
     public class PaginatedCollection
     {
         public Track[] collection { get; set; }
@@ -122,7 +123,8 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
             }
             set
             {
-                _title = Sanitize(value);
+                _title = value;
+                //_title = Sanitize(value);
             }
         }
         public string EffectiveDownloadUrl
@@ -195,7 +197,8 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
             }
             set
             {
-                user.username = Sanitize(value);
+                user.username = value;
+                //user.username = Sanitize(value);
             }
         }
     }

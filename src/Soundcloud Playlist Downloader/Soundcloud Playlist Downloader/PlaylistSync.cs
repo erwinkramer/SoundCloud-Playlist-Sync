@@ -194,9 +194,12 @@ namespace Soundcloud_Playlist_Downloader
 
                 bool tracksAdded = true;
 
+
                 while (tracksAdded)
                 {
                     string tracksJson = RetrieveJson(url, clientId, limit, offset);
+                    
+
                     IList<Track> currentTracks = isRawTracksUrl ? JsonConvert.DeserializeObject<Track[]>(tracksJson) : 
                         JsonConvert.DeserializeObject<PlaylistItem>(tracksJson).tracks;
 
@@ -536,7 +539,8 @@ namespace Soundcloud_Playlist_Downloader
 
         private IList<Track> DetermineTracksToDownload(string directoryPath, IList<Track> allSongs)
         {
-
+            //not sure of row below is working properly, now that Artist and Title aren't sanitized anymore (because of the UTF-8 encoding that is enabled) 
+            //it seems to be working though
             allSongs= allSongs.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.Sanitize(c.Artist), c.Sanitize(c.Title)); return c; }).ToList();
 
             string manifestPath = DetermineManifestPath(directoryPath);
