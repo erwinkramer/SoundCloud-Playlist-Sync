@@ -31,7 +31,8 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
         public object description { get; set; }
         public string uri { get; set; }
         public object label_name { get; set; }
-        public List<string> tag_list { get; set; }
+        public string tag_list { get; set; }
+        //public List<string> tag_list { get; set; }
         public object release_year { get; set; }
         public int track_count { get; set; }
         public int user_id { get; set; }
