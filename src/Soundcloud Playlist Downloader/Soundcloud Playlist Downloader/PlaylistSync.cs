@@ -55,6 +55,7 @@ namespace Soundcloud_Playlist_Downloader
                     {"Client ID", clientId}
                 }
             );
+            bool a = Form1.Highqualitysong;
 
             ResetProgress();
 
@@ -140,9 +141,7 @@ namespace Soundcloud_Playlist_Downloader
             // permalink, and return the id of the matching playlist.
             // a method already exists for downloading xml, so use that and refactor this to not have
             // the client id embedded in the url
-
             string playlistsJson = RetrieveJson(userApiUrl, clientId);
-
 
             var playlistItems = JsonConvert.DeserializeObject<JsonPoco.PlaylistItem[]>(playlistsJson);
 
@@ -190,16 +189,12 @@ namespace Soundcloud_Playlist_Downloader
             try
             {
                 // get the tracks embedded in the playlist
-
-
                 bool tracksAdded = true;
-
 
                 while (tracksAdded)
                 {
                     string tracksJson = RetrieveJson(url, clientId, limit, offset);
                     
-
                     IList<Track> currentTracks = isRawTracksUrl ? JsonConvert.DeserializeObject<Track[]>(tracksJson) : 
                         JsonConvert.DeserializeObject<PlaylistItem>(tracksJson).tracks;
 

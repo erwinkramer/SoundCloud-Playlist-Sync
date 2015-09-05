@@ -133,8 +133,17 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
         {
             get
             {
-                string url = !string.IsNullOrWhiteSpace(download_url) ?
-                    download_url : stream_url;
+                string url = string.Empty;
+                if (Form1.Highqualitysong) //user has selected to download high quality songs if available
+                {
+                    url = !string.IsNullOrWhiteSpace(download_url) ? 
+                        download_url : stream_url; //check if high quality url (download_url) is available
+                }
+                else
+                {
+                    url = stream_url; //else just get the low quality MP3 (stream_url)
+                }
+
                 if (!string.IsNullOrWhiteSpace(url))
                 {
                     return url.Replace("\r", "").Replace("\n", "");
@@ -148,6 +157,7 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
 
         public string LocalPath { get; set; }
 
+        // song is considered HD when there is a download_url available
         public bool IsHD { get { return download_url == EffectiveDownloadUrl; } }
 
         //public string Sanitize(string input)

@@ -16,6 +16,7 @@ namespace Soundcloud_Playlist_Downloader
     {
 
         private string CLIENT_ID = "93a4fae1bd98b84c9b4f6bf1cc838b4f";
+        private box_about aboutWindow = new box_about();
 
         private PlaylistSync sync = null;
         private delegate void ProgressBarUpdate();
@@ -23,6 +24,7 @@ namespace Soundcloud_Playlist_Downloader
         private delegate void PerformStatusUpdate();
 
         private bool completed = false;
+        public static bool Highqualitysong = false;
 
         private PerformSyncComplete PerformSyncCompleteImplementation = null;
         private ProgressBarUpdate ProgressBarUpdateImplementation = null;
@@ -146,6 +148,7 @@ namespace Soundcloud_Playlist_Downloader
                 progressBar.Value = 0;
                 progressBar.Maximum = 0;
                 progressBar.Minimum = 0;
+                Form1.Highqualitysong = chk_highquality.Checked;
                 new Thread(() =>
                 {
                     try
@@ -231,6 +234,28 @@ namespace Soundcloud_Playlist_Downloader
         private void chk_folderByArtist_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            if (aboutWindow.Visible)
+            {
+                aboutWindow.Focus();
+            }
+            else
+            {
+                aboutWindow.Show();
+            }
         }
     }
 }
