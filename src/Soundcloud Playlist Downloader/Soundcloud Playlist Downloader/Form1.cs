@@ -155,7 +155,8 @@ namespace Soundcloud_Playlist_Downloader
                             mode: playlistRadio.Checked ? PlaylistSync.DownloadMode.Playlist : favoritesRadio.Checked ? PlaylistSync.DownloadMode.Favorites : PlaylistSync.DownloadMode.Artist,
                             directory: directoryPath.Text, 
                             deleteRemovedSongs: deleteRemovedSongs.Checked, 
-                            clientId: CLIENT_ID
+                            clientId: CLIENT_ID,
+                            foldersPerArtist: chk_folderByArtist.Checked
                         );
                     }
                     catch (Exception ex)
@@ -223,6 +224,11 @@ namespace Soundcloud_Playlist_Downloader
         }
 
         private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chk_folderByArtist_CheckedChanged(object sender, EventArgs e)
         {
 
         }

@@ -42,6 +42,7 @@
             this.artistRadio = new System.Windows.Forms.RadioButton();
             this.directoryPath = new System.Windows.Forms.TextBox();
             this.url = new System.Windows.Forms.TextBox();
+            this.chk_folderByArtist = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +57,7 @@
             // 
             // syncButton
             // 
-            this.syncButton.Location = new System.Drawing.Point(15, 169);
+            this.syncButton.Location = new System.Drawing.Point(15, 192);
             this.syncButton.Name = "syncButton";
             this.syncButton.Size = new System.Drawing.Size(390, 23);
             this.syncButton.TabIndex = 4;
@@ -88,16 +89,16 @@
             this.deleteRemovedSongs.AutoSize = true;
             this.deleteRemovedSongs.Location = new System.Drawing.Point(96, 146);
             this.deleteRemovedSongs.Name = "deleteRemovedSongs";
-            this.deleteRemovedSongs.Size = new System.Drawing.Size(239, 17);
+            this.deleteRemovedSongs.Size = new System.Drawing.Size(223, 17);
             this.deleteRemovedSongs.TabIndex = 8;
-            this.deleteRemovedSongs.Text = "Delete Removed Songs From Local Directory";
+            this.deleteRemovedSongs.Text = "Delete removed songs from local directory";
             this.deleteRemovedSongs.UseVisualStyleBackColor = true;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.status});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 222);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 240);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(421, 22);
             this.statusStrip1.TabIndex = 9;
@@ -110,7 +111,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(15, 198);
+            this.progressBar.Location = new System.Drawing.Point(15, 221);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(390, 13);
             this.progressBar.TabIndex = 10;
@@ -165,11 +166,25 @@
             this.url.TabIndex = 1;
             this.url.Text = global::Soundcloud_Playlist_Downloader.Properties.Settings.Default.PlaylistUrl;
             // 
+            // chk_folderByArtist
+            // 
+            this.chk_folderByArtist.AutoSize = true;
+            this.chk_folderByArtist.Checked = true;
+            this.chk_folderByArtist.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_folderByArtist.Location = new System.Drawing.Point(96, 169);
+            this.chk_folderByArtist.Name = "chk_folderByArtist";
+            this.chk_folderByArtist.Size = new System.Drawing.Size(172, 17);
+            this.chk_folderByArtist.TabIndex = 15;
+            this.chk_folderByArtist.Text = "Sort songs into folders by artist ";
+            this.chk_folderByArtist.UseVisualStyleBackColor = true;
+            this.chk_folderByArtist.CheckedChanged += new System.EventHandler(this.chk_folderByArtist_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(421, 244);
+            this.ClientSize = new System.Drawing.Size(421, 262);
+            this.Controls.Add(this.chk_folderByArtist);
             this.Controls.Add(this.artistRadio);
             this.Controls.Add(this.favoritesRadio);
             this.Controls.Add(this.playlistRadio);
@@ -209,6 +224,7 @@
         private System.Windows.Forms.RadioButton playlistRadio;
         private System.Windows.Forms.RadioButton favoritesRadio;
         private System.Windows.Forms.RadioButton artistRadio;
+        private System.Windows.Forms.CheckBox chk_folderByArtist;
     }
 }
 

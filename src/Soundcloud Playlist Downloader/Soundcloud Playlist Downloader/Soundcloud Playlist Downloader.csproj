@@ -184,7 +184,6 @@
   <ItemGroup>
     <None Include="Resources\Icon1.ico" />
     <None Include="Resources\%24this.Icon.ico" />
-    <Content Include="Id3Lib.dll" />
     <Content Include="scdownloader.ico" />
   </ItemGroup>
   <ItemGroup>

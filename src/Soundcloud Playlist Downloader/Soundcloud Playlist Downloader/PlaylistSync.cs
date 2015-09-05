@@ -45,7 +45,7 @@ namespace Soundcloud_Playlist_Downloader
             }
         }
 
-        internal void Synchronize(string url, DownloadMode mode, string directory, bool deleteRemovedSongs, string clientId)
+        internal void Synchronize(string url, DownloadMode mode, string directory, bool deleteRemovedSongs, string clientId, bool foldersPerArtist)
         {
             verifyParameters(
                 new Dictionary<string, string>()
@@ -74,12 +74,12 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         apiURL = url;
                     }
-                    SynchronizeFromPlaylistAPIUrl(apiURL, clientId, directory, deleteRemovedSongs);
+                    SynchronizeFromPlaylistAPIUrl(apiURL, clientId, directory, deleteRemovedSongs, foldersPerArtist);
                     break;
                 case DownloadMode.Favorites:
                     // get the username from the url and then call SynchronizeFromProfile
                     string username = parseUserIdFromProfileUrl(url);
-                    SynchronizeFromProfile(username, clientId, directory, deleteRemovedSongs);
+                    SynchronizeFromProfile(username, clientId, directory, deleteRemovedSongs, foldersPerArtist);
                     break;
                 case DownloadMode.Artist:
                     
@@ -91,7 +91,7 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         apiURL = url;
                     }
-                    SynchronizeFromArtistUrl(apiURL, clientId, directory, deleteRemovedSongs);
+                    SynchronizeFromArtistUrl(apiURL, clientId, directory, deleteRemovedSongs, foldersPerArtist);
                     break;
                 default:
                     IsError = true;
@@ -229,17 +229,17 @@ namespace Soundcloud_Playlist_Downloader
             return tracks;
         }
 
-        internal void SynchronizeFromProfile(string username, string clientId, string directoryPath, bool deleteRemovedSongs)
+        internal void SynchronizeFromProfile(string username, string clientId, string directoryPath, bool deleteRemovedSongs, bool foldersPerArtist)
         {
             // hit the /username/favorites endpoint for the username in the url, then download all the tracks
             IList<Track> tracks = EnumerateTracksFromUrl("https://api.soundcloud.com/users/" + username + "/favorites", clientId, true);
-            Synchronize(tracks, clientId, directoryPath, deleteRemovedSongs);
+            Synchronize(tracks, clientId, directoryPath, deleteRemovedSongs, foldersPerArtist);
         }
 
-        private void Synchronize(IList<Track> tracks, string clientId, string directoryPath, bool deleteRemovedSongs)
+        private void Synchronize(IList<Track> tracks, string clientId, string directoryPath, bool deleteRemovedSongs, bool foldersPerArtist)
         {
             // determine which tracks should be downloaded
-            SongsToDownload = DetermineTracksToDownload(directoryPath, tracks);
+            SongsToDownload = DetermineTracksToDownload(directoryPath, tracks, foldersPerArtist);
 
             // determine which tracks should be deleted
             if (deleteRemovedSongs)
@@ -266,18 +266,18 @@ namespace Soundcloud_Playlist_Downloader
         }
 
 
-        internal void SynchronizeFromPlaylistAPIUrl(string playlistApiUrl, string clientId, string directoryPath, bool deleteRemovedSongs)
+        internal void SynchronizeFromPlaylistAPIUrl(string playlistApiUrl, string clientId, string directoryPath, bool deleteRemovedSongs, bool foldersPerArtist)
         {
             IList<Track> tracks = EnumerateTracksFromUrl(playlistApiUrl, clientId, false);
-            Synchronize(tracks, clientId, directoryPath, deleteRemovedSongs);
+            Synchronize(tracks, clientId, directoryPath, deleteRemovedSongs, foldersPerArtist);
         }
 
 
-        internal void SynchronizeFromArtistUrl(string artistUrl, string clientId, string directoryPath, bool deleteRemovedSongs)
+        internal void SynchronizeFromArtistUrl(string artistUrl, string clientId, string directoryPath, bool deleteRemovedSongs, bool foldersPerArtist)
         {
 
             IList<Track> tracks = EnumerateTracksFromUrl(artistUrl, clientId, true);
-            Synchronize(tracks, clientId, directoryPath, deleteRemovedSongs);
+            Synchronize(tracks, clientId, directoryPath, deleteRemovedSongs, foldersPerArtist);
         }
 
 
@@ -348,7 +348,6 @@ namespace Soundcloud_Playlist_Downloader
             return songsDownloaded;
         }
 
-        [SafeRetry]
         private bool DownloadTrack(Track song, string apiKey)
         {
             bool downloaded = false;
@@ -402,24 +401,15 @@ namespace Soundcloud_Playlist_Downloader
                     File.SetCreationTime(song.LocalPath, dt);
                     
                     // metadata tagging
-                    TagLib.File tagFile = null;
-                    tagFile.Tag.Title = null;
-                    tagFile.Tag.AlbumArtists = null;
-                    tagFile.Tag.Performers = null;
-                    tagFile.Tag.Genres = null;
-                    tagFile.Tag.Comment = null;
-                    tagFile.Tag.Pictures = null;
+                    TagLib.File tagFile = null;                  
 
                     TagLib.Id3v2.Tag.DefaultVersion = 2;
                     TagLib.Id3v2.Tag.ForceDefaultVersion = true;
                     // Possible values for DefaultVersion are 2(id3v2.2), 3(id3v2.3) or 4(id3v2.4)
                     // it seems that id3v2.4 is more prone to misinterpret utf-8. id3v2.2 seems most stable. 
-
                     tagFile = TagLib.File.Create(song.LocalPath);
 
-                  
                     tagFile.Tag.Title = song.Title;
-
                     string artworkFilepath = null;
                     List<string> listGenreAndTags = new List<string>();
 
@@ -489,7 +479,6 @@ namespace Soundcloud_Playlist_Downloader
                         {
                             web.DownloadFile(highResArtwork_url, artworkFilepath);
                         }
-                        
                         tagFile.Tag.Pictures = new[] { new TagLib.Picture(artworkFilepath) };
                     }
                     tagFile.Save();
@@ -507,9 +496,7 @@ namespace Soundcloud_Playlist_Downloader
                     }
                 }
             }
-
             return downloaded;
-
         }
 
         private void DeleteRemovedTrack(string directoryPath, IList<Track> allTracks)
@@ -552,11 +539,17 @@ namespace Soundcloud_Playlist_Downloader
             
         }
 
-        private IList<Track> DetermineTracksToDownload(string directoryPath, IList<Track> allSongs)
+        private IList<Track> DetermineTracksToDownload(string directoryPath, IList<Track> allSongs, bool foldersPerArtist)
         {
-            //not sure of row below is working properly, now that Artist and Title aren't sanitized anymore (because of the UTF-8 encoding that is enabled) 
-            //it seems to be working though
-            allSongs= allSongs.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.Sanitize(c.Artist), c.Sanitize(c.Title)); return c; }).ToList();
+            //creates all local paths by combining the sanitzed artist with the santized title
+            if (foldersPerArtist)
+            {
+                allSongs = allSongs.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
+            }
+            else
+            {
+                allSongs = allSongs.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
+            };
 
             string manifestPath = DetermineManifestPath(directoryPath);
 
