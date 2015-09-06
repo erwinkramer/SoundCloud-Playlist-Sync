@@ -121,7 +121,7 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
         {
             get
             {
-                return EffectiveDownloadUrl == download_url ? _title + "_High_Quality" : _title;
+                return EffectiveDownloadUrl == download_url ? _title + "_High_Quality" : _title + "_Low_Quality";
             }
             set
             {

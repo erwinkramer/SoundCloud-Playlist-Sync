@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Media;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using Newtonsoft.Json;
 using Soundcloud_Playlist_Downloader.JsonPoco;
 using Soundcloud_Playlist_Downloader.Properties;
@@ -233,14 +233,23 @@ namespace Soundcloud_Playlist_Downloader
 
         private void Synchronize(IList<Track> tracks, string clientId, string directoryPath, bool deleteRemovedSongs, bool foldersPerArtist)
         {
+            //define all local paths by combining the sanitzed artist with the santized title
+            if (foldersPerArtist) //create folder structure
+            {
+                tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
+            }
+            else //don't create folder structure
+            {
+                tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
+            };
+
+            // determine which tracks should be deleted or re-added
+            DeleteOrAddRemovedTrack(directoryPath, tracks, deleteRemovedSongs);
+
             // determine which tracks should be downloaded
             SongsToDownload = DetermineTracksToDownload(directoryPath, tracks, foldersPerArtist);
 
-            // determine which tracks should be deleted
-            if (deleteRemovedSongs)
-            {
-                DeleteRemovedTrack(directoryPath, tracks);
-            }
+            
 
             // download the relevant tracks
             IList<Track> songsDownloaded = DownloadSongs(SongsToDownload, clientId);
@@ -351,11 +360,10 @@ namespace Soundcloud_Playlist_Downloader
                 using (WebClient client = new WebClient())
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(song.LocalPath));
+                    string extension = null;
 
                     if (song.IsHD)
                     {
-                        string extension = null;
-
                         try
                         {
                             WebRequest request = WebRequest.Create(song.EffectiveDownloadUrl + string.Format("?client_id={0}",apiKey));
@@ -380,15 +388,27 @@ namespace Soundcloud_Playlist_Downloader
                             }
                         }
 
-                        song.LocalPath += extension;
+                        if (Form1.ConvertToMp3 && Form1.Highqualitysong && extension == ".wav")
+                        {
+                            //already set filename extention to mp3, because conversion wil result in an mp3
+                            song.LocalPath += ".mp3";
+                            //get the wav song as byte data, as we won't store it just yet
+                            byte[] wavbytes = client.DownloadData(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey));
+                            //convert to mp3 & then write bytes to file
+                            File.WriteAllBytes(song.LocalPath, audioConverter.ConvertWavToMp3(wavbytes));
+                        }
+                        else
+                        {
+                            song.LocalPath += extension;
+                            client.DownloadFile(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey), song.LocalPath);
+                        };
                     }
                     else
                     {
                         song.LocalPath += ".mp3";
-                    }
-
-                    client.DownloadFile(song.EffectiveDownloadUrl+string.Format("?client_id={0}",apiKey), song.LocalPath);
-
+                        client.DownloadFile(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey), song.LocalPath);
+                    }                 
+                                        
                     //Sets file creation time to creation time that matches with Soundcloud track.
                     //If somehow the datetime string can't be parsed it will just use the current (now) datetime. 
                     DateTime dt = DateTime.Now;
@@ -494,58 +514,54 @@ namespace Soundcloud_Playlist_Downloader
             return downloaded;
         }
 
-        private void DeleteRemovedTrack(string directoryPath, IList<Track> allTracks)
+        private void DeleteOrAddRemovedTrack(string directoryPath, IList<Track> allTracks, bool deleteTrack)
         {
-            IList<Track> songsToDelete = new List<Track>();
             string manifestPath = DetermineManifestPath(directoryPath);
-
             try
             {
                 if (File.Exists(manifestPath))
                 {
                     string[] songsDownloaded = File.ReadAllLines(manifestPath);
-
                     IList<string> newManifest = new List<string>();
 
                     foreach (string songDownloaded in songsDownloaded)
                     {
-                        string localPath = ParseTrackPath(songDownloaded);
-
-                        if (!allTracks.Select(song => song.LocalPath).Contains(localPath))
+                        string localPathDownloadedSong = ParseTrackPath(songDownloaded, 1);
+                        if (!File.Exists(localPathDownloadedSong))
+                        //if file does not exist anymore, 
+                        //will be redownloaded by not adding it to the newManifest
                         {
-                            File.Delete(localPath);
-                        }
+                            continue;
+                        };
+                        //WARNING      If we want to look if allTracks contains the downloaded file we need to trim the extention
+                        //              because allTracks doesn't store the extention of the path
+                        string neutralPath = Path.ChangeExtension(localPathDownloadedSong, null);
+                        int canBeDeleted = allTracks.Count(song => song.LocalPath.Contains(neutralPath));
+
+                        if (deleteTrack && canBeDeleted == 0)
+                        {
+                            File.Delete(localPathDownloadedSong);
+                        }                                            
                         else
                         {
                             newManifest.Add(songDownloaded);
-                        }
-                    }
-
+                        }                      
+                    }                 
                     // the manifest is updated again later, but might as well update it here
                     // to save the deletions in event of crash or abort
-                    File.WriteAllLines(manifestPath, newManifest);
+                    File.WriteAllLines(manifestPath, newManifest);        
                 }
             }
             catch (Exception)
             {
                 IsError = true;
                 throw new Exception("Unable to read manifest to determine tracks to delete");
-            }
-            
+            }      
         }
 
         private IList<Track> DetermineTracksToDownload(string directoryPath, IList<Track> allSongs, bool foldersPerArtist)
         {
-            //creates all local paths by combining the sanitzed artist with the santized title
-            if (foldersPerArtist)
-            {
-                allSongs = allSongs.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
-            }
-            else
-            {
-                allSongs = allSongs.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
-            };
-
+              
             string manifestPath = DetermineManifestPath(directoryPath);
 
             IList<string> streamUrls = new List<string>();
@@ -554,22 +570,15 @@ namespace Soundcloud_Playlist_Downloader
             {
                 foreach (string track in File.ReadAllLines(manifestPath))
                 {
-                    streamUrls.Add(ParseTrackPath(track));
-                }
+                    streamUrls.Add(ParseTrackPath(track,0));
+                }               
             }
-
+  
             return allSongs.Where(s => !streamUrls.Contains(s.EffectiveDownloadUrl)).ToList();
         }
 
-        
-
-       
-
-      
-
         private string RetrieveJson(string url, string clientId, int? limit = null, int? offset = null)
-        {
-            
+        {        
             string json = null;
             
             try
@@ -607,13 +616,16 @@ namespace Soundcloud_Playlist_Downloader
             return Path.Combine(directoryPath, "manifest");
         }
 
-        private string ParseTrackPath(string csv)
-        {
-            return csv != null && csv.IndexOf(',') >= 0 ? csv.Split(',')[0] : csv;
+        private string ParseTrackPath(string csv, int position)
+        {           
+            if(csv != null && csv.IndexOf(',') >= 0)
+            {
+                return csv.Split(',')[position]; //position 0 is streampath, position 1 is local path
+            }
+            else
+            {
+                return csv;
+            }
         }
-
-
-    }
-
-   
+    }  
 }

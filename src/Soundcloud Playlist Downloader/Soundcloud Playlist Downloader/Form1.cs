@@ -25,6 +25,8 @@ namespace Soundcloud_Playlist_Downloader
 
         private bool completed = false;
         public static bool Highqualitysong = false;
+        public static bool ConvertToMp3 = false;
+        public static bool OnlyKeepHighQuality = false;
 
         private PerformSyncComplete PerformSyncCompleteImplementation = null;
         private ProgressBarUpdate ProgressBarUpdateImplementation = null;
@@ -149,6 +151,9 @@ namespace Soundcloud_Playlist_Downloader
                 progressBar.Maximum = 0;
                 progressBar.Minimum = 0;
                 Form1.Highqualitysong = chk_highquality.Checked;
+                Form1.ConvertToMp3 = chk_convertToMp3.Checked;
+                Form1.OnlyKeepHighQuality = chk_deleteLowQuality.Checked;
+
                 new Thread(() =>
                 {
                     try
@@ -240,12 +245,7 @@ namespace Soundcloud_Playlist_Downloader
         {
 
         }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
+       
         private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             if (aboutWindow.Visible)
@@ -255,6 +255,25 @@ namespace Soundcloud_Playlist_Downloader
             else
             {
                 aboutWindow.Show();
+            }
+        }
+
+        private void chk_convertToMp3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chk_highquality_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chk_highquality.Checked)
+            {
+                chk_convertToMp3.Enabled = true;
+                chk_convertToMp3.Checked = true;
+            }
+            else
+            {
+                chk_convertToMp3.Enabled = false;
+                chk_convertToMp3.Checked = false;
             }
         }
     }
