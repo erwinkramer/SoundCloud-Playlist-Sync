@@ -121,7 +121,7 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
         {
             get
             {
-                return EffectiveDownloadUrl == download_url ? _title + "_High_Quality" : _title + "_Low_Quality";
+                return EffectiveDownloadUrl == download_url ? _title + " (HQ)" : _title;
             }
             set
             {
@@ -198,6 +198,14 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
 
             return sanitisedNamePart;
         }
+        public string AlterChars(string word)
+        {
+            //replace the following characters with characters that are not illegal for the Windows file system
+            //  / ? < > \ : * | "
+            word = word.Replace("/", "∕").Replace(":", "꞉").Replace("c", "d");          
+            return word;
+        }
+
 
         public string description { get; set; }
         public string label_name { get; set; }
@@ -257,6 +265,4 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
         public string permalink_url { get; set; }
         public string avatar_url { get; set; }
     }
-
-
 }

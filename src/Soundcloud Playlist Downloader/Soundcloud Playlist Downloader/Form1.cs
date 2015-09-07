@@ -26,7 +26,10 @@ namespace Soundcloud_Playlist_Downloader
         private bool completed = false;
         public static bool Highqualitysong = false;
         public static bool ConvertToMp3 = false;
-        public static bool OnlyKeepHighQuality = false;
+        public static bool IncludeArtistInFilename = false;
+        public static bool RedownloadLocallyRemovedOrAltered = false;
+        public static bool DeleteRemovedOrAlteredSongs = false;
+        public static bool FoldersPerArtist = false;
 
         private PerformSyncComplete PerformSyncCompleteImplementation = null;
         private ProgressBarUpdate ProgressBarUpdateImplementation = null;
@@ -152,7 +155,10 @@ namespace Soundcloud_Playlist_Downloader
                 progressBar.Minimum = 0;
                 Form1.Highqualitysong = chk_highquality.Checked;
                 Form1.ConvertToMp3 = chk_convertToMp3.Checked;
-                Form1.OnlyKeepHighQuality = chk_deleteLowQuality.Checked;
+                Form1.IncludeArtistInFilename = chk_includeArtistinFilename.Checked;
+                Form1.RedownloadLocallyRemovedOrAltered = chk_redownloadLocallyRemoved.Checked;
+                Form1.DeleteRemovedOrAlteredSongs = chk_deleteRemovedOrAlteredSongs.Checked;
+                Form1.FoldersPerArtist = chk_folderByArtist.Checked;
 
                 new Thread(() =>
                 {
@@ -162,9 +168,9 @@ namespace Soundcloud_Playlist_Downloader
                             url: url.Text,
                             mode: playlistRadio.Checked ? PlaylistSync.DownloadMode.Playlist : favoritesRadio.Checked ? PlaylistSync.DownloadMode.Favorites : PlaylistSync.DownloadMode.Artist,
                             directory: directoryPath.Text, 
-                            deleteRemovedSongs: deleteRemovedSongs.Checked, 
+                            deleteRemovedSongs: DeleteRemovedOrAlteredSongs, 
                             clientId: CLIENT_ID,
-                            foldersPerArtist: chk_folderByArtist.Checked
+                            foldersPerArtist: FoldersPerArtist
                         );
                     }
                     catch (Exception ex)
@@ -275,6 +281,11 @@ namespace Soundcloud_Playlist_Downloader
                 chk_convertToMp3.Enabled = false;
                 chk_convertToMp3.Checked = false;
             }
+        }
+
+        private void chk_deleteRemovedOrAlteredSongs_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -34,7 +34,7 @@
             this.syncButton = new System.Windows.Forms.Button();
             this.browseButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.deleteRemovedSongs = new System.Windows.Forms.CheckBox();
+            this.chk_deleteRemovedOrAlteredSongs = new System.Windows.Forms.CheckBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.status = new System.Windows.Forms.ToolStripStatusLabel();
             this.progressBar = new System.Windows.Forms.ProgressBar();
@@ -49,7 +49,8 @@
             this.chk_highquality = new System.Windows.Forms.CheckBox();
             this.tt_qualityExplanation = new System.Windows.Forms.ToolTip(this.components);
             this.chk_convertToMp3 = new System.Windows.Forms.CheckBox();
-            this.chk_deleteLowQuality = new System.Windows.Forms.CheckBox();
+            this.chk_includeArtistinFilename = new System.Windows.Forms.CheckBox();
+            this.chk_redownloadLocallyRemoved = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +66,7 @@
             // 
             // syncButton
             // 
-            this.syncButton.Location = new System.Drawing.Point(11, 241);
+            this.syncButton.Location = new System.Drawing.Point(11, 277);
             this.syncButton.Name = "syncButton";
             this.syncButton.Size = new System.Drawing.Size(390, 23);
             this.syncButton.TabIndex = 4;
@@ -75,7 +76,7 @@
             // 
             // browseButton
             // 
-            this.browseButton.Location = new System.Drawing.Point(328, 213);
+            this.browseButton.Location = new System.Drawing.Point(349, 250);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(52, 20);
             this.browseButton.TabIndex = 6;
@@ -86,30 +87,32 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 217);
+            this.label3.Location = new System.Drawing.Point(14, 254);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Local dir.";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // deleteRemovedSongs
+            // chk_deleteRemovedOrAlteredSongs
             // 
-            this.deleteRemovedSongs.AutoSize = true;
-            this.deleteRemovedSongs.Location = new System.Drawing.Point(70, 168);
-            this.deleteRemovedSongs.Name = "deleteRemovedSongs";
-            this.deleteRemovedSongs.Size = new System.Drawing.Size(223, 17);
-            this.deleteRemovedSongs.TabIndex = 8;
-            this.deleteRemovedSongs.Text = "Delete removed songs from local directory";
-            this.deleteRemovedSongs.UseVisualStyleBackColor = true;
+            this.chk_deleteRemovedOrAlteredSongs.AutoSize = true;
+            this.chk_deleteRemovedOrAlteredSongs.Location = new System.Drawing.Point(70, 215);
+            this.chk_deleteRemovedOrAlteredSongs.Name = "chk_deleteRemovedOrAlteredSongs";
+            this.chk_deleteRemovedOrAlteredSongs.Size = new System.Drawing.Size(293, 30);
+            this.chk_deleteRemovedOrAlteredSongs.TabIndex = 8;
+            this.chk_deleteRemovedOrAlteredSongs.Text = "Locally delete songs removed from SC and delete songs \r\npreviously downloaded wit" +
+    "h different settings.";
+            this.chk_deleteRemovedOrAlteredSongs.UseVisualStyleBackColor = true;
+            this.chk_deleteRemovedOrAlteredSongs.CheckedChanged += new System.EventHandler(this.chk_deleteRemovedOrAlteredSongs_CheckedChanged);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.status});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 293);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 323);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(413, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(411, 22);
             this.statusStrip1.TabIndex = 9;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -120,7 +123,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(11, 270);
+            this.progressBar.Location = new System.Drawing.Point(11, 306);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(390, 13);
             this.progressBar.TabIndex = 10;
@@ -162,7 +165,7 @@
             this.chk_folderByArtist.AutoSize = true;
             this.chk_folderByArtist.Checked = true;
             this.chk_folderByArtist.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_folderByArtist.Location = new System.Drawing.Point(70, 191);
+            this.chk_folderByArtist.Location = new System.Drawing.Point(70, 169);
             this.chk_folderByArtist.Name = "chk_folderByArtist";
             this.chk_folderByArtist.Size = new System.Drawing.Size(172, 17);
             this.chk_folderByArtist.TabIndex = 15;
@@ -177,7 +180,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(413, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(411, 24);
             this.menuStrip1.TabIndex = 16;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -191,9 +194,9 @@
             // directoryPath
             // 
             this.directoryPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Soundcloud_Playlist_Downloader.Properties.Settings.Default, "LocalPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.directoryPath.Location = new System.Drawing.Point(70, 214);
+            this.directoryPath.Location = new System.Drawing.Point(70, 251);
             this.directoryPath.Name = "directoryPath";
-            this.directoryPath.Size = new System.Drawing.Size(251, 20);
+            this.directoryPath.Size = new System.Drawing.Size(273, 20);
             this.directoryPath.TabIndex = 5;
             this.directoryPath.Text = global::Soundcloud_Playlist_Downloader.Properties.Settings.Default.LocalPath;
             // 
@@ -202,18 +205,20 @@
             this.url.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Soundcloud_Playlist_Downloader.Properties.Settings.Default, "PlaylistUrl", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.url.Location = new System.Drawing.Point(70, 27);
             this.url.Name = "url";
-            this.url.Size = new System.Drawing.Size(309, 20);
+            this.url.Size = new System.Drawing.Size(273, 20);
             this.url.TabIndex = 1;
             this.url.Text = global::Soundcloud_Playlist_Downloader.Properties.Settings.Default.PlaylistUrl;
             // 
             // chk_highquality
             // 
             this.chk_highquality.AutoSize = true;
+            this.chk_highquality.Checked = true;
+            this.chk_highquality.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_highquality.Location = new System.Drawing.Point(70, 123);
             this.chk_highquality.Name = "chk_highquality";
-            this.chk_highquality.Size = new System.Drawing.Size(214, 17);
+            this.chk_highquality.Size = new System.Drawing.Size(216, 17);
             this.chk_highquality.TabIndex = 17;
-            this.chk_highquality.Text = "Download high quality songs if available";
+            this.chk_highquality.Text = "Choose high quality versions, if available";
             this.tt_qualityExplanation.SetToolTip(this.chk_highquality, "Some songs (not all) can be downloaded in high quality, either WAV or MP3. \r\nThes" +
         "e files are usually much larger than the low quality MP3, thus taking more time " +
         "to download. ");
@@ -223,34 +228,49 @@
             // chk_convertToMp3
             // 
             this.chk_convertToMp3.AutoSize = true;
-            this.chk_convertToMp3.Enabled = false;
+            this.chk_convertToMp3.Checked = true;
+            this.chk_convertToMp3.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_convertToMp3.Location = new System.Drawing.Point(282, 123);
             this.chk_convertToMp3.Name = "chk_convertToMp3";
-            this.chk_convertToMp3.Size = new System.Drawing.Size(98, 17);
+            this.chk_convertToMp3.Size = new System.Drawing.Size(129, 17);
             this.chk_convertToMp3.TabIndex = 18;
-            this.chk_convertToMp3.Text = "Convert to mp3";
+            this.chk_convertToMp3.Text = "Convert these to MP3";
             this.tt_qualityExplanation.SetToolTip(this.chk_convertToMp3, "Writing metadata to high quality files in the WAV format is problematic for some " +
         "fields. There isn\'t a broadly used standard like ID3 for MP3.");
             this.chk_convertToMp3.UseVisualStyleBackColor = true;
             this.chk_convertToMp3.CheckedChanged += new System.EventHandler(this.chk_convertToMp3_CheckedChanged);
             // 
-            // chk_deleteLowQuality
+            // chk_includeArtistinFilename
             // 
-            this.chk_deleteLowQuality.AutoSize = true;
-            this.chk_deleteLowQuality.Enabled = false;
-            this.chk_deleteLowQuality.Location = new System.Drawing.Point(70, 146);
-            this.chk_deleteLowQuality.Name = "chk_deleteLowQuality";
-            this.chk_deleteLowQuality.Size = new System.Drawing.Size(296, 17);
-            this.chk_deleteLowQuality.TabIndex = 19;
-            this.chk_deleteLowQuality.Text = "Delete low quality song if high quality song is downloaded";
-            this.chk_deleteLowQuality.UseVisualStyleBackColor = true;
+            this.chk_includeArtistinFilename.AutoSize = true;
+            this.chk_includeArtistinFilename.Checked = true;
+            this.chk_includeArtistinFilename.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_includeArtistinFilename.Location = new System.Drawing.Point(70, 192);
+            this.chk_includeArtistinFilename.Name = "chk_includeArtistinFilename";
+            this.chk_includeArtistinFilename.Size = new System.Drawing.Size(168, 17);
+            this.chk_includeArtistinFilename.TabIndex = 20;
+            this.chk_includeArtistinFilename.Text = "Include artist name in filename";
+            this.chk_includeArtistinFilename.UseVisualStyleBackColor = true;
+            // 
+            // chk_redownloadLocallyRemoved
+            // 
+            this.chk_redownloadLocallyRemoved.AutoSize = true;
+            this.chk_redownloadLocallyRemoved.Checked = true;
+            this.chk_redownloadLocallyRemoved.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_redownloadLocallyRemoved.Location = new System.Drawing.Point(70, 146);
+            this.chk_redownloadLocallyRemoved.Name = "chk_redownloadLocallyRemoved";
+            this.chk_redownloadLocallyRemoved.Size = new System.Drawing.Size(196, 17);
+            this.chk_redownloadLocallyRemoved.TabIndex = 21;
+            this.chk_redownloadLocallyRemoved.Text = "Re-download locally removed songs";
+            this.chk_redownloadLocallyRemoved.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 315);
-            this.Controls.Add(this.chk_deleteLowQuality);
+            this.ClientSize = new System.Drawing.Size(411, 345);
+            this.Controls.Add(this.chk_redownloadLocallyRemoved);
+            this.Controls.Add(this.chk_includeArtistinFilename);
             this.Controls.Add(this.chk_convertToMp3);
             this.Controls.Add(this.chk_highquality);
             this.Controls.Add(this.chk_folderByArtist);
@@ -260,7 +280,7 @@
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.deleteRemovedSongs);
+            this.Controls.Add(this.chk_deleteRemovedOrAlteredSongs);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.browseButton);
             this.Controls.Add(this.directoryPath);
@@ -271,7 +291,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "SoundCloud Playlist Sync r1.0.0.41";
+            this.Text = "SoundCloud Playlist Sync r1.0.0.43";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
@@ -291,7 +311,7 @@
         private System.Windows.Forms.TextBox directoryPath;
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox deleteRemovedSongs;
+        private System.Windows.Forms.CheckBox chk_deleteRemovedOrAlteredSongs;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel status;
         private System.Windows.Forms.ProgressBar progressBar;
@@ -304,7 +324,8 @@
         private System.Windows.Forms.CheckBox chk_highquality;
         private System.Windows.Forms.ToolTip tt_qualityExplanation;
         private System.Windows.Forms.CheckBox chk_convertToMp3;
-        private System.Windows.Forms.CheckBox chk_deleteLowQuality;
+        private System.Windows.Forms.CheckBox chk_includeArtistinFilename;
+        private System.Windows.Forms.CheckBox chk_redownloadLocallyRemoved;
     }
 }
 

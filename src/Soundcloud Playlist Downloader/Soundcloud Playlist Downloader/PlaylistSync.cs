@@ -55,8 +55,6 @@ namespace Soundcloud_Playlist_Downloader
                     {"Client ID", clientId}
                 }
             );
-            bool a = Form1.Highqualitysong;
-
             ResetProgress();
 
             string apiURL = null;
@@ -233,14 +231,32 @@ namespace Soundcloud_Playlist_Downloader
 
         private void Synchronize(IList<Track> tracks, string clientId, string directoryPath, bool deleteRemovedSongs, bool foldersPerArtist)
         {
-            //define all local paths by combining the sanitzed artist with the santized title
+            //define all local paths by combining the sanitzed artist (if checked by user) with the santized title
             if (foldersPerArtist) //create folder structure
             {
-                tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
+                if (Form1.IncludeArtistInFilename) //include artist name
+                {
+                    tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), 
+                        c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
+                }
+                else //exclude artist name
+                {
+                    tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), 
+                        c.CoerceValidFileName(c.Title)); return c; }).ToList();
+                }
             }
             else //don't create folder structure
             {
-                tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
+                if (Form1.IncludeArtistInFilename) //include artist name
+                {
+                    tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, 
+                        c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
+                }
+                else //exclude artist name
+                {
+                    tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, 
+                        c.CoerceValidFileName(c.Title)); return c; }).ToList();
+                }
             };
 
             // determine which tracks should be deleted or re-added
@@ -527,9 +543,9 @@ namespace Soundcloud_Playlist_Downloader
                     foreach (string songDownloaded in songsDownloaded)
                     {
                         string localPathDownloadedSong = ParseTrackPath(songDownloaded, 1);
-                        if (!File.Exists(localPathDownloadedSong))
                         //if file does not exist anymore, 
-                        //will be redownloaded by not adding it to the newManifest
+                        //it will be redownloaded by not adding it to the newManifest
+                        if (Form1.RedownloadLocallyRemovedOrAltered && !File.Exists(localPathDownloadedSong))                
                         {
                             continue;
                         };
