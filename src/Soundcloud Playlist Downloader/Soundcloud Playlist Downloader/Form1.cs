@@ -30,6 +30,7 @@ namespace Soundcloud_Playlist_Downloader
         public static bool RedownloadLocallyRemovedOrAltered = false;
         public static bool DeleteRemovedOrAlteredSongs = false;
         public static bool FoldersPerArtist = false;
+        public static bool ReplaceIllegalCharacters = false;
 
         private PerformSyncComplete PerformSyncCompleteImplementation = null;
         private ProgressBarUpdate ProgressBarUpdateImplementation = null;
@@ -159,6 +160,7 @@ namespace Soundcloud_Playlist_Downloader
                 Form1.RedownloadLocallyRemovedOrAltered = chk_redownloadLocallyRemoved.Checked;
                 Form1.DeleteRemovedOrAlteredSongs = chk_deleteRemovedOrAlteredSongs.Checked;
                 Form1.FoldersPerArtist = chk_folderByArtist.Checked;
+                Form1.ReplaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
 
                 new Thread(() =>
                 {

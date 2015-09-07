@@ -51,6 +51,7 @@
             this.chk_convertToMp3 = new System.Windows.Forms.CheckBox();
             this.chk_includeArtistinFilename = new System.Windows.Forms.CheckBox();
             this.chk_redownloadLocallyRemoved = new System.Windows.Forms.CheckBox();
+            this.chk_replaceIllegalCharacters = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -66,9 +67,9 @@
             // 
             // syncButton
             // 
-            this.syncButton.Location = new System.Drawing.Point(11, 277);
+            this.syncButton.Location = new System.Drawing.Point(15, 298);
             this.syncButton.Name = "syncButton";
-            this.syncButton.Size = new System.Drawing.Size(390, 23);
+            this.syncButton.Size = new System.Drawing.Size(397, 23);
             this.syncButton.TabIndex = 4;
             this.syncButton.Text = "Synchronize";
             this.syncButton.UseVisualStyleBackColor = true;
@@ -76,9 +77,9 @@
             // 
             // browseButton
             // 
-            this.browseButton.Location = new System.Drawing.Point(349, 250);
+            this.browseButton.Location = new System.Drawing.Point(350, 272);
             this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(52, 20);
+            this.browseButton.Size = new System.Drawing.Size(62, 20);
             this.browseButton.TabIndex = 6;
             this.browseButton.Text = "Browse";
             this.browseButton.UseVisualStyleBackColor = true;
@@ -87,7 +88,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 254);
+            this.label3.Location = new System.Drawing.Point(12, 279);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 7;
@@ -97,7 +98,7 @@
             // chk_deleteRemovedOrAlteredSongs
             // 
             this.chk_deleteRemovedOrAlteredSongs.AutoSize = true;
-            this.chk_deleteRemovedOrAlteredSongs.Location = new System.Drawing.Point(70, 215);
+            this.chk_deleteRemovedOrAlteredSongs.Location = new System.Drawing.Point(70, 238);
             this.chk_deleteRemovedOrAlteredSongs.Name = "chk_deleteRemovedOrAlteredSongs";
             this.chk_deleteRemovedOrAlteredSongs.Size = new System.Drawing.Size(293, 30);
             this.chk_deleteRemovedOrAlteredSongs.TabIndex = 8;
@@ -110,9 +111,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.status});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 323);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 350);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(411, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(424, 22);
             this.statusStrip1.TabIndex = 9;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -123,9 +124,9 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(11, 306);
+            this.progressBar.Location = new System.Drawing.Point(15, 327);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(390, 13);
+            this.progressBar.Size = new System.Drawing.Size(396, 13);
             this.progressBar.TabIndex = 10;
             // 
             // favoritesRadio
@@ -180,7 +181,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(411, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(424, 24);
             this.menuStrip1.TabIndex = 16;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -194,7 +195,7 @@
             // directoryPath
             // 
             this.directoryPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Soundcloud_Playlist_Downloader.Properties.Settings.Default, "LocalPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.directoryPath.Location = new System.Drawing.Point(70, 251);
+            this.directoryPath.Location = new System.Drawing.Point(71, 274);
             this.directoryPath.Name = "directoryPath";
             this.directoryPath.Size = new System.Drawing.Size(273, 20);
             this.directoryPath.TabIndex = 5;
@@ -264,11 +265,26 @@
             this.chk_redownloadLocallyRemoved.Text = "Re-download locally removed songs";
             this.chk_redownloadLocallyRemoved.UseVisualStyleBackColor = true;
             // 
+            // chk_replaceIllegalCharacters
+            // 
+            this.chk_replaceIllegalCharacters.AutoSize = true;
+            this.chk_replaceIllegalCharacters.Checked = true;
+            this.chk_replaceIllegalCharacters.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_replaceIllegalCharacters.Location = new System.Drawing.Point(70, 215);
+            this.chk_replaceIllegalCharacters.Name = "chk_replaceIllegalCharacters";
+            this.chk_replaceIllegalCharacters.Size = new System.Drawing.Size(333, 17);
+            this.chk_replaceIllegalCharacters.TabIndex = 22;
+            this.chk_replaceIllegalCharacters.Text = "Replace illegal characters in filename with equivalent instead of _";
+            this.tt_qualityExplanation.SetToolTip(this.chk_replaceIllegalCharacters, "Characters to be replaced: / ? < > \\ : * | \"\r\nWill be replaced with Halfwidth and" +
+        " Fullwidth Forms\r\n");
+            this.chk_replaceIllegalCharacters.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 345);
+            this.ClientSize = new System.Drawing.Size(424, 372);
+            this.Controls.Add(this.chk_replaceIllegalCharacters);
             this.Controls.Add(this.chk_redownloadLocallyRemoved);
             this.Controls.Add(this.chk_includeArtistinFilename);
             this.Controls.Add(this.chk_convertToMp3);
@@ -291,7 +307,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "SoundCloud Playlist Sync r1.0.0.43";
+            this.Text = "SoundCloud Playlist Sync r1.0.0.44";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
@@ -326,6 +342,7 @@
         private System.Windows.Forms.CheckBox chk_convertToMp3;
         private System.Windows.Forms.CheckBox chk_includeArtistinFilename;
         private System.Windows.Forms.CheckBox chk_redownloadLocallyRemoved;
+        private System.Windows.Forms.CheckBox chk_replaceIllegalCharacters;
     }
 }
 

@@ -179,6 +179,11 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
 
         public string CoerceValidFileName(string filename)
         {
+            if(Form1.ReplaceIllegalCharacters)
+            {
+                filename = AlterChars(filename);
+            };
+
             var invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
             var invalidReStr = string.Format(@"[{0}]+", invalidChars);
 
@@ -198,14 +203,24 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
 
             return sanitisedNamePart;
         }
-        public string AlterChars(string word)
+
+        public static string AlterChars(string word)
         {
-            //replace the following characters with characters that are not illegal for the Windows file system
+            //replace the following characters with characters from 'Halfwidth and Fullwidth Forms'
             //  / ? < > \ : * | "
-            word = word.Replace("/", "∕").Replace(":", "꞉").Replace("c", "d");          
+            //the new characters are not visible in Visual Studio, but are perfectly visible in the file system
+            word = word.
+                Replace("/", "／").
+                Replace("?", "？").
+                Replace("<", "＜").
+                Replace(">", "＞").
+                Replace("\\", "＼").
+                Replace(":", "：").
+                Replace("*", "＊").
+                Replace("|", "｜").
+                Replace("\"", "＂");
             return word;
         }
-
 
         public string description { get; set; }
         public string label_name { get; set; }
