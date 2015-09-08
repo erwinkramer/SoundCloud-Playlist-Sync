@@ -232,7 +232,9 @@ namespace Soundcloud_Playlist_Downloader
 
         public static bool IsPathWithinLimits(string fullPathAndFilename)
         {
-            const int MAX_PATH_LENGTH = 255;
+            //In the Windows API the maximum length for a path is MAX_PATH, which is defined as 260 characters.
+            //We'll make it 250 because there will be an extention and, in some cases, an HQ tag appended to the filename.  
+            const int MAX_PATH_LENGTH = 250;
             return fullPathAndFilename.Length <= MAX_PATH_LENGTH;
         }
 
@@ -286,7 +288,7 @@ namespace Soundcloud_Playlist_Downloader
                 }
                 if (track.IsHD)
                 {
-                    track.LocalPath += " (HD)";
+                    track.LocalPath += " (HQ)";
                 }
             };
 
@@ -547,6 +549,7 @@ namespace Soundcloud_Playlist_Downloader
                         tagFile.Tag.AlbumArtists = new string[] { song.Username };
                         tagFile.Tag.Performers = new string[] { song.Username };
                     }
+
                     if (!String.IsNullOrEmpty(song.genre))
                     {
                         listGenreAndTags.Add(song.genre);
