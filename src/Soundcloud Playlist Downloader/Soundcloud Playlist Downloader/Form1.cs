@@ -15,7 +15,10 @@ namespace Soundcloud_Playlist_Downloader
     public partial class Form1 : Form
     {
 
-        private string CLIENT_ID = "93a4fae1bd98b84c9b4f6bf1cc838b4f";
+        //private string CLIENT_ID = "93a4fae1bd98b84c9b4f6bf1cc838b4f";
+        //new key should fix same reason as stated here: 
+        //https://stackoverflow.com/questions/29914622/get-http-mp3-stream-from-every-song/30018216#30018216
+        private string CLIENT_ID = "376f225bf427445fc4bfb6b99b72e0bf";
         private box_about aboutWindow = new box_about();
 
         private PlaylistSync sync = null;

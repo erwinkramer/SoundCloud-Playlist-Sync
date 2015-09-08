@@ -121,7 +121,7 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
         {
             get
             {
-                return EffectiveDownloadUrl == download_url ? _title + " (HQ)" : _title;
+                return _title;
             }
             set
             {
@@ -134,6 +134,13 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
             get
             {
                 string url = string.Empty;
+                if(stream_url == null)
+                {
+                    //WARNING       On rare occaisions the stream url is not available, blame this on the SoundCloud API
+                    //              We can manually create the stream url anyway because we have the song id
+                    //NOTE          This shouldn't be necessary anymore, since we changed the client_id to another one that actually works
+                    stream_url = "https://api.soundcloud.com/tracks/" + id + "/stream";
+                }
                 if (Form1.Highqualitysong) //user has selected to download high quality songs if available
                 {
                     url = !string.IsNullOrWhiteSpace(download_url) ? 
@@ -143,7 +150,6 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
                 {
                     url = stream_url; //else just get the low quality MP3 (stream_url)
                 }
-
                 if (!string.IsNullOrWhiteSpace(url))
                 {
                     return url.Replace("\r", "").Replace("\n", "");
@@ -240,7 +246,10 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
         public string permalink_url { get; set; }
         public string artwork_url { get; set; }
         public string waveform_url { get; set; }
-        public string stream_url { get; set; }
+        public string stream_url
+        {
+            get; set;
+        }
         public int playback_count { get; set; }
         public int download_count { get; set; }
         public int favoritings_count { get; set; }

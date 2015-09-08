@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Soundcloud_Playlist_Downloader.JsonPoco;
 using Soundcloud_Playlist_Downloader.Properties;
+using System.Diagnostics;
 
 namespace Soundcloud_Playlist_Downloader
 {
@@ -229,35 +230,92 @@ namespace Soundcloud_Playlist_Downloader
             Synchronize(tracks, clientId, directoryPath, deleteRemovedSongs, foldersPerArtist);
         }
 
+        public static bool IsPathWithinLimits(string fullPathAndFilename)
+        {
+            const int MAX_PATH_LENGTH = 255;
+            return fullPathAndFilename.Length <= MAX_PATH_LENGTH;
+        }
+
         private void Synchronize(IList<Track> tracks, string clientId, string directoryPath, bool deleteRemovedSongs, bool foldersPerArtist)
         {
             //define all local paths by combining the sanitzed artist (if checked by user) with the santized title
-            if (foldersPerArtist) //create folder structure
+            foreach(Track track in tracks)
             {
-                if (Form1.IncludeArtistInFilename) //include artist name
+                string validArtist = track.CoerceValidFileName(track.Artist);
+                string validTitle = track.CoerceValidFileName(track.Title);
+                string filenameWithArtist = validArtist + " - " + validTitle;
+
+                if (foldersPerArtist)
                 {
-                    tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), 
-                        c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
+                    if (Form1.IncludeArtistInFilename) //include artist name
+                    {
+                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validArtist,
+                            filenameWithArtist)))
+                        {
+                            filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
+                        };                
+                    }
+                    else
+                    {
+                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validArtist,
+                            validTitle)))
+                        {
+                            track.LocalPath = Path.Combine(directoryPath, validArtist,
+                            validTitle.Remove(validTitle.Length - 2));
+                        };
+                    }
                 }
-                else //exclude artist name
+                else
                 {
-                    tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), 
-                        c.CoerceValidFileName(c.Title)); return c; }).ToList();
+                    if (Form1.IncludeArtistInFilename) //include artist name
+                    {
+                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, filenameWithArtist)))
+                        {
+                            track.LocalPath = Path.Combine(directoryPath,
+                            filenameWithArtist.Remove(filenameWithArtist.Length - 2));
+                        };
+                    }
+                    else
+                    {
+                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validTitle)))
+                        {
+                            track.LocalPath = Path.Combine(directoryPath,
+                            validTitle.Remove(validTitle.Length - 2));
+                        };
+                    }
                 }
-            }
-            else //don't create folder structure
-            {
-                if (Form1.IncludeArtistInFilename) //include artist name
+                if (track.IsHD)
                 {
-                    tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, 
-                        c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
-                }
-                else //exclude artist name
-                {
-                    tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, 
-                        c.CoerceValidFileName(c.Title)); return c; }).ToList();
+                    track.LocalPath += " (HD)";
                 }
             };
+
+            //if (foldersPerArtist) //create folder structure
+            //{
+            //    if (Form1.IncludeArtistInFilename) //include artist name
+            //    {
+            //        tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), 
+            //            c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
+            //    }
+            //    else //exclude artist name
+            //    {
+            //        tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), 
+            //            c.CoerceValidFileName(c.Title)); return c; }).ToList();
+            //    }
+            //}
+            //else //don't create folder structure
+            //{
+            //    if (Form1.IncludeArtistInFilename) //include artist name
+            //    {
+            //        tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, 
+            //            c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
+            //    }
+            //    else //exclude artist name
+            //    {
+            //        tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, 
+            //            c.CoerceValidFileName(c.Title)); return c; }).ToList();
+            //    }
+            
 
             // determine which tracks should be deleted or re-added
             DeleteOrAddRemovedTrack(directoryPath, tracks, deleteRemovedSongs);
@@ -359,9 +417,21 @@ namespace Soundcloud_Playlist_Downloader
                     }
 
                 }
-                catch (Exception)
+                catch (WebException e)
                 {
+                    //catching the webexception
                     // Song failed to download
+                    using (WebResponse response = e.Response)
+                    {
+                        HttpWebResponse httpResponse = (HttpWebResponse)response;
+                        Debug.WriteLine("Error code: {0}", httpResponse.StatusCode);
+                        using (Stream data = response.GetResponseStream())
+                        using (var reader = new StreamReader(data))
+                        {
+                            string text = reader.ReadToEnd();
+                            Debug.WriteLine(text);
+                        }
+                    }
                 }
                 
             });
@@ -391,17 +461,37 @@ namespace Soundcloud_Playlist_Downloader
                                     .Replace("attachment;filename=", "").Replace("\"", ""));
                             }
                         }
-                        catch (Exception)
+                        catch (Exception e)
                         {
-                            // the download link might be invalid
-                            WebRequest request = WebRequest.Create(song.stream_url + string.Format("?client_id={0}", apiKey));
-
-                            request.Method = "HEAD";
-                            using (WebResponse response = request.GetResponse())
+                            if (e is WebException)
                             {
-                                extension = Path.GetExtension(response.Headers["Content-Disposition"]
-                                    .Replace("attachment;filename=", "").Replace("\"", ""));
+                                WebException w = (WebException)e;
+                                //catching the webexception
+                                using (WebResponse response = w.Response)
+                                {
+                                    HttpWebResponse httpResponse = (HttpWebResponse)response;
+                                    Debug.WriteLine("Error code: {0}", httpResponse.StatusCode);
+                                    using (Stream data = response.GetResponseStream())
+                                    using (var reader = new StreamReader(data))
+                                    {
+                                        string text = reader.ReadToEnd();
+                                        Debug.WriteLine(text);
+                                    }
+                                }
                             }
+
+                            //the download link might have been invalid, so we get the stream download instead
+                            if (song.stream_url == null) //all hope is lost when there is no stream url, return to safety
+                                return false;
+                             
+                                WebRequest request = WebRequest.Create(song.stream_url + string.Format("?client_id={0}", apiKey));
+
+                                request.Method = "HEAD";
+                                using (WebResponse response = request.GetResponse())
+                                {
+                                    extension = Path.GetExtension(response.Headers["Content-Disposition"]
+                                        .Replace("attachment;filename=", "").Replace("\"", ""));
+                                }                            
                         }
 
                         if (Form1.ConvertToMp3 && Form1.Highqualitysong && extension == ".wav")
@@ -411,7 +501,15 @@ namespace Soundcloud_Playlist_Downloader
                             //get the wav song as byte data, as we won't store it just yet
                             byte[] wavbytes = client.DownloadData(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey));
                             //convert to mp3 & then write bytes to file
-                            File.WriteAllBytes(song.LocalPath, audioConverter.ConvertWavToMp3(wavbytes));
+                            byte[] mp3bytes = audioConverter.ConvertWavToMp3(wavbytes);
+                            if (mp3bytes != null)
+                            {
+                                File.WriteAllBytes(song.LocalPath, mp3bytes);
+                            }
+                            else // wav file was not supported by converter, or something else has gone wrong. 
+                            {
+                                File.WriteAllBytes(song.LocalPath, wavbytes);
+                            }
                         }
                         else
                         {
