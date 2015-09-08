@@ -220,9 +220,8 @@
             this.chk_highquality.Size = new System.Drawing.Size(216, 17);
             this.chk_highquality.TabIndex = 17;
             this.chk_highquality.Text = "Choose high quality versions, if available";
-            this.tt_qualityExplanation.SetToolTip(this.chk_highquality, "Some songs (not all) can be downloaded in high quality, either WAV or MP3. \r\nThes" +
-        "e files are usually much larger than the low quality MP3, thus taking more time " +
-        "to download. ");
+            this.tt_qualityExplanation.SetToolTip(this.chk_highquality, "Some songs (not all) can be downloaded in high quality. These files are usually m" +
+        "uch larger than the low quality MP3, thus taking more time to download. ");
             this.chk_highquality.UseVisualStyleBackColor = true;
             this.chk_highquality.CheckedChanged += new System.EventHandler(this.chk_highquality_CheckedChanged);
             // 
@@ -236,8 +235,8 @@
             this.chk_convertToMp3.Size = new System.Drawing.Size(129, 17);
             this.chk_convertToMp3.TabIndex = 18;
             this.chk_convertToMp3.Text = "Convert these to MP3";
-            this.tt_qualityExplanation.SetToolTip(this.chk_convertToMp3, "Writing metadata to high quality files in the WAV format is problematic for some " +
-        "fields. There isn\'t a broadly used standard like ID3 for MP3.");
+            this.tt_qualityExplanation.SetToolTip(this.chk_convertToMp3, "Writing metadata to high quality files in a lossless format is problematic for so" +
+        "me fields. There isn\'t a broadly used standard like ID3 for MP3.");
             this.chk_convertToMp3.UseVisualStyleBackColor = true;
             this.chk_convertToMp3.CheckedChanged += new System.EventHandler(this.chk_convertToMp3_CheckedChanged);
             // 
@@ -307,7 +306,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "SoundCloud Playlist Sync r1.0.0.45";
+            this.Text = "SoundCloud Playlist Sync r1.0.0.46";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
