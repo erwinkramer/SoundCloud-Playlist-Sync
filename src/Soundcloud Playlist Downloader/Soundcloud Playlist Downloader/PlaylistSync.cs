@@ -254,7 +254,7 @@ namespace Soundcloud_Playlist_Downloader
                         while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validArtist,
                             filenameWithArtist)))
                         {
-                            filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
+                            filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2); //shorten to fit into max size of path
                         };                
                     }
                     else
@@ -262,8 +262,7 @@ namespace Soundcloud_Playlist_Downloader
                         while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validArtist,
                             validTitle)))
                         {
-                            track.LocalPath = Path.Combine(directoryPath, validArtist,
-                            validTitle.Remove(validTitle.Length - 2));
+                            validTitle = validTitle.Remove(validTitle.Length - 2); //shorten to fit into max size of path
                         };
                     }
                 }
@@ -273,16 +272,14 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, filenameWithArtist)))
                         {
-                            track.LocalPath = Path.Combine(directoryPath,
-                            filenameWithArtist.Remove(filenameWithArtist.Length - 2));
+                            filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2); //shorten to fit into max size of path
                         };
                     }
                     else
                     {
                         while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validTitle)))
                         {
-                            track.LocalPath = Path.Combine(directoryPath,
-                            validTitle.Remove(validTitle.Length - 2));
+                            validTitle = validTitle.Remove(validTitle.Length - 2); //shorten to fit into max size of path
                         };
                     }
                 }

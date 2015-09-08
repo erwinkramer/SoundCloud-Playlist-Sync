@@ -49,9 +49,9 @@
             this.chk_highquality = new System.Windows.Forms.CheckBox();
             this.tt_qualityExplanation = new System.Windows.Forms.ToolTip(this.components);
             this.chk_convertToMp3 = new System.Windows.Forms.CheckBox();
+            this.chk_replaceIllegalCharacters = new System.Windows.Forms.CheckBox();
             this.chk_includeArtistinFilename = new System.Windows.Forms.CheckBox();
             this.chk_redownloadLocallyRemoved = new System.Windows.Forms.CheckBox();
-            this.chk_replaceIllegalCharacters = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -241,6 +241,20 @@
             this.chk_convertToMp3.UseVisualStyleBackColor = true;
             this.chk_convertToMp3.CheckedChanged += new System.EventHandler(this.chk_convertToMp3_CheckedChanged);
             // 
+            // chk_replaceIllegalCharacters
+            // 
+            this.chk_replaceIllegalCharacters.AutoSize = true;
+            this.chk_replaceIllegalCharacters.Checked = true;
+            this.chk_replaceIllegalCharacters.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_replaceIllegalCharacters.Location = new System.Drawing.Point(70, 215);
+            this.chk_replaceIllegalCharacters.Name = "chk_replaceIllegalCharacters";
+            this.chk_replaceIllegalCharacters.Size = new System.Drawing.Size(333, 17);
+            this.chk_replaceIllegalCharacters.TabIndex = 22;
+            this.chk_replaceIllegalCharacters.Text = "Replace illegal characters in filename with equivalent instead of _";
+            this.tt_qualityExplanation.SetToolTip(this.chk_replaceIllegalCharacters, "Characters to be replaced: / ? < > \\ : * | \"\r\nWill be replaced with Halfwidth and" +
+        " Fullwidth Forms\r\n");
+            this.chk_replaceIllegalCharacters.UseVisualStyleBackColor = true;
+            // 
             // chk_includeArtistinFilename
             // 
             this.chk_includeArtistinFilename.AutoSize = true;
@@ -264,20 +278,6 @@
             this.chk_redownloadLocallyRemoved.TabIndex = 21;
             this.chk_redownloadLocallyRemoved.Text = "Re-download locally removed songs";
             this.chk_redownloadLocallyRemoved.UseVisualStyleBackColor = true;
-            // 
-            // chk_replaceIllegalCharacters
-            // 
-            this.chk_replaceIllegalCharacters.AutoSize = true;
-            this.chk_replaceIllegalCharacters.Checked = true;
-            this.chk_replaceIllegalCharacters.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_replaceIllegalCharacters.Location = new System.Drawing.Point(70, 215);
-            this.chk_replaceIllegalCharacters.Name = "chk_replaceIllegalCharacters";
-            this.chk_replaceIllegalCharacters.Size = new System.Drawing.Size(333, 17);
-            this.chk_replaceIllegalCharacters.TabIndex = 22;
-            this.chk_replaceIllegalCharacters.Text = "Replace illegal characters in filename with equivalent instead of _";
-            this.tt_qualityExplanation.SetToolTip(this.chk_replaceIllegalCharacters, "Characters to be replaced: / ? < > \\ : * | \"\r\nWill be replaced with Halfwidth and" +
-        " Fullwidth Forms\r\n");
-            this.chk_replaceIllegalCharacters.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -307,7 +307,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "SoundCloud Playlist Sync r1.0.0.44";
+            this.Text = "SoundCloud Playlist Sync r1.0.0.45";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
