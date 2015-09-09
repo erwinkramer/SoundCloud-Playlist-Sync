@@ -1,5 +1,6 @@
 ﻿using NAudio.Lame;
 using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -56,18 +57,32 @@ namespace Soundcloud_Playlist_Downloader
         public static byte[] ConvertAiffToMp3(byte[] aiffFile) //this method is not working for all cases
         {
             byte[] mp3bytes = null;
+            var newFormat = new WaveFormat(44100, 16, 1); //44100 Hz Sample rate & 16 Bits per sample
             try
             {
                 //NOTE  Default bitrate is set to 320 to keep the track high quality, 
                 //      we won't use 128 because that would mean we can just 
                 //      download the low quality stream (128 bit) and forget about converting
                 int bitRate = 320;
+
                 using (var retMs = new MemoryStream())
                 using (var ms = new MemoryStream(aiffFile))
                 using (var rdr = new AiffFileReader(ms))
-                using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, bitRate))
+                //using (var pcmStream = WaveFormatConversionStream.CreatePcmStream(rdr)) //create stream to convert
+                //using (var convertedStream = new WaveFormatConversionStream(new WaveFormat(44100, 16, pcmStream.WaveFormat.Channels), pcmStream))
+                using (var wtr = new LameMP3FileWriter(retMs, newFormat, bitRate))
                 {
-                    rdr.CopyTo(wtr);
+                    if (rdr.WaveFormat.BitsPerSample == 24)
+                    {
+                        ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr);
+                        SampleToWaveProvider16 pcm16Bit = new SampleToWaveProvider16(sampleprovider);
+                        var rdrConverted = new WaveFileReader(pcm16Bit.ToString());
+                        rdrConverted.CopyTo(wtr);
+                    }
+                    else
+                    {
+                        rdr.CopyTo(wtr);
+                    }
                     mp3bytes = retMs.ToArray();
                 }
             }
