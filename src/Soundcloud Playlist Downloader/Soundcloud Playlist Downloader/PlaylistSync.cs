@@ -495,19 +495,18 @@ namespace Soundcloud_Playlist_Downloader
 
                         if (Form1.ConvertToMp3 && Form1.Highqualitysong && (extension == ".wav" || extension == ".aiff" || extension == ".aif"))
                         {
-                            //already set filename extention to mp3, because conversion wil result in an mp3
-                            song.LocalPath += ".mp3";
                             //get the wav song as byte data, as we won't store it just yet
                             byte[] soundbytes = client.DownloadData(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey));
                             //convert to mp3 & then write bytes to file
-        
-                            byte[] convertedbytes = audioConverter.ConvertAllTheThings(soundbytes, extension);
+                            byte[] convertedbytes = audioConverter.ConvertAllTheThings(soundbytes, song.LocalPath, extension);
                             if (convertedbytes != null)
                             {
+                                song.LocalPath += ".mp3"; //conversion wil result in an mp3
                                 File.WriteAllBytes(song.LocalPath, convertedbytes);
                             }
-                            else //file was not supported by converter, or something else has gone wrong, just write the bytes it can't convert 
+                            else //something has gone wrong, just write original bytes then 
                             {
+                                song.LocalPath += extension;
                                 File.WriteAllBytes(song.LocalPath, soundbytes);
                             }
                         }

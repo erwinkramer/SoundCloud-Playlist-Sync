@@ -1,21 +1,27 @@
-﻿using NAudio.Lame;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using NAudio.Lame;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soundcloud_Playlist_Downloader
 {
     class audioConverter
     {
+        //NOTE  Default bitrate is set to 320 to keep the track high quality, 
+        //      we won't use 128 because that would mean we can just 
+        //      download the low quality stream (128 bit) and forget about converting
+        private static int bitRate = 320;
+        private static int sampleRate = 44100; //44100 Hz Sample rate 
+        private static int bitDepth = 16;
+        private static int channels = 2;
+        private static int uniqueTempFileCounter = 0;
 
-        public static byte[] ConvertAllTheThings(byte[] strangefile, string extension)
+        public static byte[] ConvertAllTheThings(byte[] strangefile, string fullPath, string extension)
         {
+            string directory = Path.GetDirectoryName(fullPath);
+
             byte[] mp3bytes = null;
 
             if (extension == ".wav")
@@ -24,7 +30,7 @@ namespace Soundcloud_Playlist_Downloader
             }
             if (extension == ".aiff" || extension == ".aif")
             {
-                mp3bytes = ConvertAiffToMp3(strangefile);
+                mp3bytes = ConvertAiffToMp3(strangefile, directory);
             }
             return mp3bytes;
         }
@@ -33,11 +39,7 @@ namespace Soundcloud_Playlist_Downloader
         {
             byte[] mp3bytes = null;
             try
-            {
-                //NOTE  Default bitrate is set to 320 to keep the track high quality, 
-                //      we won't use 128 because that would mean we can just 
-                //      download the low quality stream (128 bit) and forget about converting
-                int bitRate = 320;
+            {         
                 using (var retMs = new MemoryStream())
                 using (var ms = new MemoryStream(wavFile))
                 using (var rdr = new WaveFileReader(ms))
@@ -53,37 +55,62 @@ namespace Soundcloud_Playlist_Downloader
             }
             return mp3bytes;
         }
-         
-        public static byte[] ConvertAiffToMp3(byte[] aiffFile) //this method is not working for all cases
+
+        public static byte[] ConvertWavToMp3(string wavFile, bool deleteWavAfter) //this method takes an actual wav file and converts it
         {
             byte[] mp3bytes = null;
-            var newFormat = new WaveFormat(44100, 16, 1); //44100 Hz Sample rate & 16 Bits per sample
+            try
+            {             
+                using (var retMs = new MemoryStream())
+                using (var rdr = new WaveFileReader(wavFile))
+                using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, bitRate))
+                {
+                    rdr.CopyTo(wtr);
+                    mp3bytes = retMs.ToArray();
+                }
+                if(deleteWavAfter)
+                {
+                    File.Delete(wavFile);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+            return mp3bytes;
+        }
+
+        public static byte[] ConvertAiffToMp3(byte[] aiffFile, string directory) 
+        {
+            byte[] mp3bytes = null;
+            var newFormat = new WaveFormat(bitRate, bitDepth, channels);
             try
             {
-                //NOTE  Default bitrate is set to 320 to keep the track high quality, 
-                //      we won't use 128 because that would mean we can just 
-                //      download the low quality stream (128 bit) and forget about converting
-                int bitRate = 320;
+                uniqueTempFileCounter += 1;
+                var tempFile = Path.Combine(directory, "tempdata"+ uniqueTempFileCounter +".wav");
 
                 using (var retMs = new MemoryStream())
                 using (var ms = new MemoryStream(aiffFile))
                 using (var rdr = new AiffFileReader(ms))
-                //using (var pcmStream = WaveFormatConversionStream.CreatePcmStream(rdr)) //create stream to convert
-                //using (var convertedStream = new WaveFormatConversionStream(new WaveFormat(44100, 16, pcmStream.WaveFormat.Channels), pcmStream))
-                using (var wtr = new LameMP3FileWriter(retMs, newFormat, bitRate))
                 {
-                    if (rdr.WaveFormat.BitsPerSample == 24)
+                    if (rdr.WaveFormat.BitsPerSample == 24) //can't go from 24 bits aif to mp3 directly, create temporary 16 bit wav 
                     {
-                        ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr);
-                        SampleToWaveProvider16 pcm16Bit = new SampleToWaveProvider16(sampleprovider);
-                        var rdrConverted = new WaveFileReader(pcm16Bit.ToString());
-                        rdrConverted.CopyTo(wtr);
+                        using (var wtr = new WaveFileWriter(retMs, newFormat))
+                        {
+                            ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr); //24 bit to sample
+                            var resampler = new WdlResamplingSampleProvider(sampleprovider, sampleRate); //sample to new sample rate
+                            WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
+                            mp3bytes = ConvertWavToMp3(tempFile, true); //file to mp3 bytes
+                        }
                     }
                     else
                     {
-                        rdr.CopyTo(wtr);
-                    }
-                    mp3bytes = retMs.ToArray();
+                        using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, bitRate))
+                        {
+                            rdr.CopyTo(wtr);
+                            mp3bytes = retMs.ToArray();
+                        }                     
+                    }                   
                 }
             }
             catch (Exception e)
