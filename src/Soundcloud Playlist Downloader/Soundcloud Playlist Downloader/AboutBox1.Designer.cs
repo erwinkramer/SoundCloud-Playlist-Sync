@@ -46,8 +46,10 @@ namespace Soundcloud_Playlist_Downloader
             this.License = new System.Windows.Forms.TabPage();
             this.Projectwebsites = new System.Windows.Forms.TabPage();
             this.Libraries = new System.Windows.Forms.TabPage();
-            this.link_nAudio = new System.Windows.Forms.LinkLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.link_naudioLame = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
+            this.link_nAudio = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.License.SuspendLayout();
             this.Projectwebsites.SuspendLayout();
@@ -213,6 +215,8 @@ namespace Soundcloud_Playlist_Downloader
             // 
             // Libraries
             // 
+            this.Libraries.Controls.Add(this.label2);
+            this.Libraries.Controls.Add(this.link_naudioLame);
             this.Libraries.Controls.Add(this.label1);
             this.Libraries.Controls.Add(this.link_nAudio);
             this.Libraries.Controls.Add(this.link_taglib);
@@ -228,6 +232,35 @@ namespace Soundcloud_Playlist_Downloader
             this.Libraries.Text = "Libraries";
             this.Libraries.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(156, 64);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.TabIndex = 39;
+            this.label2.Text = "v1.0.3";
+            // 
+            // link_naudioLame
+            // 
+            this.link_naudioLame.AutoSize = true;
+            this.link_naudioLame.Location = new System.Drawing.Point(3, 64);
+            this.link_naudioLame.Name = "link_naudioLame";
+            this.link_naudioLame.Size = new System.Drawing.Size(71, 13);
+            this.link_naudioLame.TabIndex = 38;
+            this.link_naudioLame.TabStop = true;
+            this.link_naudioLame.Text = "NAudio.Lame";
+            this.link_naudioLame.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_1);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(156, 51);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.TabIndex = 37;
+            this.label1.Text = "v1.7.2";
+            // 
             // link_nAudio
             // 
             this.link_nAudio.AutoSize = true;
@@ -238,15 +271,6 @@ namespace Soundcloud_Playlist_Downloader
             this.link_nAudio.TabStop = true;
             this.link_nAudio.Text = "NAudio";
             this.link_nAudio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(156, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
-            this.label1.TabIndex = 37;
-            this.label1.Text = "v1.7.2";
             // 
             // box_about
             // 
@@ -299,5 +323,7 @@ namespace Soundcloud_Playlist_Downloader
         private System.Windows.Forms.TabPage Libraries;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel link_nAudio;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel link_naudioLame;
     }
 }

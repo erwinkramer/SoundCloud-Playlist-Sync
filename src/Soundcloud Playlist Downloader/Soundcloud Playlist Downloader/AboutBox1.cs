@@ -23,6 +23,7 @@ namespace Soundcloud_Playlist_Downloader
             LinkLabel.Link link4 = new LinkLabel.Link();
             LinkLabel.Link link5 = new LinkLabel.Link();
             LinkLabel.Link link6 = new LinkLabel.Link();
+            LinkLabel.Link link7 = new LinkLabel.Link();
 
             link.LinkData = "https://github.com/StephenCasella/SoundCloud-Playlist-Sync/releases";
             link_github2.Links.Add(link);
@@ -36,7 +37,8 @@ namespace Soundcloud_Playlist_Downloader
             link_postsharp.Links.Add(link5);
             link6.LinkData = "https://github.com/naudio/NAudio";
             link_nAudio.Links.Add(link6);
-
+            link7.LinkData = "https://github.com/Corey-M/NAudio.Lame";
+            link_naudioLame.Links.Add(link7);
         }
 
         #region Assembly Attribute Accessors
@@ -130,6 +132,11 @@ namespace Soundcloud_Playlist_Downloader
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+        }
+
+        private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
         }
