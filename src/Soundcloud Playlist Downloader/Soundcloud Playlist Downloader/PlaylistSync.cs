@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Soundcloud_Playlist_Downloader.JsonPoco;
 using Soundcloud_Playlist_Downloader.Properties;
 using System.Diagnostics;
+using TagLib.Id3v2;
 
 namespace Soundcloud_Playlist_Downloader
 {
@@ -469,7 +470,7 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         try
                         {
-                            WebRequest request = WebRequest.Create(song.EffectiveDownloadUrl + string.Format("?client_id={0}",apiKey));
+                            WebRequest request = WebRequest.Create(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey));
 
                             request.Method = "HEAD";
                             using (WebResponse response = request.GetResponse())
@@ -500,15 +501,15 @@ namespace Soundcloud_Playlist_Downloader
                             //the download link might have been invalid, so we get the stream download instead
                             if (song.stream_url == null) //all hope is lost when there is no stream url, return to safety
                                 return false;
-                             
-                                WebRequest request = WebRequest.Create(song.stream_url + string.Format("?client_id={0}", apiKey));
 
-                                request.Method = "HEAD";
-                                using (WebResponse response = request.GetResponse())
-                                {
-                                    extension = Path.GetExtension(response.Headers["Content-Disposition"]
-                                        .Replace("attachment;filename=", "").Replace("\"", ""));
-                                }                            
+                            WebRequest request = WebRequest.Create(song.stream_url + string.Format("?client_id={0}", apiKey));
+
+                            request.Method = "HEAD";
+                            using (WebResponse response = request.GetResponse())
+                            {
+                                extension = Path.GetExtension(response.Headers["Content-Disposition"]
+                                    .Replace("attachment;filename=", "").Replace("\"", ""));
+                            }
                         }
 
                         if (Form1.ConvertToMp3 && Form1.Highqualitysong && (extension == ".wav" || extension == ".aiff" || extension == ".aif"))
@@ -538,16 +539,16 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         song.LocalPath += ".mp3";
                         client.DownloadFile(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey), song.LocalPath);
-                    }                 
-                                        
+                    }
+
                     //Sets file creation time to creation time that matches with Soundcloud track.
                     //If somehow the datetime string can't be parsed it will just use the current (now) datetime. 
                     DateTime dt = DateTime.Now;
                     DateTime.TryParse(song.created_at, out dt);
                     File.SetCreationTime(song.LocalPath, dt);
-                    
+
                     // metadata tagging
-                    TagLib.File tagFile = null;                  
+                    TagLib.File tagFile = null;
 
                     TagLib.Id3v2.Tag.DefaultVersion = 2;
                     TagLib.Id3v2.Tag.ForceDefaultVersion = true;
@@ -555,85 +556,110 @@ namespace Soundcloud_Playlist_Downloader
                     // it seems that id3v2.4 is more prone to misinterpret utf-8. id3v2.2 seems most stable. 
                     tagFile = TagLib.File.Create(song.LocalPath);
 
-                    tagFile.Tag.Title = song.Title;
-                    string artworkFilepath = null;
-                    List<string> listGenreAndTags = new List<string>();
-
-                    if (!String.IsNullOrEmpty(song.Username))
+                    if (tagFile.Writeable)
                     {
-                        tagFile.Tag.AlbumArtists = new string[] { song.Username };
-                        tagFile.Tag.Performers = new string[] { song.Username };
-                    }
+                        //Make use of Conductor field to write soundcloud song ID and user ID (conductor field is never used anyway)
+                        tagFile.Tag.Conductor = "SC_SONG_ID," + song.id + ",SC_USER_ID," + song.user_id;
 
-                    if (!String.IsNullOrEmpty(song.genre))
-                    {
-                        listGenreAndTags.Add(song.genre);
-                        tagFile.Tag.Genres = listGenreAndTags.ToArray();
-                    }
-                    if (!String.IsNullOrEmpty(song.tag_list))
-                    {
-                        //NOTE      Tags behave very similar as genres in SoundCloud, 
-                        //          so tags will be added to the genre part of the metadata
-                        //WARNING   Tags are seperated by \" when a single tag includes a whitespace! (for instance: New Wave)
-                        //          Single worded tags are seperated by a single whitespace, this has led me to make
-                        //          this code longer than I initially thought it would be (could perhaps made easier)
-                        //FEATURES  Rare occasions, where the artist uses tags that include the seperation tags SoundCloud uses;
-                        //          like \" or \"Hip-Hop\", are handled, but NOT necessary, because the quote (") is an illegal sign to use in tags
+                        //tag all other metadata fields
+                        tagFile.Tag.Title = song.Title;
+                        string artworkFilepath = null;
+                        List<string> listGenreAndTags = new List<string>();
 
-                        string tag = "";
-                        bool partOfLongertag = false;
-
-                        foreach (string word in song.tag_list.Split(' '))
+                        if (!String.IsNullOrEmpty(song.Username))
                         {
-                            if (word.EndsWith("\""))
+                            tagFile.Tag.AlbumArtists = new string[] { song.Username };
+                            tagFile.Tag.Performers = new string[] { song.Username };
+                        }
+
+                        if (!String.IsNullOrEmpty(song.license))
+                        {
+                            tagFile.Tag.Copyright = song.license;
+                        }
+
+                        if (!String.IsNullOrEmpty(song.genre))
+                        {
+                            listGenreAndTags.Add(song.genre);
+                            tagFile.Tag.Genres = listGenreAndTags.ToArray();
+                        }
+                        if (!String.IsNullOrEmpty(song.tag_list))
+                        {
+                            //NOTE      Tags behave very similar as genres in SoundCloud, 
+                            //          so tags will be added to the genre part of the metadata
+                            //WARNING   Tags are seperated by \" when a single tag includes a whitespace! (for instance: New Wave)
+                            //          Single worded tags are seperated by a single whitespace, this has led me to make
+                            //          this code longer than I initially thought it would be (could perhaps made easier)
+                            //FEATURES  Rare occasions, where the artist uses tags that include the seperation tags SoundCloud uses;
+                            //          like \" or \"Hip-Hop\", are handled, but NOT necessary, because the quote (") is an illegal sign to use in tags
+
+                            string tag = "";
+                            bool partOfLongertag = false;
+
+                            foreach (string word in song.tag_list.Split(' '))
                             {
-                                tag += " " + word.Substring(0, word.Length - 1);
-                                partOfLongertag = false;
-                                listGenreAndTags.Add(tag);
-                                tag = "";
-                                continue;
+                                if (word.EndsWith("\""))
+                                {
+                                    tag += " " + word.Substring(0, word.Length - 1);
+                                    partOfLongertag = false;
+                                    listGenreAndTags.Add(tag);
+                                    tag = "";
+                                    continue;
+                                }
+                                else if (word.StartsWith("\""))
+                                {
+                                    partOfLongertag = true;
+                                    tag += word.Substring(1, word.Length - 1);
+                                }
+                                else if (partOfLongertag == true)
+                                {
+                                    tag += " " + word;
+                                }
+                                else
+                                {
+                                    tag = word;
+                                    listGenreAndTags.Add(tag);
+                                    tag = "";
+                                }
                             }
-                            else if (word.StartsWith("\""))
+                            tagFile.Tag.Genres = listGenreAndTags.ToArray();
+                        }
+                        if (!String.IsNullOrEmpty(song.description))
+                        {
+                            tagFile.Tag.Comment = song.description;
+                        }
+                        if (!String.IsNullOrEmpty(song.artwork_url))
+                        {
+                            // download artwork
+                            artworkFilepath = Path.GetTempFileName();
+
+                            string highResArtwork_url = song.artwork_url.Replace("large.jpg", "t500x500.jpg");
+                            for (int attempts = 0; attempts < 5; attempts++)
                             {
-                                partOfLongertag = true;
-                                tag += word.Substring(1, word.Length - 1);
-                            }
-                            else if (partOfLongertag == true)
-                            {
-                                tag += " " + word;
-                            }
-                            else
-                            {
-                                tag = word;
-                                listGenreAndTags.Add(tag);
-                                tag = "";
+                                try
+                                {
+                                    using (WebClient web = new WebClient())
+                                    {
+                                        web.DownloadFile(highResArtwork_url, artworkFilepath);
+                                    }
+                                    TagLib.Picture artwork = new TagLib.Picture(artworkFilepath);
+                                    artwork.Type = TagLib.PictureType.FrontCover;
+                                    tagFile.Tag.Pictures = new[] { artwork };
+                                    break;
+                                }
+                                catch (Exception e)
+                                {
+                                    Debug.WriteLine(e);
+                                }
+                                System.Threading.Thread.Sleep(50); // Pause 50ms before new attempt
                             }
                         }
-                        tagFile.Tag.Genres = listGenreAndTags.ToArray();
-                    }
-                    if (!String.IsNullOrEmpty(song.description))
-                    {
-                        tagFile.Tag.Comment = song.description;
-                    }
-                    if (!String.IsNullOrEmpty(song.artwork_url)) 
-                    {
-                        // download artwork
-                        artworkFilepath = Path.GetTempFileName();
+                        tagFile.Save();
+                        tagFile.Dispose();
 
-                        string highResArtwork_url = song.artwork_url.Replace("large.jpg", "t500x500.jpg");
-
-                        using (WebClient web = new WebClient()) 
+                        if (artworkFilepath != null && File.Exists(artworkFilepath))
                         {
-                            web.DownloadFile(highResArtwork_url, artworkFilepath);
+                            File.Delete(artworkFilepath);
                         }
-                        tagFile.Tag.Pictures = new[] { new TagLib.Picture(artworkFilepath) };
-                    }
-                    tagFile.Save();
-                    tagFile.Dispose();
-
-                    if (artworkFilepath != null && File.Exists(artworkFilepath))
-                    {
-                        File.Delete(artworkFilepath);
                     }
 
                     lock (SongsDownloadedLock)
@@ -735,9 +761,9 @@ namespace Soundcloud_Playlist_Downloader
                 }
              
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // Nothing to do here
+                Debug.WriteLine(e);
             }
 
             return json;
