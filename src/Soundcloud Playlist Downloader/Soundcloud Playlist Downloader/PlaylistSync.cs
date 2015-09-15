@@ -24,6 +24,8 @@ namespace Soundcloud_Playlist_Downloader
         public IList<Track> SongsDownloaded { get; private set; }
 
         private object SongsDownloadedLock = new object();
+        private static object WriteManifestLock = new object();
+
 
         public bool IsActive { get; set; }
 
@@ -322,13 +324,12 @@ namespace Soundcloud_Playlist_Downloader
             // determine which tracks should be downloaded
             SongsToDownload = DetermineTracksToDownload(directoryPath, tracks, foldersPerArtist);
 
-            
 
-            // download the relevant tracks
-            IList<Track> songsDownloaded = DownloadSongs(SongsToDownload, clientId);
 
-            // update the manifest
-            UpdateSyncManifest(songsDownloaded, directoryPath);
+            // download the relevant tracks and continuously update the manifest
+            IList<Track> songsDownloaded = DownloadSongs(SongsToDownload, clientId, directoryPath);
+
+            //UpdateSyncManifest(songsDownloaded, directoryPath);
 
             // validation
             if (songsDownloaded.Count != SongsToDownload.Count && IsActive)
@@ -377,14 +378,10 @@ namespace Soundcloud_Playlist_Downloader
 
             try
             {
-                string manifestPath = DetermineManifestPath(directoryPath);
-                if (File.Exists(manifestPath))
+                lock(WriteManifestLock)
                 {
-                    File.AppendAllLines(manifestPath, content);
-                }
-                else
-                {
-                    File.WriteAllLines(manifestPath, content);
+                    string manifestPath = DetermineManifestPath(directoryPath);                    
+                    File.AppendAllLines(manifestPath, content); //if file does not exist, this function will create one                                 
                 }
             }
             catch (Exception)
@@ -392,10 +389,31 @@ namespace Soundcloud_Playlist_Downloader
                 IsError = true;
                 throw new Exception("Unable to update manifest");
             }
-
         }
 
-        private IList<Track> DownloadSongs(IList<Track> TracksToDownload, string apiKey)
+        private void UpdateSyncManifest(Track trackDownloaded, string directoryPath)
+        {
+            string track = null;
+            track = trackDownloaded.EffectiveDownloadUrl + "," + trackDownloaded.LocalPath;
+            IList<string> content = new List<string>();
+            content.Add(track);
+
+            try
+            {
+                lock (WriteManifestLock)
+                {
+                    string manifestPath = DetermineManifestPath(directoryPath);
+                    File.AppendAllLines(manifestPath, content); //if file does not exist, this function will create one   
+                }
+            }
+            catch (Exception)
+            {
+                IsError = true;
+                throw new Exception("Unable to update manifest");
+            }
+        }
+
+        private IList<Track> DownloadSongs(IList<Track> TracksToDownload, string apiKey, string directoryPath)
         {
             IList<Track> songsDownloaded = new List<Track>();
             object trackLock = new object();
@@ -408,10 +426,10 @@ namespace Soundcloud_Playlist_Downloader
                 {
                     if (DownloadTrack(track, apiKey))
                     {
-
                         lock (trackLock)
                         {
                             songsDownloaded.Add(track);
+                            UpdateSyncManifest(track, directoryPath);
                         }
                     }
 
