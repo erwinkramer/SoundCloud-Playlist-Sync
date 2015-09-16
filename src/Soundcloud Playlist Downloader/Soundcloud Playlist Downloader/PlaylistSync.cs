@@ -759,6 +759,26 @@ namespace Soundcloud_Playlist_Downloader
             catch (Exception e)
             {
                 Debug.WriteLine(e);
+                string text = "";
+                if (e is WebException)
+                {
+                    WebException w = (WebException)e;
+                    //catching the webexception
+                    using (WebResponse response = w.Response)
+                    {
+                        HttpWebResponse httpResponse = (HttpWebResponse)response;
+                        Debug.WriteLine("Error code: {0}", httpResponse.StatusCode);
+                        using (Stream data = response.GetResponseStream())
+                        using (var reader = new StreamReader(data))
+                        {
+                            text = reader.ReadToEnd();
+                            Debug.WriteLine(text);
+                        }
+                    }
+
+                    throw new Exception("Soundcloud API seems to be down, please check: http://status.soundcloud.com/ or https://developers.soundcloud.com/docs#errors for more information. The following error was thrown: "
+                    + Environment.NewLine + Environment.NewLine + text);
+                }
             }
 
             return json;
