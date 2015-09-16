@@ -4,6 +4,8 @@ using NAudio.Lame;
 using System;
 using System.Diagnostics;
 using System.IO;
+using Soundcloud_Playlist_Downloader.JsonPoco;
+using NAudio.MediaFoundation;
 
 namespace Soundcloud_Playlist_Downloader
 {
@@ -18,21 +20,48 @@ namespace Soundcloud_Playlist_Downloader
         private static int channels = 2;
         private static int uniqueTempFileCounter = 0;
 
-        public static byte[] ConvertAllTheThings(byte[] strangefile, string fullPath, string extension)
+        public static bool ConvertAllTheThings(byte[] strangefile, ref Track song, string extension)
         {
-            string directory = Path.GetDirectoryName(fullPath);
+            string directory = Path.GetDirectoryName(song.LocalPath);
 
             byte[] mp3bytes = null;
 
             if (extension == ".wav")
             {
                 mp3bytes = ConvertWavToMp3(strangefile, directory);
+                if (mp3bytes != null)
+                {
+                    song.LocalPath += ".mp3"; //conversion wil result in an mp3
+                    File.WriteAllBytes(song.LocalPath, mp3bytes);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             if (extension == ".aiff" || extension == ".aif")
             {
                 mp3bytes = ConvertAiffToMp3(strangefile, directory);
+                if (mp3bytes != null)
+                {
+                    song.LocalPath += ".mp3"; //conversion wil result in an mp3
+                    File.WriteAllBytes(song.LocalPath, mp3bytes);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            return mp3bytes;
+            if((extension == ".m4a" || extension == ".aac") && isWindows8OrHigher())
+            {
+                return ConvertM4aToMp3(strangefile, directory, ref song);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static byte[] ConvertWavToMp3(byte[] wavFile, string directory)
@@ -132,6 +161,51 @@ namespace Soundcloud_Playlist_Downloader
                 Debug.WriteLine(e);
             }
             return mp3bytes;      
+        }
+
+        public static bool ConvertM4aToMp3(byte[] m4aFile, string directory, ref Track song) //requires windows 8 or higher
+        {
+            var tempFile = Path.Combine(directory, "tempdata" + uniqueTempFileCounter + ".m4a");
+
+            try
+            {
+                uniqueTempFileCounter += 1;
+                System.IO.File.WriteAllBytes(tempFile, m4aFile);
+                song.LocalPath += ".mp3"; //conversion wil result in an mp3
+                using (var reader = new MediaFoundationReader(tempFile)) //this reader supports: MP3, AAC and WAV
+                {
+                    Guid AACtype = AudioSubtypes.MFAudioFormat_AAC;
+                    int[] bitrates = MediaFoundationEncoder.GetEncodeBitrates(AACtype, reader.WaveFormat.SampleRate, reader.WaveFormat.Channels);
+                    MediaFoundationEncoder.EncodeToMp3(reader, song.LocalPath, bitrates[bitrates.GetUpperBound(0)]);                    
+                }
+                File.Delete(tempFile);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                if(File.Exists(tempFile))
+                {
+                    File.Delete(tempFile);
+                }
+                return false;
+            }
+        }
+
+        public static bool isWindows8OrHigher()
+        {
+            Version win8version = new Version(6, 2, 9200, 0);
+
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT &&
+                Environment.OSVersion.Version >= win8version)
+            {
+                // its win8 or higher.
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
