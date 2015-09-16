@@ -26,7 +26,7 @@ namespace Soundcloud_Playlist_Downloader
 
             if (extension == ".wav")
             {
-                mp3bytes = ConvertWavToMp3(strangefile);
+                mp3bytes = ConvertWavToMp3(strangefile, directory);
             }
             if (extension == ".aiff" || extension == ".aif")
             {
@@ -35,18 +35,35 @@ namespace Soundcloud_Playlist_Downloader
             return mp3bytes;
         }
 
-        public static byte[] ConvertWavToMp3(byte[] wavFile)
+        public static byte[] ConvertWavToMp3(byte[] wavFile, string directory)
         {
             byte[] mp3bytes = null;
+            var newFormat = new WaveFormat(bitRate, bitDepth, channels);
+
             try
-            {         
-                using (var retMs = new MemoryStream())
+            {
+                uniqueTempFileCounter += 1;
+                var tempFile = Path.Combine(directory, "tempdata" + uniqueTempFileCounter + ".wav");
+
                 using (var ms = new MemoryStream(wavFile))
                 using (var rdr = new WaveFileReader(ms))
-                using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, bitRate))
                 {
-                    rdr.CopyTo(wtr);
-                    mp3bytes = retMs.ToArray();
+                    if (rdr.WaveFormat.BitsPerSample == 24) //can't go from 24 bits wav to mp3 directly, create temporary 16 bit wav 
+                    {
+                            ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr); //24 bit to sample
+                            var resampler = new WdlResamplingSampleProvider(sampleprovider, sampleRate); //sample to new sample rate
+                            WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
+                            mp3bytes = ConvertWavToMp3(tempFile, true); //file to mp3 bytes
+                    }
+                    else
+                    {
+                        using (var retMs = new MemoryStream())
+                        using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, bitRate))
+                        {
+                            rdr.CopyTo(wtr);
+                            mp3bytes = retMs.ToArray();
+                        }
+                    }
                 }
             }
             catch (Exception e)
@@ -89,22 +106,19 @@ namespace Soundcloud_Playlist_Downloader
                 uniqueTempFileCounter += 1;
                 var tempFile = Path.Combine(directory, "tempdata"+ uniqueTempFileCounter +".wav");
 
-                using (var retMs = new MemoryStream())
                 using (var ms = new MemoryStream(aiffFile))
                 using (var rdr = new AiffFileReader(ms))
                 {
                     if (rdr.WaveFormat.BitsPerSample == 24) //can't go from 24 bits aif to mp3 directly, create temporary 16 bit wav 
                     {
-                        using (var wtr = new WaveFileWriter(retMs, newFormat))
-                        {
                             ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr); //24 bit to sample
                             var resampler = new WdlResamplingSampleProvider(sampleprovider, sampleRate); //sample to new sample rate
                             WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
-                            mp3bytes = ConvertWavToMp3(tempFile, true); //file to mp3 bytes
-                        }
+                            mp3bytes = ConvertWavToMp3(tempFile, true); //file to mp3 bytes                       
                     }
                     else
                     {
+                        using (var retMs = new MemoryStream())
                         using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, bitRate))
                         {
                             rdr.CopyTo(wtr);
