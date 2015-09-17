@@ -31,7 +31,7 @@ namespace Soundcloud_Playlist_Downloader
         public static bool ConvertToMp3 = false;
         public static bool IncludeArtistInFilename = false;
         public static bool RedownloadLocallyRemovedOrAltered = false;
-        public static bool DeleteRemovedOrAlteredSongs = false;
+        public static bool DeleteExternallyRemovedOrAlteredSongs = false;
         public static bool FoldersPerArtist = false;
         public static bool ReplaceIllegalCharacters = false;
 
@@ -161,7 +161,7 @@ namespace Soundcloud_Playlist_Downloader
                 Form1.ConvertToMp3 = chk_convertToMp3.Checked;
                 Form1.IncludeArtistInFilename = chk_includeArtistinFilename.Checked;
                 Form1.RedownloadLocallyRemovedOrAltered = chk_redownloadLocallyRemoved.Checked;
-                Form1.DeleteRemovedOrAlteredSongs = chk_deleteRemovedOrAlteredSongs.Checked;
+                Form1.DeleteExternallyRemovedOrAlteredSongs = chk_deleteRemovedOrAlteredSongs.Checked;
                 Form1.FoldersPerArtist = chk_folderByArtist.Checked;
                 Form1.ReplaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
 
@@ -173,9 +173,7 @@ namespace Soundcloud_Playlist_Downloader
                             url: url.Text,
                             mode: playlistRadio.Checked ? PlaylistSync.DownloadMode.Playlist : favoritesRadio.Checked ? PlaylistSync.DownloadMode.Favorites : PlaylistSync.DownloadMode.Artist,
                             directory: directoryPath.Text, 
-                            deleteRemovedSongs: DeleteRemovedOrAlteredSongs, 
-                            clientId: CLIENT_ID,
-                            foldersPerArtist: FoldersPerArtist
+                            clientId: CLIENT_ID
                         );
                     }
                     catch (Exception ex)

@@ -49,7 +49,7 @@ namespace Soundcloud_Playlist_Downloader
             }
         }
 
-        internal void Synchronize(string url, DownloadMode mode, string directory, bool deleteRemovedSongs, string clientId, bool foldersPerArtist)
+        internal void Synchronize(string url, DownloadMode mode, string directory, string clientId)
         {
             verifyParameters(
                 new Dictionary<string, string>()
@@ -77,12 +77,12 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         apiURL = url;
                     }
-                    SynchronizeFromPlaylistAPIUrl(apiURL, clientId, directory, deleteRemovedSongs, foldersPerArtist);
+                    SynchronizeFromPlaylistAPIUrl(apiURL, clientId, directory);
                     break;
                 case DownloadMode.Favorites:
                     // get the username from the url and then call SynchronizeFromProfile
                     string username = parseUserIdFromProfileUrl(url);
-                    SynchronizeFromProfile(username, clientId, directory, deleteRemovedSongs, foldersPerArtist);
+                    SynchronizeFromProfile(username, clientId, directory);
                     break;
                 case DownloadMode.Artist:
                     
@@ -94,7 +94,7 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         apiURL = url;
                     }
-                    SynchronizeFromArtistUrl(apiURL, clientId, directory, deleteRemovedSongs, foldersPerArtist);
+                    SynchronizeFromArtistUrl(apiURL, clientId, directory);
                     break;
                 default:
                     IsError = true;
@@ -226,11 +226,11 @@ namespace Soundcloud_Playlist_Downloader
             return tracks;
         }
 
-        internal void SynchronizeFromProfile(string username, string clientId, string directoryPath, bool deleteRemovedSongs, bool foldersPerArtist)
+        internal void SynchronizeFromProfile(string username, string clientId, string directoryPath)
         {
             // hit the /username/favorites endpoint for the username in the url, then download all the tracks
             IList<Track> tracks = EnumerateTracksFromUrl("https://api.soundcloud.com/users/" + username + "/favorites", clientId, true);
-            Synchronize(tracks, clientId, directoryPath, deleteRemovedSongs, foldersPerArtist);
+            Synchronize(tracks, clientId, directoryPath);
         }
 
         public static bool IsPathWithinLimits(string fullPathAndFilename)
@@ -241,7 +241,7 @@ namespace Soundcloud_Playlist_Downloader
             return fullPathAndFilename.Length <= MAX_PATH_LENGTH;
         }
 
-        private void Synchronize(IList<Track> tracks, string clientId, string directoryPath, bool deleteRemovedSongs, bool foldersPerArtist)
+        private void Synchronize(IList<Track> tracks, string clientId, string directoryPath)
         {
             //define all local paths by combining the sanitzed artist (if checked by user) with the santized title
             foreach(Track track in tracks)
@@ -250,7 +250,7 @@ namespace Soundcloud_Playlist_Downloader
                 string validTitle = track.CoerceValidFileName(track.Title);
                 string filenameWithArtist = validArtist + " - " + validTitle;
 
-                if (foldersPerArtist)
+                if (Form1.FoldersPerArtist)
                 {
                     if (Form1.IncludeArtistInFilename) //include artist name
                     {
@@ -292,38 +292,11 @@ namespace Soundcloud_Playlist_Downloader
                 }
             };
 
-            //if (foldersPerArtist) //create folder structure
-            //{
-            //    if (Form1.IncludeArtistInFilename) //include artist name
-            //    {
-            //        tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), 
-            //            c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
-            //    }
-            //    else //exclude artist name
-            //    {
-            //        tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, c.CoerceValidFileName(c.Artist), 
-            //            c.CoerceValidFileName(c.Title)); return c; }).ToList();
-            //    }
-            //}
-            //else //don't create folder structure
-            //{
-            //    if (Form1.IncludeArtistInFilename) //include artist name
-            //    {
-            //        tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, 
-            //            c.CoerceValidFileName(c.Artist) + " - " + c.CoerceValidFileName(c.Title)); return c; }).ToList();
-            //    }
-            //    else //exclude artist name
-            //    {
-            //        tracks = tracks.Select(c => { c.LocalPath = Path.Combine(directoryPath, 
-            //            c.CoerceValidFileName(c.Title)); return c; }).ToList();
-            //    }
-            
-
             // determine which tracks should be deleted or re-added
-            DeleteOrAddRemovedTrack(directoryPath, tracks, deleteRemovedSongs);
+            DeleteOrAddRemovedTrack(directoryPath, tracks);
 
             // determine which tracks should be downloaded
-            SongsToDownload = DetermineTracksToDownload(directoryPath, tracks, foldersPerArtist);
+            SongsToDownload = DetermineTracksToDownload(directoryPath, tracks);
 
 
 
@@ -345,18 +318,18 @@ namespace Soundcloud_Playlist_Downloader
         }
 
 
-        internal void SynchronizeFromPlaylistAPIUrl(string playlistApiUrl, string clientId, string directoryPath, bool deleteRemovedSongs, bool foldersPerArtist)
+        internal void SynchronizeFromPlaylistAPIUrl(string playlistApiUrl, string clientId, string directoryPath)
         {
             IList<Track> tracks = EnumerateTracksFromUrl(playlistApiUrl, clientId, false);
-            Synchronize(tracks, clientId, directoryPath, deleteRemovedSongs, foldersPerArtist);
+            Synchronize(tracks, clientId, directoryPath);
         }
 
 
-        internal void SynchronizeFromArtistUrl(string artistUrl, string clientId, string directoryPath, bool deleteRemovedSongs, bool foldersPerArtist)
+        internal void SynchronizeFromArtistUrl(string artistUrl, string clientId, string directoryPath)
         {
 
             IList<Track> tracks = EnumerateTracksFromUrl(artistUrl, clientId, true);
-            Synchronize(tracks, clientId, directoryPath, deleteRemovedSongs, foldersPerArtist);
+            Synchronize(tracks, clientId, directoryPath);
         }
 
 
@@ -435,21 +408,10 @@ namespace Soundcloud_Playlist_Downloader
                     }
 
                 }
-                catch (WebException e)
+                catch (Exception e)
                 {
-                    //catching the webexception
-                    // Song failed to download
-                    using (WebResponse response = e.Response)
-                    {
-                        HttpWebResponse httpResponse = (HttpWebResponse)response;
-                        Debug.WriteLine("Error code: {0}", httpResponse.StatusCode);
-                        using (Stream data = response.GetResponseStream())
-                        using (var reader = new StreamReader(data))
-                        {
-                            string text = reader.ReadToEnd();
-                            Debug.WriteLine(text);
-                        }
-                    }
+                    IsError = true;
+                    ExceptionHandler.handleException(e);
                 }
                 
             });
@@ -481,22 +443,7 @@ namespace Soundcloud_Playlist_Downloader
                         }
                         catch (Exception e)
                         {
-                            if (e is WebException)
-                            {
-                                WebException w = (WebException)e;
-                                //catching the webexception
-                                using (WebResponse response = w.Response)
-                                {
-                                    HttpWebResponse httpResponse = (HttpWebResponse)response;
-                                    Debug.WriteLine("Error code: {0}", httpResponse.StatusCode);
-                                    using (Stream data = response.GetResponseStream())
-                                    using (var reader = new StreamReader(data))
-                                    {
-                                        string text = reader.ReadToEnd();
-                                        Debug.WriteLine(text);
-                                    }
-                                }
-                            }
+                            ExceptionHandler.handleException(e);
 
                             //the download link might have been invalid, so we get the stream download instead
                             if (song.stream_url == null) //all hope is lost when there is no stream url, return to safety
@@ -536,126 +483,8 @@ namespace Soundcloud_Playlist_Downloader
                         client.DownloadFile(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey), song.LocalPath);
                     }
 
-                    //Sets file creation time to creation time that matches with Soundcloud track.
-                    //If somehow the datetime string can't be parsed it will just use the current (now) datetime. 
-                    DateTime dt = DateTime.Now;
-                    DateTime.TryParse(song.created_at, out dt);
-                    File.SetCreationTime(song.LocalPath, dt);
-
-                    // metadata tagging
-                    TagLib.File tagFile = null;
-
-                    TagLib.Id3v2.Tag.DefaultVersion = 2;
-                    TagLib.Id3v2.Tag.ForceDefaultVersion = true;
-                    // Possible values for DefaultVersion are 2(id3v2.2), 3(id3v2.3) or 4(id3v2.4)
-                    // it seems that id3v2.4 is more prone to misinterpret utf-8. id3v2.2 seems most stable. 
-                    tagFile = TagLib.File.Create(song.LocalPath);
-
-                    if (tagFile.Writeable)
-                    {
-                        //Make use of Conductor field to write soundcloud song ID and user ID (conductor field is never used anyway)
-                        tagFile.Tag.Conductor = "SC_SONG_ID," + song.id + ",SC_USER_ID," + song.user_id;
-
-                        //tag all other metadata fields
-                        tagFile.Tag.Title = song.Title;
-                        string artworkFilepath = null;
-                        List<string> listGenreAndTags = new List<string>();
-
-                        if (!String.IsNullOrEmpty(song.Username))
-                        {
-                            tagFile.Tag.AlbumArtists = new string[] { song.Username };
-                            tagFile.Tag.Performers = new string[] { song.Username };
-                        }
-
-                        if (!String.IsNullOrEmpty(song.license))
-                        {
-                            tagFile.Tag.Copyright = song.license;
-                        }
-
-                        if (!String.IsNullOrEmpty(song.genre))
-                        {
-                            listGenreAndTags.Add(song.genre);
-                            tagFile.Tag.Genres = listGenreAndTags.ToArray();
-                        }
-                        if (!String.IsNullOrEmpty(song.tag_list))
-                        {
-                            //NOTE      Tags behave very similar as genres in SoundCloud, 
-                            //          so tags will be added to the genre part of the metadata
-                            //WARNING   Tags are seperated by \" when a single tag includes a whitespace! (for instance: New Wave)
-                            //          Single worded tags are seperated by a single whitespace, this has led me to make
-                            //          this code longer than I initially thought it would be (could perhaps made easier)
-                            //FEATURES  Rare occasions, where the artist uses tags that include the seperation tags SoundCloud uses;
-                            //          like \" or \"Hip-Hop\", are handled, but NOT necessary, because the quote (") is an illegal sign to use in tags
-
-                            string tag = "";
-                            bool partOfLongertag = false;
-
-                            foreach (string word in song.tag_list.Split(' '))
-                            {
-                                if (word.EndsWith("\""))
-                                {
-                                    tag += " " + word.Substring(0, word.Length - 1);
-                                    partOfLongertag = false;
-                                    listGenreAndTags.Add(tag);
-                                    tag = "";
-                                    continue;
-                                }
-                                else if (word.StartsWith("\""))
-                                {
-                                    partOfLongertag = true;
-                                    tag += word.Substring(1, word.Length - 1);
-                                }
-                                else if (partOfLongertag == true)
-                                {
-                                    tag += " " + word;
-                                }
-                                else
-                                {
-                                    tag = word;
-                                    listGenreAndTags.Add(tag);
-                                    tag = "";
-                                }
-                            }
-                            tagFile.Tag.Genres = listGenreAndTags.ToArray();
-                        }
-                        if (!String.IsNullOrEmpty(song.description))
-                        {
-                            tagFile.Tag.Comment = song.description;
-                        }
-                        if (!String.IsNullOrEmpty(song.artwork_url))
-                        {
-                            // download artwork
-                            artworkFilepath = Path.GetTempFileName();
-
-                            string highResArtwork_url = song.artwork_url.Replace("large.jpg", "t500x500.jpg");
-                            for (int attempts = 0; attempts < 5; attempts++)
-                            {
-                                try
-                                {
-                                    using (WebClient web = new WebClient())
-                                    {
-                                        web.DownloadFile(highResArtwork_url, artworkFilepath);
-                                    }
-                                    TagLib.Picture artwork = new TagLib.Picture(artworkFilepath);
-                                    artwork.Type = TagLib.PictureType.FrontCover;
-                                    tagFile.Tag.Pictures = new[] { artwork };
-                                    break;
-                                }
-                                catch (Exception e)
-                                {
-                                    Debug.WriteLine(e);
-                                }
-                                System.Threading.Thread.Sleep(50); // Pause 50ms before new attempt
-                            }
-                        }
-                        tagFile.Save();
-                        tagFile.Dispose();
-
-                        if (artworkFilepath != null && File.Exists(artworkFilepath))
-                        {
-                            File.Delete(artworkFilepath);
-                        }
-                    }
+                    //tag the song
+                    metadataTagging.tagIt(ref song);
 
                     lock (SongsDownloadedLock)
                     {
@@ -667,7 +496,7 @@ namespace Soundcloud_Playlist_Downloader
             return downloaded;
         }
 
-        private void DeleteOrAddRemovedTrack(string directoryPath, IList<Track> allTracks, bool deleteTrack)
+        private void DeleteOrAddRemovedTrack(string directoryPath, IList<Track> allTracks)
         {
             string manifestPath = DetermineManifestPath(directoryPath);
             try
@@ -691,7 +520,7 @@ namespace Soundcloud_Playlist_Downloader
                         string neutralPath = Path.ChangeExtension(localPathDownloadedSong, null);
                         int canBeDeleted = allTracks.Count(song => song.LocalPath.Contains(neutralPath));
 
-                        if (deleteTrack && canBeDeleted == 0)
+                        if (Form1.DeleteExternallyRemovedOrAlteredSongs && canBeDeleted == 0)
                         {
                             File.Delete(localPathDownloadedSong);
                         }                                            
@@ -712,7 +541,7 @@ namespace Soundcloud_Playlist_Downloader
             }      
         }
 
-        private IList<Track> DetermineTracksToDownload(string directoryPath, IList<Track> allSongs, bool foldersPerArtist)
+        private IList<Track> DetermineTracksToDownload(string directoryPath, IList<Track> allSongs)
         {
               
             string manifestPath = DetermineManifestPath(directoryPath);
@@ -758,27 +587,8 @@ namespace Soundcloud_Playlist_Downloader
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
-                string text = "";
-                if (e is WebException)
-                {
-                    WebException w = (WebException)e;
-                    //catching the webexception
-                    using (WebResponse response = w.Response)
-                    {
-                        HttpWebResponse httpResponse = (HttpWebResponse)response;
-                        Debug.WriteLine("Error code: {0}", httpResponse.StatusCode);
-                        using (Stream data = response.GetResponseStream())
-                        using (var reader = new StreamReader(data))
-                        {
-                            text = reader.ReadToEnd();
-                            Debug.WriteLine(text);
-                        }
-                    }
-
-                    throw new Exception("Soundcloud API seems to be down, please check: http://status.soundcloud.com/ or https://developers.soundcloud.com/docs#errors for more information. The following error was thrown: "
-                    + Environment.NewLine + Environment.NewLine + text);
-                }
+                IsError = true;
+                ExceptionHandler.handleException(e);
             }
 
             return json;

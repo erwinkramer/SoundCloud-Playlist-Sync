@@ -242,291 +242,190 @@
       <summary>
             Creates a weakly-typed <see cref="T:PostSharp.Aspects.Arguments" /> object representing any number of arguments.
             </summary>
-      <param name="array">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="array"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create(System.Object[])"]</p>
-      </param>
+      <param name="array"></param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Aspects.Arguments.Create(System.Object[])"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Aspects.Arguments.Create(System.Object[])</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Aspects.Arguments.Create``1(``0)">
       <summary>
             Creates a strongly-typed <see cref="T:PostSharp.Aspects.Arguments" /> object representing 1 argument.
             </summary>
-      <param name="arg0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``1(``0)"]</p>
-      </param>
-      <typeparam name="T">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``1(``0)"]</p>
-      </typeparam>
+      <param name="arg0"></param>
+      <typeparam name="T"></typeparam>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``1(``0)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Aspects.Arguments.Create``1(``0)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Aspects.Arguments.Create``2(``0,``1)">
       <summary>
             Creates a strongly-typed <see cref="T:PostSharp.Aspects.Arguments" /> object representing 2 arguments.
             </summary>
-      <param name="arg0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``2(``0,``1)"]</p>
-      </param>
-      <param name="arg1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``2(``0,``1)"]</p>
-      </param>
-      <typeparam name="T0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``2(``0,``1)"]</p>
-      </typeparam>
-      <typeparam name="T1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``2(``0,``1)"]</p>
-      </typeparam>
+      <param name="arg0"></param>
+      <param name="arg1"></param>
+      <typeparam name="T0"></typeparam>
+      <typeparam name="T1"></typeparam>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``2(``0,``1)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Aspects.Arguments.Create``2(``0,``1)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Aspects.Arguments.Create``3(``0,``1,``2)">
       <summary>
             Creates a strongly-typed <see cref="T:PostSharp.Aspects.Arguments" /> object representing 3 arguments.
             </summary>
-      <param name="arg0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``3(``0,``1,``2)"]</p>
-      </param>
-      <param name="arg1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``3(``0,``1,``2)"]</p>
-      </param>
-      <param name="arg2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``3(``0,``1,``2)"]</p>
-      </param>
-      <typeparam name="T0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``3(``0,``1,``2)"]</p>
-      </typeparam>
-      <typeparam name="T1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``3(``0,``1,``2)"]</p>
-      </typeparam>
-      <typeparam name="T2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``3(``0,``1,``2)"]</p>
-      </typeparam>
+      <param name="arg0"></param>
+      <param name="arg1"></param>
+      <param name="arg2"></param>
+      <typeparam name="T0"></typeparam>
+      <typeparam name="T1"></typeparam>
+      <typeparam name="T2"></typeparam>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``3(``0,``1,``2)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Aspects.Arguments.Create``3(``0,``1,``2)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Aspects.Arguments.Create``4(``0,``1,``2,``3)">
       <summary>
             Creates a strongly-typed <see cref="T:PostSharp.Aspects.Arguments" /> object representing 4 arguments.
             </summary>
-      <param name="arg0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``4(``0,``1,``2,``3)"]</p>
-      </param>
-      <param name="arg1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``4(``0,``1,``2,``3)"]</p>
-      </param>
-      <param name="arg2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``4(``0,``1,``2,``3)"]</p>
-      </param>
-      <param name="arg3">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg3"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``4(``0,``1,``2,``3)"]</p>
-      </param>
-      <typeparam name="T0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``4(``0,``1,``2,``3)"]</p>
-      </typeparam>
-      <typeparam name="T1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``4(``0,``1,``2,``3)"]</p>
-      </typeparam>
-      <typeparam name="T2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``4(``0,``1,``2,``3)"]</p>
-      </typeparam>
-      <typeparam name="T3">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T3"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``4(``0,``1,``2,``3)"]</p>
-      </typeparam>
+      <param name="arg0"></param>
+      <param name="arg1"></param>
+      <param name="arg2"></param>
+      <param name="arg3"></param>
+      <typeparam name="T0"></typeparam>
+      <typeparam name="T1"></typeparam>
+      <typeparam name="T2"></typeparam>
+      <typeparam name="T3"></typeparam>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``4(``0,``1,``2,``3)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Aspects.Arguments.Create``4(``0,``1,``2,``3)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)">
       <summary>
             Creates a strongly-typed <see cref="T:PostSharp.Aspects.Arguments" /> object representing 5 arguments.
             </summary>
-      <param name="arg0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)"]</p>
-      </param>
-      <param name="arg1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)"]</p>
-      </param>
-      <param name="arg2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)"]</p>
-      </param>
-      <param name="arg3">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg3"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)"]</p>
-      </param>
-      <param name="arg4">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg4"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)"]</p>
-      </param>
-      <typeparam name="T0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)"]</p>
-      </typeparam>
-      <typeparam name="T1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)"]</p>
-      </typeparam>
-      <typeparam name="T2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)"]</p>
-      </typeparam>
-      <typeparam name="T3">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T3"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)"]</p>
-      </typeparam>
-      <typeparam name="T4">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T4"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)"]</p>
-      </typeparam>
+      <param name="arg0"></param>
+      <param name="arg1"></param>
+      <param name="arg2"></param>
+      <param name="arg3"></param>
+      <param name="arg4"></param>
+      <typeparam name="T0"></typeparam>
+      <typeparam name="T1"></typeparam>
+      <typeparam name="T2"></typeparam>
+      <typeparam name="T3"></typeparam>
+      <typeparam name="T4"></typeparam>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Aspects.Arguments.Create``5(``0,``1,``2,``3,``4)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)">
       <summary>
             Creates a strongly-typed <see cref="T:PostSharp.Aspects.Arguments" /> object representing 6 arguments.
             </summary>
-      <param name="arg0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </param>
-      <param name="arg1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </param>
-      <param name="arg2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </param>
-      <param name="arg3">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg3"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </param>
-      <param name="arg4">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg4"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </param>
-      <param name="args5">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="args5"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </param>
-      <typeparam name="T0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </typeparam>
-      <typeparam name="T1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </typeparam>
-      <typeparam name="T2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </typeparam>
-      <typeparam name="T3">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T3"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </typeparam>
-      <typeparam name="T4">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T4"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </typeparam>
-      <typeparam name="T5">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T5"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
-      </typeparam>
+      <param name="arg0"></param>
+      <param name="arg1"></param>
+      <param name="arg2"></param>
+      <param name="arg3"></param>
+      <param name="arg4"></param>
+      <param name="args5"></param>
+      <typeparam name="T0"></typeparam>
+      <typeparam name="T1"></typeparam>
+      <typeparam name="T2"></typeparam>
+      <typeparam name="T3"></typeparam>
+      <typeparam name="T4"></typeparam>
+      <typeparam name="T5"></typeparam>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Aspects.Arguments.Create``6(``0,``1,``2,``3,``4,``5)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)">
       <summary>
             Creates a strongly-typed <see cref="T:PostSharp.Aspects.Arguments" /> object representing 7 arguments.
             </summary>
-      <param name="arg0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </param>
-      <param name="arg1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </param>
-      <param name="arg2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </param>
-      <param name="arg3">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg3"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </param>
-      <param name="arg4">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg4"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </param>
-      <param name="args5">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="args5"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </param>
-      <param name="args6">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="args6"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </param>
-      <typeparam name="T0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </typeparam>
-      <typeparam name="T1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </typeparam>
-      <typeparam name="T2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </typeparam>
-      <typeparam name="T3">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T3"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </typeparam>
-      <typeparam name="T4">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T4"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </typeparam>
-      <typeparam name="T5">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T5"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </typeparam>
-      <typeparam name="T6">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T6"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
-      </typeparam>
+      <param name="arg0"></param>
+      <param name="arg1"></param>
+      <param name="arg2"></param>
+      <param name="arg3"></param>
+      <param name="arg4"></param>
+      <param name="args5"></param>
+      <param name="args6"></param>
+      <typeparam name="T0"></typeparam>
+      <typeparam name="T1"></typeparam>
+      <typeparam name="T2"></typeparam>
+      <typeparam name="T3"></typeparam>
+      <typeparam name="T4"></typeparam>
+      <typeparam name="T5"></typeparam>
+      <typeparam name="T6"></typeparam>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Aspects.Arguments.Create``7(``0,``1,``2,``3,``4,``5,``6)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)">
       <summary>
             Creates a strongly-typed <see cref="T:PostSharp.Aspects.Arguments" /> object representing 8 arguments.
             </summary>
-      <param name="arg0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </param>
-      <param name="arg1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </param>
-      <param name="arg2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </param>
-      <param name="arg3">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg3"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </param>
-      <param name="arg4">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="arg4"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </param>
-      <param name="args5">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="args5"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </param>
-      <param name="args6">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="args6"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </param>
-      <param name="args7">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="args7"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </param>
-      <typeparam name="T0">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T0"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </typeparam>
-      <typeparam name="T1">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T1"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </typeparam>
-      <typeparam name="T2">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T2"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </typeparam>
-      <typeparam name="T3">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T3"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </typeparam>
-      <typeparam name="T4">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T4"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </typeparam>
-      <typeparam name="T5">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T5"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </typeparam>
-      <typeparam name="T6">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T6"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </typeparam>
-      <typeparam name="T7">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T7"/&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
-      </typeparam>
+      <param name="arg0"></param>
+      <param name="arg1"></param>
+      <param name="arg2"></param>
+      <param name="arg3"></param>
+      <param name="arg4"></param>
+      <param name="args5"></param>
+      <param name="args6"></param>
+      <param name="args7"></param>
+      <typeparam name="T0"></typeparam>
+      <typeparam name="T1"></typeparam>
+      <typeparam name="T2"></typeparam>
+      <typeparam name="T3"></typeparam>
+      <typeparam name="T4"></typeparam>
+      <typeparam name="T5"></typeparam>
+      <typeparam name="T6"></typeparam>
+      <typeparam name="T7"></typeparam>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Aspects.Arguments.Create``8(``0,``1,``2,``3,``4,``5,``6,``7)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="F:PostSharp.Aspects.Arguments.Empty">
@@ -545,7 +444,7 @@
     </member>
     <member name="M:PostSharp.Aspects.Arguments.GetEnumerator">
       <summary>Returns an enumerator that iterates through the collection.</summary>
-      <returns>A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.</returns>
+      <returns>An enumerator that can be used to iterate through the collection.</returns>
     </member>
     <member name="P:PostSharp.Aspects.Arguments.Item(System.Int32)">
       <summary>
@@ -580,7 +479,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Aspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Aspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Aspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Aspect.AspectPriority">
       <summary>
@@ -644,7 +549,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.AspectInfo.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.AspectInfo" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.AspectInfo</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.AspectInstance">
       <summary>
@@ -750,7 +661,21 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.AspectUtilities.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.AspectUtilities" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.AspectUtilities</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Aspects.AspectUtilities.GetCurrentInstanceCredentials">
+      <summary>
+              Gets the <see cref="T:PostSharp.Aspects.InstanceCredentials" /> of the calling instance. This method must be
+              invoked from an instance method (not a static method) of a type that has been enhanced
+              by an aspect.
+            </summary>
+      <returns>The <see cref="T:PostSharp.Aspects.InstanceCredentials" /> of the calling instance.</returns>
     </member>
     <member name="M:PostSharp.Aspects.AspectUtilities.InitializeCurrentAspects">
       <summary>
@@ -765,7 +690,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.AssemblyLevelAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.AssemblyLevelAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.AssemblyLevelAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.AssemblyLevelAspect.CompileTimeInitialize(System.Reflection.Assembly,PostSharp.Aspects.AspectInfo)">
       <summary>
@@ -824,7 +755,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.CompositionAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.CompositionAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.CompositionAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.CompositionAspect.AncestorOverrideAction">
       <summary>
@@ -847,7 +784,13 @@
               to create the composed object.
             </summary>
       <param name="args">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="args"/&gt; documentation for "M:PostSharp.Aspects.CompositionAspect.CreateImplementationObject(PostSharp.Aspects.AdviceArgs)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>args</parameter>
+            <parameter>M:PostSharp.Aspects.CompositionAspect.CreateImplementationObject(PostSharp.Aspects.AdviceArgs)</parameter>
+          </include>
+        </markup>
       </param>
       <returns>The composed object. This interface should implement the interfaces specified
               by the <see cref="M:PostSharp.Aspects.CompositionAspect.GetPublicInterfaces(System.Type)" /> and 
@@ -1015,7 +958,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.EventInterceptionAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.EventInterceptionAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.EventInterceptionAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.EventInterceptionAspect.CreateAspectConfiguration">
       <summary>
@@ -1052,7 +1001,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.EventLevelAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.EventLevelAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.EventLevelAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.EventLevelAspect.CompileTimeInitialize(System.Reflection.EventInfo,PostSharp.Aspects.AspectInfo)">
       <summary>
@@ -1110,8 +1065,21 @@
               <see cref="M:PostSharp.Aspects.Aspect.CreateAspectConfiguration" /> method.</param>
       <param name="targetEvent">Event to which the current aspect has been applied.</param>
     </member>
+    <member name="T:PostSharp.Aspects.ExternalAspect">
+      <summary>
+              Aspect implemented in a different type (implementing the <see cref="T:PostSharp.Aspects.IExternalAspectImplementation" />
+              interface), typically contained in an external assembly. Classes derived from <see cref="T:PostSharp.Aspects.ExternalAspect" />
+              must be annotated by the custom attribute <see cref="T:PostSharp.Aspects.Configuration.ExternalAspectConfigurationAttribute" />.
+            </summary>
+    </member>
     <member name="M:PostSharp.Aspects.ExternalAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.ExternalAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.ExternalAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.FieldLevelAspect">
       <summary>
@@ -1119,7 +1087,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.FieldLevelAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.FieldLevelAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.FieldLevelAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.FieldLevelAspect.CompileTimeInitialize(System.Reflection.FieldInfo,PostSharp.Aspects.AspectInfo)">
       <summary>
@@ -1340,6 +1314,13 @@
       <param name="source">Aspect instance corresponding to the current
             aspect instance in the cloned target object.</param>
     </member>
+    <member name="T:PostSharp.Aspects.IComposed`1">
+      <summary>
+              Interface exposing the implementation of another interface introduced
+              by a <see cref="T:PostSharp.Aspects.CompositionAspect" />.
+            </summary>
+      <typeparam name="T">Interface whose implementation is expose.</typeparam>
+    </member>
     <member name="M:PostSharp.Aspects.IComposed`1.GetImplementation(PostSharp.Aspects.InstanceCredentials)">
       <summary>
               Gets the object implementing the interface <typeparamref name="T" />
@@ -1363,7 +1344,13 @@
               to create the composed object.
             </summary>
       <param name="args">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="args"/&gt; documentation for "M:PostSharp.Aspects.ICompositionAspect.CreateImplementationObject(PostSharp.Aspects.AdviceArgs)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>args</parameter>
+            <parameter>M:PostSharp.Aspects.ICompositionAspect.CreateImplementationObject(PostSharp.Aspects.AdviceArgs)</parameter>
+          </include>
+        </markup>
       </param>
       <returns>The composed object. This interface should implement the interfaces specified
               by the <see cref="P:PostSharp.Aspects.Configuration.CompositionAspectConfiguration.PublicInterfaces" /> and 
@@ -1538,9 +1525,7 @@
       <summary>
             A strongly-typed variant for <see cref="T:PostSharp.Aspects.ILocationBinding" />.
             </summary>
-      <typeparam name="T">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T"/&gt; documentation for "T:PostSharp.Aspects.ILocationBinding`1"]</p>
-      </typeparam>
+      <typeparam name="T"></typeparam>
     </member>
     <member name="M:PostSharp.Aspects.ILocationBinding`1.GetValue(System.Object@,PostSharp.Aspects.Arguments)">
       <summary>
@@ -1797,6 +1782,11 @@
       <param name="method">Method to which the current aspect is applied</param>
       <param name="aspectInfo">Reserved for future usage.</param>
     </member>
+    <member name="T:PostSharp.Aspects.InstanceCredentials">
+      <summary>
+            Credentials that give access to 'protected' semantics.
+            </summary>
+    </member>
     <member name="M:PostSharp.Aspects.InstanceCredentials.AssertEquals(PostSharp.Aspects.InstanceCredentials)">
       <summary>
               Throws an exception if given credentials are not equal
@@ -1811,8 +1801,8 @@
     </member>
     <member name="M:PostSharp.Aspects.InstanceCredentials.Equals(System.Object)">
       <summary>Indicates whether this instance and a specified object are equal.</summary>
-      <param name="obj">Another object to compare to. </param>
-      <returns>true if <paramref name="obj" /> and this instance are the same type and represent the same value; otherwise, false.</returns>
+      <param name="obj">The object to compare with the current instance. </param>
+      <returns>true if <paramref name="obj" /> and this instance are the same type and represent the same value; otherwise, false. </returns>
     </member>
     <member name="M:PostSharp.Aspects.InstanceCredentials.GetHashCode">
       <summary>Returns the hash code for this instance.</summary>
@@ -1860,7 +1850,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.InstanceLevelAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.InstanceLevelAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.InstanceLevelAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.InstanceLevelAspect.CreateAspectConfiguration">
       <summary>
@@ -1973,6 +1969,12 @@
               is being executed and which are its arguments. In iterator methods, the <see cref="P:PostSharp.Aspects.MethodExecutionArgs.YieldValue" />
             property gives access to the operand of the <c>yield return</c> statement.</param>
     </member>
+    <member name="T:PostSharp.Aspects.IProtectedInterface`1">
+      <summary>
+              Gives access to a 'protected' interface, typically introduced
+              by a <see cref="T:PostSharp.Aspects.CompositionAspect" /> or a <see cref="T:PostSharp.Aspects.Advices.IntroduceInterfaceAttribute" /></summary>
+      <typeparam name="T">Exposed interface.</typeparam>
+    </member>
     <member name="M:PostSharp.Aspects.IProtectedInterface`1.GetInterface(PostSharp.Aspects.InstanceCredentials)">
       <summary>
               Gets a protected interface.
@@ -2059,15 +2061,9 @@
       <summary>
             Executes a delegate for the current <see cref="T:PostSharp.Aspects.LocationInterceptionArgs" />. This method allows to
             </summary>
-      <param name="action">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="action"/&gt; documentation for "M:PostSharp.Aspects.LocationInterceptionArgs.Execute``1(PostSharp.Aspects.ILocationInterceptionArgsAction{``0},``0@)"]</p>
-      </param>
-      <param name="payload">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="payload"/&gt; documentation for "M:PostSharp.Aspects.LocationInterceptionArgs.Execute``1(PostSharp.Aspects.ILocationInterceptionArgsAction{``0},``0@)"]</p>
-      </param>
-      <typeparam name="TPayload">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="TPayload"/&gt; documentation for "M:PostSharp.Aspects.LocationInterceptionArgs.Execute``1(PostSharp.Aspects.ILocationInterceptionArgsAction{``0},``0@)"]</p>
-      </typeparam>
+      <param name="action"></param>
+      <param name="payload"></param>
+      <typeparam name="TPayload"></typeparam>
     </member>
     <member name="M:PostSharp.Aspects.LocationInterceptionArgs.GetCurrentValue">
       <summary>
@@ -2124,7 +2120,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.LocationInterceptionAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.LocationInterceptionAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.LocationInterceptionAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.LocationInterceptionAspect.CreateAspectConfiguration">
       <summary>
@@ -2154,7 +2156,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.LocationLevelAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.LocationLevelAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.LocationLevelAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.LocationLevelAspect.CompileTimeInitialize(PostSharp.Reflection.LocationInfo,PostSharp.Aspects.AspectInfo)">
       <summary>
@@ -2283,7 +2291,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.MethodImplementationAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.MethodImplementationAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.MethodImplementationAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.MethodImplementationAspect.CreateAspectConfiguration">
       <summary>
@@ -2345,7 +2359,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.MethodInterceptionAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.MethodInterceptionAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.MethodInterceptionAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.MethodInterceptionAspect.CreateAspectConfiguration">
       <summary>
@@ -2367,7 +2387,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.MethodLevelAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.MethodLevelAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.MethodLevelAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.MethodLevelAspect.CompileTimeInitialize(System.Reflection.MethodBase,PostSharp.Aspects.AspectInfo)">
       <summary>
@@ -2433,7 +2459,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.OnExceptionAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.OnExceptionAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.OnExceptionAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.OnExceptionAspect.ApplyToStateMachine">
       <summary>
@@ -2480,7 +2512,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.OnMethodBoundaryAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.OnMethodBoundaryAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.OnMethodBoundaryAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.OnMethodBoundaryAspect.ApplyToStateMachine">
       <summary>
@@ -2594,7 +2632,12 @@
               Converts a <see cref="T:PostSharp.Aspects.TypeIdentity" /> into a <see cref="T:System.Type" />.
             </summary>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Aspects.TypeIdentity.ToType"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Aspects.TypeIdentity.ToType</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="P:PostSharp.Aspects.TypeIdentity.Type">
@@ -2613,7 +2656,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.TypeLevelAspect.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.TypeLevelAspect" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.TypeLevelAspect</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.TypeLevelAspect.CompileTimeInitialize(System.Type,PostSharp.Aspects.AspectInfo)">
       <summary>
@@ -2677,7 +2726,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.Advice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.Advice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.Advice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.AdviceInstance">
       <summary>
@@ -2685,7 +2740,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.AdviceInstance.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.AdviceInstance" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.AdviceInstance</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Advices.AdviceInstance.MasterAspectMember">
       <summary>
@@ -2834,7 +2895,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.GroupingAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.GroupingAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.GroupingAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Advices.GroupingAdvice.Master">
       <summary>
@@ -3033,7 +3100,13 @@
             This method is equivalent to <see cref="M:PostSharp.Aspects.IInstanceScopedAspect.RuntimeInitializeInstance" /></summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.InitializeAspectInstanceAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.InitializeAspectInstanceAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.InitializeAspectInstanceAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.InterfaceOverrideAction">
       <summary>
@@ -3087,7 +3160,12 @@
     </member>
     <member name="P:PostSharp.Aspects.Advices.IntroduceInterfaceAdviceInstance.MasterAspectMember">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "P:PostSharp.Aspects.Advices.IntroduceInterfaceAdviceInstance.MasterAspectMember"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>P:PostSharp.Aspects.Advices.IntroduceInterfaceAdviceInstance.MasterAspectMember</parameter>
+          </include>
+        </markup>
       </summary>
     </member>
     <member name="P:PostSharp.Aspects.Advices.IntroduceInterfaceAdviceInstance.OverrideAction">
@@ -3115,6 +3193,13 @@
               Specifies the action (<see cref="F:PostSharp.Aspects.Advices.InterfaceOverrideAction.Fail" /> or <see cref="F:PostSharp.Aspects.Advices.InterfaceOverrideAction.Ignore" />)
               to be overtaken when an <i>ancestor</i> of the interface specified in the constructor of this custom attribute
               is already implemented by the type to which the current aspect is applied.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Aspects.Advices.IntroduceInterfaceAttribute.IsProtected">
+      <summary>
+              Determines whether the interface should be exposed indirectly through the 
+              <see cref="T:PostSharp.Aspects.IProtectedInterface`1" /> interface. If <c>false</c>, the interface
+              will be implemented directly by the type.
             </summary>
     </member>
     <member name="P:PostSharp.Aspects.Advices.IntroduceInterfaceAttribute.OverrideAction">
@@ -3152,7 +3237,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.IntroduceMemberAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.IntroduceMemberAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.IntroduceMemberAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Advices.IntroduceMemberAttribute.IsIsVirtualSpecified">
       <summary>
@@ -3224,7 +3315,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.LocationValidationAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.LocationValidationAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.LocationValidationAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.MemberOverrideAction">
       <summary>
@@ -3286,7 +3383,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.MulticastPointcut.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.MulticastPointcut" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.MulticastPointcut</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Advices.MulticastPointcut.Attributes">
       <summary>
@@ -3312,7 +3415,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnEventAddHandlerAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnEventAddHandlerAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnEventAddHandlerAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnEventInvokeHandlerAdvice">
       <summary>
@@ -3321,7 +3430,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnEventInvokeHandlerAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnEventInvokeHandlerAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnEventInvokeHandlerAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnEventRemoveHandlerAdvice">
       <summary>
@@ -3330,7 +3445,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnEventRemoveHandlerAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnEventRemoveHandlerAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnEventRemoveHandlerAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnInstanceConstructedAdvice">
       <summary>
@@ -3340,7 +3461,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnInstanceConstructedAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnInstanceConstructedAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnInstanceConstructedAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnLocationGetValueAdvice">
       <summary>
@@ -3349,7 +3476,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnLocationGetValueAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnLocationGetValueAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnLocationGetValueAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnLocationSetValueAdvice">
       <summary>
@@ -3358,7 +3491,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnLocationSetValueAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnLocationSetValueAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnLocationSetValueAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnMethodBoundaryAdvice">
       <summary>
@@ -3379,7 +3518,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnMethodEntryAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnMethodEntryAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnMethodEntryAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnMethodExceptionAdvice">
       <summary>
@@ -3388,7 +3533,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnMethodExceptionAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnMethodExceptionAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnMethodExceptionAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnMethodExitAdvice">
       <summary>
@@ -3397,7 +3548,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnMethodExitAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnMethodExitAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnMethodExitAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnMethodInvokeAdvice">
       <summary>
@@ -3406,7 +3563,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnMethodInvokeAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnMethodInvokeAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnMethodInvokeAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnMethodResumeAdvice">
       <summary>
@@ -3415,7 +3578,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnMethodResumeAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnMethodResumeAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnMethodResumeAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnMethodSuccessAdvice">
       <summary>
@@ -3424,7 +3593,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnMethodSuccessAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnMethodSuccessAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnMethodSuccessAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.OnMethodYieldAdvice">
       <summary>
@@ -3433,7 +3608,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.OnMethodYieldAdvice.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.OnMethodYieldAdvice" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.OnMethodYieldAdvice</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.Pointcut">
       <summary>
@@ -3442,7 +3623,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.Pointcut.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.Pointcut" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.Pointcut</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Advices.Property`1">
       <summary>
@@ -3525,7 +3712,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Advices.SelfPointcut.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Advices.SelfPointcut" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Advices.SelfPointcut</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Configuration.AspectConfiguration">
       <summary>
@@ -3533,7 +3726,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.AspectConfiguration.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.AspectConfiguration" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.AspectConfiguration</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Configuration.AspectConfiguration.AspectPriority">
       <summary>
@@ -3557,7 +3756,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.AspectConfigurationAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.AspectConfigurationAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.AspectConfigurationAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Configuration.AspectConfigurationAttribute.AspectPriority">
       <summary>
@@ -3610,7 +3815,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.CompositionAspectConfiguration.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.CompositionAspectConfiguration" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.CompositionAspectConfiguration</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Configuration.CompositionAspectConfiguration.AncestorOverrideAction">
       <summary>
@@ -3657,7 +3868,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.CompositionAspectConfigurationAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.CompositionAspectConfigurationAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.CompositionAspectConfigurationAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Configuration.CompositionAspectConfigurationAttribute.AncestorOverrideAction">
       <summary>
@@ -3704,7 +3921,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.CustomAttributeIntroductionAspectConfiguration.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.CustomAttributeIntroductionAspectConfiguration" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.CustomAttributeIntroductionAspectConfiguration</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Configuration.CustomAttributeIntroductionAspectConfiguration.ObjectConstruction">
       <summary>
@@ -3717,7 +3940,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.EventInterceptionAspectConfiguration.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.EventInterceptionAspectConfiguration" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.EventInterceptionAspectConfiguration</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Configuration.EventInterceptionAspectConfigurationAttribute">
       <summary>
@@ -3726,7 +3955,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.EventInterceptionAspectConfigurationAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.EventInterceptionAspectConfigurationAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.EventInterceptionAspectConfigurationAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Configuration.ExternalAspectConfiguration">
       <summary>
@@ -3734,7 +3969,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.ExternalAspectConfiguration.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.ExternalAspectConfiguration" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.ExternalAspectConfiguration</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Configuration.ExternalAspectConfiguration.ImplementationTypeName">
       <summary>
@@ -3777,7 +4018,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.LocationInterceptionAspectConfiguration.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.LocationInterceptionAspectConfiguration" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.LocationInterceptionAspectConfiguration</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Configuration.LocationInterceptionAspectConfigurationAttribute">
       <summary>
@@ -3786,7 +4033,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.LocationInterceptionAspectConfigurationAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.LocationInterceptionAspectConfigurationAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.LocationInterceptionAspectConfigurationAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Configuration.ManagedResourceIntroductionAspectConfiguration">
       <summary>
@@ -3816,7 +4069,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.MethodInterceptionAspectConfiguration.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.MethodInterceptionAspectConfiguration" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.MethodInterceptionAspectConfiguration</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Configuration.MethodInterceptionAspectConfigurationAttribute">
       <summary>
@@ -3825,7 +4084,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.MethodInterceptionAspectConfigurationAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.MethodInterceptionAspectConfigurationAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.MethodInterceptionAspectConfigurationAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Configuration.OnExceptionAspectConfiguration">
       <summary>
@@ -3833,7 +4098,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.OnExceptionAspectConfiguration.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.OnExceptionAspectConfiguration" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.OnExceptionAspectConfiguration</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Configuration.OnExceptionAspectConfiguration.ApplyToStateMachine">
       <summary>
@@ -3853,19 +4124,18 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.OnExceptionAspectConfigurationAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.OnExceptionAspectConfigurationAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.OnExceptionAspectConfigurationAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Configuration.OnExceptionAspectConfigurationAttribute.ExceptionType">
       <summary>
               Gets or sets the type of exceptions that are caught by this aspect.
             </summary>
-    </member>
-    <member name="M:PostSharp.Aspects.Configuration.OnExceptionAspectConfigurationAttribute.SetAspectConfiguration(PostSharp.Aspects.Configuration.AspectConfiguration)">
-      <summary>
-              Sets up an <see cref="T:PostSharp.Aspects.Configuration.AspectConfiguration" /> object according to the current  custom attribute instance.
-            </summary>
-      <param name="aspectConfiguration">The <see cref="T:PostSharp.Aspects.Configuration.AspectConfiguration" /> instance previously returned  by the
-              <see cref="M:PostSharp.Aspects.Configuration.AspectConfigurationAttribute.CreateAspectConfiguration" /> method.</param>
     </member>
     <member name="T:PostSharp.Aspects.Configuration.OnMethodBoundaryAspectConfiguration">
       <summary>
@@ -3873,7 +4143,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.OnMethodBoundaryAspectConfiguration.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.OnMethodBoundaryAspectConfiguration" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.OnMethodBoundaryAspectConfiguration</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Configuration.OnMethodBoundaryAspectConfiguration.ApplyToStateMachine">
       <summary>
@@ -3888,7 +4164,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Configuration.OnMethodBoundaryAspectConfigurationAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Configuration.OnMethodBoundaryAspectConfigurationAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Configuration.OnMethodBoundaryAspectConfigurationAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Dependencies.AdviceDependencyAttribute">
       <summary>
@@ -4009,7 +4291,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Dependencies.AspectDependencyAttributeCollection.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Dependencies.AspectDependencyAttributeCollection" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Dependencies.AspectDependencyAttributeCollection</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Aspects.Dependencies.AspectDependencyPosition">
       <summary>
@@ -5014,7 +5302,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Serialization.AspectSerializer.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Serialization.AspectSerializer" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Serialization.AspectSerializer</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.Serialization.AspectSerializer.Deserialize(System.IO.Stream,PostSharp.Reflection.IMetadataDispenser)">
       <summary>
@@ -5067,7 +5361,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Serialization.BinaryAspectSerializer.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Serialization.BinaryAspectSerializer" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Serialization.BinaryAspectSerializer</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.Serialization.BinaryAspectSerializer.ChainSurrogateSelector(System.Runtime.Serialization.ISurrogateSelector)">
       <summary>
@@ -5111,15 +5411,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Serialization.MsilAspectSerializer.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Serialization.MsilAspectSerializer" /> class</summary>
-    </member>
-    <member name="M:PostSharp.Aspects.Serialization.MsilAspectSerializer.Deserialize(System.IO.Stream,PostSharp.Reflection.IMetadataDispenser)">
       <summary>
-              Deserializes a stream into an array if aspects.
-            </summary>
-      <param name="stream">Stream containing serialized aspects.</param>
-      <param name="metadataDispenser">Metadata dispenser to be used to resolve serialized metadata references in <paramref name="stream" />.</param>
-      <returns>An array of aspects.</returns>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Serialization.MsilAspectSerializer</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Aspects.Serialization.MsilAspectSerializer.Serialize(PostSharp.Aspects.IAspect[],System.IO.Stream,PostSharp.Reflection.IMetadataEmitter)">
       <summary>
@@ -5137,20 +5435,18 @@
             </summary>
     </member>
     <member name="M:PostSharp.Aspects.Serialization.PortableAspectSerializer.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Aspects.Serialization.PortableAspectSerializer" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Aspects.Serialization.PortableAspectSerializer</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Aspects.Serialization.PortableAspectSerializer.Binder">
       <summary>
             Gets or sets the <see cref="T:PostSharp.Serialization.PortableSerializationBinder" /> used to deserialize aspects.
             </summary>
-    </member>
-    <member name="M:PostSharp.Aspects.Serialization.PortableAspectSerializer.Deserialize(System.IO.Stream,PostSharp.Reflection.IMetadataDispenser)">
-      <summary>
-              Deserializes a stream into an array if aspects.
-            </summary>
-      <param name="stream">Stream containing serialized aspects.</param>
-      <param name="metadataDispenser">Metadata dispenser to be used to resolve serialized metadata references in <paramref name="stream" />.</param>
-      <returns>An array of aspects.</returns>
     </member>
     <member name="M:PostSharp.Aspects.Serialization.PortableAspectSerializer.Serialize(PostSharp.Aspects.IAspect[],System.IO.Stream,PostSharp.Reflection.IMetadataEmitter)">
       <summary>
@@ -5235,39 +5531,87 @@
     </member>
     <member name="M:PostSharp.Collections.LinkedListExtensions.ToEnumerable``1(PostSharp.Collections.ReadOnlyLinkedList{``0})">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "M:PostSharp.Collections.LinkedListExtensions.ToEnumerable``1(PostSharp.Collections.ReadOnlyLinkedList{``0})"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Collections.LinkedListExtensions.ToEnumerable``1(PostSharp.Collections.ReadOnlyLinkedList{``0})</parameter>
+          </include>
+        </markup>
       </summary>
       <param name="linkedList">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="linkedList"/&gt; documentation for "M:PostSharp.Collections.LinkedListExtensions.ToEnumerable``1(PostSharp.Collections.ReadOnlyLinkedList{``0})"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>linkedList</parameter>
+            <parameter>M:PostSharp.Collections.LinkedListExtensions.ToEnumerable``1(PostSharp.Collections.ReadOnlyLinkedList{``0})</parameter>
+          </include>
+        </markup>
       </param>
       <typeparam name="T">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T"/&gt; documentation for "M:PostSharp.Collections.LinkedListExtensions.ToEnumerable``1(PostSharp.Collections.ReadOnlyLinkedList{``0})"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>typeparam</parameter>
+            <parameter>T</parameter>
+            <parameter>M:PostSharp.Collections.LinkedListExtensions.ToEnumerable``1(PostSharp.Collections.ReadOnlyLinkedList{``0})</parameter>
+          </include>
+        </markup>
       </typeparam>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Collections.LinkedListExtensions.ToEnumerable``1(PostSharp.Collections.ReadOnlyLinkedList{``0})"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Collections.LinkedListExtensions.ToEnumerable``1(PostSharp.Collections.ReadOnlyLinkedList{``0})</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="T:PostSharp.Collections.ReadOnlyLinkedList`1">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "T:PostSharp.Collections.ReadOnlyLinkedList`1"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.Collections.ReadOnlyLinkedList`1</parameter>
+          </include>
+        </markup>
       </summary>
       <typeparam name="T">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T"/&gt; documentation for "T:PostSharp.Collections.ReadOnlyLinkedList`1"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>typeparam</parameter>
+            <parameter>T</parameter>
+            <parameter>T:PostSharp.Collections.ReadOnlyLinkedList`1</parameter>
+          </include>
+        </markup>
       </typeparam>
     </member>
     <member name="P:PostSharp.Collections.ReadOnlyLinkedList`1.First">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "P:PostSharp.Collections.ReadOnlyLinkedList`1.First"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>P:PostSharp.Collections.ReadOnlyLinkedList`1.First</parameter>
+          </include>
+        </markup>
       </summary>
     </member>
     <member name="P:PostSharp.Collections.ReadOnlyLinkedList`1.IsEmpty">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "P:PostSharp.Collections.ReadOnlyLinkedList`1.IsEmpty"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>P:PostSharp.Collections.ReadOnlyLinkedList`1.IsEmpty</parameter>
+          </include>
+        </markup>
       </summary>
     </member>
     <member name="P:PostSharp.Collections.ReadOnlyLinkedList`1.Last">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "P:PostSharp.Collections.ReadOnlyLinkedList`1.Last"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>P:PostSharp.Collections.ReadOnlyLinkedList`1.Last</parameter>
+          </include>
+        </markup>
       </summary>
     </member>
     <member name="T:PostSharp.Collections.ReadOnlySinglyLinkedList`1">
@@ -5278,7 +5622,12 @@
     </member>
     <member name="P:PostSharp.Collections.ReadOnlySinglyLinkedList`1.FirstNode">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "P:PostSharp.Collections.ReadOnlySinglyLinkedList`1.FirstNode"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>P:PostSharp.Collections.ReadOnlySinglyLinkedList`1.FirstNode</parameter>
+          </include>
+        </markup>
       </summary>
     </member>
     <member name="M:PostSharp.Collections.ReadOnlySinglyLinkedList`1.GetEnumerator">
@@ -5359,9 +5708,7 @@
             Validates the fact that the constraint has been applied on a valid element of code. When this
             method returns <c>false</c>, the constraint is silently ignored.
             </summary>
-      <param name="target">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="target"/&gt; documentation for "M:PostSharp.Constraints.ComponentInternalAttribute.ValidateConstraint(System.Object)"]</p>
-      </param>
+      <param name="target"></param>
       <returns>
         <c>true</c> if the constraint has been applied on a valid element of code, otherwise <c>false</c>.</returns>
     </member>
@@ -5377,16 +5724,20 @@
             </summary>
     </member>
     <member name="M:PostSharp.Constraints.Constraint.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Constraints.Constraint" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Constraints.Constraint</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Constraints.Constraint.ValidateConstraint(System.Object)">
       <summary>
             Validates the fact that the constraint has been applied on a valid element of code. When this
             method returns <c>false</c>, the constraint is silently ignored.
             </summary>
-      <param name="target">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="target"/&gt; documentation for "M:PostSharp.Constraints.Constraint.ValidateConstraint(System.Object)"]</p>
-      </param>
+      <param name="target"></param>
       <returns>
         <c>true</c> if the constraint has been applied on a valid element of code, otherwise <c>false</c>.</returns>
     </member>
@@ -5396,7 +5747,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Constraints.ExperimentalAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Constraints.ExperimentalAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Constraints.ExperimentalAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Constraints.ExperimentalAttribute.ValidateCode(System.Object,System.Reflection.Assembly)">
       <summary>
@@ -5422,9 +5779,7 @@
             Validates the fact that the constraint has been applied on a valid element of code. When this
             method returns <c>false</c>, the constraint is silently ignored.
             </summary>
-      <param name="target">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="target"/&gt; documentation for "M:PostSharp.Constraints.IConstraint.ValidateConstraint(System.Object)"]</p>
-      </param>
+      <param name="target"></param>
       <returns>
         <c>true</c> if the constraint has been applied on a valid element of code, otherwise <c>false</c>.</returns>
     </member>
@@ -5460,9 +5815,7 @@
             Validates the fact that the constraint has been applied on a valid element of code. When this
             method returns <c>false</c>, the constraint is silently ignored.
             </summary>
-      <param name="target">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="target"/&gt; documentation for "M:PostSharp.Constraints.InternalAttribute.ValidateConstraint(System.Object)"]</p>
-      </param>
+      <param name="target"></param>
       <returns>
         <c>true</c> if the constraint has been applied on a valid element of code, otherwise <c>false</c>.</returns>
     </member>
@@ -5562,7 +5915,13 @@
             method returns <c>false</c>, the constraint is silently ignored.
             </summary>
       <param name="target">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="target"/&gt; documentation for "M:PostSharp.Constraints.ProtectedAttribute.ValidateConstraint(System.Object)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:PostSharp.Constraints.ProtectedAttribute.ValidateConstraint(System.Object)</parameter>
+          </include>
+        </markup>
       </param>
       <returns>
         <c>true</c> if the constraint has been applied on a valid element of code, otherwise <c>false</c>.</returns>
@@ -5573,7 +5932,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Constraints.ReferentialConstraint.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Constraints.ReferentialConstraint" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Constraints.ReferentialConstraint</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Constraints.ReferentialConstraint.ValidateCode(System.Object,System.Reflection.Assembly)">
       <summary>
@@ -5591,7 +5956,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Constraints.ScalarConstraint.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Constraints.ScalarConstraint" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Constraints.ScalarConstraint</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Constraints.ScalarConstraint.ValidateCode(System.Object)">
       <summary>
@@ -5661,6 +6032,11 @@
             </summary>
       <param name="level">Level of backward compatibility required by aspects in the current assembly.</param>
     </member>
+    <member name="T:PostSharp.Extensibility.EnhancedByPostSharpAttribute">
+      <summary>
+              Custom attribute added to the assembly manifest of modules processed by PostSharp.
+            </summary>
+    </member>
     <member name="M:PostSharp.Extensibility.EnhancedByPostSharpAttribute.#ctor(System.Int32)">
       <summary>
               Instantiates a new <see cref="T:PostSharp.Extensibility.EnhancedByPostSharpAttribute" /> and specifies the license number
@@ -5690,6 +6066,12 @@
     <member name="P:PostSharp.Extensibility.EscalatePostSharpMessageAttribute.MessageId">
       <summary>
               Gets the identifier of the message to be disabled.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Extensibility.FrameworkVariants">
+      <summary>
+              Defines constants identifying the different variants of the
+              .NET Framework (<see cref="F:PostSharp.Extensibility.FrameworkVariants.Full" />, <see cref="F:PostSharp.Extensibility.FrameworkVariants.Compact" />, <see cref="F:PostSharp.Extensibility.FrameworkVariants.Silverlight" />).
             </summary>
     </member>
     <member name="F:PostSharp.Extensibility.FrameworkVariants.Compact">
@@ -5811,6 +6193,33 @@
               Gets the currently executing project.
             </summary>
     </member>
+    <member name="M:PostSharp.Extensibility.IPostSharpEnvironment.FindAssembly(System.Reflection.AssemblyName)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Extensibility.IPostSharpEnvironment.FindAssembly(System.Reflection.AssemblyName)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="name">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>name</parameter>
+            <parameter>M:PostSharp.Extensibility.IPostSharpEnvironment.FindAssembly(System.Reflection.AssemblyName)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Extensibility.IPostSharpEnvironment.FindAssembly(System.Reflection.AssemblyName)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
     <member name="M:PostSharp.Extensibility.IPostSharpEnvironment.FindAssembly(System.Reflection.AssemblyName,PostSharp.Extensibility.AssemblyLoadContext)">
       <summary>
             Finds the location of an assembly given its name.
@@ -5847,6 +6256,15 @@
       <param name="name">Local name of the project extension element.</param>
       <param name="ns">XML namespace of the project extension element.</param>
       <returns>The set of project elements named <paramref name="name" /> in all loaded projects.</returns>
+    </member>
+    <member name="M:PostSharp.Extensibility.IProject.GetFrameworkVariant">
+      <summary>
+              Gets the variant of the .NET Framework against which the .NET assembly
+              currently processed is linked.
+            </summary>
+      <returns>A string uniquely identifying the framework variant, to be compared
+              to the constants defined in the <see cref="T:PostSharp.Extensibility.FrameworkVariants" /> class.
+              Actually, the public key token of <c>mscorlib</c> is returned.</returns>
     </member>
     <member name="M:PostSharp.Extensibility.IProject.GetService``1(System.Boolean)">
       <summary>
@@ -5958,6 +6376,15 @@
       <summary>
               Encapsulates a message (error, warning, info, ...).
             </summary>
+    </member>
+    <member name="M:PostSharp.Extensibility.Message.#ctor(PostSharp.Extensibility.SeverityType,System.String,System.String,System.String)">
+      <summary>
+              Initializes a new <see cref="T:PostSharp.Extensibility.Message" /> and specifies only required parameters.
+            </summary>
+      <param name="severity">Message severity (fatal error, error, info, debug).</param>
+      <param name="messageId">Identifier of the message type.</param>
+      <param name="source">Name of the component emitting the message.</param>
+      <param name="messageText">Fully formatted message text.</param>
     </member>
     <member name="M:PostSharp.Extensibility.Message.#ctor(PostSharp.Extensibility.SeverityType,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.Exception)">
       <summary>
@@ -6170,6 +6597,31 @@
               Provides commodity methods to work with an <see cref="T:PostSharp.Extensibility.IMessageSink" />.
             </summary>
     </member>
+    <member name="M:PostSharp.Extensibility.MessageSource.CreateMessage(PostSharp.Extensibility.SeverityType,System.String,System.Object[],System.String,System.Int32,System.Int32,System.Exception)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Extensibility.MessageSource.CreateMessage(PostSharp.Extensibility.SeverityType,System.String,System.Object[],System.String,System.Int32,System.Int32,System.Exception)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="severity"></param>
+      <param name="messageId"></param>
+      <param name="arguments"></param>
+      <param name="locationFile"></param>
+      <param name="locationLine"></param>
+      <param name="locationColumn"></param>
+      <param name="innerException"></param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Extensibility.MessageSource.CreateMessage(PostSharp.Extensibility.SeverityType,System.String,System.Object[],System.String,System.Int32,System.Int32,System.Exception)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
     <member name="M:PostSharp.Extensibility.MessageSource.CreateMessage(PostSharp.MessageLocation,PostSharp.Extensibility.SeverityType,System.String,System.Exception,System.Object[])">
       <summary>
             Creates a <see cref="T:PostSharp.Extensibility.Message" /> from the current <see cref="T:PostSharp.Extensibility.MessageSource" />.
@@ -6191,6 +6643,95 @@
               Writes a message to the sink.
             </summary>
       <param name="message">A message.</param>
+    </member>
+    <member name="M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[])">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[])</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="severity"></param>
+      <param name="messageId"></param>
+      <param name="arguments"></param>
+    </member>
+    <member name="M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[],PostSharp.Reflection.SymbolSequencePoint)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[],PostSharp.Reflection.SymbolSequencePoint)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="severity"></param>
+      <param name="messageId"></param>
+      <param name="arguments"></param>
+      <param name="symbolSequencePoint"></param>
+    </member>
+    <member name="M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[],System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[],System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="severity"></param>
+      <param name="messageId"></param>
+      <param name="arguments"></param>
+      <param name="locationFile"></param>
+    </member>
+    <member name="M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[],System.String,System.Int32)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[],System.String,System.Int32)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="severity"></param>
+      <param name="messageId"></param>
+      <param name="arguments"></param>
+      <param name="locationFile"></param>
+      <param name="locationLine"></param>
+    </member>
+    <member name="M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[],System.String,System.Int32,System.Int32)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[],System.String,System.Int32,System.Int32)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="severity"></param>
+      <param name="messageId"></param>
+      <param name="arguments"></param>
+      <param name="locationFile"></param>
+      <param name="locationLine"></param>
+      <param name="locationColumn"></param>
+    </member>
+    <member name="M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[],System.String,System.Int32,System.Int32,System.Exception)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Extensibility.MessageSource.Write(PostSharp.Extensibility.SeverityType,System.String,System.Object[],System.String,System.Int32,System.Int32,System.Exception)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="severity"></param>
+      <param name="messageId"></param>
+      <param name="arguments"></param>
+      <param name="locationFile"></param>
+      <param name="locationLine"></param>
+      <param name="locationColumn"></param>
+      <param name="innerException"></param>
     </member>
     <member name="M:PostSharp.Extensibility.MessageSource.Write(PostSharp.MessageLocation,PostSharp.Extensibility.SeverityType,System.String,System.Exception,System.Object[])">
       <summary>
@@ -6280,7 +6821,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Extensibility.MulticastAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Extensibility.MulticastAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Extensibility.MulticastAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="P:PostSharp.Extensibility.MulticastAttribute.AttributeExclude">
       <summary>
@@ -6936,8 +7483,20 @@
               Gets the name of the required task (should be defined in <see cref="P:PostSharp.Extensibility.RequirePostSharpAttribute.PlugIn" />).
             </summary>
     </member>
+    <member name="T:PostSharp.Extensibility.RequireReflectionWrapperAttribute">
+      <summary>
+              Custom attribute that, when applied on a type, specifies that all build-time semantics of this type
+              require reflection wrappers to be passed instead of real reflection objects.
+            </summary>
+    </member>
     <member name="M:PostSharp.Extensibility.RequireReflectionWrapperAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Extensibility.RequireReflectionWrapperAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Extensibility.RequireReflectionWrapperAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Extensibility.SeverityType">
       <summary>
@@ -6996,7 +7555,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Extensibility.SuppressAnnotationValidationAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Extensibility.SuppressAnnotationValidationAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Extensibility.SuppressAnnotationValidationAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Extensibility.TargetFrameworkFamily">
       <summary>
@@ -7011,8 +7576,8 @@
     </member>
     <member name="M:PostSharp.Extensibility.TargetFrameworkFamily.Equals(System.Object)">
       <summary>Indicates whether this instance and a specified object are equal.</summary>
-      <param name="obj">Another object to compare to. </param>
-      <returns>true if <paramref name="obj" /> and this instance are the same type and represent the same value; otherwise, false.</returns>
+      <param name="obj">The object to compare with the current instance. </param>
+      <returns>true if <paramref name="obj" /> and this instance are the same type and represent the same value; otherwise, false. </returns>
     </member>
     <member name="M:PostSharp.Extensibility.TargetFrameworkFamily.GetHashCode">
       <summary>Returns the hash code for this instance.</summary>
@@ -7146,7 +7711,13 @@
       <param name="value">The field value used to locate a matching field. </param>
       <param name="culture">An instance of <see cref="T:System.Globalization.CultureInfo" /> that is used to control the coercion of data types, in binder implementations that coerce types. If <paramref name="culture" /> is null, the <see cref="T:System.Globalization.CultureInfo" /> for the current thread is used.Note   For example, if a binder implementation allows coercion of string values to numeric types, this parameter is necessary to convert a String that represents 1000 to a Double value, because 1000 is represented differently by different cultures. The default binder does not do such string coercions.</param>
       <param name="bindingFlags">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="bindingFlags"/&gt; documentation for "M:PostSharp.Reflection.CustomReflectionBinder.BindToField(System.Reflection.BindingFlags,System.Reflection.FieldInfo[],System.Object,System.Globalization.CultureInfo)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>bindingFlags</parameter>
+            <parameter>M:PostSharp.Reflection.CustomReflectionBinder.BindToField(System.Reflection.BindingFlags,System.Reflection.FieldInfo[],System.Object,System.Globalization.CultureInfo)</parameter>
+          </include>
+        </markup>
       </param>
       <returns>The matching field. </returns>
       <exception cref="T:System.Reflection.AmbiguousMatchException">For the default binder, <paramref name="bindingAttr" /> includes <see cref="F:System.Reflection.BindingFlags.SetField" />, and <paramref name="match" /> contains multiple fields that are equally good matches for <paramref name="value" />. For example, <paramref name="value" /> contains a MyClass object that implements the IMyClass interface, and <paramref name="match" /> contains a field of type MyClass and a field of type IMyClass. </exception>
@@ -7163,7 +7734,13 @@
       <param name="names">The parameter names, if parameter names are to be considered when matching, or null if arguments are to be treated as purely positional. For example, parameter names must be used if arguments are not supplied in positional order. </param>
       <param name="state">After the method returns, <paramref name="state" /> contains a binder-provided object that keeps track of argument reordering. The binder creates this object, and the binder is the sole consumer of this object. If <paramref name="state" /> is not null when BindToMethod returns, you must pass <paramref name="state" /> to the <see cref="M:System.Reflection.Binder.ReorderArgumentArray(System.Object[]@,System.Object)" /> method if you want to restore <paramref name="args" /> to its original order, for example, so that you can retrieve the values of ref parameters (ByRef parameters in Visual Basic). </param>
       <param name="bindingFlags">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="bindingFlags"/&gt; documentation for "M:PostSharp.Reflection.CustomReflectionBinder.BindToMethod(System.Reflection.BindingFlags,System.Reflection.MethodBase[],System.Object[]@,System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[],System.Object@)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>bindingFlags</parameter>
+            <parameter>M:PostSharp.Reflection.CustomReflectionBinder.BindToMethod(System.Reflection.BindingFlags,System.Reflection.MethodBase[],System.Object[]@,System.Reflection.ParameterModifier[],System.Globalization.CultureInfo,System.String[],System.Object@)</parameter>
+          </include>
+        </markup>
       </param>
       <returns>The matching method.</returns>
       <exception cref="T:System.Reflection.AmbiguousMatchException">For the default binder, <paramref name="match" /> contains multiple methods that are equally good matches for <paramref name="args" />. For example, <paramref name="args" /> contains a MyClass object that implements the IMyClass interface, and <paramref name="match" /> contains a method that takes MyClass and a method that takes IMyClass. </exception>
@@ -7194,7 +7771,13 @@
       <param name="types">The parameter types used to locate a matching method. </param>
       <param name="modifiers">An array of parameter modifiers that enable binding to work with parameter signatures in which the types have been modified. </param>
       <param name="bindingFlags">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="bindingFlags"/&gt; documentation for "M:PostSharp.Reflection.CustomReflectionBinder.SelectMethod(System.Reflection.BindingFlags,System.Reflection.MethodBase[],System.Type[],System.Reflection.ParameterModifier[])"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>bindingFlags</parameter>
+            <parameter>M:PostSharp.Reflection.CustomReflectionBinder.SelectMethod(System.Reflection.BindingFlags,System.Reflection.MethodBase[],System.Type[],System.Reflection.ParameterModifier[])</parameter>
+          </include>
+        </markup>
       </param>
       <returns>The matching method, if found; otherwise, null.</returns>
       <exception cref="T:System.Reflection.AmbiguousMatchException">For the default binder, <paramref name="match" /> contains multiple methods that are equally good matches for the parameter types described by <paramref name="types" />. For example, the array in <paramref name="types" /> contains a <see cref="T:System.Type" /> object for MyClass and the array in <paramref name="match" /> contains a method that takes a base class of MyClass and a method that takes an interface that MyClass implements. </exception>
@@ -7208,7 +7791,13 @@
       <param name="indexes">The index types of the property being searched for. Used for index properties such as the indexer for a class. </param>
       <param name="modifiers">An array of parameter modifiers that enable binding to work with parameter signatures in which the types have been modified. </param>
       <param name="bindingFlags">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="bindingFlags"/&gt; documentation for "M:PostSharp.Reflection.CustomReflectionBinder.SelectProperty(System.Reflection.BindingFlags,System.Reflection.PropertyInfo[],System.Type,System.Type[],System.Reflection.ParameterModifier[])"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>bindingFlags</parameter>
+            <parameter>M:PostSharp.Reflection.CustomReflectionBinder.SelectProperty(System.Reflection.BindingFlags,System.Reflection.PropertyInfo[],System.Type,System.Type[],System.Reflection.ParameterModifier[])</parameter>
+          </include>
+        </markup>
       </param>
       <returns>The matching property.</returns>
       <exception cref="T:System.Reflection.AmbiguousMatchException">For the default binder, <paramref name="match" /> contains multiple properties that are equally good matches for <paramref name="returnType" /> and <paramref name="indexes" />. </exception>
@@ -7231,8 +7820,8 @@
     </member>
     <member name="M:PostSharp.Reflection.DeclarationIdentifier.Equals(System.Object)">
       <summary>Indicates whether this instance and a specified object are equal.</summary>
-      <param name="obj">Another object to compare to. </param>
-      <returns>true if <paramref name="obj" /> and this instance are the same type and represent the same value; otherwise, false.</returns>
+      <param name="obj">The object to compare with the current instance. </param>
+      <returns>true if <paramref name="obj" /> and this instance are the same type and represent the same value; otherwise, false. </returns>
     </member>
     <member name="M:PostSharp.Reflection.DeclarationIdentifier.GetDeclarationIdentifier(System.Reflection.MemberInfo)">
       <summary>
@@ -7282,28 +7871,30 @@
       <summary>
             Determines whether two instances of the <see cref="T:PostSharp.Reflection.DeclarationIdentifier" /> type are equal.
             </summary>
-      <param name="left">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="left"/&gt; documentation for "M:PostSharp.Reflection.DeclarationIdentifier.op_Equality(PostSharp.Reflection.DeclarationIdentifier,PostSharp.Reflection.DeclarationIdentifier)"]</p>
-      </param>
-      <param name="right">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="right"/&gt; documentation for "M:PostSharp.Reflection.DeclarationIdentifier.op_Equality(PostSharp.Reflection.DeclarationIdentifier,PostSharp.Reflection.DeclarationIdentifier)"]</p>
-      </param>
+      <param name="left"></param>
+      <param name="right"></param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.DeclarationIdentifier.op_Equality(PostSharp.Reflection.DeclarationIdentifier,PostSharp.Reflection.DeclarationIdentifier)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.DeclarationIdentifier.op_Equality(PostSharp.Reflection.DeclarationIdentifier,PostSharp.Reflection.DeclarationIdentifier)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.DeclarationIdentifier.op_Inequality(PostSharp.Reflection.DeclarationIdentifier,PostSharp.Reflection.DeclarationIdentifier)">
       <summary>
             Determines whether two instances of the <see cref="T:PostSharp.Reflection.DeclarationIdentifier" /> type are different.
             </summary>
-      <param name="left">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="left"/&gt; documentation for "M:PostSharp.Reflection.DeclarationIdentifier.op_Inequality(PostSharp.Reflection.DeclarationIdentifier,PostSharp.Reflection.DeclarationIdentifier)"]</p>
-      </param>
-      <param name="right">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="right"/&gt; documentation for "M:PostSharp.Reflection.DeclarationIdentifier.op_Inequality(PostSharp.Reflection.DeclarationIdentifier,PostSharp.Reflection.DeclarationIdentifier)"]</p>
-      </param>
+      <param name="left"></param>
+      <param name="right"></param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.DeclarationIdentifier.op_Inequality(PostSharp.Reflection.DeclarationIdentifier,PostSharp.Reflection.DeclarationIdentifier)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.DeclarationIdentifier.op_Inequality(PostSharp.Reflection.DeclarationIdentifier,PostSharp.Reflection.DeclarationIdentifier)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="P:PostSharp.Reflection.DeclarationIdentifier.TypeIndex">
@@ -7475,9 +8066,9 @@
       <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
     </member>
     <member name="M:PostSharp.Reflection.LocationInfo.Equals(System.Object)">
-      <summary>Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.</summary>
+      <summary>Determines whether the specified object is equal to the current object.</summary>
       <param name="obj">The object to compare with the current object. </param>
-      <returns>true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />; otherwise, false.</returns>
+      <returns>true if the specified object  is equal to the current object; otherwise, false.</returns>
     </member>
     <member name="P:PostSharp.Reflection.LocationInfo.FieldInfo">
       <summary>
@@ -7486,8 +8077,8 @@
             </summary>
     </member>
     <member name="M:PostSharp.Reflection.LocationInfo.GetHashCode">
-      <summary>Serves as a hash function for a particular type. </summary>
-      <returns>A hash code for the current <see cref="T:System.Object" />.</returns>
+      <summary>Serves as the default hash function. </summary>
+      <returns>A hash code for the current object.</returns>
     </member>
     <member name="M:PostSharp.Reflection.LocationInfo.GetValue(System.Object)">
       <summary>
@@ -7585,11 +8176,14 @@
               Initializes a new <see cref="T:PostSharp.Reflection.LocationInfo" /> from a
               <see cref="T:System.Reflection.FieldInfo" />, <see cref="T:System.Reflection.PropertyInfo" />, or <see cref="T:System.Reflection.ParameterInfo" />.
             </summary>
-      <param name="reflectionInfo">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="reflectionInfo"/&gt; documentation for "M:PostSharp.Reflection.LocationInfo.ToLocationInfo(System.Object)"]</p>
-      </param>
+      <param name="reflectionInfo"></param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.LocationInfo.ToLocationInfo(System.Object)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.LocationInfo.ToLocationInfo(System.Object)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.LocationInfo.ToLocationInfoArray(System.Collections.Generic.ICollection{System.Reflection.FieldInfo})">
@@ -7878,81 +8472,210 @@
       <param name="definingAssembly">The assembly defining the <see cref="T:System.Runtime.CompilerServices.InternalsVisibleToAttribute" /> attribute.</param>
       <param name="referencingAssembly">The assembly referenced by the <see cref="T:System.Runtime.CompilerServices.InternalsVisibleToAttribute" /> attribute.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.AreInternalsVisibleTo(System.Reflection.Assembly,System.Reflection.Assembly)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.AreInternalsVisibleTo(System.Reflection.Assembly,System.Reflection.Assembly)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </summary>
       <param name="declaringType">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="declaringType"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>declaringType</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="addMethod">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="addMethod"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>addMethod</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="removeMethod">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="removeMethod"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>removeMethod</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="raiseMethod">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="raiseMethod"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>raiseMethod</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetEvent(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.ReflectionHelper.GetLocation(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetLocation(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetLocation(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </summary>
       <param name="declaringType">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="declaringType"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetLocation(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>declaringType</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetLocation(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="getter">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="getter"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetLocation(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>getter</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetLocation(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="setter">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="setter"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetLocation(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>setter</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetLocation(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetLocation(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetLocation(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </summary>
       <param name="declaringType">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="declaringType"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>declaringType</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="getter">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="getter"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>getter</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="setter">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="setter"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>setter</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)</parameter>
+          </include>
+        </markup>
       </summary>
       <param name="declaringType">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="declaringType"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>declaringType</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="getter">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="getter"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>getter</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="setter">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="setter"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>setter</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="throwOnMissingMember">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="throwOnMissingMember"/&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>throwOnMissingMember</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)</parameter>
+          </include>
+        </markup>
       </param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionHelper.GetProperty(System.Type,System.Reflection.MethodInfo,System.Reflection.MethodInfo,System.Boolean)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="T:PostSharp.Reflection.ReflectionSearch">
@@ -7993,6 +8716,17 @@
               custom attributes are requested.</param>
       <returns>The set of all custom attributes added, directly or indirectly, to <paramref name="target" />.</returns>
     </member>
+    <member name="M:PostSharp.Reflection.ReflectionSearch.GetCustomAttributesOnTarget(System.Object,PostSharp.Reflection.ReflectionSearchOptions)">
+      <summary>
+              Gets all custom attributes on a given element of code, including those who have been added indirectly, for
+              instance through <see cref="T:PostSharp.Extensibility.MulticastAttribute" /> and specifies additional options.
+            </summary>
+      <param name="target">Element of code (<see cref="T:System.Type" />, <see cref="T:System.Reflection.MethodInfo" />, ...) whose
+              custom attributes are requested.</param>
+      <param name="options">
+        <see cref="F:PostSharp.Reflection.ReflectionSearchOptions.UseReflectionWrappers" /> or <see cref="F:PostSharp.Reflection.ReflectionSearchOptions.None" />.</param>
+      <returns>The set of all custom attributes added, directly or indirectly, to <paramref name="target" />.</returns>
+    </member>
     <member name="M:PostSharp.Reflection.ReflectionSearch.GetCustomAttributesOnTarget``1(System.Object,PostSharp.Reflection.ReflectionSearchOptions)">
       <summary>
               Gets all custom attributes of a given type on a given element of code, including those who have been added indirectly, for
@@ -8003,17 +8737,6 @@
       <param name="options">
         <see cref="F:PostSharp.Reflection.ReflectionSearchOptions.UseReflectionWrappers" /> or <see cref="F:PostSharp.Reflection.ReflectionSearchOptions.None" />.</param>
       <typeparam name="T">Type of the custom attribute.</typeparam>
-      <returns>The set of all custom attributes added, directly or indirectly, to <paramref name="target" />.</returns>
-    </member>
-    <member name="M:PostSharp.Reflection.ReflectionSearch.GetCustomAttributesOnTarget(System.Object,PostSharp.Reflection.ReflectionSearchOptions)">
-      <summary>
-              Gets all custom attributes on a given element of code, including those who have been added indirectly, for
-              instance through <see cref="T:PostSharp.Extensibility.MulticastAttribute" /> and specifies additional options.
-            </summary>
-      <param name="target">Element of code (<see cref="T:System.Type" />, <see cref="T:System.Reflection.MethodInfo" />, ...) whose
-              custom attributes are requested.</param>
-      <param name="options">
-        <see cref="F:PostSharp.Reflection.ReflectionSearchOptions.UseReflectionWrappers" /> or <see cref="F:PostSharp.Reflection.ReflectionSearchOptions.None" />.</param>
       <returns>The set of all custom attributes added, directly or indirectly, to <paramref name="target" />.</returns>
     </member>
     <member name="M:PostSharp.Reflection.ReflectionSearch.GetDeclarationsUsedByMethod(System.Reflection.MethodBase)">
@@ -8121,7 +8844,12 @@
     </member>
     <member name="T:PostSharp.Reflection.ReflectionSearchOptions">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "T:PostSharp.Reflection.ReflectionSearchOptions"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.Reflection.ReflectionSearchOptions</parameter>
+          </include>
+        </markup>
       </summary>
     </member>
     <member name="F:PostSharp.Reflection.ReflectionSearchOptions.None">
@@ -8177,7 +8905,13 @@
       <summary>Returns a hash code for the specified object.</summary>
       <param name="obj">The <see cref="T:System.Object" /> for which a hash code is to be returned.</param>
       <param name="types">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="types"/&gt; documentation for "M:PostSharp.Reflection.ReflectionTypeComparer.GetHashCode(System.Type[])"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>types</parameter>
+            <parameter>M:PostSharp.Reflection.ReflectionTypeComparer.GetHashCode(System.Type[])</parameter>
+          </include>
+        </markup>
       </param>
       <returns>A hash code for the specified object.</returns>
       <exception cref="T:System.ArgumentNullException">The type of <paramref name="obj" /> is a reference type and <paramref name="obj" /> is null.</exception>
@@ -8250,13 +8984,13 @@
       <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
     </member>
     <member name="M:PostSharp.Reflection.SymbolSequencePoint.Equals(System.Object)">
-      <summary>Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.</summary>
+      <summary>Determines whether the specified object is equal to the current object.</summary>
       <param name="obj">The object to compare with the current object. </param>
-      <returns>true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />; otherwise, false.</returns>
+      <returns>true if the specified object  is equal to the current object; otherwise, false.</returns>
     </member>
     <member name="M:PostSharp.Reflection.SymbolSequencePoint.GetHashCode">
-      <summary>Serves as a hash function for a particular type. </summary>
-      <returns>A hash code for the current <see cref="T:System.Object" />.</returns>
+      <summary>Serves as the default hash function. </summary>
+      <returns>A hash code for the current object.</returns>
     </member>
     <member name="F:PostSharp.Reflection.SymbolSequencePoint.Hidden">
       <summary>
@@ -9447,7 +10181,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitBinaryExpression(PostSharp.Reflection.Syntax.IBinaryExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitBinaryExpression(PostSharp.Reflection.Syntax.IBinaryExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitBlockExpression(PostSharp.Reflection.Syntax.IBlockExpression)">
@@ -9464,7 +10203,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitConditionalExpression(PostSharp.Reflection.Syntax.IConditionalExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitConditionalExpression(PostSharp.Reflection.Syntax.IConditionalExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitConstantExpression(PostSharp.Reflection.Syntax.IConstantExpression)">
@@ -9473,7 +10217,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitConstantExpression(PostSharp.Reflection.Syntax.IConstantExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitConstantExpression(PostSharp.Reflection.Syntax.IConstantExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitCopyBufferExpression(PostSharp.Reflection.Syntax.ICopyBufferExpression)">
@@ -9482,7 +10231,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitCopyBufferExpression(PostSharp.Reflection.Syntax.ICopyBufferExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitCopyBufferExpression(PostSharp.Reflection.Syntax.ICopyBufferExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitExceptionHandler(PostSharp.Reflection.Syntax.ISyntaxExceptionHandler)">
@@ -9500,7 +10254,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitFieldExpression(PostSharp.Reflection.Syntax.IFieldExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitFieldExpression(PostSharp.Reflection.Syntax.IFieldExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitGotoExpression(PostSharp.Reflection.Syntax.IGotoExpression)">
@@ -9565,7 +10324,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitUnaryExpression(PostSharp.Reflection.Syntax.IUnaryExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitUnaryExpression(PostSharp.Reflection.Syntax.IUnaryExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeFormatter.VisitVariableExpression(PostSharp.Reflection.Syntax.ILocalVariableExpression)">
@@ -9590,7 +10354,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Reflection.Syntax.SyntaxTreeVisitor" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Reflection.Syntax.SyntaxTreeVisitor</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitAddressOfExpression(PostSharp.Reflection.Syntax.IAddressOfExpression)">
       <summary>
@@ -9606,7 +10376,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitBinaryExpression(PostSharp.Reflection.Syntax.IBinaryExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitBinaryExpression(PostSharp.Reflection.Syntax.IBinaryExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitBlockExpression(PostSharp.Reflection.Syntax.IBlockExpression)">
@@ -9623,7 +10398,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitConditionalExpression(PostSharp.Reflection.Syntax.IConditionalExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitConditionalExpression(PostSharp.Reflection.Syntax.IConditionalExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitConstantExpression(PostSharp.Reflection.Syntax.IConstantExpression)">
@@ -9632,7 +10412,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitConstantExpression(PostSharp.Reflection.Syntax.IConstantExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitConstantExpression(PostSharp.Reflection.Syntax.IConstantExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitCopyBufferExpression(PostSharp.Reflection.Syntax.ICopyBufferExpression)">
@@ -9641,7 +10426,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitCopyBufferExpression(PostSharp.Reflection.Syntax.ICopyBufferExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitCopyBufferExpression(PostSharp.Reflection.Syntax.ICopyBufferExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitExceptionHandler(PostSharp.Reflection.Syntax.ISyntaxExceptionHandler)">
@@ -9659,7 +10449,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitFieldExpression(PostSharp.Reflection.Syntax.IFieldExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitFieldExpression(PostSharp.Reflection.Syntax.IFieldExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitGotoExpression(PostSharp.Reflection.Syntax.IGotoExpression)">
@@ -9764,7 +10559,12 @@
             </summary>
       <param name="expression">The element to be visited.</param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitUnaryExpression(PostSharp.Reflection.Syntax.IUnaryExpression)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitUnaryExpression(PostSharp.Reflection.Syntax.IUnaryExpression)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="M:PostSharp.Reflection.Syntax.SyntaxTreeVisitor.VisitValueOfExpression(PostSharp.Reflection.Syntax.IValueOfExpression)">
@@ -9835,8 +10635,8 @@
     </member>
     <member name="M:PostSharp.Serialization.DottedString.Equals(System.Object)">
       <summary>Indicates whether this instance and a specified object are equal.</summary>
-      <param name="obj">Another object to compare to. </param>
-      <returns>true if <paramref name="obj" /> and this instance are the same type and represent the same value; otherwise, false.</returns>
+      <param name="obj">The object to compare with the current instance. </param>
+      <returns>true if <paramref name="obj" /> and this instance are the same type and represent the same value; otherwise, false. </returns>
     </member>
     <member name="M:PostSharp.Serialization.DottedString.GetHashCode">
       <summary>Returns the hash code for this instance.</summary>
@@ -10018,9 +10818,7 @@
       <summary>
             Serializes an object
             </summary>
-      <param name="obj">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="obj"/&gt; documentation for "M:PostSharp.Serialization.ISerializer.SerializeObject(System.Object,PostSharp.Serialization.IArgumentsWriter,PostSharp.Serialization.IArgumentsWriter)"]</p>
-      </param>
+      <param name="obj"></param>
       <param name="constructorArguments">Gives access to arguments that will be passed to the <see cref="M:PostSharp.Serialization.ISerializer.CreateInstance(System.Type,PostSharp.Serialization.IArgumentsReader)" /> method during deserialization.</param>
       <param name="initializationArguments">Gives access to arguments that will be passed to the <see cref="M:PostSharp.Serialization.ISerializer.DeserializeFields(System.Object@,PostSharp.Serialization.IArgumentsReader)" /> method during deserialization.</param>
     </member>
@@ -10084,7 +10882,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Serialization.PNonSerializedAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Serialization.PNonSerializedAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Serialization.PNonSerializedAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Serialization.PortableFormatter">
       <summary>
@@ -10140,30 +10944,75 @@
     </member>
     <member name="M:PostSharp.Serialization.PortableSerializationBinder.BindToName(System.Type,System.String@,System.String@)">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "M:PostSharp.Serialization.PortableSerializationBinder.BindToName(System.Type,System.String@,System.String@)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Serialization.PortableSerializationBinder.BindToName(System.Type,System.String@,System.String@)</parameter>
+          </include>
+        </markup>
       </summary>
       <param name="type">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="type"/&gt; documentation for "M:PostSharp.Serialization.PortableSerializationBinder.BindToName(System.Type,System.String@,System.String@)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>type</parameter>
+            <parameter>M:PostSharp.Serialization.PortableSerializationBinder.BindToName(System.Type,System.String@,System.String@)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="typeName">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="typeName"/&gt; documentation for "M:PostSharp.Serialization.PortableSerializationBinder.BindToName(System.Type,System.String@,System.String@)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>typeName</parameter>
+            <parameter>M:PostSharp.Serialization.PortableSerializationBinder.BindToName(System.Type,System.String@,System.String@)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="assemblyName">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="assemblyName"/&gt; documentation for "M:PostSharp.Serialization.PortableSerializationBinder.BindToName(System.Type,System.String@,System.String@)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>assemblyName</parameter>
+            <parameter>M:PostSharp.Serialization.PortableSerializationBinder.BindToName(System.Type,System.String@,System.String@)</parameter>
+          </include>
+        </markup>
       </param>
     </member>
     <member name="M:PostSharp.Serialization.PortableSerializationBinder.BindToType(System.String,System.String)">
       <summary>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;summary&gt; documentation for "M:PostSharp.Serialization.PortableSerializationBinder.BindToType(System.String,System.String)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Serialization.PortableSerializationBinder.BindToType(System.String,System.String)</parameter>
+          </include>
+        </markup>
       </summary>
       <param name="typeName">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="typeName"/&gt; documentation for "M:PostSharp.Serialization.PortableSerializationBinder.BindToType(System.String,System.String)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>typeName</parameter>
+            <parameter>M:PostSharp.Serialization.PortableSerializationBinder.BindToType(System.String,System.String)</parameter>
+          </include>
+        </markup>
       </param>
       <param name="assemblyName">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="assemblyName"/&gt; documentation for "M:PostSharp.Serialization.PortableSerializationBinder.BindToType(System.String,System.String)"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>assemblyName</parameter>
+            <parameter>M:PostSharp.Serialization.PortableSerializationBinder.BindToType(System.String,System.String)</parameter>
+          </include>
+        </markup>
       </param>
       <returns>
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;returns&gt; documentation for "M:PostSharp.Serialization.PortableSerializationBinder.BindToType(System.String,System.String)"]</p>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Serialization.PortableSerializationBinder.BindToType(System.String,System.String)</parameter>
+          </include>
+        </markup>
       </returns>
     </member>
     <member name="T:PostSharp.Serialization.PortableSerializationException">
@@ -10180,12 +11029,8 @@
       <summary>
             Deserialization constructor.
             </summary>
-      <param name="info">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="info"/&gt; documentation for "M:PostSharp.Serialization.PortableSerializationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)"]</p>
-      </param>
-      <param name="context">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="context"/&gt; documentation for "M:PostSharp.Serialization.PortableSerializationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)"]</p>
-      </param>
+      <param name="info"></param>
+      <param name="context"></param>
     </member>
     <member name="M:PostSharp.Serialization.PortableSerializationException.#ctor(System.String)">
       <summary>
@@ -10206,7 +11051,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Serialization.PSerializableAttribute.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Serialization.PSerializableAttribute" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Serialization.PSerializableAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="T:PostSharp.Serialization.ReferenceTypeSerializer">
       <summary>
@@ -10214,7 +11065,13 @@
             </summary>
     </member>
     <member name="M:PostSharp.Serialization.ReferenceTypeSerializer.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Serialization.ReferenceTypeSerializer" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Serialization.ReferenceTypeSerializer</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Serialization.ReferenceTypeSerializer.Convert(System.Object,System.Type)">
       <summary>
@@ -10243,9 +11100,7 @@
       <summary>
             Serializes an object
             </summary>
-      <param name="obj">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="obj"/&gt; documentation for "M:PostSharp.Serialization.ReferenceTypeSerializer.SerializeObject(System.Object,PostSharp.Serialization.IArgumentsWriter,PostSharp.Serialization.IArgumentsWriter)"]</p>
-      </param>
+      <param name="obj"></param>
       <param name="constructorArguments">Gives access to arguments that will be passed to the <see cref="M:PostSharp.Serialization.ReferenceTypeSerializer.CreateInstance(System.Type,PostSharp.Serialization.IArgumentsReader)" /> method during deserialization.</param>
       <param name="initializationArguments">Gives access to arguments that will be passed to the <see cref="M:PostSharp.Serialization.ReferenceTypeSerializer.DeserializeFields(System.Object,PostSharp.Serialization.IArgumentsReader)" /> method during deserialization.</param>
     </member>
@@ -10311,9 +11166,7 @@
             Initializes a new <see cref="T:PostSharp.Serialization.SerializerFactoryProvider" />.
             </summary>
       <param name="nextProvider">The next provider in the chain, or <c>null</c> if there is none.</param>
-      <param name="activatorProvider">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="activatorProvider"/&gt; documentation for "M:PostSharp.Serialization.SerializerFactoryProvider.#ctor(PostSharp.Serialization.ISerializerFactoryProvider,PostSharp.Serialization.ActivatorProvider)"]</p>
-      </param>
+      <param name="activatorProvider"></param>
     </member>
     <member name="M:PostSharp.Serialization.SerializerFactoryProvider.AddSerializer``2">
       <summary>
@@ -10365,11 +11218,23 @@
             Base serializer for all value types.
             </summary>
       <typeparam name="T">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;typeparam name="T"/&gt; documentation for "T:PostSharp.Serialization.ValueTypeSerializer`1"]</p>
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>typeparam</parameter>
+            <parameter>T</parameter>
+            <parameter>T:PostSharp.Serialization.ValueTypeSerializer`1</parameter>
+          </include>
+        </markup>
       </typeparam>
     </member>
     <member name="M:PostSharp.Serialization.ValueTypeSerializer`1.#ctor">
-      <summary>Initializes a new instance of the <see cref="T:PostSharp.Serialization.ValueTypeSerializer`1" /> class</summary>
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Serialization.ValueTypeSerializer`1</parameter>
+          </include>
+        </markup>
+      </summary>
     </member>
     <member name="M:PostSharp.Serialization.ValueTypeSerializer`1.Convert(System.Object,System.Type)">
       <summary>
@@ -10390,9 +11255,7 @@
       <summary>
             Serializes an object
             </summary>
-      <param name="obj">
-        <p style="color: #dc143c; font-size: 8.5pt; font-weight: bold;">[Missing &lt;param name="obj"/&gt; documentation for "M:PostSharp.Serialization.ValueTypeSerializer`1.SerializeObject(`0,PostSharp.Serialization.IArgumentsWriter)"]</p>
-      </param>
+      <param name="obj"></param>
       <param name="constructorArguments">Gives access to arguments that will be passed to the <see cref="M:PostSharp.Serialization.ValueTypeSerializer`1.DeserializeObject(PostSharp.Serialization.IArgumentsReader)" /> method during deserialization.</param>
     </member>
   </members>
