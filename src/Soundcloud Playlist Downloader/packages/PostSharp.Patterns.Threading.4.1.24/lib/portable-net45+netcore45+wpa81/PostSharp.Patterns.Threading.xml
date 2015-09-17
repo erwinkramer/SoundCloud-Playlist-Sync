@@ -1,0 +1,1578 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>PostSharp.Patterns.Threading</name>
+  </assembly>
+  <members>
+    <member name="T:PostSharp.ImplementationDetails_815993fc.__PS___z_Activator">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.ImplementationDetails_815993fc.__PS___z_Activator</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.ImplementationDetails_815993fc.__PS___z_Activator.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.ImplementationDetails_815993fc.__PS___z_Activator</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.ImplementationDetails_815993fc.__PS___z_Activator.CreateInstance(System.Type,PostSharp.Serialization.ActivatorSecurityToken)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.ImplementationDetails_815993fc.__PS___z_Activator.CreateInstance(System.Type,PostSharp.Serialization.ActivatorSecurityToken)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="type">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>type</parameter>
+            <parameter>M:PostSharp.ImplementationDetails_815993fc.__PS___z_Activator.CreateInstance(System.Type,PostSharp.Serialization.ActivatorSecurityToken)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="securityToken">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>securityToken</parameter>
+            <parameter>M:PostSharp.ImplementationDetails_815993fc.__PS___z_Activator.CreateInstance(System.Type,PostSharp.Serialization.ActivatorSecurityToken)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.ImplementationDetails_815993fc.__PS___z_Activator.CreateInstance(System.Type,PostSharp.Serialization.ActivatorSecurityToken)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.AccessLevelAttribute">
+      <summary>
+            Base class for <see cref="T:PostSharp.Patterns.Threading.ReaderAttribute" />, <see cref="T:PostSharp.Patterns.Threading.WriterAttribute" />, <see cref="T:PostSharp.Patterns.Threading.YielderAttribute" /><see cref="T:PostSharp.Patterns.Threading.UpgradeableReaderAttribute" />.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.AccessLevelAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.AccessLevelAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.Actor">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.Patterns.Threading.Actor</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.Actor.#ctor">
+      <summary>
+            Initializes a new <see cref="T:PostSharp.Patterns.Threading.Actor" /> with the default dispatcher.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.Actor.#ctor(PostSharp.Patterns.Threading.IDispatcher)">
+      <summary>
+            Initializes a new <see cref="T:PostSharp.Patterns.Threading.Actor" /> and specifies the dispatcher.
+            </summary>
+      <param name="dispatcher">A dispatcher, or <c>null</c> if the default dispatcher should be used.</param>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.Actor.Dispatcher">
+      <summary>
+            Gets the dispatcher used to dispatch access to the current <see cref="T:PostSharp.Patterns.Threading.Actor" />.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.Actor.Equals(System.Object)">
+      <summary>Determines whether the specified object is equal to the current object.</summary>
+      <param name="obj">The object to compare with the current object. </param>
+      <returns>true if the specified object  is equal to the current object; otherwise, false.</returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.Actor.GetHashCode">
+      <summary>Serves as the default hash function. </summary>
+      <returns>A hash code for the current object.</returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.Actor.OnAncestorChanged(PostSharp.Patterns.Model.AncestorChangedEventArgs)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.OnAncestorChanged(PostSharp.Patterns.Model.AncestorChangedEventArgs)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="args">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>args</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.OnAncestorChanged(PostSharp.Patterns.Model.AncestorChangedEventArgs)</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.Actor.OnChildAttached(System.Object,PostSharp.Patterns.Model.ChildInfo)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.OnChildAttached(System.Object,PostSharp.Patterns.Model.ChildInfo)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="child">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>child</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.OnChildAttached(System.Object,PostSharp.Patterns.Model.ChildInfo)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="childInfo">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>childInfo</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.OnChildAttached(System.Object,PostSharp.Patterns.Model.ChildInfo)</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.Actor.OnChildDetached(System.Object,PostSharp.Patterns.Model.ChildInfo)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.OnChildDetached(System.Object,PostSharp.Patterns.Model.ChildInfo)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="child">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>child</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.OnChildDetached(System.Object,PostSharp.Patterns.Model.ChildInfo)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="childInfo">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>childInfo</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.OnChildDetached(System.Object,PostSharp.Patterns.Model.ChildInfo)</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.Actor.OnException(PostSharp.Patterns.Threading.ActorExceptionEventArgs)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.OnException(PostSharp.Patterns.Threading.ActorExceptionEventArgs)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="eventArgs">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>eventArgs</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.OnException(PostSharp.Patterns.Threading.ActorExceptionEventArgs)</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.Actor.OnParentChanged">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.OnParentChanged</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.Actor.ToString">
+      <summary>Returns a string that represents the current object.</summary>
+      <returns>A string that represents the current object.</returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.Actor.VisitChildren(PostSharp.Patterns.Model.ChildVisitor,PostSharp.Patterns.Model.ChildVisitorOptions,System.Object)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.VisitChildren(PostSharp.Patterns.Model.ChildVisitor,PostSharp.Patterns.Model.ChildVisitorOptions,System.Object)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="visitor">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>visitor</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.VisitChildren(PostSharp.Patterns.Model.ChildVisitor,PostSharp.Patterns.Model.ChildVisitorOptions,System.Object)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="options">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>options</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.VisitChildren(PostSharp.Patterns.Model.ChildVisitor,PostSharp.Patterns.Model.ChildVisitorOptions,System.Object)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="state">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>state</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.VisitChildren(PostSharp.Patterns.Model.ChildVisitor,PostSharp.Patterns.Model.ChildVisitorOptions,System.Object)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.Actor.VisitChildren(PostSharp.Patterns.Model.ChildVisitor,PostSharp.Patterns.Model.ChildVisitorOptions,System.Object)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ActorAttribute">
+      <summary>
+            Custom attribute that, when applied to a class, implements the <see cref="T:PostSharp.Patterns.Threading.Models.ActorThreadingModel" /> to this class,
+            in which calls to methods are processed asynchronously from a single thread, suppressing concurrency inside each instance of the target class.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ActorAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.ActorAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ActorAttribute.OnInstanceConstructed">
+      <summary>
+            Executed when the target instance gets fully initialized, i.e. just after all constructors have completed.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ActorDispatcher">
+      <summary>
+            A dispatcher compatible with the <see cref="T:PostSharp.Patterns.Threading.Models.ActorThreadingModel" /> threading model, with a message queue based on a <see cref="!:ConcurrentQueue&lt;T&gt;" />.
+            The queue itself is processed from the <see cref="T:System.Threading.ThreadPool" />.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ActorDispatcher.#ctor">
+      <summary>
+            Initializes a new <see cref="T:PostSharp.Patterns.Threading.ActorDispatcher" />.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ActorDispatcher.BeginInvoke(System.Threading.SendOrPostCallback,System.Object)">
+      <summary>
+            Queues an action for asynchronous execution.
+            </summary>
+      <param name="action">Action to be executed.</param>
+      <param name="state">Parameter passed to <paramref name="action" /></param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ActorDispatcher.CheckAccess">
+      <summary>
+            Determines whether the current thread has access to the current dispatcher.
+            </summary>
+      <returns>
+        <c>true</c> if the current thread can directly call methods of objects protected 
+            by the current dispatcher, or <c>false</c> if methods <see cref="M:PostSharp.Patterns.Threading.IDispatcher.Invoke(System.Threading.SendOrPostCallback,System.Object)" /> or <see cref="M:PostSharp.Patterns.Threading.IDispatcher.BeginInvoke(System.Threading.SendOrPostCallback,System.Object)" />
+            must be used.</returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ActorDispatcher.MustYield(System.Int32)">
+      <summary>
+            Determines whether the <see cref="M:PostSharp.Patterns.Threading.ActorDispatcher.ProcessQueue" /> method should interrupt the processing of the message queue before the queue is empty.
+            </summary>
+      <param name="count">Number of messages already processed by the current invocation of the <see cref="M:PostSharp.Patterns.Threading.ActorDispatcher.ProcessQueue" /> method.</param>
+      <returns>
+        <c>true</c> if the <see cref="M:PostSharp.Patterns.Threading.ActorDispatcher.ProcessQueue" /> method should stop processing messages, <c>false</c> if it should continue. </returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ActorDispatcher.ProcessQueue">
+      <summary>
+            Processes the message queue synchronously.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ActorDispatcher.ScheduleProcessQueue">
+      <summary>
+            Schedules the execution of the <see cref="M:PostSharp.Patterns.Threading.ActorDispatcher.ProcessQueue" />, typically on a worker thread or in the <see cref="T:System.Threading.ThreadPool" />.
+            The default implementation uses the <see cref="T:System.Threading.ThreadPool" />.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ActorExceptionEventArgs">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.Patterns.Threading.ActorExceptionEventArgs</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.BackgroundAttribute">
+      <summary>
+            Custom attribute that, when applied on a method, causes the method to execute in the background.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.BackgroundAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.BackgroundAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.BackgroundAttribute.CompileTimeValidate(System.Reflection.MethodBase)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.BackgroundAttribute.CompileTimeValidate(System.Reflection.MethodBase)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="method">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>method</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.BackgroundAttribute.CompileTimeValidate(System.Reflection.MethodBase)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.BackgroundAttribute.CompileTimeValidate(System.Reflection.MethodBase)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.BackgroundAttribute.IsLongRunning">
+      <summary>
+            Specifies that the method is long-running and should be executed on its own thread, if that is supported on the target platform.
+            If <c>false</c>, the method will be executed in the thread pool.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.BackgroundAttribute.OnInvoke(PostSharp.Aspects.MethodInterceptionArgs)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.BackgroundAttribute.OnInvoke(PostSharp.Aspects.MethodInterceptionArgs)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="args">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>args</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.BackgroundAttribute.OnInvoke(PostSharp.Aspects.MethodInterceptionArgs)</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ConcurrentAccessException">
+      <summary>
+            Exception thrown when two threads simultaneously attempt to access a method annotated with the <see cref="T:PostSharp.Patterns.Threading.ThreadUnsafeAttribute" />
+            custom attribute.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ConcurrentAccessException.#ctor">
+      <summary>
+            Initializes a new <see cref="T:PostSharp.Patterns.Threading.ConcurrentAccessException" />.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ConcurrentAccessException.#ctor(System.String)">
+      <summary>
+            Initializes a new <see cref="T:PostSharp.Patterns.Threading.ConcurrentAccessException" /> and sets the error message.
+            </summary>
+      <param name="message">Error message.</param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ConcurrentAccessException.#ctor(System.String,System.Exception)">
+      <summary>
+            Initializes a new <see cref="T:PostSharp.Patterns.Threading.ConcurrentAccessException" /> and sets the error message and the inner exception.
+            </summary>
+      <param name="message">Error message.</param>
+      <param name="inner">Inner exception.</param>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.DeadlockDetectedEventArgs">
+      <summary>
+            Arguments for the <see cref="E:PostSharp.Patterns.Threading.ThreadingServices.DeadlockDetected" /> event.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.DeadlockDetectedEventArgs.DeadlockInfo">
+      <summary>
+            Gets the deadlock information object.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.DeadlockDetectedEventArgs.Handled">
+      <summary>
+            Gets of sets an information indicating whether the event was handled by the user. If the event is not handled, an exception will be thrown on all involved threads.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.DeadlockDetectionPolicy">
+      <summary>
+            Detects deadlocks occurring because of circular wait conditions.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DeadlockDetectionPolicy.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.DeadlockDetectionPolicy</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DeadlockDetectionPolicy.CompileTimeValidate(System.Reflection.Assembly)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.DeadlockDetectionPolicy.CompileTimeValidate(System.Reflection.Assembly)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="assembly">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>assembly</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.DeadlockDetectionPolicy.CompileTimeValidate(System.Reflection.Assembly)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.DeadlockDetectionPolicy.CompileTimeValidate(System.Reflection.Assembly)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.DeadlockedThreadInfo">
+      <summary>
+            Described state of thread that was detected to be in a deadlock.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DeadlockedThreadInfo.#ctor(System.Threading.Thread,System.Diagnostics.StackTrace)">
+      <summary>
+            Initializes the object.
+            </summary>
+      <param name="thread">Thread in a deadlock.</param>
+      <param name="stackTrace">Stack trace of the thread or null if it was not possible to obtain it.</param>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.DeadlockedThreadInfo.ManagedThreadId">
+      <summary>
+            Gets ID of the managed thread.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.DeadlockedThreadInfo.StackTrace">
+      <summary>
+            Gets the stack trace of the thread in deadlock or null if it was not possible to obtain the stack trace.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.DeadlockedThreadInfo.Thread">
+      <summary>
+            Gets the thread in deadlock or null if the object was deserialized.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.DeadlockException">
+      <summary>
+            Exception thrown by the <see cref="T:PostSharp.Patterns.Threading.DeadlockDetectionPolicy" /> class when a deadlock
+            is detected.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DeadlockException.#ctor">
+      <summary>
+            Initializes a new instance of see cref="DeadlockException"/&gt;.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DeadlockException.#ctor(PostSharp.Patterns.Threading.DeadlockInfo)">
+      <summary>
+            Initializes a new instance of <see cref="T:PostSharp.Patterns.Threading.DeadlockException" /> and specifies the message and involved threads.
+            </summary>
+      <param name="deadlockInfo">Information about the deadlock.</param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DeadlockException.#ctor(System.String)">
+      <summary>
+            Initializes a new instance of see cref="DeadlockException"/&gt;.
+            </summary>
+      <param name="message">Exception message.</param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DeadlockException.#ctor(System.String,System.Exception)">
+      <summary>
+            Initializes a new instance of see cref="DeadlockException"/&gt;.
+            </summary>
+      <param name="message">Exception message.</param>
+      <param name="innerException">Inner exception.</param>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.DeadlockException.DeadlockInfo">
+      <summary>
+            Gets an information about the deadlock.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DeadlockException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" /> with information about the exception.</summary>
+      <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown. </param>
+      <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination. </param>
+      <exception cref="T:System.ArgumentNullException">The <paramref name="info" /> parameter is a null reference (Nothing in Visual Basic). </exception>
+      <exception cref="T:System.Security.SecurityException">The caller does not have the required permission. </exception>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.DeadlockInfo">
+      <summary>
+            Describes the detected deadlock.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DeadlockInfo.#ctor(System.String,System.Collections.Generic.IList{PostSharp.Patterns.Threading.DeadlockedThreadInfo})">
+      <summary>
+            Initializes the object.
+            </summary>
+      <param name="description">Textual description of the detected deadlock.</param>
+      <param name="deadlockedThreads">List of objects describing each thread in the deadlock.</param>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.DeadlockInfo.DeadlockedThreads">
+      <summary>
+            Gets a collection of objects describing each thread in the deadlock.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.DeadlockInfo.Description">
+      <summary>
+            Gets textual description of the deadlock.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.DispatchedAttribute">
+      <summary>
+            Custom attribute that, when applied on a method, specifies that the method should be executed in UI thread.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DispatchedAttribute.#ctor(System.Boolean)">
+      <summary>
+            Initializes a new <see cref="T:PostSharp.Patterns.Threading.DispatchedAttribute" />.
+            </summary>
+      <param name="isAsync">
+        <c>true</c> if the target method must be invoked asynchronously, or <c>false</c>
+            if the target method must be invoked synchronously, that is, if the caller must wait for the
+            dispatched method to complete.</param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DispatchedAttribute.CompileTimeValidate(System.Reflection.MethodBase)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.DispatchedAttribute.CompileTimeValidate(System.Reflection.MethodBase)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="method">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>method</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.DispatchedAttribute.CompileTimeValidate(System.Reflection.MethodBase)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.DispatchedAttribute.CompileTimeValidate(System.Reflection.MethodBase)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.DispatchedAttribute.IsAsync">
+      <summary>
+            Determines whether the target method is invoked asynchronously or asynchronously.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.DispatcherFactory">
+      <summary>
+            Provides implementations of the <see cref="T:PostSharp.Patterns.Threading.IDispatcher" /> interface.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DispatcherFactory.GetDispatcherForCurrentContext">
+      <summary>
+            Gets an implementation of the <see cref="T:PostSharp.Patterns.Threading.IDispatcher" /> interface that is suitable for dispatching
+            to the current context. This method requires that the current thread is associated to
+            a <see cref="T:System.Threading.SynchronizationContext" /> or a WPF <c>Dispatcher</c>.
+            </summary>
+      <returns>An implementation of the <see cref="T:PostSharp.Patterns.Threading.IDispatcher" /> for the current context, or <c>null</c>
+            if the current thread is not associated with any <see cref="T:System.Threading.SynchronizationContext" /> or a WPF <c>Dispatcher</c>.
+             </returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DispatcherFactory.GetDispatcherForSynchronizationContext(System.Threading.SynchronizationContext)">
+      <summary>
+            Gets an implementation of the <see cref="T:PostSharp.Patterns.Threading.IDispatcher" /> interface for a given <see cref="T:System.Threading.SynchronizationContext" />.
+            </summary>
+      <param name="synchronizationContext">A <see cref="T:System.Threading.SynchronizationContext" />.</param>
+      <returns>An implementation of <see cref="T:PostSharp.Patterns.Threading.IDispatcher" /> that dispatches using <paramref name="synchronizationContext" />.</returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.DispatcherFactory.GetDispatcherForWindowsDispatcher(System.Object)">
+      <summary>
+            Gets an implementation of the <see cref="T:PostSharp.Patterns.Threading.IDispatcher" /> interface for a given
+            instance of the <c>System.Windows.Threading.Dispatcher</c> class.
+            </summary>
+      <param name="dispatcher">An instance of the <c>System.Windows.Threading.Dispatcher</c> class.</param>
+      <returns>An implementation of <see cref="T:PostSharp.Patterns.Threading.IDispatcher" /> wrapping the functionality of <paramref name="dispatcher" />.</returns>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.EntryPointAttribute">
+      <summary>
+            Custom attribute that, when applied to a private or protected instance method,
+            causes all threading model aspects (derived from <see cref="T:PostSharp.Patterns.Threading.ThreadAwareAttribute" /> to introduce runtime generation code.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.EntryPointAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.EntryPointAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ExplicitlySynchronizedAttribute">
+      <summary>
+            Custom attribute that, when applied to a method or field, specifies that threading model aspects (derived from <see cref="T:PostSharp.Patterns.Threading.ThreadAwareAttribute" />)
+            should ignore all verifications for this field or method. 
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ExplicitlySynchronizedAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.ExplicitlySynchronizedAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.FreezableAttribute">
+      <summary>
+            Custom attribute that, when applied to a class, implements the <see cref="T:PostSharp.Patterns.Threading.Models.FreezableThreadingModel" /> to this class.
+            The aspect introduces the <see cref="T:PostSharp.Patterns.Threading.IFreezable" /> interface into the target class. After the <see cref="M:PostSharp.Patterns.Threading.IFreezable.Freeze" />
+            method has been invoked, the object can no longer be modified, and can therefore be safely shared between several threads.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.FreezableAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.FreezableAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.FreezableAttribute.OnCloned(PostSharp.Aspects.ICloneAwareAspect)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.FreezableAttribute.OnCloned(PostSharp.Aspects.ICloneAwareAspect)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.FreezableAttribute.OnCloned(PostSharp.Aspects.ICloneAwareAspect)</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.FreezableAttribute.RuntimeInitializeInstance">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.FreezableAttribute.RuntimeInitializeInstance</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.IActor">
+      <summary>
+            Interface implemented by the <see cref="T:PostSharp.Patterns.Threading.ActorAttribute" /> aspect.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.IActor.Dispatcher">
+      <summary>
+            Gets the <see cref="T:PostSharp.Patterns.Threading.IActorDispatcher" /> for the current actor.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.IActorController">
+      <summary>
+            Specific definition of the <see cref="T:PostSharp.Patterns.Threading.IConcurrencyController" /> for the <see cref="T:PostSharp.Patterns.Threading.Models.ActorThreadingModel" />.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.IActorController.Dispatcher">
+      <summary>
+            Gets the <see cref="T:PostSharp.Patterns.Threading.IActorDispatcher" /> for the current actor.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.IActorDispatcher">
+      <summary>
+            Augments the <see cref="T:PostSharp.Patterns.Threading.IDispatcher" /> interface with an <see cref="M:PostSharp.Patterns.Threading.IActorDispatcher.Initialize" /> method, which is invoked after the actor constructor has been invoked.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.IActorDispatcher.Initialize">
+      <summary>
+            Indicates that the controller should start enforcing access. Before this method is invoked, the <see cref="M:PostSharp.Patterns.Threading.IDispatcher.CheckAccess" />
+            method should always return <c>true</c>, allowing any access to the object. This mechanism allows the actor constructor to have full access on itself.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.IDispatcher">
+      <summary>
+            Defines the semantics of a facility that executes actions synchronously or asynchronously,
+            possibly on a different thread.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.IDispatcher.BeginInvoke(System.Threading.SendOrPostCallback,System.Object)">
+      <summary>
+            Queues an action for asynchronous execution.
+            </summary>
+      <param name="action">Action to be executed.</param>
+      <param name="state">Parameter passed to <paramref name="action" /></param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.IDispatcher.CheckAccess">
+      <summary>
+            Determines whether the current thread has access to the current dispatcher.
+            </summary>
+      <returns>
+        <c>true</c> if the current thread can directly call methods of objects protected 
+            by the current dispatcher, or <c>false</c> if methods <see cref="M:PostSharp.Patterns.Threading.IDispatcher.Invoke(System.Threading.SendOrPostCallback,System.Object)" /> or <see cref="M:PostSharp.Patterns.Threading.IDispatcher.BeginInvoke(System.Threading.SendOrPostCallback,System.Object)" />
+            must be used.</returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.IDispatcher.Invoke(System.Threading.SendOrPostCallback,System.Object)">
+      <summary>
+            Executes an action synchronously.
+            </summary>
+      <param name="action">Action to be executed.</param>
+      <param name="state">Parameter passed to <paramref name="action" />.</param>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.IDispatcher.IsInvokeSupported">
+      <summary>
+            Determines whether the <see cref="M:PostSharp.Patterns.Threading.IDispatcher.Invoke(System.Threading.SendOrPostCallback,System.Object)" /> method is supported.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.IDispatcher.SynchronizationContext">
+      <summary>
+            Gets the <see cref="T:System.Threading.SynchronizationContext" /> associated with the current dispatcher.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.IDispatcherObject">
+      <summary>
+            Interface implemented by objects that are whose access to methods is
+            being controlled by a <see cref="P:PostSharp.Patterns.Threading.IDispatcherObject.Dispatcher" />.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.IDispatcherObject.Dispatcher">
+      <summary>
+            Gets the <see cref="T:PostSharp.Patterns.Threading.IDispatcher" /> that controls access to methods
+            of the current object.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.IFreezable">
+      <summary>
+            Interface implemented by the <see cref="T:PostSharp.Patterns.Threading.FreezableAttribute" /> aspect. Defines a <see cref="M:PostSharp.Patterns.Threading.IFreezable.Freeze" /> method.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.IFreezable.Freeze">
+      <summary>
+            Prevents the current object to be modified.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.IImmutable">
+      <summary>
+            Interface implemented by the <see cref="T:PostSharp.Patterns.Threading.ImmutableAttribute" /> aspect.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ImmutableAttribute">
+      <summary>
+            Custom attribute that, when applied to a class, implements the <see cref="T:PostSharp.Patterns.Threading.Models.ImmutableThreadingModel" /> to this class.
+            The aspect introduces the <see cref="T:PostSharp.Patterns.Threading.IImmutable" /> interface into the target class. Immutable objects cannot
+            be modified after the constructor exits.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ImmutableAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.ImmutableAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ImmutableAttribute.OnInstanceConstructed">
+      <summary>
+            Executed when the target instance gets fully initialized, i.e. just after all constructors have completed.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.IReaderWriterSynchronized">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.Patterns.Threading.IReaderWriterSynchronized</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.IReaderWriterSynchronized.Lock">
+      <summary>
+            Gets the <see cref="T:System.Threading.ReaderWriterLockSlim" /> that has to be used
+            to synchronize access to the current instance.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.LockNotHeldException">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.Patterns.Threading.LockNotHeldException</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ObjectReadOnlyException">
+      <summary>
+            Exception thrown by objects that have the <see cref="T:PostSharp.Patterns.Threading.Models.FreezableThreadingModel" /> or <see cref="T:PostSharp.Patterns.Threading.Models.ImmutableThreadingModel" />
+            when an attempt is made to modify the object after it has been made read-only.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ObjectReadOnlyException.#ctor">
+      <summary>
+            Initializes a new instance of the <see cref="T:PostSharp.Patterns.Threading.ObjectReadOnlyException" /> class with the default error message.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ObjectReadOnlyException.#ctor(System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:PostSharp.Patterns.Threading.ObjectReadOnlyException" /> class with a given error message.
+            </summary>
+      <param name="message">The error message.</param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ObjectReadOnlyException.#ctor(System.String,System.Exception)">
+      <summary>
+            Initializes a new instance of the <see cref="T:PostSharp.Patterns.Threading.ObjectReadOnlyException" /> class with a given error message and inner exception.
+            </summary>
+      <param name="message">The inner message.</param>
+      <param name="inner">The exception wrapped by the new <see cref="T:PostSharp.Patterns.Threading.ObjectReadOnlyException" />.</param>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ObserverLockAttribute">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.Patterns.Threading.ObserverLockAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ObserverLockAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.ObserverLockAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ObserverLockAttribute.CompileTimeValidate(System.Object)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ObserverLockAttribute.CompileTimeValidate(System.Object)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ObserverLockAttribute.CompileTimeValidate(System.Object)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ObserverLockAttribute.CompileTimeValidate(System.Object)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.PrivateThreadAwareAttribute">
+      <summary>
+            Custom attribute that, when applied to a class, implement the <see cref="T:PostSharp.Patterns.Threading.Models.PrivateThreadingModel" /> into this class,
+            in which the threading model of an object is determined by the parent it is assigned to in a parent-child relationship. 
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.PrivateThreadAwareAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.PrivateThreadAwareAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ReaderAttribute">
+      <summary>
+            Custom attribute that, when applied on a method, specifies that the method requires read access to the object.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ReaderAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.ReaderAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ReaderLockAttribute">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.Patterns.Threading.ReaderLockAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ReaderLockAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.ReaderLockAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ReaderWriterLockAttribute">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.Patterns.Threading.ReaderWriterLockAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ReaderWriterLockAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.ReaderWriterLockAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ReaderWriterSynchronizedAttribute">
+      <summary>
+            Custom attribute that, when applied on a class, applies the <see cref="T:PostSharp.Patterns.Threading.Models.ReaderWriterSynchronizedThreadingModel" /> model to this class
+            and all derived class.
+            Members of this class must then be annotated with attributes specifying the required access level 
+            (<see cref="T:PostSharp.Patterns.Threading.ReaderAttribute" />, <see cref="T:PostSharp.Patterns.Threading.WriterAttribute" />, <see cref="T:PostSharp.Patterns.Threading.YielderAttribute" />
+            or <see cref="T:PostSharp.Patterns.Threading.UpgradeableReaderAttribute" />), otherwise build-time and run-time errors are emitted.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ReaderWriterSynchronizedAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.ReaderWriterSynchronizedAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ReadOnlyThreadAwareAttribute">
+      <summary>
+            Base class for aspects <see cref="T:PostSharp.Patterns.Threading.FreezableAttribute" /> and <see cref="T:PostSharp.Patterns.Threading.ImmutableAttribute" />.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ReadOnlyThreadAwareAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.ReadOnlyThreadAwareAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ReadOnlyThreadAwareAttribute.Advise(System.Object)">
+      <summary>
+            Injects the advice into the child object.
+            </summary>
+      <param name="obj"></param>
+      <returns>
+        <c>true</c> if the children of <paramref name="obj" /> have to be advised as well, <c>false</c> otherwise.</returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ReadOnlyThreadAwareAttribute.OnInstanceConstructed">
+      <summary>
+            Executed when the target instance gets fully initialized, i.e. just after all constructors have completed.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ReentrantAttribute">
+      <summary>
+            Custom attribute that means that the <c>async</c> method to which it is applied can be safely
+            re-entered on each <c>await</c> statement. In case of lock-based models, it means that the lock
+            is released while awaiting. For the actor model, it means that other methods can be invoked
+            during awaiting.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ReentrantAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.ReentrantAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ReentrantAttribute.CompileTimeValidate(System.Object)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ReentrantAttribute.CompileTimeValidate(System.Object)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ReentrantAttribute.CompileTimeValidate(System.Object)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ReentrantAttribute.CompileTimeValidate(System.Object)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.RequiresThreadSafeAttribute">
+      <summary>
+            Custom attribute that, when applied to a field, property or parameter, checks that the assigned object is thread safe.
+            Otherwise, the assignment results in an <see cref="T:System.ArgumentException" />/
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.RequiresThreadSafeAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.RequiresThreadSafeAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.SynchronizedAttribute">
+      <summary>
+            Custom attribute that, when applied to a class, implements the <see cref="T:PostSharp.Patterns.Threading.Models.SynchronizedThreadingModel" /> into this class.
+            In a synchronized object, only a single thread can access the object at a time. If a second thread needs to access the object
+            while it is in used by a first thread, the second thread has to wait until the first thread completes its access.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.SynchronizedAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.SynchronizedAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ThreadAccessException">
+      <summary>
+            Exception thrown when the calling thread does not have access to the object.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadAccessException.#ctor">
+      <summary>
+            Initializes a new instance of the <see cref="T:PostSharp.Patterns.Threading.ThreadAccessException" /> class with the default error message.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadAccessException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Deserialization constructor.
+            </summary>
+      <param name="info">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>info</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ThreadAccessException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="context">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>context</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ThreadAccessException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadAccessException.#ctor(System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:PostSharp.Patterns.Threading.ThreadAccessException" /> class with a given error message.
+            </summary>
+      <param name="message">The error message.</param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadAccessException.#ctor(System.String,System.Exception)">
+      <summary>
+            Initializes a new instance of the <see cref="T:PostSharp.Patterns.Threading.ThreadAccessException" /> class with a given error message and inner exception.
+            </summary>
+      <param name="message">The error message.</param>
+      <param name="inner">The <see cref="T:System.Exception" /> wrapped by the new <see cref="T:PostSharp.Patterns.Threading.ThreadAccessException" />.</param>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ThreadAffineAttribute">
+      <summary>
+            Custom attribute that, when applied on a type, ensures the instances of this type can only be accessed by the thread
+            that created the instance. When a different thread accesses instances of this type, a <see cref="T:PostSharp.Patterns.Threading.ThreadMismatchException" /> exception is thrown. 
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadAffineAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.ThreadAffineAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadAffineAttribute.RuntimeInitializeInstance">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ThreadAffineAttribute.RuntimeInitializeInstance</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ThreadAwareAttribute">
+      <summary>
+            Base class for all aspects implementing threading models.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadAwareAttribute.Advise(System.Object)">
+      <summary>
+            Injects the advice into the child object.
+            </summary>
+      <param name="obj"></param>
+      <returns>
+        <c>true</c> if the children of <paramref name="obj" /> have to be advised as well, <c>false</c> otherwise.</returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadAwareAttribute.CompileTimeValidate(System.Type)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ThreadAwareAttribute.CompileTimeValidate(System.Type)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="type">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>type</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ThreadAwareAttribute.CompileTimeValidate(System.Type)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ThreadAwareAttribute.CompileTimeValidate(System.Type)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadAwareAttribute.IsEligibleChild(System.Object,PostSharp.Patterns.Model.ChildInfo)">
+      <summary>
+            Determines if an object is eligible to be a child of the target instance of the current aspect.
+            </summary>
+      <param name="child"></param>
+      <param name="childInfo"></param>
+      <returns>
+        <c>true</c> if <paramref name="child" /> is eligible to be a child without injecting any advice, otherwise <c>false</c>. When this method returns <c>false</c>,
+            the aspect will the invoke the <see cref="M:PostSharp.Patterns.Model.AggregatableClientAttribute.Advise(System.Object)" /> method. </returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadAwareAttribute.OnSerializing(System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Requires read access level to the current object before serialization can proceed.
+            This method will be introduced into the target class.
+            </summary>
+      <param name="streamingContext">Streaming context.</param>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.ThreadAwareAttribute.RuntimeVerificationEnabled">
+      <summary>
+            Determines whether the code should be verified against the model at runtime.
+            The default value is <c>true</c> for the debug build configuration and <c>false</c> for the release build configuration.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ThreadAwareAttributeTargetClass">
+      <summary>
+            Describes the members that are consumed by the <see cref="T:PostSharp.Patterns.Threading.ThreadAwareAttribute" /> aspect.
+            You can define one or many of these members in classes that are the target of <see cref="T:PostSharp.Patterns.Threading.ThreadAwareAttribute" /> to customize the behavior
+            of the <see cref="T:PostSharp.Patterns.Threading.ThreadAwareAttribute" /> aspect.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadAwareAttributeTargetClass.UseParentConcurrencyController(System.Object)">
+      <summary>
+            Determines whether the current object is should use the controller of the parent object.
+            </summary>
+      <param name="parent">The object to which the current object has been assigned as a child.</param>
+      <returns>
+        <c>true</c>, if the current object will use the concurrency controller of <paramref name="parent" />,
+            <c>false</c>, if it will its own concurrency controller.</returns>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ThreadingServices">
+      <summary>
+            Exposes methods to work with the <c>PostSharp.Patterns.Threading</c> namespace.
+            </summary>
+    </member>
+    <member name="E:PostSharp.Patterns.Threading.ThreadingServices.DeadlockDetected">
+      <summary>
+            Event raised by implementation of the <see cref="T:PostSharp.Patterns.Threading.DeadlockDetectionPolicy" /> aspect.
+            </summary>
+    </member>
+    <member name="E:PostSharp.Patterns.Threading.ThreadingServices.UnhandledException">
+      <summary>
+            Event raised by the implementation of the <see cref="T:PostSharp.Patterns.Threading.ActorAttribute" />, <see cref="T:PostSharp.Patterns.Threading.DispatchedAttribute" /> and <see cref="T:PostSharp.Patterns.Threading.BackgroundAttribute" />
+            aspects when an unhandled exception is encountered.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ThreadingUnhandledExceptionEventArgs">
+      <summary>
+            Arguments of the <see cref="E:PostSharp.Patterns.Threading.ThreadingServices.UnhandledException" /> event.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.ThreadingUnhandledExceptionEventArgs.Exception">
+      <summary>
+            Gets the exception.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.ThreadingUnhandledExceptionEventArgs.IsHandled">
+      <summary>
+            Determines whether the exception has been handled. Clients of the <see cref="E:PostSharp.Patterns.Threading.ThreadingServices.UnhandledException" /> event
+            must set this property to <c>true</c> if they handle the exception. Otherwise, the exception will be rethrown.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.ThreadingUnhandledExceptionEventArgs.Source">
+      <summary>
+            Gets the source component that caught the exception.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ThreadingUnhandledExceptionSource">
+      <summary>
+            Enumeration of components that can raise the <see cref="E:PostSharp.Patterns.Threading.ThreadingServices.UnhandledException" /> event.
+            </summary>
+    </member>
+    <member name="F:PostSharp.Patterns.Threading.ThreadingUnhandledExceptionSource.None">
+      <summary>
+            None.
+            </summary>
+    </member>
+    <member name="F:PostSharp.Patterns.Threading.ThreadingUnhandledExceptionSource.Background">
+      <summary>
+        <see cref="T:PostSharp.Patterns.Threading.BackgroundAttribute" />.
+            </summary>
+    </member>
+    <member name="F:PostSharp.Patterns.Threading.ThreadingUnhandledExceptionSource.Dispatch">
+      <summary>
+        <see cref="T:PostSharp.Patterns.Threading.DispatchedAttribute" /> or <see cref="T:PostSharp.Patterns.Threading.ActorAttribute" />.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ThreadMismatchException">
+      <summary>
+            Exception thrown when a thread attempts to access an object that is affined to another thread.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadMismatchException.#ctor">
+      <summary>
+            Initializes a new <see cref="T:PostSharp.Patterns.Threading.ThreadMismatchException" />.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadMismatchException.#ctor(System.String)">
+      <summary>
+            Initializes a new <see cref="T:PostSharp.Patterns.Threading.ThreadMismatchException" /> and sets the error message.
+            </summary>
+      <param name="message">Error message.</param>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadMismatchException.#ctor(System.String,System.Exception)">
+      <summary>
+            Initializes a new <see cref="T:PostSharp.Patterns.Threading.ThreadMismatchException" /> and sets the error message and the inner exception.
+            </summary>
+      <param name="message">Error message.</param>
+      <param name="inner">Inner exception.</param>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.ThreadUnsafeAttribute">
+      <summary>
+            Custom attribute that, when applied on a type, ensures that only one thread executes in methods of this type.
+            When more than one thread accesses methods of this type, a <see cref="T:PostSharp.Patterns.Threading.ConcurrentAccessException" /> exception is thrown. 
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadUnsafeAttribute.CompileTimeValidate(System.Type)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ThreadUnsafeAttribute.CompileTimeValidate(System.Type)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="type">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>type</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ThreadUnsafeAttribute.CompileTimeValidate(System.Type)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ThreadUnsafeAttribute.CompileTimeValidate(System.Type)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.ThreadUnsafeAttribute.RuntimeInitializeInstance">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:PostSharp.Patterns.Threading.ThreadUnsafeAttribute.RuntimeInitializeInstance</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.UpgradeableReaderAttribute">
+      <summary>
+            Custom attribute that, when applied on a method, specifies that the method requires read and write access to the object,
+            but other threads are allowed to acquire read (but not write) access to the object until a method with the <see cref="T:PostSharp.Patterns.Threading.WriterAttribute" />
+            custom attribute is executed.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.UpgradeableReaderAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.UpgradeableReaderAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.UpgradeableReaderLockAttribute">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.Patterns.Threading.UpgradeableReaderLockAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.UpgradeableReaderLockAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.UpgradeableReaderLockAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.WriterAttribute">
+      <summary>
+            Custom attribute that, when applied on a method, specifies that the method requires write access to the object.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.WriterAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.WriterAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.WriterLockAttribute">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:PostSharp.Patterns.Threading.WriterLockAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.WriterLockAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.WriterLockAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.YielderAttribute">
+      <summary>
+            Custom attribute that, when applied on a method, specifies that the method that currently holds write access to the object (see <see cref="T:PostSharp.Patterns.Threading.WriterAttribute" />)
+            allows other threads to read the object during the execution of the target method. This custom attribute is typically used on methods that raise events
+            that must be processed synchronously by other threads.
+            </summary>
+    </member>
+    <member name="M:PostSharp.Patterns.Threading.YielderAttribute.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>PostSharp.Patterns.Threading.YielderAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.Models.ActorThreadingModel">
+      <summary>
+        <para>
+            The <see cref="T:PostSharp.Patterns.Threading.Models.ActorThreadingModel" /> class describes a threading model in which to methods are processed
+            asynchronously from a single thread, suppressing concurrency inside each instance of the actor.
+            To use the <see cref="T:PostSharp.Patterns.Threading.Models.ActorThreadingModel" />, apply the <see cref="T:PostSharp.Patterns.Threading.ActorAttribute" /> to a class.
+            </para>
+      </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.Models.ActorThreadingModel.IsThreadSafe">
+      <summary>
+            Determines whether the threading model is possibly thread safe.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.Models.FreezableThreadingModel">
+      <summary>
+            The <see cref="T:PostSharp.Patterns.Threading.Models.FreezableThreadingModel" /> class describes a threading model where changes to an object are forbidden after the <see cref="M:PostSharp.Patterns.Threading.IFreezable.Freeze" />
+            method has been called on this object.
+            To use the <see cref="T:PostSharp.Patterns.Threading.Models.FreezableThreadingModel" />, apply the <see cref="T:PostSharp.Patterns.Threading.FreezableAttribute" /> custom attribute to a class.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.Models.ImmutableThreadingModel">
+      <summary>
+            The <see cref="T:PostSharp.Patterns.Threading.Models.ImmutableThreadingModel" /> class describes a threading model where changes to an object are forbidden after completion of the object constructor.
+            To use the <see cref="T:PostSharp.Patterns.Threading.Models.ImmutableThreadingModel" />, apply the <see cref="T:PostSharp.Patterns.Threading.ImmutableAttribute" /> custom attribute to a class.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.Models.PrivateThreadingModel">
+      <summary>
+            The <see cref="T:PostSharp.Patterns.Threading.Models.PrivateThreadingModel" /> class describes a behavior of objects in which their threading model is
+            determined by the parent they are assigned to in a parent-child relationship. Objects with this threading model
+            are considered a private state of their parent object and cannot be accessed from a different object.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.Models.PrivateThreadingModel.IsThreadSafe">
+      <summary>
+            Determines whether the threading model is possibly thread safe.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.Models.ReaderWriterSynchronizedThreadingModel">
+      <summary>
+            The <see cref="T:PostSharp.Patterns.Threading.Models.ReaderWriterSynchronizedThreadingModel" /> class describes a threading model where several threads can have concurrent read-only access,
+            but where writing to the object requires exclusive access.
+            To use the <see cref="T:PostSharp.Patterns.Threading.Models.ReaderWriterSynchronizedThreadingModel" />, apply the <see cref="T:PostSharp.Patterns.Threading.ReaderWriterSynchronizedAttribute" /> custom attribute to a class.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.Models.ReaderWriterSynchronizedThreadingModel.IsThreadSafe">
+      <summary>
+            Determines whether the threading model is possibly thread safe.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.Models.ReadOnlyThreadingModel">
+      <summary>
+            Base class for <see cref="T:PostSharp.Patterns.Threading.Models.FreezableThreadingModel" /> and <see cref="T:PostSharp.Patterns.Threading.Models.ImmutableThreadingModel" />.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.Models.ReadOnlyThreadingModel.IsThreadSafe">
+      <summary>
+            Determines whether the threading model is possibly thread safe.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.Models.SynchronizedThreadingModel">
+      <summary>
+            The <see cref="T:PostSharp.Patterns.Threading.Models.SynchronizedThreadingModel" /> class describes a threading model where only a single thread can access the object at a time.
+            To use the <see cref="T:PostSharp.Patterns.Threading.Models.SynchronizedThreadingModel" />, apply the <see cref="T:PostSharp.Patterns.Threading.SynchronizedAttribute" /> custom attribute to a class.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.Models.SynchronizedThreadingModel.IsThreadSafe">
+      <summary>
+            Determines whether the threading model is possibly thread safe.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.Models.ThreadAffineThreadingModel">
+      <summary>
+            The <see cref="T:PostSharp.Patterns.Threading.Models.ThreadAffineThreadingModel" /> class describes a threading model where only the thread that created the object has the right to access this object.
+            To use the <see cref="T:PostSharp.Patterns.Threading.Models.ThreadAffineThreadingModel" />, apply the <see cref="T:PostSharp.Patterns.Threading.ThreadAffineAttribute" /> custom attribute to a class.
+            </summary>
+    </member>
+    <member name="T:PostSharp.Patterns.Threading.Models.ThreadUnsafeThreadingModel">
+      <summary>
+            The <see cref="T:PostSharp.Patterns.Threading.Models.ThreadUnsafeThreadingModel" /> class describes a threading model an object cannot be accessed concurrently by several threads.
+            In case of concurrent access, a <see cref="T:PostSharp.Patterns.Threading.ConcurrentAccessException" /> exception will be thrown. The thread-unsafe threading model is not strictly
+            a model, because it cannot be deterministically verified. 
+            To use the <see cref="T:PostSharp.Patterns.Threading.Models.ThreadAffineThreadingModel" />, apply the <see cref="T:PostSharp.Patterns.Threading.ThreadUnsafeAttribute" /> custom attribute to a class.
+            </summary>
+    </member>
+    <member name="P:PostSharp.Patterns.Threading.Models.ThreadUnsafeThreadingModel.IsThreadSafe">
+      <summary>
+            Determines whether the threading model is possibly thread safe.
+            </summary>
+    </member>
+  </members>
+</doc>
