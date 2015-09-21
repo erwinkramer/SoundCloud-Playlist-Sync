@@ -12,13 +12,7 @@ namespace Soundcloud_Playlist_Downloader
     class metadataTagging
     {
         public static void tagIt(ref JsonPoco.Track song)
-        {
-            //Sets file creation time to creation time that matches with Soundcloud track
-            //If somehow the datetime string can't be parsed it will just use the current (now) datetime
-            DateTime dt = DateTime.Now;
-            DateTime.TryParse(song.created_at, out dt);
-            File.SetCreationTime(song.LocalPath, dt);
-
+        {          
             // metadata tagging
             TagLib.File tagFile = null;
 
@@ -28,13 +22,21 @@ namespace Soundcloud_Playlist_Downloader
             // it seems that id3v2.4 is more prone to misinterpret utf-8. id3v2.2 seems most stable. 
             tagFile = TagLib.File.Create(song.LocalPath);
 
-            if (tagFile.Writeable)
+            DateTime creationDate = DateTime.Today; //If somehow the datetime string can't be parsed it will just use today
+            if (!String.IsNullOrEmpty(song.created_at))
             {
-                //Make use of Conductor field to write soundcloud song ID and user ID (conductor field is never used anyway)
+                DateTime.TryParse(song.created_at, out creationDate);
+            }
+
+            if (tagFile.Writeable)
+            {              
+                //Make use of Conductor field to write soundcloud song ID and user ID for future features (conductor field is never used anyway)
                 tagFile.Tag.Conductor = "SC_SONG_ID," + song.id + ",SC_USER_ID," + song.user_id;
 
                 //tag all other metadata fields
                 tagFile.Tag.Title = song.Title;
+                tagFile.Tag.Year = Convert.ToUInt32(creationDate.Year);
+
                 List<string> listGenreAndTags = new List<string>();
 
                 if (!String.IsNullOrEmpty(song.Username))
@@ -42,6 +44,12 @@ namespace Soundcloud_Playlist_Downloader
                     tagFile.Tag.AlbumArtists = new string[] { song.Username };
                     tagFile.Tag.Performers = new string[] { song.Username };
                 }
+
+                if(song.bpm.HasValue)
+                {
+                    float bpm = (float) song.bpm;
+                    tagFile.Tag.BeatsPerMinute = Convert.ToUInt32(bpm);
+                }                
 
                 if (!String.IsNullOrEmpty(song.license))
                 {
@@ -108,10 +116,12 @@ namespace Soundcloud_Playlist_Downloader
                     getAvatarImg(ref tagFile, ref song);
                 }
                 tagFile.Save();
-                tagFile.Dispose();
-
-                
+                tagFile.Dispose();              
             }
+
+            //Sets file creation time to creation time that matches with Soundcloud track
+            File.SetCreationTime(song.LocalPath, creationDate);
+            File.SetLastWriteTime(song.LocalPath, creationDate); //set last write time to original file creation date
         }
 
         public static void getAvatarImg(ref TagLib.File tagFile, ref JsonPoco.Track song)
