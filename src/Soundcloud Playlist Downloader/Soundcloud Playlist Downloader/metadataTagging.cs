@@ -103,11 +103,48 @@ namespace Soundcloud_Playlist_Downloader
                 {
                     getArtwork(ref tagFile, ref song);
                 }
+                else
+                {
+                    getAvatarImg(ref tagFile, ref song);
+                }
                 tagFile.Save();
                 tagFile.Dispose();
 
                 
             }
+        }
+
+        public static void getAvatarImg(ref TagLib.File tagFile, ref JsonPoco.Track song)
+        {
+            //download user profile avatar image
+            string avatarFilepath = Path.GetTempFileName();
+
+            string highResAvatar_url = song.user.avatar_url.Replace("large.jpg", "t500x500.jpg");
+            for (int attempts = 0; attempts < 5; attempts++)
+            {
+                try
+                {
+                    using (WebClient web = new WebClient())
+                    {
+                        web.DownloadFile(highResAvatar_url, avatarFilepath);
+                    }
+                    TagLib.Picture artwork = new TagLib.Picture(avatarFilepath);
+                    artwork.Type = TagLib.PictureType.FrontCover;
+                    tagFile.Tag.Pictures = new[] { artwork };
+                    break;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                }
+                System.Threading.Thread.Sleep(50); // Pause 50ms before new attempt
+            }
+
+            if (avatarFilepath != null && File.Exists(avatarFilepath))
+            {
+                File.Delete(avatarFilepath);
+            }
+
         }
 
         public static void getArtwork(ref TagLib.File tagFile, ref JsonPoco.Track song)
