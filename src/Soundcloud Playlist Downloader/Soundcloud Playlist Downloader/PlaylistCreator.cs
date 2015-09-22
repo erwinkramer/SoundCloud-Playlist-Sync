@@ -17,15 +17,15 @@ namespace Soundcloud_Playlist_Downloader
             {
                 string[] songsDownloaded = File.ReadAllLines(manifestPath);
 
-                string recentlyAddedPath = Path.Combine(directoryPath, "Recently Added (SC Downloader).m3u");
+                string recentlyAddedPath = Path.Combine(directoryPath, "Recently Added (SC Downloader).m3u8");
                 IList<string> recentlyAddedM3U = new List<string>(recentlyAdded(tracks, directoryPath, songsDownloaded));
                 writeM3UtoFile(recentlyAddedM3U, recentlyAddedPath);
 
-                string sortOnMostLikedPath = Path.Combine(directoryPath, "Most Liked (SC Downloader).m3u");
+                string sortOnMostLikedPath = Path.Combine(directoryPath, "Most Liked (SC Downloader).m3u8");
                 IList<string> sortOnMostLikedM3U = new List<string>(sortOnMostLiked(tracks, directoryPath, songsDownloaded));
                 writeM3UtoFile(sortOnMostLikedM3U, sortOnMostLikedPath);
 
-                string sortOnMostPlayedPath = Path.Combine(directoryPath, "Most Played (SC Downloader).m3u");
+                string sortOnMostPlayedPath = Path.Combine(directoryPath, "Most Played (SC Downloader).m3u8");
                 IList<string> sortOnMostPlayedM3U = new List<string>(sortOnMostPlayed(tracks, directoryPath, songsDownloaded));
                 writeM3UtoFile(sortOnMostPlayedM3U, sortOnMostPlayedPath);
             }

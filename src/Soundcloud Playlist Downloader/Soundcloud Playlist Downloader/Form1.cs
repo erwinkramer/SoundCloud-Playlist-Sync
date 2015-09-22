@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Soundcloud_Playlist_Downloader.Properties;
+using System.IO;
 
 namespace Soundcloud_Playlist_Downloader
 {
@@ -36,6 +37,7 @@ namespace Soundcloud_Playlist_Downloader
         public static bool ReplaceIllegalCharacters = false;
         public static bool excludeM4A = false;
         public static bool excludeAAC = false;
+        public static string ManifestName = "";
 
         private PerformSyncComplete PerformSyncCompleteImplementation = null;
         private ProgressBarUpdate ProgressBarUpdateImplementation = null;
@@ -168,6 +170,28 @@ namespace Soundcloud_Playlist_Downloader
                 Form1.ReplaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
                 Form1.excludeAAC = chk_excl_m4a.Checked;
                 Form1.excludeM4A = chk_excl_m4a.Checked;
+                
+                PlaylistSync.DownloadMode dlMode = playlistRadio.Checked ? PlaylistSync.DownloadMode.Playlist : favoritesRadio.Checked ? PlaylistSync.DownloadMode.Favorites : PlaylistSync.DownloadMode.Artist;
+
+                System.Uri uri = new Uri(url.Text);
+                string uriWithoutScheme = uri.Host + uri.PathAndQuery;
+                string validManifestFilename = JsonPoco.Track.staticCoerceValidFileName(uriWithoutScheme, false);
+                Form1.ManifestName = ".manifest=" + validManifestFilename + ",FPA=" + FoldersPerArtist + ",IAIF=" + IncludeArtistInFilename + ",DM=" + dlMode;
+
+                string[] files = System.IO.Directory.GetFiles(directoryPath.Text, ".manifest=*", System.IO.SearchOption.TopDirectoryOnly);
+                if ((files.Length > 0) || (System.IO.File.Exists(Path.Combine(directoryPath.Text, "manifest"))))
+                {
+                     if (!System.IO.File.Exists(Path.Combine(directoryPath.Text, Form1.ManifestName)) ||
+                         (System.IO.File.Exists(Path.Combine(directoryPath.Text, "manifest")))) //old manifest format
+                     {
+                         //different or old manifest found, quitting
+                         status.Text = "Old or different manifest found, please change settings or local directoy.";
+
+                         completed = true;
+                         InvokeSyncComplete(); 
+                         return;
+                     }
+                }
 
                 new Thread(() =>
                 {
@@ -175,7 +199,7 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         sync.Synchronize(
                             url: url.Text,
-                            mode: playlistRadio.Checked ? PlaylistSync.DownloadMode.Playlist : favoritesRadio.Checked ? PlaylistSync.DownloadMode.Favorites : PlaylistSync.DownloadMode.Artist,
+                            mode: dlMode,
                             directory: directoryPath.Text, 
                             clientId: CLIENT_ID
                         );

@@ -246,8 +246,8 @@ namespace Soundcloud_Playlist_Downloader
             //define all local paths by combining the sanitzed artist (if checked by user) with the santized title
             foreach(Track track in tracks)
             {
-                string validArtist = track.CoerceValidFileName(track.Artist);
-                string validTitle = track.CoerceValidFileName(track.Title);
+                string validArtist = track.CoerceValidFileName(track.Artist, true);
+                string validTitle = track.CoerceValidFileName(track.Title, true);
                 string filenameWithArtist = validArtist + " - " + validTitle;
 
                 if (Form1.FoldersPerArtist)
@@ -292,6 +292,8 @@ namespace Soundcloud_Playlist_Downloader
                 }
             };
 
+            IList<Track> cleantracks = tracks;
+
             // determine which tracks should be deleted or re-added
             DeleteOrAddRemovedTrack(directoryPath, tracks);
 
@@ -303,7 +305,7 @@ namespace Soundcloud_Playlist_Downloader
 
             //Create playlist file
             PlaylistCreator playlistCreate = new PlaylistCreator();
-            playlistCreate.createSimpleM3U(tracks, directoryPath);
+            playlistCreate.createSimpleM3U(cleantracks, directoryPath);
 
             // validation
             if (songsDownloaded.Count != SongsToDownload.Count && IsActive)
@@ -354,7 +356,7 @@ namespace Soundcloud_Playlist_Downloader
             {
                 lock(WriteManifestLock)
                 {
-                    string manifestPath = DetermineManifestPath(directoryPath);                    
+                    string manifestPath = DetermineManifestPath(directoryPath);
                     File.AppendAllLines(manifestPath, content); //if file does not exist, this function will create one                                 
                 }
             }
@@ -380,7 +382,7 @@ namespace Soundcloud_Playlist_Downloader
                     lock (WriteManifestLock)
                     {
                         string manifestPath = DetermineManifestPath(directoryPath);
-                        File.AppendAllLines(manifestPath, content); //if file does not exist, this function will create one   
+                        File.AppendAllLines(manifestPath, content); //if file does not exist, this function will create one
                         updateSuccesful = true;
                         break;
                     }
@@ -614,9 +616,9 @@ namespace Soundcloud_Playlist_Downloader
             return json;
         }
 
-        protected string DetermineManifestPath(string directoryPath)
+        public string DetermineManifestPath(string directoryPath)
         {
-            return Path.Combine(directoryPath, "manifest");
+            return Path.Combine(directoryPath, Form1.ManifestName);
         }
 
         private string ParseTrackPath(string csv, int position)
