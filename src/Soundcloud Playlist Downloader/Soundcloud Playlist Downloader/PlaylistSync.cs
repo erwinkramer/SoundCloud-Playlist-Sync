@@ -469,8 +469,17 @@ namespace Soundcloud_Playlist_Downloader
                                     .Replace("attachment;filename=", "").Replace("\"", ""));
                             }
                         }
-                        string[] supportedFormats = new string[] { ".wav", ".aiff", ".aif", ".m4a", ".aac"};
-                        if (Form1.ConvertToMp3 && Form1.Highqualitysong && (supportedFormats.Contains(extension)))
+                        var allowedFormats = new List<string>();
+                        allowedFormats.AddRange(new string[] { ".wav", ".aiff", ".aif", ".m4a", ".aac"});
+                        if(Form1.excludeAAC)
+                        {
+                            allowedFormats.Remove(".aac");
+                        }
+                        if(Form1.excludeM4A)
+                        {
+                            allowedFormats.Remove(".m4a");
+                        }
+                        if (Form1.ConvertToMp3 && Form1.Highqualitysong && (allowedFormats.Contains(extension)))
                         {
                             //get the wav song as byte data, as we won't store it just yet
                             byte[] soundbytes = client.DownloadData(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey));

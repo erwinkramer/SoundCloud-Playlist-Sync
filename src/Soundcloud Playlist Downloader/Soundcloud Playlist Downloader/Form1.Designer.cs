@@ -52,8 +52,13 @@
             this.chk_replaceIllegalCharacters = new System.Windows.Forms.CheckBox();
             this.chk_includeArtistinFilename = new System.Windows.Forms.CheckBox();
             this.chk_redownloadLocallyRemoved = new System.Windows.Forms.CheckBox();
+            this.lbl_exclude = new System.Windows.Forms.Label();
+            this.chk_excl_m4a = new System.Windows.Forms.CheckBox();
+            this.chk_exl_aac = new System.Windows.Forms.CheckBox();
+            this.pnl_convert = new System.Windows.Forms.Panel();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.pnl_convert.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -69,7 +74,7 @@
             // 
             this.syncButton.Location = new System.Drawing.Point(15, 298);
             this.syncButton.Name = "syncButton";
-            this.syncButton.Size = new System.Drawing.Size(397, 23);
+            this.syncButton.Size = new System.Drawing.Size(430, 23);
             this.syncButton.TabIndex = 4;
             this.syncButton.Text = "Synchronize";
             this.syncButton.UseVisualStyleBackColor = true;
@@ -77,7 +82,7 @@
             // 
             // browseButton
             // 
-            this.browseButton.Location = new System.Drawing.Point(350, 272);
+            this.browseButton.Location = new System.Drawing.Point(383, 272);
             this.browseButton.Name = "browseButton";
             this.browseButton.Size = new System.Drawing.Size(62, 20);
             this.browseButton.TabIndex = 6;
@@ -113,7 +118,7 @@
             this.status});
             this.statusStrip1.Location = new System.Drawing.Point(0, 350);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(424, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(457, 22);
             this.statusStrip1.TabIndex = 9;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -126,7 +131,7 @@
             // 
             this.progressBar.Location = new System.Drawing.Point(15, 327);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(396, 13);
+            this.progressBar.Size = new System.Drawing.Size(430, 13);
             this.progressBar.TabIndex = 10;
             // 
             // favoritesRadio
@@ -181,7 +186,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(424, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(457, 24);
             this.menuStrip1.TabIndex = 16;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -197,7 +202,7 @@
             this.directoryPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Soundcloud_Playlist_Downloader.Properties.Settings.Default, "LocalPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.directoryPath.Location = new System.Drawing.Point(71, 274);
             this.directoryPath.Name = "directoryPath";
-            this.directoryPath.Size = new System.Drawing.Size(273, 20);
+            this.directoryPath.Size = new System.Drawing.Size(302, 20);
             this.directoryPath.TabIndex = 5;
             this.directoryPath.Text = global::Soundcloud_Playlist_Downloader.Properties.Settings.Default.LocalPath;
             // 
@@ -206,7 +211,7 @@
             this.url.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Soundcloud_Playlist_Downloader.Properties.Settings.Default, "PlaylistUrl", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.url.Location = new System.Drawing.Point(70, 27);
             this.url.Name = "url";
-            this.url.Size = new System.Drawing.Size(273, 20);
+            this.url.Size = new System.Drawing.Size(303, 20);
             this.url.TabIndex = 1;
             this.url.Text = global::Soundcloud_Playlist_Downloader.Properties.Settings.Default.PlaylistUrl;
             // 
@@ -230,11 +235,11 @@
             this.chk_convertToMp3.AutoSize = true;
             this.chk_convertToMp3.Checked = true;
             this.chk_convertToMp3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_convertToMp3.Location = new System.Drawing.Point(282, 123);
+            this.chk_convertToMp3.Location = new System.Drawing.Point(3, 3);
             this.chk_convertToMp3.Name = "chk_convertToMp3";
-            this.chk_convertToMp3.Size = new System.Drawing.Size(129, 17);
+            this.chk_convertToMp3.Size = new System.Drawing.Size(156, 17);
             this.chk_convertToMp3.TabIndex = 18;
-            this.chk_convertToMp3.Text = "Convert these to MP3";
+            this.chk_convertToMp3.Text = "Convert high quality to MP3";
             this.tt_qualityExplanation.SetToolTip(this.chk_convertToMp3, "Writing metadata to high quality files in a lossless format is problematic for so" +
         "me fields. There isn\'t a broadly used standard like ID3 for MP3.");
             this.chk_convertToMp3.UseVisualStyleBackColor = true;
@@ -278,15 +283,56 @@
             this.chk_redownloadLocallyRemoved.Text = "Re-download locally removed songs";
             this.chk_redownloadLocallyRemoved.UseVisualStyleBackColor = true;
             // 
+            // lbl_exclude
+            // 
+            this.lbl_exclude.AutoSize = true;
+            this.lbl_exclude.Location = new System.Drawing.Point(51, 25);
+            this.lbl_exclude.Name = "lbl_exclude";
+            this.lbl_exclude.Size = new System.Drawing.Size(48, 13);
+            this.lbl_exclude.TabIndex = 23;
+            this.lbl_exclude.Text = "Exclude:";
+            // 
+            // chk_excl_m4a
+            // 
+            this.chk_excl_m4a.AutoSize = true;
+            this.chk_excl_m4a.Location = new System.Drawing.Point(105, 25);
+            this.chk_excl_m4a.Name = "chk_excl_m4a";
+            this.chk_excl_m4a.Size = new System.Drawing.Size(49, 17);
+            this.chk_excl_m4a.TabIndex = 24;
+            this.chk_excl_m4a.Text = ".m4a";
+            this.chk_excl_m4a.UseVisualStyleBackColor = true;
+            // 
+            // chk_exl_aac
+            // 
+            this.chk_exl_aac.AutoSize = true;
+            this.chk_exl_aac.Location = new System.Drawing.Point(105, 48);
+            this.chk_exl_aac.Name = "chk_exl_aac";
+            this.chk_exl_aac.Size = new System.Drawing.Size(47, 17);
+            this.chk_exl_aac.TabIndex = 25;
+            this.chk_exl_aac.Text = ".aac";
+            this.chk_exl_aac.UseVisualStyleBackColor = true;
+            // 
+            // pnl_convert
+            // 
+            this.pnl_convert.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnl_convert.Controls.Add(this.chk_convertToMp3);
+            this.pnl_convert.Controls.Add(this.chk_exl_aac);
+            this.pnl_convert.Controls.Add(this.lbl_exclude);
+            this.pnl_convert.Controls.Add(this.chk_excl_m4a);
+            this.pnl_convert.Location = new System.Drawing.Point(284, 119);
+            this.pnl_convert.Name = "pnl_convert";
+            this.pnl_convert.Size = new System.Drawing.Size(161, 72);
+            this.pnl_convert.TabIndex = 26;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 372);
+            this.ClientSize = new System.Drawing.Size(457, 372);
+            this.Controls.Add(this.pnl_convert);
             this.Controls.Add(this.chk_replaceIllegalCharacters);
             this.Controls.Add(this.chk_redownloadLocallyRemoved);
             this.Controls.Add(this.chk_includeArtistinFilename);
-            this.Controls.Add(this.chk_convertToMp3);
             this.Controls.Add(this.chk_highquality);
             this.Controls.Add(this.chk_folderByArtist);
             this.Controls.Add(this.artistRadio);
@@ -313,6 +359,8 @@
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.pnl_convert.ResumeLayout(false);
+            this.pnl_convert.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,6 +390,10 @@
         private System.Windows.Forms.CheckBox chk_includeArtistinFilename;
         private System.Windows.Forms.CheckBox chk_redownloadLocallyRemoved;
         private System.Windows.Forms.CheckBox chk_replaceIllegalCharacters;
+        private System.Windows.Forms.Label lbl_exclude;
+        private System.Windows.Forms.CheckBox chk_excl_m4a;
+        private System.Windows.Forms.CheckBox chk_exl_aac;
+        private System.Windows.Forms.Panel pnl_convert;
     }
 }
 

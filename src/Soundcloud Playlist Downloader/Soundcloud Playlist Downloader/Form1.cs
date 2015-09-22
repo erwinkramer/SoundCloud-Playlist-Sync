@@ -34,6 +34,8 @@ namespace Soundcloud_Playlist_Downloader
         public static bool DeleteExternallyRemovedOrAlteredSongs = false;
         public static bool FoldersPerArtist = false;
         public static bool ReplaceIllegalCharacters = false;
+        public static bool excludeM4A = false;
+        public static bool excludeAAC = false;
 
         private PerformSyncComplete PerformSyncCompleteImplementation = null;
         private ProgressBarUpdate ProgressBarUpdateImplementation = null;
@@ -164,6 +166,8 @@ namespace Soundcloud_Playlist_Downloader
                 Form1.DeleteExternallyRemovedOrAlteredSongs = chk_deleteRemovedOrAlteredSongs.Checked;
                 Form1.FoldersPerArtist = chk_folderByArtist.Checked;
                 Form1.ReplaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
+                Form1.excludeAAC = chk_excl_m4a.Checked;
+                Form1.excludeM4A = chk_excl_m4a.Checked;
 
                 new Thread(() =>
                 {
@@ -269,7 +273,20 @@ namespace Soundcloud_Playlist_Downloader
 
         private void chk_convertToMp3_CheckedChanged(object sender, EventArgs e)
         {
-
+            if(chk_convertToMp3.Checked)
+            {
+                chk_excl_m4a.Visible = true;
+                chk_exl_aac.Visible = true;
+                lbl_exclude.Visible = true;
+            }
+            else
+            {
+                chk_excl_m4a.Visible = false;
+                chk_excl_m4a.Checked = false;
+                chk_exl_aac.Visible = false;
+                chk_exl_aac.Checked = false;
+                lbl_exclude.Visible = false;
+            }
         }
 
         private void chk_highquality_CheckedChanged(object sender, EventArgs e)
@@ -278,11 +295,13 @@ namespace Soundcloud_Playlist_Downloader
             {
                 chk_convertToMp3.Enabled = true;
                 chk_convertToMp3.Checked = true;
+                pnl_convert.Visible = true;
             }
             else
             {
                 chk_convertToMp3.Enabled = false;
                 chk_convertToMp3.Checked = false;
+                pnl_convert.Visible = false;
             }
         }
 
