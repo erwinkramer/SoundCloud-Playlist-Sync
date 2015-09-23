@@ -191,6 +191,18 @@ namespace Soundcloud_Playlist_Downloader
                          InvokeSyncComplete(); 
                          return;
                      }
+                     else if (System.IO.File.Exists(Path.Combine(directoryPath.Text, Form1.ManifestName)))
+                     { 
+                         //copy to backup location
+                         string destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), 
+                             "SoundCloud Playlist Sync",
+                             DateTime.Today.ToString("dd/MM/yyyy") + " Manifest Backups");
+
+                         string destinationPathWithFile = Path.Combine(destinationPath, Form1.ManifestName);
+                         Directory.CreateDirectory(destinationPath);
+
+                         File.Copy((Path.Combine(directoryPath.Text, Form1.ManifestName)), destinationPathWithFile, true);
+                     }
                 }
 
                 new Thread(() =>

@@ -292,7 +292,7 @@ namespace Soundcloud_Playlist_Downloader
                 }
             };
 
-            IList<Track> cleantracks = tracks;
+            IList<Track> cleantracks = tracks; //used for playlist
 
             // determine which tracks should be deleted or re-added
             DeleteOrAddRemovedTrack(directoryPath, tracks);
