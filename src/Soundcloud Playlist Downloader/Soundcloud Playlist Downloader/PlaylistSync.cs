@@ -531,17 +531,27 @@ namespace Soundcloud_Playlist_Downloader
                     foreach (string songDownloaded in songsDownloaded)
                     {
                         string localPathDownloadedSong = ParseTrackPath(songDownloaded, 1);
-                        //if file does not exist anymore, 
-                        //it will be redownloaded by not adding it to the newManifest
+
+                        //WARNING      If we want to look if allTracks contains the downloaded file we need to trim the extention
+                        //              because allTracks doesn't store the extention of the path
+                        string neutralPath = Path.ChangeExtension(localPathDownloadedSong, null);
+                        int canBeDeleted = allTracks.Count(song => song.LocalPath ==neutralPath);
+
+                        //file does not exist anymore, it will be redownloaded by not adding it to the newManifest
                         if (Form1.RedownloadLocallyRemovedOrAltered && !File.Exists(localPathDownloadedSong))                
                         {
                             continue;
                         };
-                        //WARNING      If we want to look if allTracks contains the downloaded file we need to trim the extention
-                        //              because allTracks doesn't store the extention of the path
-                        string neutralPath = Path.ChangeExtension(localPathDownloadedSong, null);
-                        int canBeDeleted = allTracks.Count(song => song.LocalPath.Contains(neutralPath));
-
+                        //file does not exist and/or is changed in SoundCloud, redownload and remove old one.
+                        if (Form1.RedownloadLocallyRemovedOrAltered && canBeDeleted == 0)
+                        {
+                            if (File.Exists(localPathDownloadedSong))
+                            {
+                                File.Delete(localPathDownloadedSong);
+                            }
+                            continue;
+                        }
+                        //file exists locally but not externally and can be removed
                         if (Form1.DeleteExternallyRemovedOrAlteredSongs && canBeDeleted == 0)
                         {
                             File.Delete(localPathDownloadedSong);
