@@ -535,7 +535,7 @@ namespace Soundcloud_Playlist_Downloader
                         //WARNING      If we want to look if allTracks contains the downloaded file we need to trim the extention
                         //              because allTracks doesn't store the extention of the path
                         string neutralPath = Path.ChangeExtension(localPathDownloadedSong, null);
-                        int canBeDeleted = allTracks.Count(song => song.LocalPath ==neutralPath);
+                        int canBeDeleted = allTracks.Count(song => song.LocalPath == neutralPath);
 
                         //file does not exist anymore, it will be redownloaded by not adding it to the newManifest
                         if (Form1.RedownloadLocallyRemovedOrAltered && !File.Exists(localPathDownloadedSong))                
@@ -548,6 +548,7 @@ namespace Soundcloud_Playlist_Downloader
                             if (File.Exists(localPathDownloadedSong))
                             {
                                 File.Delete(localPathDownloadedSong);
+                                DeleteEmptyDirectory(localPathDownloadedSong); 
                             }
                             continue;
                         }
@@ -555,11 +556,12 @@ namespace Soundcloud_Playlist_Downloader
                         if (Form1.DeleteExternallyRemovedOrAlteredSongs && canBeDeleted == 0)
                         {
                             File.Delete(localPathDownloadedSong);
+                            DeleteEmptyDirectory(localPathDownloadedSong); 
                         }                                            
                         else
                         {
                             newManifest.Add(songDownloaded);
-                        }                      
+                        }
                     }                 
                     // the manifest is updated again later, but might as well update it here
                     // to save the deletions in event of crash or abort
@@ -571,6 +573,30 @@ namespace Soundcloud_Playlist_Downloader
                 IsError = true;
                 throw new Exception("Unable to read manifest to determine tracks to delete");
             }      
+        }
+
+        public bool DeleteEmptyDirectory(string filenameWithPath)
+        {
+            if (!Form1.FoldersPerArtist)
+                return false;
+            string path = Path.GetDirectoryName(filenameWithPath);
+            if (!Directory.EnumerateFileSystemEntries(path).Any()) //folder = empty
+            {
+                try
+                {
+                    Directory.Delete(path, false); //recursive not true because should be already empty
+                    return true;
+
+                }
+                catch(Exception)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private IList<Track> DetermineTracksToDownload(string directoryPath, IList<Track> allSongs)

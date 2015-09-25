@@ -178,31 +178,34 @@ namespace Soundcloud_Playlist_Downloader
                 string validManifestFilename = JsonPoco.Track.staticCoerceValidFileName(uriWithoutScheme, false);
                 Form1.ManifestName = ".manifest=" + validManifestFilename + ",FPA=" + FoldersPerArtist + ",IAIF=" + IncludeArtistInFilename + ",DM=" + dlMode;
 
-                string[] files = System.IO.Directory.GetFiles(directoryPath.Text, ".manifest=*", System.IO.SearchOption.TopDirectoryOnly);
-                if ((files.Length > 0) || (System.IO.File.Exists(Path.Combine(directoryPath.Text, "manifest"))))
+                if (Directory.Exists(directoryPath.Text))
                 {
-                     if (!System.IO.File.Exists(Path.Combine(directoryPath.Text, Form1.ManifestName)) ||
-                         (System.IO.File.Exists(Path.Combine(directoryPath.Text, "manifest")))) //old manifest format
-                     {
-                         //different or old manifest found, quitting
-                         status.Text = "Old or different manifest found, please change settings or local directoy.";
+                    string[] files = System.IO.Directory.GetFiles(directoryPath.Text, ".manifest=*", System.IO.SearchOption.TopDirectoryOnly);
+                    if ((files.Length > 0) || (System.IO.File.Exists(Path.Combine(directoryPath.Text, "manifest"))))
+                    {
+                        if (!System.IO.File.Exists(Path.Combine(directoryPath.Text, Form1.ManifestName)) ||
+                            (System.IO.File.Exists(Path.Combine(directoryPath.Text, "manifest")))) //old manifest format
+                        {
+                            //different or old manifest found, quitting
+                            status.Text = "Old or different manifest found, please change settings or local directoy.";
 
-                         completed = true;
-                         InvokeSyncComplete(); 
-                         return;
-                     }
-                     else if (System.IO.File.Exists(Path.Combine(directoryPath.Text, Form1.ManifestName)))
-                     { 
-                         //copy to backup location
-                         string destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), 
-                             "SoundCloud Playlist Sync",
-                             DateTime.Today.ToString("dd/MM/yyyy") + " Manifest Backups");
+                            completed = true;
+                            InvokeSyncComplete();
+                            return;
+                        }
+                        else if (System.IO.File.Exists(Path.Combine(directoryPath.Text, Form1.ManifestName)))
+                        {
+                            //copy to backup location
+                            string destinationPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                                "SoundCloud Playlist Sync",
+                                DateTime.Today.ToString("dd/MM/yyyy") + " Manifest Backups");
 
-                         string destinationPathWithFile = Path.Combine(destinationPath, Form1.ManifestName);
-                         Directory.CreateDirectory(destinationPath);
+                            string destinationPathWithFile = Path.Combine(destinationPath, Form1.ManifestName);
+                            Directory.CreateDirectory(destinationPath);
 
-                         File.Copy((Path.Combine(directoryPath.Text, Form1.ManifestName)), destinationPathWithFile, true);
-                     }
+                            File.Copy((Path.Combine(directoryPath.Text, Form1.ManifestName)), destinationPathWithFile, true);
+                        }
+                    }
                 }
 
                 new Thread(() =>
