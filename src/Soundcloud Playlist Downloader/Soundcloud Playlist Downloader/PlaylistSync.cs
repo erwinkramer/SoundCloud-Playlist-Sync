@@ -247,6 +247,7 @@ namespace Soundcloud_Playlist_Downloader
             foreach(Track track in tracks)
             {
                 string validArtist = track.CoerceValidFileName(track.Artist, true);
+                string validArtistFolderName = Track.trimDotsAndSpacesForFolderName(validArtist);
                 string validTitle = track.CoerceValidFileName(track.Title, true);
                 string filenameWithArtist = validArtist + " - " + validTitle;
 
@@ -254,7 +255,7 @@ namespace Soundcloud_Playlist_Downloader
                 {
                     if (Form1.IncludeArtistInFilename) //include artist name
                     {
-                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validArtist,
+                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validArtistFolderName,
                             filenameWithArtist)))
                         {
                             filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2); //shorten to fit into max size of path
@@ -262,7 +263,7 @@ namespace Soundcloud_Playlist_Downloader
                     }
                     else
                     {
-                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validArtist,
+                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validArtistFolderName,
                             validTitle)))
                         {
                             validTitle = validTitle.Remove(validTitle.Length - 2); //shorten to fit into max size of path
@@ -397,7 +398,6 @@ namespace Soundcloud_Playlist_Downloader
                 IsError = true;
                 throw new Exception("Unable to update manifest");
             }
-
         }
 
         private IList<Track> DownloadSongs(IList<Track> TracksToDownload, string apiKey, string directoryPath)

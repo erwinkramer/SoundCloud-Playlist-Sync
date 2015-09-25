@@ -210,6 +210,11 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
             return sanitisedNamePart;
         }
 
+        public static string trimDotsAndSpacesForFolderName(string foldername)
+        {
+            return foldername.Trim('.',' ');
+        }
+
         public static string staticCoerceValidFileName(string filename, bool checkForReplaceCharacters)
         {
             if (checkForReplaceCharacters && Form1.ReplaceIllegalCharacters)
