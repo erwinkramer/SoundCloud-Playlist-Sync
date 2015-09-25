@@ -1,6 +1,5 @@
 SoundCloud-Playlist-Sync
 ========================
-
 A utility to synchronize local directories with SoundCloud playlists and favorited lists.
 
-See here for details and usage instructions: http://originaltechsolutions.blogspot.com/2013/11/soundcloud-playlist-downloader-free.html
+This is a fork from the original utility from @StephenCasella. Numerous fixes and features have been added to improve the workings of the utility.
