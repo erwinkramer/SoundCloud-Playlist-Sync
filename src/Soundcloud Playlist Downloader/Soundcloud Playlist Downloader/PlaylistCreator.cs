@@ -10,33 +10,35 @@ namespace Soundcloud_Playlist_Downloader
 {
     class PlaylistCreator : PlaylistSync
     {
-        public void createSimpleM3U(IList<Track> tracks, string directoryPath)
+        public static bool[] createSimpleM3U(IList<Track> tracks, string directoryPath)
         {
-            string manifestPath = DetermineManifestPath(directoryPath);
+            bool[] completed = new bool[3];
+            string manifestPath = Path.Combine(directoryPath, Form1.ManifestName);
             if (File.Exists(manifestPath))
             {
                 string[] songsDownloaded = File.ReadAllLines(manifestPath);
 
                 string recentlyAddedPath = Path.Combine(directoryPath, "Recently Added (SC Downloader).m3u8");
                 IList<string> recentlyAddedM3U = new List<string>(recentlyAdded(tracks, directoryPath, songsDownloaded));
-                writeM3UtoFile(recentlyAddedM3U, recentlyAddedPath);
+                writeM3UtoFile(recentlyAddedM3U, recentlyAddedPath, out completed[0]);
 
                 string sortOnMostLikedPath = Path.Combine(directoryPath, "Most Liked (SC Downloader).m3u8");
                 IList<string> sortOnMostLikedM3U = new List<string>(sortOnMostLiked(tracks, directoryPath, songsDownloaded));
-                writeM3UtoFile(sortOnMostLikedM3U, sortOnMostLikedPath);
+                writeM3UtoFile(sortOnMostLikedM3U, sortOnMostLikedPath, out completed[1]);
 
                 string sortOnMostPlayedPath = Path.Combine(directoryPath, "Most Played (SC Downloader).m3u8");
                 IList<string> sortOnMostPlayedM3U = new List<string>(sortOnMostPlayed(tracks, directoryPath, songsDownloaded));
-                writeM3UtoFile(sortOnMostPlayedM3U, sortOnMostPlayedPath);
+                writeM3UtoFile(sortOnMostPlayedM3U, sortOnMostPlayedPath, out completed[2]);
             }
+            return completed;
         }
 
-        public static string getExtension(string[] songsDownloaded, string trackLocalpath)
+        public static string getExtension(IList<string> songsDownloaded, string trackLocalpath)
         {
             string extension = ".mp3";
 
             int indexInArray = -1;
-            for (int i = 0; i < songsDownloaded.Length; i++)
+            for (int i = 0; i < songsDownloaded.Count; i++)
             {
                 if (songsDownloaded[i].Contains(trackLocalpath))
                 {
@@ -54,9 +56,9 @@ namespace Soundcloud_Playlist_Downloader
             return extension;
         }
 
-        public void writeM3UtoFile(IList<string> newM3U, string m3uPath)
+        public static void writeM3UtoFile(IList<string> newM3U, string m3uPath, out bool updateSuccesful)
         {
-            bool updateSuccesful = false;
+            updateSuccesful = false;
             for (int attempts = 0; attempts < 5; attempts++)
             {
                 try
@@ -75,7 +77,6 @@ namespace Soundcloud_Playlist_Downloader
             }
             if (!updateSuccesful)
             {
-                IsError = true;
                 throw new Exception("Unable to create m3u file.");
             }
         }
@@ -89,7 +90,7 @@ namespace Soundcloud_Playlist_Downloader
             foreach (Track track in sortedTracks)
             {
                 string relativeTrackPath = MakeRelative(track.LocalPath, dir);
-                newM3U.Add(relativeTrackPath + getExtension(songsDownloaded, track.LocalPath));
+                newM3U.Add(relativeTrackPath);
             }
          
             return newM3U;
@@ -104,7 +105,7 @@ namespace Soundcloud_Playlist_Downloader
             foreach (Track track in sortedTracks)
             {
                 string relativeTrackPath = MakeRelative(track.LocalPath, dir);
-                newM3U.Add(relativeTrackPath + getExtension(songsDownloaded, track.LocalPath));
+                newM3U.Add(relativeTrackPath);
             }
          
             return newM3U;
@@ -117,7 +118,7 @@ namespace Soundcloud_Playlist_Downloader
             foreach (Track track in tracks)
             {
                 string relativeTrackPath = MakeRelative(track.LocalPath, dir);
-                newM3U.Add(relativeTrackPath + getExtension(songsDownloaded, track.LocalPath));
+                newM3U.Add(relativeTrackPath);
             }
             return newM3U;
         }

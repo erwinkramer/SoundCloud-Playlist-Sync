@@ -21,8 +21,8 @@ namespace Soundcloud_Playlist_Downloader
 
         public enum DownloadMode { Playlist, Favorites, Artist };
 
-        public IList<Track> SongsToDownload { get; private set; }
-        public IList<Track> SongsDownloaded { get; private set; }
+        public int SongsToDownload { get; private set; }
+        public int SongsDownloaded { get; private set; }
 
         private object SongsDownloadedLock = new object();
         private static object WriteManifestLock = new object();
@@ -32,8 +32,8 @@ namespace Soundcloud_Playlist_Downloader
 
         public PlaylistSync()
         {
-            SongsToDownload = new List<Track>();
-            SongsDownloaded = new List<Track>();
+            SongsToDownload = 0;
+            SongsDownloaded = 0;
             ResetProgress();
         }
 
@@ -291,32 +291,29 @@ namespace Soundcloud_Playlist_Downloader
                 {
                     track.LocalPath += " (HQ)";
                 }
-            };
-
-            IList<Track> cleantracks = tracks; //used for playlist
-
+            };    
             // determine which tracks should be deleted or re-added
             DeleteOrAddRemovedTrack(directoryPath, tracks);
 
             // determine which tracks should be downloaded
-            SongsToDownload = DetermineTracksToDownload(directoryPath, tracks);
-
+            DetermineTracksToDownload(directoryPath, ref tracks);
+          
             // download the relevant tracks and continuously update the manifest
-            IList<Track> songsDownloaded = DownloadSongs(SongsToDownload, clientId, directoryPath);
+            DownloadSongs(tracks, clientId, directoryPath);
 
             //Create playlist file
-            PlaylistCreator playlistCreate = new PlaylistCreator();
-            playlistCreate.createSimpleM3U(cleantracks, directoryPath);
+            bool[] completed = PlaylistCreator.createSimpleM3U(tracks, directoryPath);
 
+            int songstodownload = tracks.Where(x => x.HasToBeDownloaded == true).Count();
             // validation
-            if (songsDownloaded.Count != SongsToDownload.Count && IsActive)
+            if (songstodownload > 0 && IsActive)
             {
                 IsError = true;
                 throw new Exception(
                         "Some tracks failed to download. You might need to try a few more times before they can download correctly. " +
                         "The following tracks were not downloaded:" + Environment.NewLine +
-                        string.Join(Environment.NewLine, SongsToDownload.Except(SongsDownloaded).Select(x => "Title: " + x.Title + ", Artist: " + x.Artist))
-                    );
+                        string.Join(Environment.NewLine, tracks.Where(x => x.HasToBeDownloaded == true).Select(x => "Title: " + x.Title + ", Artist: " + x.Artist)
+                    ));
             }
         }
 
@@ -338,8 +335,8 @@ namespace Soundcloud_Playlist_Downloader
 
         private void ResetProgress()
         {
-            SongsDownloaded.Clear();
-            SongsToDownload.Clear();
+            SongsDownloaded = 0;
+            SongsToDownload = 0;
             IsActive = true;
             IsError = false;
         }
@@ -400,12 +397,11 @@ namespace Soundcloud_Playlist_Downloader
             }
         }
 
-        private IList<Track> DownloadSongs(IList<Track> TracksToDownload, string apiKey, string directoryPath)
+        private void DownloadSongs(IList<Track> Alltracks, string apiKey, string directoryPath)
         {
-            IList<Track> songsDownloaded = new List<Track>();
             object trackLock = new object();
-
-            Parallel.ForEach(TracksToDownload, 
+            SongsToDownload =  Alltracks.Where(x => x.HasToBeDownloaded == true).Count();
+            Parallel.ForEach(Alltracks.Where(x => x.HasToBeDownloaded == true), 
                 new ParallelOptions() {MaxDegreeOfParallelism = Settings.Default.ConcurrentDownloads},
                 track =>
             {
@@ -415,7 +411,7 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         lock (trackLock)
                         {
-                            songsDownloaded.Add(track);
+                            track.HasToBeDownloaded = false; ;
                             UpdateSyncManifest(track, directoryPath);
                         }
                     }
@@ -425,10 +421,8 @@ namespace Soundcloud_Playlist_Downloader
                 {
                     IsError = true;
                     ExceptionHandler.handleException(e);
-                }
-                
+                }     
             });
-            return songsDownloaded;
         }
 
         private bool DownloadTrack(Track song, string apiKey)
@@ -510,7 +504,7 @@ namespace Soundcloud_Playlist_Downloader
 
                     lock (SongsDownloadedLock)
                     {
-                        SongsDownloaded.Add(song);
+                        SongsDownloaded++ ;
                         downloaded = true;
                     }
                 }
@@ -599,22 +593,31 @@ namespace Soundcloud_Playlist_Downloader
             }
         }
 
-        private IList<Track> DetermineTracksToDownload(string directoryPath, IList<Track> allSongs)
-        {
-              
+        private void DetermineTracksToDownload(string directoryPath, ref IList<Track> allSongs)
+        {             
             string manifestPath = DetermineManifestPath(directoryPath);
-
             IList<string> streamUrls = new List<string>();
-
+            IList<string> songsDownloaded = new List<string>();
             if (File.Exists(manifestPath))
             {
+                songsDownloaded = File.ReadAllLines(manifestPath);
                 foreach (string track in File.ReadAllLines(manifestPath))
                 {
                     streamUrls.Add(ParseTrackPath(track,0));
                 }               
             }
-  
-            return allSongs.Where(s => !streamUrls.Contains(s.EffectiveDownloadUrl)).ToList();
+            foreach (Track track in allSongs)
+            {
+                if (!streamUrls.Contains(track.EffectiveDownloadUrl))
+                    track.HasToBeDownloaded = true;    
+                else if(songsDownloaded.Count > 0)
+                {   // we need to add the extention to the local path for further use
+                    // the only way we can know what the extention was when previously downloaded 
+                    // is by checking the file directly, or by checking the manifest file, 
+                    // we will do the latter
+                    track.LocalPath += (PlaylistCreator.getExtension(songsDownloaded, track.LocalPath));
+                }
+            }
         }
 
         private string RetrieveJson(string url, string clientId, int? limit = null, int? offset = null)

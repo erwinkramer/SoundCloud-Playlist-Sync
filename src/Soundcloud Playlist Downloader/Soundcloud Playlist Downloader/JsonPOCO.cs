@@ -307,6 +307,8 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
                 //user.username = Sanitize(value);
             }
         }
+
+        public bool HasToBeDownloaded { get; set; }
     }
 
    

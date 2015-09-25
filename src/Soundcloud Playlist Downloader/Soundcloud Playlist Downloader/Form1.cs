@@ -124,8 +124,8 @@ namespace Soundcloud_Playlist_Downloader
         private void UpdateProgressBar()
         {
             progressBar.Minimum = 0;
-            progressBar.Maximum = sync.SongsToDownload.Count;
-            progressBar.Value = sync.SongsDownloaded.Count;
+            progressBar.Maximum = sync.SongsToDownload;
+            progressBar.Value = sync.SongsDownloaded;
         }
 
         private void InvokeUpdateProgressBar()
