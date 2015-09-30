@@ -173,11 +173,11 @@ namespace Soundcloud_Playlist_Downloader
                 System.Uri uri = new Uri(url.Text);
                 string uriWithoutScheme = uri.Host + uri.PathAndQuery;
                 string validManifestFilename = JsonPoco.Track.staticCoerceValidFileName(uriWithoutScheme, false);
-                Form1.ManifestName = ".manifest=" + validManifestFilename + ",FPA=" + FoldersPerArtist + ",IAIF=" + IncludeArtistInFilename + ",DM=" + dlMode + ",SM=" + SyncMethod +".csv";
+                Form1.ManifestName = ".MNFST=" + validManifestFilename + ",FPA=" + FoldersPerArtist + ",IAIF=" + IncludeArtistInFilename + ",DM=" + dlMode + ",SM=" + SyncMethod +".csv";
 
                 if (Directory.Exists(directoryPath.Text))
                 {
-                    string[] files = System.IO.Directory.GetFiles(directoryPath.Text, ".manifest=*", System.IO.SearchOption.TopDirectoryOnly);
+                    string[] files = System.IO.Directory.GetFiles(directoryPath.Text, ".MNFST=*", System.IO.SearchOption.TopDirectoryOnly);
                     if ((files.Length > 0) || (System.IO.File.Exists(Path.Combine(directoryPath.Text, "manifest"))))
                     {
                         if (!System.IO.File.Exists(Path.Combine(directoryPath.Text, Form1.ManifestName)) ||
