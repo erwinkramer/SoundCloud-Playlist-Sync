@@ -368,7 +368,7 @@ namespace Soundcloud_Playlist_Downloader
         private void UpdateSyncManifest(Track trackDownloaded, string directoryPath)
         {
             string track = null;
-            track = trackDownloaded.EffectiveDownloadUrl + "," + trackDownloaded.LocalPath;
+            track = trackDownloaded.EffectiveDownloadUrl + "," + trackDownloaded.LocalPath.Replace(directoryPath, "");
             IList<string> content = new List<string>();
             content.Add(track);
 
@@ -524,7 +524,7 @@ namespace Soundcloud_Playlist_Downloader
 
                     foreach (string songDownloaded in songsDownloaded)
                     {
-                        string localPathDownloadedSong = ParseTrackPath(songDownloaded, 1);
+                        string localPathDownloadedSong = directoryPath + ParseTrackPath(songDownloaded, 1);
                         string songID = new String(ParseTrackPath(songDownloaded, 0).ToCharArray().Where(c => Char.IsDigit(c)).ToArray());
                         string neutralPath = Path.ChangeExtension(localPathDownloadedSong, null);
                         Track SoundCloudTrack = null;
