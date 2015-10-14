@@ -200,6 +200,7 @@
             this.url.Size = new System.Drawing.Size(383, 20);
             this.url.TabIndex = 1;
             this.url.Text = settings1.PlaylistUrl;
+            this.url.TextChanged += new System.EventHandler(this.url_TextChanged);
             // 
             // chk_highquality
             // 

@@ -527,11 +527,11 @@ namespace Soundcloud_Playlist_Downloader
                         string localPathDownloadedSong = ParseTrackPath(songDownloaded, 1);
                         string songID = new String(ParseTrackPath(songDownloaded, 0).ToCharArray().Where(c => Char.IsDigit(c)).ToArray());
                         string neutralPath = Path.ChangeExtension(localPathDownloadedSong, null);
-                        bool existsOnSoundCloud = allTracks.Any(song => new String(song.stream_url.ToCharArray().Where(c => Char.IsDigit(c)).ToArray()) == songID);
-                        bool trackArtistOrNameChanged = false;
+                        Track SoundCloudTrack = allTracks.DefaultIfEmpty(null).First(song => new String(song.stream_url.ToCharArray().Where(c => Char.IsDigit(c)).ToArray()) == songID);
+                        bool trackArtistOrNameChanged = false;               
                         //WARNING      If we want to look if allTracks contains the downloaded file we need to trim the extention
                         //              because allTracks doesn't store the extention of the path
-                        if (existsOnSoundCloud)
+                        if (SoundCloudTrack != null)
                         {
                             trackArtistOrNameChanged = !allTracks.Any(song => song.LocalPath == neutralPath);
                         }
@@ -541,17 +541,22 @@ namespace Soundcloud_Playlist_Downloader
                             continue;
                         };
                         //song is changed on SoundCloud (only checks artist and filename), redownload and remove old one.
-                        if (existsOnSoundCloud && trackArtistOrNameChanged)
+                        if (SoundCloudTrack != null && trackArtistOrNameChanged)
                         {
-                            if (File.Exists(localPathDownloadedSong))
+                            bool localIsHD = ParseTrackPath(songDownloaded, 0).EndsWith("download");
+                            if (SoundCloudTrack.IsHD == true || (SoundCloudTrack.IsHD == false && localIsHD == false)) 
+                                // do not download Low Quality if HQ is already downloaded, even if the track is changed!
                             {
-                                File.Delete(localPathDownloadedSong);
-                                DeleteEmptyDirectory(localPathDownloadedSong); 
+                                if (File.Exists(localPathDownloadedSong))
+                                {
+                                    File.Delete(localPathDownloadedSong);
+                                    DeleteEmptyDirectory(localPathDownloadedSong);
+                                }
+                                continue;
                             }
-                            continue;                           
                         }
                         //file exists locally but not externally and can be removed
-                        if (Form1.SyncMethod == 2 && !existsOnSoundCloud)
+                        if (Form1.SyncMethod == 2 && SoundCloudTrack == null)
                         {
                             File.Delete(localPathDownloadedSong);
                             DeleteEmptyDirectory(localPathDownloadedSong); 
