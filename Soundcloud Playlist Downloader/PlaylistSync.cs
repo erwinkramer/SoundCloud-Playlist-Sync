@@ -527,7 +527,9 @@ namespace Soundcloud_Playlist_Downloader
                         string localPathDownloadedSong = ParseTrackPath(songDownloaded, 1);
                         string songID = new String(ParseTrackPath(songDownloaded, 0).ToCharArray().Where(c => Char.IsDigit(c)).ToArray());
                         string neutralPath = Path.ChangeExtension(localPathDownloadedSong, null);
-                        Track SoundCloudTrack = allTracks.DefaultIfEmpty(null).First(song => new String(song.stream_url.ToCharArray().Where(c => Char.IsDigit(c)).ToArray()) == songID);
+                        Track SoundCloudTrack = null;
+                        SoundCloudTrack = allTracks.FirstOrDefault(song => song.stream_url.Contains("/" + songID + "/"));
+
                         bool trackArtistOrNameChanged = false;               
                         //WARNING      If we want to look if allTracks contains the downloaded file we need to trim the extention
                         //              because allTracks doesn't store the extention of the path
@@ -571,10 +573,10 @@ namespace Soundcloud_Playlist_Downloader
                     File.WriteAllLines(manifestPath, newManifest);        
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 IsError = true;
-                throw new Exception("Unable to read manifest to determine tracks to delete");
+                throw new Exception("Unable to read manifest to determine tracks to delete; exception: " + e);
             }      
         }
 
