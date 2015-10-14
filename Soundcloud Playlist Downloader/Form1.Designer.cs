@@ -371,7 +371,6 @@
             settings1.playlistUrlChecked = true;
             settings1.ProfileUrlChecked = false;
             settings1.SettingsKey = "";
-            settings1.Url = "";
             this.url.DataBindings.Add(new System.Windows.Forms.Binding("Text", settings1, "PlaylistUrl", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.url.Location = new System.Drawing.Point(6, 19);
             this.url.Name = "url";
