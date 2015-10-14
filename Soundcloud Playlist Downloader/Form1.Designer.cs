@@ -42,8 +42,6 @@
             this.chk_folderByArtist = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.directoryPath = new System.Windows.Forms.TextBox();
-            this.url = new System.Windows.Forms.TextBox();
             this.chk_highquality = new System.Windows.Forms.CheckBox();
             this.tt_qualityExplanation = new System.Windows.Forms.ToolTip(this.components);
             this.chk_convertToMp3 = new System.Windows.Forms.CheckBox();
@@ -60,6 +58,8 @@
             this.gbox_url = new System.Windows.Forms.GroupBox();
             this.gbox_advanced = new System.Windows.Forms.GroupBox();
             this.gbox_localdir = new System.Windows.Forms.GroupBox();
+            this.directoryPath = new System.Windows.Forms.TextBox();
+            this.url = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnl_convert.SuspendLayout();
@@ -167,6 +167,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(416, 24);
             this.menuStrip1.TabIndex = 16;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // aboutToolStripMenuItem
             // 
@@ -174,33 +175,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click_1);
-            // 
-            // directoryPath
-            // 
-            settings1.ApiKey = "";
-            settings1.ConcurrentDownloads = 3;
-            settings1.LocalPath = "";
-            settings1.PlaylistUrl = "";
-            settings1.playlistUrlChecked = true;
-            settings1.ProfileUrlChecked = false;
-            settings1.SettingsKey = "";
-            settings1.Url = "";
-            this.directoryPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", settings1, "LocalPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.directoryPath.Location = new System.Drawing.Point(6, 19);
-            this.directoryPath.Name = "directoryPath";
-            this.directoryPath.Size = new System.Drawing.Size(315, 20);
-            this.directoryPath.TabIndex = 5;
-            this.directoryPath.Text = settings1.LocalPath;
-            // 
-            // url
-            // 
-            this.url.DataBindings.Add(new System.Windows.Forms.Binding("Text", settings1, "PlaylistUrl", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.url.Location = new System.Drawing.Point(6, 19);
-            this.url.Name = "url";
-            this.url.Size = new System.Drawing.Size(383, 20);
-            this.url.TabIndex = 1;
-            this.url.Text = settings1.PlaylistUrl;
-            this.url.TextChanged += new System.EventHandler(this.url_TextChanged);
             // 
             // chk_highquality
             // 
@@ -379,6 +353,33 @@
             this.gbox_localdir.TabStop = false;
             this.gbox_localdir.Text = "Local Directory";
             // 
+            // directoryPath
+            // 
+            this.directoryPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", settings1, "LocalPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.directoryPath.Location = new System.Drawing.Point(6, 19);
+            this.directoryPath.Name = "directoryPath";
+            this.directoryPath.Size = new System.Drawing.Size(315, 20);
+            this.directoryPath.TabIndex = 5;
+            this.directoryPath.Text = settings1.LocalPath;
+            // 
+            // url
+            // 
+            settings1.ApiKey = "";
+            settings1.ConcurrentDownloads = 3;
+            settings1.LocalPath = "";
+            settings1.PlaylistUrl = "";
+            settings1.playlistUrlChecked = true;
+            settings1.ProfileUrlChecked = false;
+            settings1.SettingsKey = "";
+            settings1.Url = "";
+            this.url.DataBindings.Add(new System.Windows.Forms.Binding("Text", settings1, "PlaylistUrl", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.url.Location = new System.Drawing.Point(6, 19);
+            this.url.Name = "url";
+            this.url.Size = new System.Drawing.Size(383, 20);
+            this.url.TabIndex = 1;
+            this.url.Text = settings1.PlaylistUrl;
+            this.url.TextChanged += new System.EventHandler(this.url_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -397,7 +398,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "SoundCloud Playlist Sync 2.0 Stable";
+            this.Text = "SoundCloud Playlist Sync 2.1 Stable";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);

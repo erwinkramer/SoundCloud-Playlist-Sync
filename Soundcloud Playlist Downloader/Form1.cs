@@ -58,8 +58,6 @@ namespace Soundcloud_Playlist_Downloader
             status.Text = "Ready";
             MinimumSize = new Size(Width, Height);
             MaximumSize = new Size(Width, Height);
-            url.Text = Settings.Default.PlaylistUrl;
-            directoryPath.Text = Settings.Default.LocalPath;
         }
 
         private void browseButton_Click(object sender, EventArgs e)
@@ -266,9 +264,9 @@ namespace Soundcloud_Playlist_Downloader
         [SilentFailure]
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Settings.Default.PlaylistUrl = url.Text;
-            Settings.Default.LocalPath = directoryPath.Text;
-            Settings.Default.Save();
+            Soundcloud_Playlist_Downloader.Properties.Settings.Default.PlaylistUrl = this.url.Text;
+            Soundcloud_Playlist_Downloader.Properties.Settings.Default.LocalPath = this.directoryPath.Text;
+            Soundcloud_Playlist_Downloader.Properties.Settings.Default.Save();
             exiting = true;
             sync.IsActive = false;
             status.Text = "Preparing for exit... Please Wait.";
@@ -286,9 +284,9 @@ namespace Soundcloud_Playlist_Downloader
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            url.Text = Soundcloud_Playlist_Downloader.Properties.Settings.Default.PlaylistUrl;
+            directoryPath.Text = Soundcloud_Playlist_Downloader.Properties.Settings.Default.LocalPath;
         }
-
 
         private void chk_folderByArtist_CheckedChanged(object sender, EventArgs e)
         {
@@ -357,6 +355,11 @@ namespace Soundcloud_Playlist_Downloader
         }
 
         private void url_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
         }
