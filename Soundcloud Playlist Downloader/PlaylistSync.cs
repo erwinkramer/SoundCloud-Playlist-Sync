@@ -524,30 +524,28 @@ namespace Soundcloud_Playlist_Downloader
 
                     foreach (string songDownloaded in songsDownloaded)
                     {
-                        string localPathDownloadedSong = directoryPath + ParseTrackPath(songDownloaded, 1);
+                        string localPathDownloadedSong = directoryPath + ParseTrackPath(songDownloaded, 1).Replace(directoryPath, "");
                         string songID = new String(ParseTrackPath(songDownloaded, 0).ToCharArray().Where(c => Char.IsDigit(c)).ToArray());
                         string neutralPath = Path.ChangeExtension(localPathDownloadedSong, null);
                         Track SoundCloudTrack = null;
                         SoundCloudTrack = allTracks.FirstOrDefault(song => song.stream_url.Contains("/" + songID + "/"));
-
-                        bool trackArtistOrNameChanged = false;               
+                     
+                        bool trackArtistOrNameChanged = false;
                         //WARNING      If we want to look if allTracks contains the downloaded file we need to trim the extention
-                        //              because allTracks doesn't store the extention of the path
-                        if (SoundCloudTrack != null)
-                        {
-                            trackArtistOrNameChanged = !allTracks.Any(song => song.LocalPath == neutralPath);
-                        }
+                        //              because allTracks doesn't store the extention of the path                            
+                        trackArtistOrNameChanged = !allTracks.Any(song => song.LocalPath.Contains(neutralPath));
+                            
                         //file does not exist anymore, it will be redownloaded by not adding it to the newManifest
-                        if (!File.Exists(localPathDownloadedSong))                
+                        if (!File.Exists(localPathDownloadedSong))
                         {
                             continue;
                         };
                         //song is changed on SoundCloud (only checks artist and filename), redownload and remove old one.
-                        if (SoundCloudTrack != null && trackArtistOrNameChanged)
+                        if (trackArtistOrNameChanged && SoundCloudTrack != null)
                         {
                             bool localIsHD = ParseTrackPath(songDownloaded, 0).EndsWith("download");
-                            if (SoundCloudTrack.IsHD == true || (SoundCloudTrack.IsHD == false && localIsHD == false)) 
-                                // do not download Low Quality if HQ is already downloaded, even if the track is changed!
+                            if (SoundCloudTrack.IsHD == true || (SoundCloudTrack.IsHD == false && localIsHD == false))
+                            // do not download Low Quality if HQ is already downloaded, even if the track is changed!
                             {
                                 if (File.Exists(localPathDownloadedSong))
                                 {
@@ -561,12 +559,12 @@ namespace Soundcloud_Playlist_Downloader
                         if (Form1.SyncMethod == 2 && SoundCloudTrack == null)
                         {
                             File.Delete(localPathDownloadedSong);
-                            DeleteEmptyDirectory(localPathDownloadedSong); 
-                        }                                            
+                            DeleteEmptyDirectory(localPathDownloadedSong);
+                        }
                         else
                         {
                             newManifest.Add(songDownloaded);
-                        }
+                        }                  
                     }                 
                     // the manifest is updated again later, but might as well update it here
                     // to save the deletions in event of crash or abort
