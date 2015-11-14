@@ -56,10 +56,10 @@
             this.gbox_syncMethod = new System.Windows.Forms.GroupBox();
             this.gbox_downMethod = new System.Windows.Forms.GroupBox();
             this.gbox_url = new System.Windows.Forms.GroupBox();
+            this.url = new System.Windows.Forms.TextBox();
             this.gbox_advanced = new System.Windows.Forms.GroupBox();
             this.gbox_localdir = new System.Windows.Forms.GroupBox();
             this.directoryPath = new System.Windows.Forms.TextBox();
-            this.url = new System.Windows.Forms.TextBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnl_convert.SuspendLayout();
@@ -328,6 +328,23 @@
             this.gbox_url.TabStop = false;
             this.gbox_url.Text = "SoundCloud URL";
             // 
+            // url
+            // 
+            settings1.ApiKey = "";
+            settings1.ConcurrentDownloads = 3;
+            settings1.LocalPath = "";
+            settings1.PlaylistUrl = "";
+            settings1.playlistUrlChecked = true;
+            settings1.ProfileUrlChecked = false;
+            settings1.SettingsKey = "";
+            this.url.DataBindings.Add(new System.Windows.Forms.Binding("Text", settings1, "PlaylistUrl", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.url.Location = new System.Drawing.Point(6, 19);
+            this.url.Name = "url";
+            this.url.Size = new System.Drawing.Size(383, 20);
+            this.url.TabIndex = 1;
+            this.url.Text = settings1.PlaylistUrl;
+            this.url.TextChanged += new System.EventHandler(this.url_TextChanged);
+            // 
             // gbox_advanced
             // 
             this.gbox_advanced.Controls.Add(this.chk_highquality);
@@ -362,23 +379,6 @@
             this.directoryPath.TabIndex = 5;
             this.directoryPath.Text = settings1.LocalPath;
             // 
-            // url
-            // 
-            settings1.ApiKey = "";
-            settings1.ConcurrentDownloads = 3;
-            settings1.LocalPath = "";
-            settings1.PlaylistUrl = "";
-            settings1.playlistUrlChecked = true;
-            settings1.ProfileUrlChecked = false;
-            settings1.SettingsKey = "";
-            this.url.DataBindings.Add(new System.Windows.Forms.Binding("Text", settings1, "PlaylistUrl", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.url.Location = new System.Drawing.Point(6, 19);
-            this.url.Name = "url";
-            this.url.Size = new System.Drawing.Size(383, 20);
-            this.url.TabIndex = 1;
-            this.url.Text = settings1.PlaylistUrl;
-            this.url.TextChanged += new System.EventHandler(this.url_TextChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -397,7 +397,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "SoundCloud Playlist Sync 2.1 Stable";
+            this.Text = "SoundCloud Playlist Sync 2.2 Stable";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);

@@ -481,22 +481,23 @@ namespace Soundcloud_Playlist_Downloader
                             byte[] soundbytes = client.DownloadData(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey));
                             //convert to mp3 & then write bytes to file
                             bool succesfulConvert = audioConverter.ConvertAllTheThings(soundbytes, ref song, extension);
-                            if (!succesfulConvert) //something has gone wrong, just write original bytes then 
+                            soundbytes = null;
+                            if (!succesfulConvert) //something has gone wrong, download the stream url instead of download url 
                             {
-                                song.LocalPath += extension;
-                                File.WriteAllBytes(song.LocalPath, soundbytes);
+                                song.LocalPath += ".mp3";
+                                client.DownloadFile(song.stream_url + string.Format("?client_id={0}", apiKey), song.LocalPath);         
                             }
                         }
                         else
                         {
                             song.LocalPath += extension;
-                            client.DownloadFile(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey), song.LocalPath);
+                            client.DownloadFile(song.stream_url + string.Format("?client_id={0}", apiKey), song.LocalPath);
                         };
                     }
                     else
                     {
                         song.LocalPath += ".mp3";
-                        client.DownloadFile(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey), song.LocalPath);
+                        client.DownloadFile(song.stream_url + string.Format("?client_id={0}", apiKey), song.LocalPath);
                     }
 
                     //tag the song
@@ -524,9 +525,10 @@ namespace Soundcloud_Playlist_Downloader
 
                     foreach (string songDownloaded in songsDownloaded)
                     {
-                        string localPathDownloadedSong = directoryPath + ParseTrackPath(songDownloaded, 1).Replace(directoryPath, "");
+                        string localTrackpath = ParseTrackPath(songDownloaded, 1);
+                        string localPathDownloadedSongRelative = directoryPath + localTrackpath.Replace(directoryPath, "");
                         string songID = new String(ParseTrackPath(songDownloaded, 0).ToCharArray().Where(c => Char.IsDigit(c)).ToArray());
-                        string neutralPath = Path.ChangeExtension(localPathDownloadedSong, null);
+                        string neutralPath = Path.ChangeExtension(localPathDownloadedSongRelative, null);
                         Track SoundCloudTrack = null;
                         SoundCloudTrack = allTracks.FirstOrDefault(song => song.stream_url.Contains("/" + songID + "/"));
                      
@@ -536,7 +538,7 @@ namespace Soundcloud_Playlist_Downloader
                         trackArtistOrNameChanged = !allTracks.Any(song => song.LocalPath.Contains(neutralPath));
                             
                         //file does not exist anymore, it will be redownloaded by not adding it to the newManifest
-                        if (!File.Exists(localPathDownloadedSong))
+                        if (!File.Exists(localPathDownloadedSongRelative))
                         {
                             continue;
                         };
@@ -547,10 +549,10 @@ namespace Soundcloud_Playlist_Downloader
                             if (SoundCloudTrack.IsHD == true || (SoundCloudTrack.IsHD == false && localIsHD == false))
                             // do not download Low Quality if HQ is already downloaded, even if the track is changed!
                             {
-                                if (File.Exists(localPathDownloadedSong))
+                                if (File.Exists(localPathDownloadedSongRelative))
                                 {
-                                    File.Delete(localPathDownloadedSong);
-                                    DeleteEmptyDirectory(localPathDownloadedSong);
+                                    File.Delete(localPathDownloadedSongRelative);
+                                    DeleteEmptyDirectory(localPathDownloadedSongRelative);
                                 }
                                 continue;
                             }
@@ -558,8 +560,8 @@ namespace Soundcloud_Playlist_Downloader
                         //file exists locally but not externally and can be removed
                         if (Form1.SyncMethod == 2 && SoundCloudTrack == null)
                         {
-                            File.Delete(localPathDownloadedSong);
-                            DeleteEmptyDirectory(localPathDownloadedSong);
+                            File.Delete(localPathDownloadedSongRelative);
+                            DeleteEmptyDirectory(localPathDownloadedSongRelative);
                         }
                         else
                         {

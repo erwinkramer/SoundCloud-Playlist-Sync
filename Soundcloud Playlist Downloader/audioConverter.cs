@@ -42,7 +42,8 @@ namespace Soundcloud_Playlist_Downloader
             }
             if (extension == ".aiff" || extension == ".aif")
             {
-                mp3bytes = ConvertAiffToMp3(strangefile, directory);
+                bool succesfullAiffConvert = false;
+                succesfullAiffConvert = ConvertAiffToMp3(strangefile, directory, out mp3bytes);
                 if (mp3bytes != null)
                 {
                     song.LocalPath += ".mp3"; //conversion wil result in an mp3
@@ -126,9 +127,9 @@ namespace Soundcloud_Playlist_Downloader
             return mp3bytes;
         }
 
-        public static byte[] ConvertAiffToMp3(byte[] aiffFile, string directory) 
+        public static bool ConvertAiffToMp3(byte[] aiffFile, string directory, out byte[] mp3bytes) 
         {
-            byte[] mp3bytes = null;
+            mp3bytes = null;
             var newFormat = new WaveFormat(bitRate, bitDepth, channels);
             try
             {
@@ -155,12 +156,13 @@ namespace Soundcloud_Playlist_Downloader
                         }                     
                     }                   
                 }
+                return true;
             }
             catch (Exception e)
             {
                 Debug.WriteLine(e);
             }
-            return mp3bytes;      
+            return false;      
         }
 
         public static bool ConvertM4aToMp3(byte[] m4aFile, string directory, ref Track song) //requires windows 8 or higher
