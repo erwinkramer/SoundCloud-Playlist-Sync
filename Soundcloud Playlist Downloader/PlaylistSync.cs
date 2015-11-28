@@ -488,7 +488,12 @@ namespace Soundcloud_Playlist_Downloader
                                 client.DownloadFile(song.stream_url + string.Format("?client_id={0}", apiKey), song.LocalPath);         
                             }
                         }
-                        else
+                        else if(extension == ".mp3") //get the high res mp3 without converting
+                        {
+                            song.LocalPath += extension;
+                            client.DownloadFile(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey), song.LocalPath);
+                        }
+                        else //get the low res mp3 if all above not possible
                         {
                             song.LocalPath += extension;
                             client.DownloadFile(song.stream_url + string.Format("?client_id={0}", apiKey), song.LocalPath);
