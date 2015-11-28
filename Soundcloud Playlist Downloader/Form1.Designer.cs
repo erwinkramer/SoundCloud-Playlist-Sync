@@ -111,6 +111,7 @@
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(397, 10);
             this.progressBar.TabIndex = 10;
+            this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
             // 
             // favoritesRadio
             // 

@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Soundcloud_Playlist_Downloader.Properties;
 using System.IO;
+using Microsoft.WindowsAPICodePack;
+using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace Soundcloud_Playlist_Downloader
 {
@@ -32,7 +34,7 @@ namespace Soundcloud_Playlist_Downloader
         public static bool ConvertToMp3 = false;
         public static bool IncludeArtistInFilename = false;
         public static int SyncMethod = 1;
-    
+
         public static bool FoldersPerArtist = false;
         public static bool ReplaceIllegalCharacters = false;
         public static bool excludeM4A = false;
@@ -124,6 +126,12 @@ namespace Soundcloud_Playlist_Downloader
             progressBar.Minimum = 0;
             progressBar.Maximum = sync.SongsToDownload;
             progressBar.Value = sync.SongsDownloaded;
+
+            TaskbarManager.Instance.SetProgressValue(sync.SongsDownloaded, sync.SongsToDownload);
+            if(progressBar.Minimum != 0 && progressBar.Maximum == progressBar.Value)
+            {
+                TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
+            }
         }
 
         private void InvokeUpdateProgressBar()
@@ -156,9 +164,13 @@ namespace Soundcloud_Playlist_Downloader
                 syncButton.Text = AbortActionText;
                 status.Text = "Checking for track changes...";
                 completed = false;
+
                 progressBar.Value = 0;
                 progressBar.Maximum = 0;
                 progressBar.Minimum = 0;
+               
+                TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
+
                 Form1.Highqualitysong = chk_highquality.Checked;
                 Form1.ConvertToMp3 = chk_convertToMp3.Checked;
                 Form1.IncludeArtistInFilename = chk_includeArtistinFilename.Checked;
@@ -360,6 +372,11 @@ namespace Soundcloud_Playlist_Downloader
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void progressBar_Click(object sender, EventArgs e)
         {
 
         }
