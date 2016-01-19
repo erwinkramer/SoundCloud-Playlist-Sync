@@ -676,7 +676,7 @@ namespace Soundcloud_Playlist_Downloader
             return Path.Combine(directoryPath, Form1.ManifestName);
         }
 
-        private string ParseTrackPath(string csv, int position)
+        protected string ParseTrackPath(string csv, int position)
         {           
             if(csv != null && csv.IndexOf(',') >= 0)
             {
