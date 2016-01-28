@@ -12,6 +12,7 @@ using Soundcloud_Playlist_Downloader.JsonPoco;
 using Soundcloud_Playlist_Downloader.Properties;
 using System.Diagnostics;
 using TagLib.Id3v2;
+using Newtonsoft.Json.Linq;
 
 namespace Soundcloud_Playlist_Downloader
 {
@@ -145,13 +146,22 @@ namespace Soundcloud_Playlist_Downloader
             // the client id embedded in the url
             string playlistsJson = RetrieveJson(userApiUrl, clientId);
 
-            var playlistItems = JsonConvert.DeserializeObject<JsonPoco.PlaylistItem[]>(playlistsJson);
+            JArray playlists = JArray.Parse(playlistsJson);
+            IList<JToken> results = playlists.Children().ToList();
+            IList<PlaylistItem> playlistsitems = new List<PlaylistItem>();
 
-            var playListItem = playlistItems.FirstOrDefault(s => s.permalink == playlistName);
-
-            if (playListItem != null)
+            //var playlistItems = JsonConvert.DeserializeObject<JsonPoco.PlaylistRoot>(playlistsJson).PlaylistItems;
+            foreach (JToken result in results)
             {
-                return playListItem.id.ToString();
+                PlaylistItem playlistsitem = JsonConvert.DeserializeObject<PlaylistItem>(result.ToString());
+                playlistsitems.Add(playlistsitem);
+            }
+
+            var MatchingPlaylistItem = playlistsitems.FirstOrDefault(s => s.permalink == playlistName);
+
+            if (MatchingPlaylistItem != null)
+            {
+                return MatchingPlaylistItem.id.ToString();
             }
             else
             {
@@ -184,8 +194,7 @@ namespace Soundcloud_Playlist_Downloader
         internal IList<Track> EnumerateTracksFromUrl(string url, string clientId, bool isRawTracksUrl)
         {
             // get the json associated with the playlist from the soundcloud api
-            int limit = 200;
-            int offset = 0;
+            int limit = isRawTracksUrl? 200 : 0; //200 is the limit set by SoundCloud itself. Remember; limits are only with 'collection' types in JSON 
             IList<Track> tracks = new List<Track>();
 
             try
@@ -193,12 +202,23 @@ namespace Soundcloud_Playlist_Downloader
                 // get the tracks embedded in the playlist
                 bool tracksAdded = true;
 
-                while (tracksAdded)
-                {
-                    string tracksJson = RetrieveJson(url, clientId, limit, offset);
-                    
-                    IList<Track> currentTracks = isRawTracksUrl ? JsonConvert.DeserializeObject<Track[]>(tracksJson) : 
-                        JsonConvert.DeserializeObject<PlaylistItem>(tracksJson).tracks;
+                string linked_partitioning_URL = null;
+                string tracksJson = RetrieveJson(url, clientId, limit);
+                bool lastStep = false;
+
+                while (tracksAdded && tracksJson != null)
+                {                    
+                    JObject JOBtracksJson = JObject.Parse(tracksJson);
+                 
+                    IList<JToken> JTOKENcurrentTracks = isRawTracksUrl ? JOBtracksJson["collection"].Children().ToList() : 
+                                                                   JOBtracksJson["tracks"].Children().ToList();
+                  
+                    IList<Track> currentTracks = new List<Track>();
+                    foreach (JToken Jtrack in JTOKENcurrentTracks)
+                    {
+                        Track currentTrack = JsonConvert.DeserializeObject<Track>(Jtrack.ToString());
+                        currentTracks.Add(currentTrack);
+                    }
 
                     if (currentTracks != null && currentTracks.Any())
                     {
@@ -213,7 +233,17 @@ namespace Soundcloud_Playlist_Downloader
                         tracksAdded = false;
                     }
 
-                    offset += limit;
+
+                    if (lastStep)
+                        break;
+
+                    linked_partitioning_URL = JsonConvert.DeserializeObject<NextInfo>(tracksJson).next_href;
+                    tracksJson = RetrieveJson(linked_partitioning_URL, null);
+                    if (String.IsNullOrEmpty(tracksJson))
+                    {
+                        lastStep = true;
+                    }
+                  
                 }
                 
             }
@@ -636,10 +666,14 @@ namespace Soundcloud_Playlist_Downloader
             }
         }
 
-        private string RetrieveJson(string url, string clientId, int? limit = null, int? offset = null)
+        private string RetrieveJson(string url, string clientId = null, int? limit = null, int? offset = null)
         {        
             string json = null;
-            
+            if (limit == 0)
+                limit = null;
+         
+            if (String.IsNullOrEmpty(url))
+                return null;
             try
             {
                 using (WebClient client = new WebClient()) 
@@ -657,6 +691,9 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         url += "&offset=" + offset;
                     }
+                    
+                    if(limit != null)
+                        url += "&linked_partitioning=1"; //will add next_href to the response
 
                     json = client.DownloadString(url);
                 }

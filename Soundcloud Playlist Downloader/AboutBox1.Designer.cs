@@ -50,6 +50,8 @@ namespace Soundcloud_Playlist_Downloader
             this.link_naudioLame = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.link_nAudio = new System.Windows.Forms.LinkLabel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.License.SuspendLayout();
             this.Projectwebsites.SuspendLayout();
@@ -59,7 +61,7 @@ namespace Soundcloud_Playlist_Downloader
             // link_github
             // 
             this.link_github.AutoSize = true;
-            this.link_github.Location = new System.Drawing.Point(3, 29);
+            this.link_github.Location = new System.Drawing.Point(105, 16);
             this.link_github.Name = "link_github";
             this.link_github.Size = new System.Drawing.Size(189, 13);
             this.link_github.TabIndex = 2;
@@ -81,7 +83,7 @@ namespace Soundcloud_Playlist_Downloader
             // link_github2
             // 
             this.link_github2.AutoSize = true;
-            this.link_github2.Location = new System.Drawing.Point(3, 16);
+            this.link_github2.Location = new System.Drawing.Point(105, 39);
             this.link_github2.Name = "link_github2";
             this.link_github2.Size = new System.Drawing.Size(206, 13);
             this.link_github2.TabIndex = 26;
@@ -108,7 +110,7 @@ namespace Soundcloud_Playlist_Downloader
             this.lbl_copy.Name = "lbl_copy";
             this.lbl_copy.Size = new System.Drawing.Size(324, 13);
             this.lbl_copy.TabIndex = 29;
-            this.lbl_copy.Text = "copyright © 2013-2015 the Soundcloud Playlist Downloader-project";
+            this.lbl_copy.Text = "copyright © 2013-2016 the Soundcloud Playlist Downloader-project";
             // 
             // lbl_info1
             // 
@@ -147,7 +149,7 @@ namespace Soundcloud_Playlist_Downloader
             this.lbl_JSON.Name = "lbl_JSON";
             this.lbl_JSON.Size = new System.Drawing.Size(37, 13);
             this.lbl_JSON.TabIndex = 33;
-            this.lbl_JSON.Text = "v7.0.0";
+            this.lbl_JSON.Text = "v8.0.2";
             // 
             // link_postsharp
             // 
@@ -167,7 +169,7 @@ namespace Soundcloud_Playlist_Downloader
             this.lbl_postSharp.Name = "lbl_postSharp";
             this.lbl_postSharp.Size = new System.Drawing.Size(52, 13);
             this.lbl_postSharp.TabIndex = 35;
-            this.lbl_postSharp.Text = "v4.1.23.0";
+            this.lbl_postSharp.Text = "v4.2.18.0";
             // 
             // richTextBox1
             // 
@@ -203,6 +205,8 @@ namespace Soundcloud_Playlist_Downloader
             // 
             // Projectwebsites
             // 
+            this.Projectwebsites.Controls.Add(this.label4);
+            this.Projectwebsites.Controls.Add(this.label3);
             this.Projectwebsites.Controls.Add(this.link_github2);
             this.Projectwebsites.Controls.Add(this.link_github);
             this.Projectwebsites.Location = new System.Drawing.Point(4, 22);
@@ -237,9 +241,9 @@ namespace Soundcloud_Playlist_Downloader
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(156, 64);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 39;
-            this.label2.Text = "v1.0.3";
+            this.label2.Text = "v1.0.3.3135";
             // 
             // link_naudioLame
             // 
@@ -259,7 +263,7 @@ namespace Soundcloud_Playlist_Downloader
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(37, 13);
             this.label1.TabIndex = 37;
-            this.label1.Text = "v1.7.2";
+            this.label1.Text = "v1.7.3";
             // 
             // link_nAudio
             // 
@@ -271,6 +275,24 @@ namespace Soundcloud_Playlist_Downloader
             this.link_nAudio.TabStop = true;
             this.link_nAudio.Text = "NAudio";
             this.link_nAudio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 39);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(95, 13);
+            this.label3.TabIndex = 27;
+            this.label3.Text = "Original developer:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 13);
+            this.label4.TabIndex = 28;
+            this.label4.Text = "Current maintainer:";
             // 
             // box_about
             // 
@@ -325,5 +347,7 @@ namespace Soundcloud_Playlist_Downloader
         private System.Windows.Forms.LinkLabel link_nAudio;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel link_naudioLame;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
     }
 }

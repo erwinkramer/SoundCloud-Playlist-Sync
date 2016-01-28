@@ -9,9 +9,19 @@ using System.Threading.Tasks;
 namespace Soundcloud_Playlist_Downloader.JsonPoco
 {
 
-    public class PaginatedCollection
+    public class PaginatedCollectionPlaylist
+    {
+        public PlaylistItem[] collection { get; set; }
+        public string next_href { get; set; }
+    }
+    public class PaginatedCollectionRegular
     {
         public Track[] collection { get; set; }
+        public string next_href { get; set; }
+    }
+
+    public class NextInfo
+    {
         public string next_href { get; set; }
     }
 

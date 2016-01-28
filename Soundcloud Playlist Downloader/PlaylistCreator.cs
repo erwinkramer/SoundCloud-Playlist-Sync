@@ -133,7 +133,7 @@ namespace Soundcloud_Playlist_Downloader
             IList<string> tempNewM3U = new List<string>();
             foreach (string song in songsDownloaded)
             {
-                tempNewM3U.Add(ParseTrackPath1(song, 1));
+                tempNewM3U.Add((ParseTrackPath1(song, 1)).Substring(1)); //substring to remove the '\' at the beginning
             }
 
             IList<string> newM3U = tempNewM3U.Reverse().ToList(); //invert the list
