@@ -534,7 +534,14 @@ namespace Soundcloud_Playlist_Downloader
                     }
 
                     //tag the song
-                    metadataTagging.tagIt(ref song);
+                    try
+                    {
+                        metadataTagging.tagIt(ref song);
+                    }catch(Exception e)
+                    {
+                        Debug.WriteLine("Can't tag song:" + song.LocalPath);
+                    }
+                    
 
                     lock (SongsDownloadedLock)
                     {
