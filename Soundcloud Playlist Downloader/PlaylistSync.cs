@@ -474,8 +474,7 @@ namespace Soundcloud_Playlist_Downloader
                             request.Method = "HEAD";
                             using (WebResponse response = request.GetResponse())
                             {
-                                extension = Path.GetExtension(response.Headers["Content-Disposition"]
-                                    .Replace("attachment;filename=", "").Replace("\"", ""));
+                                extension = "." + response.Headers["x-amz-meta-file-type"];
                             }
                         }
                         catch (Exception e)
@@ -491,8 +490,7 @@ namespace Soundcloud_Playlist_Downloader
                             request.Method = "HEAD";
                             using (WebResponse response = request.GetResponse())
                             {
-                                extension = Path.GetExtension(response.Headers["Content-Disposition"]
-                                    .Replace("attachment;filename=", "").Replace("\"", ""));
+                                extension = "." + response.Headers["x-amz-meta-file-type"];
                             }
                         }
                         var allowedFormats = new List<string>();
@@ -536,7 +534,14 @@ namespace Soundcloud_Playlist_Downloader
                     }
 
                     //tag the song
-                    metadataTagging.tagIt(ref song);
+                    try
+                    {
+                        metadataTagging.tagIt(ref song);
+                    }catch(Exception e)
+                    {
+                        Debug.WriteLine("Can't tag song:" + song.LocalPath);
+                    }
+                    
 
                     lock (SongsDownloadedLock)
                     {
