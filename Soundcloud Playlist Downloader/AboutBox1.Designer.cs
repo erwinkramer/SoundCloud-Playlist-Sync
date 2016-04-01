@@ -45,13 +45,13 @@ namespace Soundcloud_Playlist_Downloader
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.License = new System.Windows.Forms.TabPage();
             this.Projectwebsites = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.Libraries = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.link_naudioLame = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.link_nAudio = new System.Windows.Forms.LinkLabel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.License.SuspendLayout();
             this.Projectwebsites.SuspendLayout();
@@ -217,6 +217,24 @@ namespace Soundcloud_Playlist_Downloader
             this.Projectwebsites.Text = "Project website(s)";
             this.Projectwebsites.UseVisualStyleBackColor = true;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 13);
+            this.label4.TabIndex = 28;
+            this.label4.Text = "Current maintainer:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 39);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(95, 13);
+            this.label3.TabIndex = 27;
+            this.label3.Text = "Original developer:";
+            // 
             // Libraries
             // 
             this.Libraries.Controls.Add(this.label2);
@@ -275,24 +293,6 @@ namespace Soundcloud_Playlist_Downloader
             this.link_nAudio.TabStop = true;
             this.link_nAudio.Text = "NAudio";
             this.link_nAudio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 39);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(95, 13);
-            this.label3.TabIndex = 27;
-            this.label3.Text = "Original developer:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 16);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(95, 13);
-            this.label4.TabIndex = 28;
-            this.label4.Text = "Current maintainer:";
             // 
             // box_about
             // 

@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using TagLib;
+using File = System.IO.File;
 
 namespace Soundcloud_Playlist_Downloader
 {
-    class metadataTagging
+    class MetadataTagging
     {
-        public static void tagIt(ref JsonPoco.Track song)
+        public static void TagIt(ref JsonPoco.Track song)
         {          
             // metadata tagging
             TagLib.File tagFile = null;
@@ -41,11 +40,16 @@ namespace Soundcloud_Playlist_Downloader
 
                 if (!String.IsNullOrEmpty(song.Username))
                 {
-                    tagFile.Tag.AlbumArtists = new string[] { song.Username };
-                    tagFile.Tag.Performers = new string[] { song.Username };
+                    tagFile.Tag.AlbumArtists = new string[] {song.Username};
+                    tagFile.Tag.Performers = new string[] {song.Username};
+                }
+                else
+                {
+                    tagFile.Tag.AlbumArtists = new string[] { "<blank>" }; //<blank> is how an empty user shows up in SoundCloud
+                    tagFile.Tag.Performers = new string[] { "<blank>" };
                 }
 
-                if(song.bpm.HasValue)
+                if (song.bpm.HasValue)
                 {
                     float bpm = (float) song.bpm;
                     tagFile.Tag.BeatsPerMinute = Convert.ToUInt32(bpm);
@@ -109,11 +113,11 @@ namespace Soundcloud_Playlist_Downloader
                 }
                 if (!String.IsNullOrEmpty(song.artwork_url))
                 {
-                    getArtwork(ref tagFile, ref song);
+                    GetArtwork(ref tagFile, ref song);
                 }
                 else
                 {
-                    getAvatarImg(ref tagFile, ref song);
+                    GetAvatarImg(ref tagFile, ref song);
                 }
                 tagFile.Save();
                 tagFile.Dispose();              
@@ -124,23 +128,22 @@ namespace Soundcloud_Playlist_Downloader
             File.SetLastWriteTime(song.LocalPath, creationDate); //set last write time to original file creation date
         }
 
-        public static void getAvatarImg(ref TagLib.File tagFile, ref JsonPoco.Track song)
+        public static void GetAvatarImg(ref TagLib.File tagFile, ref JsonPoco.Track song)
         {
             //download user profile avatar image
             string avatarFilepath = Path.GetTempFileName();
 
-            string highResAvatar_url = song.user.avatar_url.Replace("large.jpg", "t500x500.jpg");
-            for (int attempts = 0; attempts < 5; attempts++)
+            string highResAvatarUrl = song.user.avatar_url.Replace("large.jpg", "t500x500.jpg");
+            for (var attempts = 0; attempts < 5; attempts++)
             {
                 try
                 {
                     using (WebClient web = new WebClient())
                     {
-                        web.DownloadFile(highResAvatar_url, avatarFilepath);
+                        web.DownloadFile(highResAvatarUrl, avatarFilepath);
                     }
-                    TagLib.Picture artwork = new TagLib.Picture(avatarFilepath);
-                    artwork.Type = TagLib.PictureType.FrontCover;
-                    tagFile.Tag.Pictures = new[] { artwork };
+                    Picture artwork = new TagLib.Picture(avatarFilepath) {Type = TagLib.PictureType.FrontCover};
+                    tagFile.Tag.Pictures = new IPicture[] { artwork };
                     break;
                 }
                 catch (Exception e)
@@ -150,30 +153,29 @@ namespace Soundcloud_Playlist_Downloader
                 System.Threading.Thread.Sleep(50); // Pause 50ms before new attempt
             }
 
-            if (avatarFilepath != null && File.Exists(avatarFilepath))
+            if (File.Exists(avatarFilepath))
             {
                 File.Delete(avatarFilepath);
             }
 
         }
 
-        public static void getArtwork(ref TagLib.File tagFile, ref JsonPoco.Track song)
+        public static void GetArtwork(ref TagLib.File tagFile, ref JsonPoco.Track song)
         {
             // download artwork
             string artworkFilepath = Path.GetTempFileName();
 
-            string highResArtwork_url = song.artwork_url.Replace("large.jpg", "t500x500.jpg");
+            string highResArtworkUrl = song.artwork_url.Replace("large.jpg", "t500x500.jpg");
             for (int attempts = 0; attempts < 5; attempts++)
             {
                 try
                 {
                     using (WebClient web = new WebClient())
                     {
-                        web.DownloadFile(highResArtwork_url, artworkFilepath);
+                        web.DownloadFile(highResArtworkUrl, artworkFilepath);
                     }
-                    TagLib.Picture artwork = new TagLib.Picture(artworkFilepath);
-                    artwork.Type = TagLib.PictureType.FrontCover;
-                    tagFile.Tag.Pictures = new[] { artwork };
+                    TagLib.Picture artwork = new TagLib.Picture(artworkFilepath) {Type = TagLib.PictureType.FrontCover};
+                    tagFile.Tag.Pictures = new IPicture[] { artwork };
                     break;
                 }
                 catch (Exception e)
@@ -183,7 +185,7 @@ namespace Soundcloud_Playlist_Downloader
                 System.Threading.Thread.Sleep(50); // Pause 50ms before new attempt
             }
 
-            if (artworkFilepath != null && File.Exists(artworkFilepath))
+            if (File.Exists(artworkFilepath))
             {
                 File.Delete(artworkFilepath);
             }

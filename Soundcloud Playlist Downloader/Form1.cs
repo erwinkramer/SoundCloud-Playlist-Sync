@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Soundcloud_Playlist_Downloader.Properties;
 using System.IO;
-using Microsoft.WindowsAPICodePack;
+using System.Reflection;
 using Microsoft.WindowsAPICodePack.Taskbar;
 
 namespace Soundcloud_Playlist_Downloader
@@ -53,6 +47,8 @@ namespace Soundcloud_Playlist_Downloader
         public Form1()
         {
             InitializeComponent();
+            string revision = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Text = $"SoundCloud Playlist Sync {revision} Stable";
             sync = new PlaylistSync();
             PerformSyncCompleteImplementation = SyncCompleteButton;
             ProgressBarUpdateImplementation = UpdateProgressBar;
@@ -60,6 +56,12 @@ namespace Soundcloud_Playlist_Downloader
             status.Text = "Ready";
             MinimumSize = new Size(Width, Height);
             MaximumSize = new Size(Width, Height);
+        }
+
+        public sealed override string Text
+        {
+            get { return base.Text; }
+            set { base.Text = value; }
         }
 
         private void browseButton_Click(object sender, EventArgs e)
@@ -184,7 +186,7 @@ namespace Soundcloud_Playlist_Downloader
 
                 System.Uri uri = new Uri(url.Text);
                 string uriWithoutScheme = uri.Host + uri.PathAndQuery;
-                string validManifestFilename = JsonPoco.Track.staticCoerceValidFileName(uriWithoutScheme, false);
+                string validManifestFilename = JsonPoco.Track.StaticCoerceValidFileName(uriWithoutScheme, false);
                 Form1.ManifestName = ".MNFST=" + validManifestFilename + ",FPA=" + FoldersPerArtist + ",IAIF=" + IncludeArtistInFilename + ",DM=" + dlMode + ",SM=" + SyncMethod +".csv";
 
                 if (Directory.Exists(directoryPath.Text))

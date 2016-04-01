@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Soundcloud_Playlist_Downloader.JsonPoco
 {
@@ -201,7 +197,7 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
             };
 
             var invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
-            var invalidReStr = string.Format(@"[{0}]+", invalidChars);
+            var invalidReStr = $@"[{invalidChars}]+";
 
             var reservedWords = new[]
                                     {
@@ -213,19 +209,25 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
             var sanitisedNamePart = Regex.Replace(filename, invalidReStr, "_");
             foreach (var reservedWord in reservedWords)
             {
-                var reservedWordPattern = string.Format("^{0}\\.", reservedWord);
+                var reservedWordPattern = $"^{reservedWord}\\.";
                 sanitisedNamePart = Regex.Replace(sanitisedNamePart, reservedWordPattern, "_reservedWord_.", RegexOptions.IgnoreCase);
             }
 
+            if (String.IsNullOrEmpty(sanitisedNamePart)) //if completely sanitized, make something that's not an empty string
+                sanitisedNamePart = "blank";
             return sanitisedNamePart;
         }
 
-        public static string trimDotsAndSpacesForFolderName(string foldername)
+        public static string TrimDotsAndSpacesForFolderName(string foldername)
         {
-            return foldername.Trim('.',' ');
+            var trimmed = foldername.Trim('.',' ');
+
+            if (String.IsNullOrEmpty(trimmed))
+                trimmed = "blank"; //if completely trimmed, make something that's not an empty string
+            return trimmed;
         }
 
-        public static string staticCoerceValidFileName(string filename, bool checkForReplaceCharacters)
+        public static string StaticCoerceValidFileName(string filename, bool checkForReplaceCharacters)
         {
             if (checkForReplaceCharacters && Form1.ReplaceIllegalCharacters)
             {
@@ -233,7 +235,7 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
             };
 
             var invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
-            var invalidReStr = string.Format(@"[{0}]+", invalidChars);
+            var invalidReStr = $@"[{invalidChars}]+";
 
             var reservedWords = new[]
                                     {
@@ -245,7 +247,7 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
             var sanitisedNamePart = Regex.Replace(filename, invalidReStr, "_");
             foreach (var reservedWord in reservedWords)
             {
-                var reservedWordPattern = string.Format("^{0}\\.", reservedWord);
+                var reservedWordPattern = $"^{reservedWord}\\.";
                 sanitisedNamePart = Regex.Replace(sanitisedNamePart, reservedWordPattern, "_reservedWord_.", RegexOptions.IgnoreCase);
             }
 
@@ -309,6 +311,7 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
         {
             get
             {
+
                 return user.username;
             }
             set

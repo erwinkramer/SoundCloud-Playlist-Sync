@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Media;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Soundcloud_Playlist_Downloader.JsonPoco;
 using Soundcloud_Playlist_Downloader.Properties;
 using System.Diagnostics;
-using TagLib.Id3v2;
 using Newtonsoft.Json.Linq;
 
 namespace Soundcloud_Playlist_Downloader
@@ -25,8 +21,8 @@ namespace Soundcloud_Playlist_Downloader
         public int SongsToDownload { get; private set; }
         public int SongsDownloaded { get; private set; }
 
-        private object SongsDownloadedLock = new object();
-        private static object WriteManifestLock = new object();
+        private readonly object _songsDownloadedLock = new object();
+        private static readonly object _writeManifestLock = new object();
         protected static object WritePlaylistLock = new object();
 
         public bool IsActive { get; set; }
@@ -38,21 +34,21 @@ namespace Soundcloud_Playlist_Downloader
             ResetProgress();
         }
 
-        private void verifyParameters(Dictionary<string, string> parameters)
+        private void VerifyParameters(Dictionary<string, string> parameters)
         {
             foreach (KeyValuePair<string, string> parameter in parameters)
             {
                 if (string.IsNullOrWhiteSpace(parameter.Value))
                 {
                     IsError = true;
-                    throw new Exception(string.Format("{0} must be specified", parameter.Key));
+                    throw new Exception($"{parameter.Key} must be specified");
                 }
             }
         }
 
         internal void Synchronize(string url, DownloadMode mode, string directory, string clientId)
         {
-            verifyParameters(
+            VerifyParameters(
                 new Dictionary<string, string>()
                 {
                     {"URL", url},
@@ -72,24 +68,24 @@ namespace Soundcloud_Playlist_Downloader
                     
                     if (!url.Contains("api.soundcloud.com"))
                     {
-                        apiURL = determineAPIUrlForNormalUrl(url, clientId,"playlists");
+                        apiURL = DetermineApiUrlForNormalUrl(url, clientId,"playlists");
                     }
                     else 
                     {
                         apiURL = url;
                     }
-                    SynchronizeFromPlaylistAPIUrl(apiURL, clientId, directory);
+                    SynchronizeFromPlaylistApiUrl(apiURL, clientId, directory);
                     break;
                 case DownloadMode.Favorites:
                     // get the username from the url and then call SynchronizeFromProfile
-                    string username = parseUserIdFromProfileUrl(url);
+                    string username = ParseUserIdFromProfileUrl(url);
                     SynchronizeFromProfile(username, clientId, directory);
                     break;
                 case DownloadMode.Artist:
                     
                     if (!url.Contains("api.soundcloud.com"))
                     {
-                        apiURL = determineAPIUrlForNormalUrl(url, clientId,"tracks");
+                        apiURL = DetermineApiUrlForNormalUrl(url, clientId,"tracks");
                     }
                     else 
                     {
@@ -103,19 +99,19 @@ namespace Soundcloud_Playlist_Downloader
             }
         }
 
-        private string determineAPIUrlForNormalUrl(string url, string clientId,string resulttype)
+        private string DetermineApiUrlForNormalUrl(string url, string clientId,string resulttype)
         {
 
             // parse the username from the url
-            string username = parseUserIdFromProfileUrl(url);
+            string username = ParseUserIdFromProfileUrl(url);
             string playlistName = null;
             try
             {
                 // parse the playlist name from the url
                 string startingPoint = "/sets/";
-                int startingIndex = url.IndexOf(startingPoint) + startingPoint.Length;
+                int startingIndex = url.IndexOf(startingPoint, StringComparison.Ordinal) + startingPoint.Length;
                 int endingIndex = url.Substring(startingIndex).Contains("/") ?
-                    url.Substring(startingIndex).IndexOf("/") + startingIndex :
+                    url.Substring(startingIndex).IndexOf("/", StringComparison.Ordinal) + startingIndex :
                     url.Length;
                 playlistName = url.Substring(startingIndex, endingIndex - startingIndex);
             }
@@ -134,10 +130,10 @@ namespace Soundcloud_Playlist_Downloader
             }
 
             return "https://api.soundcloud.com/playlists/" +
-                retrievePlaylistId(userUrl, playlistName, clientId);
+                RetrievePlaylistId(userUrl, playlistName, clientId);
         }
 
-        private string retrievePlaylistId(string userApiUrl, string playlistName, string clientId)
+        private string RetrievePlaylistId(string userApiUrl, string playlistName, string clientId)
         {
 
             // grab the xml from the url, parse each playlist out, match the name based on the
@@ -157,29 +153,27 @@ namespace Soundcloud_Playlist_Downloader
                 playlistsitems.Add(playlistsitem);
             }
 
-            var MatchingPlaylistItem = playlistsitems.FirstOrDefault(s => s.permalink == playlistName);
+            var matchingPlaylistItem = playlistsitems.FirstOrDefault(s => s.permalink == playlistName);
 
-            if (MatchingPlaylistItem != null)
+            if (matchingPlaylistItem != null)
             {
-                return MatchingPlaylistItem.id.ToString();
+                return matchingPlaylistItem.id.ToString();
             }
             else
             {
                 IsError = true;
                 throw new Exception("Unable to find a matching playlist");
-
             }
-
         }
 
-        private string parseUserIdFromProfileUrl(string url)
+        private string ParseUserIdFromProfileUrl(string url)
         {
             try
             {
                 string startingPoint = "soundcloud.com/";
-                int startingIndex = url.IndexOf(startingPoint) + startingPoint.Length;
+                int startingIndex = url.IndexOf(startingPoint, StringComparison.Ordinal) + startingPoint.Length;
                 int endingIndex = url.Substring(startingIndex).Contains("/") ?
-                    url.Substring(startingIndex).IndexOf("/") + startingIndex :
+                    url.Substring(startingIndex).IndexOf("/", StringComparison.Ordinal) + startingIndex :
                     url.Length;
 
                 return url.Substring(startingIndex, endingIndex - startingIndex);
@@ -202,7 +196,6 @@ namespace Soundcloud_Playlist_Downloader
                 // get the tracks embedded in the playlist
                 bool tracksAdded = true;
 
-                string linked_partitioning_URL = null;
                 string tracksJson = RetrieveJson(url, clientId, limit);
                 bool lastStep = false;
 
@@ -220,7 +213,7 @@ namespace Soundcloud_Playlist_Downloader
                         currentTracks.Add(currentTrack);
                     }
 
-                    if (currentTracks != null && currentTracks.Any())
+                    if (currentTracks.Any())
                     {
                         foreach (Track track in currentTracks)
                         {
@@ -233,17 +226,15 @@ namespace Soundcloud_Playlist_Downloader
                         tracksAdded = false;
                     }
 
-
                     if (lastStep)
                         break;
 
-                    linked_partitioning_URL = JsonConvert.DeserializeObject<NextInfo>(tracksJson).next_href;
-                    tracksJson = RetrieveJson(linked_partitioning_URL, null);
+                    var linkedPartitioningUrl = JsonConvert.DeserializeObject<NextInfo>(tracksJson).next_href;
+                    tracksJson = RetrieveJson(linkedPartitioningUrl, null);
                     if (String.IsNullOrEmpty(tracksJson))
                     {
                         lastStep = true;
-                    }
-                  
+                    }            
                 }
                 
             }
@@ -267,17 +258,17 @@ namespace Soundcloud_Playlist_Downloader
         {
             //In the Windows API the maximum length for a path is MAX_PATH, which is defined as 260 characters.
             //We'll make it 250 because there will be an extention and, in some cases, an HQ tag appended to the filename.  
-            const int MAX_PATH_LENGTH = 250;
-            return fullPathAndFilename.Length <= MAX_PATH_LENGTH;
+            const int maxPathLength = 250;
+            return fullPathAndFilename.Length <= maxPathLength;
         }
 
         private void Synchronize(IList<Track> tracks, string clientId, string directoryPath)
         {
             //define all local paths by combining the sanitzed artist (if checked by user) with the santized title
-            foreach(Track track in tracks)
+            foreach(var track in tracks)
             {
                 string validArtist = track.CoerceValidFileName(track.Artist, true);
-                string validArtistFolderName = Track.trimDotsAndSpacesForFolderName(validArtist);
+                string validArtistFolderName = Track.TrimDotsAndSpacesForFolderName(validArtist);
                 string validTitle = track.CoerceValidFileName(track.Title, true);
                 string filenameWithArtist = validArtist + " - " + validTitle;
 
@@ -334,7 +325,7 @@ namespace Soundcloud_Playlist_Downloader
             //Create playlist file
             bool[] completed = PlaylistCreator.createSimpleM3U(tracks, directoryPath);
 
-            int songstodownload = tracks.Where(x => x.HasToBeDownloaded == true).Count();
+            int songstodownload = tracks.Count(x => x.HasToBeDownloaded == true);
             // validation
             if (songstodownload > 0 && IsActive)
             {
@@ -348,7 +339,7 @@ namespace Soundcloud_Playlist_Downloader
         }
 
 
-        internal void SynchronizeFromPlaylistAPIUrl(string playlistApiUrl, string clientId, string directoryPath)
+        internal void SynchronizeFromPlaylistApiUrl(string playlistApiUrl, string clientId, string directoryPath)
         {
             IList<Track> tracks = EnumerateTracksFromUrl(playlistApiUrl, clientId, false);
             Synchronize(tracks, clientId, directoryPath);
@@ -382,7 +373,7 @@ namespace Soundcloud_Playlist_Downloader
 
             try
             {
-                lock(WriteManifestLock)
+                lock(_writeManifestLock)
                 {
                     string manifestPath = DetermineManifestPath(directoryPath);
                     File.AppendAllLines(manifestPath, content); //if file does not exist, this function will create one                                 
@@ -407,7 +398,7 @@ namespace Soundcloud_Playlist_Downloader
             {
                 try
                 {
-                    lock (WriteManifestLock)
+                    lock (_writeManifestLock)
                     {
                         string manifestPath = DetermineManifestPath(directoryPath);
                         File.AppendAllLines(manifestPath, content); //if file does not exist, this function will create one
@@ -430,7 +421,7 @@ namespace Soundcloud_Playlist_Downloader
         private void DownloadSongs(IList<Track> Alltracks, string apiKey, string directoryPath)
         {
             object trackLock = new object();
-            SongsToDownload =  Alltracks.Where(x => x.HasToBeDownloaded == true).Count();
+            SongsToDownload =  Alltracks.Count(x => x.HasToBeDownloaded == true);
             Parallel.ForEach(Alltracks.Where(x => x.HasToBeDownloaded == true), 
                 new ParallelOptions() {MaxDegreeOfParallelism = Settings.Default.ConcurrentDownloads},
                 track =>
@@ -457,19 +448,22 @@ namespace Soundcloud_Playlist_Downloader
 
         private bool DownloadTrack(Track song, string apiKey)
         {
-            bool downloaded = false;
-            if (IsActive)
+            var downloaded = false;
+            if (!IsActive) return false;
+
+            using (WebClient client = new WebClient())
             {
-                using (WebClient client = new WebClient())
+                if (song?.LocalPath != null)
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(song.LocalPath));
-                    string extension = null;
 
                     if (song.IsHD)
                     {
+                        string extension = null;
                         try
                         {
-                            WebRequest request = WebRequest.Create(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey));
+                            WebRequest request = WebRequest.Create(song.EffectiveDownloadUrl +
+                                                                   $"?client_id={apiKey}");
 
                             request.Method = "HEAD";
                             using (WebResponse response = request.GetResponse())
@@ -485,10 +479,10 @@ namespace Soundcloud_Playlist_Downloader
                             if (song.stream_url == null) //all hope is lost when there is no stream url, return to safety
                                 return false;
 
-                            WebRequest request = WebRequest.Create(song.stream_url + string.Format("?client_id={0}", apiKey));
+                            var request = WebRequest.Create(song.stream_url + $"?client_id={apiKey}");
 
                             request.Method = "HEAD";
-                            using (WebResponse response = request.GetResponse())
+                            using (var response = request.GetResponse())
                             {
                                 extension = "." + response.Headers["x-amz-meta-file-type"];
                             }
@@ -506,48 +500,50 @@ namespace Soundcloud_Playlist_Downloader
                         if (Form1.ConvertToMp3 && Form1.Highqualitysong && (allowedFormats.Contains(extension)))
                         {
                             //get the wav song as byte data, as we won't store it just yet
-                            byte[] soundbytes = client.DownloadData(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey));
+                            byte[] soundbytes = client.DownloadData(song.EffectiveDownloadUrl +
+                                                                    $"?client_id={apiKey}");
                             //convert to mp3 & then write bytes to file
                             bool succesfulConvert = audioConverter.ConvertAllTheThings(soundbytes, ref song, extension);
                             soundbytes = null;
                             if (!succesfulConvert) //something has gone wrong, download the stream url instead of download url 
                             {
                                 song.LocalPath += ".mp3";
-                                client.DownloadFile(song.stream_url + string.Format("?client_id={0}", apiKey), song.LocalPath);         
+                                client.DownloadFile(song.stream_url + $"?client_id={apiKey}", song.LocalPath);         
                             }
                         }
                         else if(extension == ".mp3") //get the high res mp3 without converting
                         {
                             song.LocalPath += extension;
-                            client.DownloadFile(song.EffectiveDownloadUrl + string.Format("?client_id={0}", apiKey), song.LocalPath);
+                            client.DownloadFile(song.EffectiveDownloadUrl + $"?client_id={apiKey}", song.LocalPath);
                         }
                         else //get the low res mp3 if all above not possible
                         {
                             song.LocalPath += extension;
-                            client.DownloadFile(song.stream_url + string.Format("?client_id={0}", apiKey), song.LocalPath);
+                            client.DownloadFile(song.stream_url + $"?client_id={apiKey}", song.LocalPath);
                         };
                     }
                     else
                     {
                         song.LocalPath += ".mp3";
-                        client.DownloadFile(song.stream_url + string.Format("?client_id={0}", apiKey), song.LocalPath);
+                        client.DownloadFile(song.stream_url + $"?client_id={apiKey}", song.LocalPath);
                     }
 
                     //tag the song
                     try
                     {
-                        metadataTagging.tagIt(ref song);
-                    }catch(Exception e)
+                        MetadataTagging.TagIt(ref song);
+                    }
+                    catch(Exception e)
                     {
                         Debug.WriteLine("Can't tag song:" + song.LocalPath);
                     }
-                    
+                }
 
-                    lock (SongsDownloadedLock)
-                    {
-                        SongsDownloaded++ ;
-                        downloaded = true;
-                    }
+
+                lock (_songsDownloadedLock)
+                {
+                    SongsDownloaded++ ;
+                    downloaded = true;
                 }
             }
             return downloaded;
@@ -567,10 +563,10 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         string localTrackpath = ParseTrackPath(songDownloaded, 1);
                         string localPathDownloadedSongRelative = directoryPath + localTrackpath.Replace(directoryPath, "");
-                        string songID = new String(ParseTrackPath(songDownloaded, 0).ToCharArray().Where(c => Char.IsDigit(c)).ToArray());
+                        string songId = new String(ParseTrackPath(songDownloaded, 0).ToCharArray().Where(c => Char.IsDigit(c)).ToArray());
                         string neutralPath = Path.ChangeExtension(localPathDownloadedSongRelative, null);
-                        Track SoundCloudTrack = null;
-                        SoundCloudTrack = allTracks.FirstOrDefault(song => song.stream_url.Contains("/" + songID + "/"));
+                        Track soundCloudTrack = null;
+                        soundCloudTrack = allTracks.FirstOrDefault(song => song.stream_url.Contains("/" + songId + "/"));
                      
                         bool trackArtistOrNameChanged = false;
                         //WARNING      If we want to look if allTracks contains the downloaded file we need to trim the extention
@@ -583,10 +579,10 @@ namespace Soundcloud_Playlist_Downloader
                             continue;
                         };
                         //song is changed on SoundCloud (only checks artist and filename), redownload and remove old one.
-                        if (trackArtistOrNameChanged && SoundCloudTrack != null)
+                        if (trackArtistOrNameChanged && soundCloudTrack != null)
                         {
-                            bool localIsHD = ParseTrackPath(songDownloaded, 0).EndsWith("download");
-                            if (SoundCloudTrack.IsHD == true || (SoundCloudTrack.IsHD == false && localIsHD == false))
+                            bool localIsHd = ParseTrackPath(songDownloaded, 0).EndsWith("download");
+                            if (soundCloudTrack.IsHD == true || (soundCloudTrack.IsHD == false && localIsHd == false))
                             // do not download Low Quality if HQ is already downloaded, even if the track is changed!
                             {
                                 if (File.Exists(localPathDownloadedSongRelative))
@@ -598,7 +594,7 @@ namespace Soundcloud_Playlist_Downloader
                             }
                         }
                         //file exists locally but not externally and can be removed
-                        if (Form1.SyncMethod == 2 && SoundCloudTrack == null)
+                        if (Form1.SyncMethod == 2 && soundCloudTrack == null)
                         {
                             File.Delete(localPathDownloadedSongRelative);
                             DeleteEmptyDirectory(localPathDownloadedSongRelative);
@@ -625,7 +621,7 @@ namespace Soundcloud_Playlist_Downloader
             if (!Form1.FoldersPerArtist)
                 return false;
             string path = Path.GetDirectoryName(filenameWithPath);
-            if (!Directory.EnumerateFileSystemEntries(path).Any()) //folder = empty
+            if (path != null && !Directory.EnumerateFileSystemEntries(path).Any()) //folder = empty
             {
                 try
                 {
@@ -684,7 +680,7 @@ namespace Soundcloud_Playlist_Downloader
                 using (WebClient client = new WebClient()) 
                 {
                     client.Encoding = System.Text.Encoding.UTF8;
-                    if (url != null && !url.Contains("client_id="))
+                    if (!url.Contains("client_id="))
                     {
                         url += (url.Contains("?") ? "&" : "?") + "client_id=" + clientId;
                     }

@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Web;
-using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 namespace Soundcloud_Playlist_Downloader
