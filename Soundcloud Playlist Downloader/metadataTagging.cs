@@ -53,7 +53,11 @@ namespace Soundcloud_Playlist_Downloader
                 {
                     float bpm = (float) song.bpm;
                     tagFile.Tag.BeatsPerMinute = Convert.ToUInt32(bpm);
-                }                
+                }
+                if (!String.IsNullOrEmpty(song.permalink_url))
+                {
+                    tagFile.Tag.Composers = new string[] { song.permalink_url };
+                }            
 
                 if (!String.IsNullOrEmpty(song.license))
                 {
