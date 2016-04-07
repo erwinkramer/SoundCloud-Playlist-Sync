@@ -58,7 +58,7 @@ namespace Soundcloud_Playlist_Downloader
         {
             if (ApplicationDeployment.IsNetworkDeployed)
             {
-                return $"Your application name - v{ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4)}";
+                return ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4);
             }
             else
             {
