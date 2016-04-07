@@ -6,7 +6,7 @@ namespace Soundcloud_Playlist_Downloader
     internal static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         [STAThread]
         private static void Main()
@@ -14,6 +14,6 @@ namespace Soundcloud_Playlist_Downloader
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-        }       
+        }
     }
 }

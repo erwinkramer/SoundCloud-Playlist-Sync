@@ -1,29 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
+using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Soundcloud_Playlist_Downloader
 {
-    partial class box_about : Form
+    internal partial class BoxAbout : Form
     {
-        public box_about()
+        public BoxAbout()
         {
             InitializeComponent();
-            this.Text = String.Format("About {0}", AssemblyTitle);
+            Text = string.Format("About {0}", AssemblyTitle);
 
-            LinkLabel.Link link = new LinkLabel.Link();
-            LinkLabel.Link link2 = new LinkLabel.Link();
-            LinkLabel.Link link3 = new LinkLabel.Link();
-            LinkLabel.Link link4 = new LinkLabel.Link();
-            LinkLabel.Link link5 = new LinkLabel.Link();
-            LinkLabel.Link link6 = new LinkLabel.Link();
-            LinkLabel.Link link7 = new LinkLabel.Link();
+            var link = new LinkLabel.Link();
+            var link2 = new LinkLabel.Link();
+            var link3 = new LinkLabel.Link();
+            var link4 = new LinkLabel.Link();
+            var link5 = new LinkLabel.Link();
+            var link6 = new LinkLabel.Link();
+            var link7 = new LinkLabel.Link();
 
             link.LinkData = "https://github.com/StephenCasella/SoundCloud-Playlist-Sync/releases";
             link_github2.Links.Add(link);
@@ -42,68 +38,44 @@ namespace Soundcloud_Playlist_Downloader
         }
 
         #region Assembly Attribute Accessors
+
         public string AssemblyTitle
         {
             get
             {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+                var attributes = Assembly.GetExecutingAssembly()
+                    .GetCustomAttributes(typeof (AssemblyTitleAttribute), false);
                 if (attributes.Length > 0)
                 {
-                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                    var titleAttribute = (AssemblyTitleAttribute) attributes[0];
                     if (titleAttribute.Title != "")
                     {
                         return titleAttribute.Title;
                     }
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
+
         #endregion
-
-        private void labelProductName_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelVersion_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
         }
 
         private void AboutBox1_Load(object sender, EventArgs e)
         {
-
         }
 
         private void AboutBox1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Hide();
+            Hide();
             e.Cancel = true;
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void lblGitHub_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void link_github2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

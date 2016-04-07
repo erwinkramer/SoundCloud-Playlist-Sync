@@ -1,16 +1,16 @@
-﻿using PostSharp.Aspects;
-using System;
+﻿using System;
 using System.Threading;
+using PostSharp.Aspects;
 
 namespace Soundcloud_Playlist_Downloader
 {
     [Serializable]
-    class SafeRetry : MethodInterceptionAspect
+    internal class SafeRetry : MethodInterceptionAspect
     {
         public override void OnInvoke(MethodInterceptionArgs args)
         {
-            bool success = false;
-            for (int i = 0; i < 10 && !success; ++i)
+            var success = false;
+            for (var i = 0; i < 10 && !success; ++i)
             {
                 try
                 {
@@ -20,19 +20,20 @@ namespace Soundcloud_Playlist_Downloader
                 catch (Exception)
                 {
                     // Logging would be appropriate in a more robust application
-                    Thread.Sleep((new Random()).Next(10) * 1000);
+                    Thread.Sleep(new Random().Next(10)*1000);
                 }
             }
 
-            if (!success) {
+            if (!success)
+            {
                 throw new Exception("One or more exceptions occurred during the execution of " +
-                    args.Method + "(" + args.Arguments + ")");
+                                    args.Method + "(" + args.Arguments + ")");
             }
         }
     }
 
     [Serializable]
-    class SilentFailure : MethodInterceptionAspect
+    internal class SilentFailure : MethodInterceptionAspect
     {
         public override void OnInvoke(MethodInterceptionArgs args)
         {
@@ -40,7 +41,9 @@ namespace Soundcloud_Playlist_Downloader
             {
                 args.Proceed();
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+            }
         }
     }
 }

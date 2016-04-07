@@ -2,7 +2,7 @@
 
 namespace Soundcloud_Playlist_Downloader
 {
-    partial class box_about
+    partial class BoxAbout
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace Soundcloud_Playlist_Downloader
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(box_about));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BoxAbout));
             this.link_github = new System.Windows.Forms.LinkLabel();
             this.okButton = new System.Windows.Forms.Button();
             this.link_github2 = new System.Windows.Forms.LinkLabel();
@@ -307,7 +307,7 @@ namespace Soundcloud_Playlist_Downloader
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "box_about";
+            this.Name = "BoxAbout";
             this.Padding = new System.Windows.Forms.Padding(9);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
