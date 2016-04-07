@@ -108,9 +108,9 @@ namespace Soundcloud_Playlist_Downloader
             this.lbl_copy.AutoSize = true;
             this.lbl_copy.Location = new System.Drawing.Point(12, 211);
             this.lbl_copy.Name = "lbl_copy";
-            this.lbl_copy.Size = new System.Drawing.Size(324, 13);
+            this.lbl_copy.Size = new System.Drawing.Size(299, 13);
             this.lbl_copy.TabIndex = 29;
-            this.lbl_copy.Text = "copyright © 2013-2016 the Soundcloud Playlist Downloader-project";
+            this.lbl_copy.Text = "copyright © 2013-2016. The SoundCloud-Playlist-Sync project";
             // 
             // lbl_info1
             // 
@@ -294,7 +294,7 @@ namespace Soundcloud_Playlist_Downloader
             this.link_nAudio.Text = "NAudio";
             this.link_nAudio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // box_about
+            // BoxAbout
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

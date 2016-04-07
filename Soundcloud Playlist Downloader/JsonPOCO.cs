@@ -254,7 +254,7 @@ namespace Soundcloud_Playlist_Downloader
 
             if (string.IsNullOrEmpty(sanitisedNamePart))
                 //if completely sanitized, make something that's not an empty string
-                sanitisedNamePart = "blank";
+                sanitisedNamePart = "(blank)";
             return sanitisedNamePart;
         }
 
@@ -263,7 +263,7 @@ namespace Soundcloud_Playlist_Downloader
             var trimmed = foldername.Trim('.', ' ');
 
             if (string.IsNullOrEmpty(trimmed))
-                trimmed = "blank"; //if completely trimmed, make something that's not an empty string
+                trimmed = "(blank)"; //if completely trimmed, make something that's not an empty string
             return trimmed;
         }
 
