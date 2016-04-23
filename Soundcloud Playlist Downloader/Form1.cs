@@ -130,7 +130,7 @@ namespace Soundcloud_Playlist_Downloader
         private void UpdateProgressBar()
         {
             progressBar.Minimum = 0;
-            progressBar.Maximum = dlMode == EnumUtil.DownloadMode.Track ? 1 : DownloadUtils.SongsToDownload;
+            progressBar.Maximum = DownloadUtils.SongsToDownload;
 
             progressBar.Value = DownloadUtils.SongsDownloaded;
 

@@ -102,8 +102,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         if (!File.Exists(localPathDownloadedSongRelative))
                         {
                             continue;
-                        }
-                        ;
+                        }                       
                         //song is changed on SoundCloud (only checks artist and filename), redownload and remove old one.
                         if (trackArtistOrNameChanged && soundCloudTrack != null)
                         {
