@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace Soundcloud_Playlist_Downloader.JsonPoco
+namespace Soundcloud_Playlist_Downloader
 {
-
     public class PaginatedCollectionPlaylist
     {
-        public PlaylistItem[] collection { get; set; }
-        public string next_href { get; set; }
+        public PlaylistItem[] Collection { get; set; }
+        public string NextHref { get; set; }
     }
+
     public class PaginatedCollectionRegular
     {
-        public Track[] collection { get; set; }
+        public Track[] Collection { get; set; }
         public string next_href { get; set; }
     }
 
@@ -125,26 +120,15 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
         public int? label_id { get; set; }
         public string purchase_title { get; set; }
         public string genre { get; set; }
-      
-        private string _title = null;
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-            set
-            {
-                _title = value;
-                //_title = Sanitize(value);
-            }
-        }
+
+        public string Title { get; set; } = null;
+
         public string EffectiveDownloadUrl
         {
             get
             {
-                string url = string.Empty;
-                if(stream_url == null)
+                var url = string.Empty;
+                if (stream_url == null)
                 {
                     //WARNING       On rare occaisions the stream url is not available, blame this on the SoundCloud API
                     //              We can manually create the stream url anyway because we have the song id
@@ -153,8 +137,9 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
                 }
                 if (Form1.Highqualitysong) //user has selected to download high quality songs if available
                 {
-                    url = !string.IsNullOrWhiteSpace(download_url) ? 
-                        download_url : stream_url; //check if high quality url (download_url) is available
+                    url = !string.IsNullOrWhiteSpace(download_url)
+                        ? download_url
+                        : stream_url; //check if high quality url (download_url) is available
                 }
                 else
                 {
@@ -164,17 +149,66 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
                 {
                     return url.Replace("\r", "").Replace("\n", "");
                 }
-                else
-                {
-                    return null;
-                }
+                return null;
             }
         }
 
         public string LocalPath { get; set; }
 
         // song is considered HD when there is a download_url available
-        public bool IsHD { get { return download_url == EffectiveDownloadUrl; } }
+        public bool IsHD
+        {
+            get { return download_url == EffectiveDownloadUrl; }
+        }
+
+        public string description { get; set; }
+        public string label_name { get; set; }
+        public string release { get; set; }
+        public string track_type { get; set; }
+        public string key_signature { get; set; }
+        public string isrc { get; set; }
+        public string video_url { get; set; }
+        public float? bpm { get; set; }
+        public int? release_year { get; set; }
+        public int? release_month { get; set; }
+        public int? release_day { get; set; }
+        public string original_format { get; set; }
+        public string license { get; set; }
+        public string uri { get; set; }
+        public User user { get; set; }
+        public string permalink_url { get; set; }
+        public string artwork_url { get; set; }
+        public string waveform_url { get; set; }
+
+        public string stream_url { get; set; }
+
+        public int playback_count { get; set; }
+        public int download_count { get; set; }
+        public int favoritings_count { get; set; }
+        public int comment_count { get; set; }
+        public string attachments_uri { get; set; }
+        public string policy { get; set; }
+        public string download_url { get; set; }
+        public Label label { get; set; }
+        public string[] available_country_codes { get; set; }
+        public TrackCreatedWith TrackCreatedWith { get; set; }
+
+        public string Artist
+        {
+            get { return Username; }
+        }
+
+        public string Username
+        {
+            get { return user.username; }
+            set
+            {
+                user.username = value;
+                //user.username = Sanitize(value);
+            }
+        }
+
+        public bool HasToBeDownloaded { get; set; }
 
         //public string Sanitize(string input)
         //{
@@ -187,66 +221,76 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
         //}
 
         /// <summary>
-        /// Strip illegal chars and reserved words from a candidate filename (should not include the directory path)
+        ///     Strip illegal chars and reserved words from a candidate filename (should not include the directory path)
         /// </summary>
         /// <remarks>
-        /// http://stackoverflow.com/questions/309485/c-sharp-sanitize-file-name
+        ///     http://stackoverflow.com/questions/309485/c-sharp-sanitize-file-name
         /// </remarks>
-
         public string CoerceValidFileName(string filename, bool checkForReplaceCharacters)
         {
             if (checkForReplaceCharacters && Form1.ReplaceIllegalCharacters)
             {
                 filename = AlterChars(filename);
-            };
+            }
+            ;
 
             var invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
-            var invalidReStr = string.Format(@"[{0}]+", invalidChars);
+            var invalidReStr = $@"[{invalidChars}]+";
 
             var reservedWords = new[]
-                                    {
-                                        "CON", "PRN", "AUX", "CLOCK$", "NUL", "COM0", "COM1", "COM2", "COM3", "COM4",
-                                        "COM5", "COM6", "COM7", "COM8", "COM9", "LPT0", "LPT1", "LPT2", "LPT3", "LPT4",
-                                        "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
-                                    };
+            {
+                "CON", "PRN", "AUX", "CLOCK$", "NUL", "COM0", "COM1", "COM2", "COM3", "COM4",
+                "COM5", "COM6", "COM7", "COM8", "COM9", "LPT0", "LPT1", "LPT2", "LPT3", "LPT4",
+                "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+            };
 
             var sanitisedNamePart = Regex.Replace(filename, invalidReStr, "_");
             foreach (var reservedWord in reservedWords)
             {
-                var reservedWordPattern = string.Format("^{0}\\.", reservedWord);
-                sanitisedNamePart = Regex.Replace(sanitisedNamePart, reservedWordPattern, "_reservedWord_.", RegexOptions.IgnoreCase);
+                var reservedWordPattern = $"^{reservedWord}\\.";
+                sanitisedNamePart = Regex.Replace(sanitisedNamePart, reservedWordPattern, "_reservedWord_.",
+                    RegexOptions.IgnoreCase);
             }
 
+            if (string.IsNullOrEmpty(sanitisedNamePart))
+                //if completely sanitized, make something that's not an empty string
+                sanitisedNamePart = "(blank)";
             return sanitisedNamePart;
         }
 
-        public static string trimDotsAndSpacesForFolderName(string foldername)
+        public static string TrimDotsAndSpacesForFolderName(string foldername)
         {
-            return foldername.Trim('.',' ');
+            var trimmed = foldername.Trim('.', ' ');
+
+            if (string.IsNullOrEmpty(trimmed))
+                trimmed = "(blank)"; //if completely trimmed, make something that's not an empty string
+            return trimmed;
         }
 
-        public static string staticCoerceValidFileName(string filename, bool checkForReplaceCharacters)
+        public static string StaticCoerceValidFileName(string filename, bool checkForReplaceCharacters)
         {
             if (checkForReplaceCharacters && Form1.ReplaceIllegalCharacters)
             {
                 filename = AlterChars(filename);
-            };
+            }
+            ;
 
             var invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
-            var invalidReStr = string.Format(@"[{0}]+", invalidChars);
+            var invalidReStr = $@"[{invalidChars}]+";
 
             var reservedWords = new[]
-                                    {
-                                        "CON", "PRN", "AUX", "CLOCK$", "NUL", "COM0", "COM1", "COM2", "COM3", "COM4",
-                                        "COM5", "COM6", "COM7", "COM8", "COM9", "LPT0", "LPT1", "LPT2", "LPT3", "LPT4",
-                                        "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
-                                    };
+            {
+                "CON", "PRN", "AUX", "CLOCK$", "NUL", "COM0", "COM1", "COM2", "COM3", "COM4",
+                "COM5", "COM6", "COM7", "COM8", "COM9", "LPT0", "LPT1", "LPT2", "LPT3", "LPT4",
+                "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+            };
 
             var sanitisedNamePart = Regex.Replace(filename, invalidReStr, "_");
             foreach (var reservedWord in reservedWords)
             {
-                var reservedWordPattern = string.Format("^{0}\\.", reservedWord);
-                sanitisedNamePart = Regex.Replace(sanitisedNamePart, reservedWordPattern, "_reservedWord_.", RegexOptions.IgnoreCase);
+                var reservedWordPattern = $"^{reservedWord}\\.";
+                sanitisedNamePart = Regex.Replace(sanitisedNamePart, reservedWordPattern, "_reservedWord_.",
+                    RegexOptions.IgnoreCase);
             }
 
             return sanitisedNamePart;
@@ -270,58 +314,8 @@ namespace Soundcloud_Playlist_Downloader.JsonPoco
                 Replace("\"", "＂");
             return word;
         }
-
-        public string description { get; set; }
-        public string label_name { get; set; }
-        public string release { get; set; }
-        public string track_type { get; set; }
-        public string key_signature { get; set; }
-        public string isrc { get; set; }
-        public string video_url { get; set; }
-        public float? bpm { get; set; }
-        public int? release_year { get; set; }
-        public int? release_month { get; set; }
-        public int? release_day { get; set; }
-        public string original_format { get; set; }
-        public string license { get; set; }
-        public string uri { get; set; }
-        public User user { get; set; }
-        public string permalink_url { get; set; }
-        public string artwork_url { get; set; }
-        public string waveform_url { get; set; }
-        public string stream_url
-        {
-            get; set;
-        }
-        public int playback_count { get; set; }
-        public int download_count { get; set; }
-        public int favoritings_count { get; set; }
-        public int comment_count { get; set; }
-        public string attachments_uri { get; set; }
-        public string policy { get; set; }
-        public string download_url { get; set; }
-        public Label label { get; set; }
-        public string[] available_country_codes { get; set; }
-        public TrackCreatedWith TrackCreatedWith { get; set; }
-
-        public string Artist { get { return Username; } }
-        public string Username
-        {
-            get
-            {
-                return user.username;
-            }
-            set
-            {
-                user.username = value;
-                //user.username = Sanitize(value);
-            }
-        }
-
-        public bool HasToBeDownloaded { get; set; }
     }
 
-   
 
     public class Label
     {
