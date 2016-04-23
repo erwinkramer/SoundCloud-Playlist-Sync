@@ -60,6 +60,7 @@
             this.gbox_advanced = new System.Windows.Forms.GroupBox();
             this.gbox_localdir = new System.Windows.Forms.GroupBox();
             this.directoryPath = new System.Windows.Forms.TextBox();
+            this.trackRadio = new System.Windows.Forms.RadioButton();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnl_convert.SuspendLayout();
@@ -72,7 +73,7 @@
             // 
             // syncButton
             // 
-            this.syncButton.Location = new System.Drawing.Point(12, 426);
+            this.syncButton.Location = new System.Drawing.Point(12, 452);
             this.syncButton.Name = "syncButton";
             this.syncButton.Size = new System.Drawing.Size(397, 23);
             this.syncButton.TabIndex = 4;
@@ -94,7 +95,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.status});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 468);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 495);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(416, 22);
             this.statusStrip1.TabIndex = 9;
@@ -107,7 +108,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(12, 455);
+            this.progressBar.Location = new System.Drawing.Point(12, 481);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(397, 10);
             this.progressBar.TabIndex = 10;
@@ -300,7 +301,7 @@
             // 
             this.gbox_syncMethod.Controls.Add(this.rbttn_oneWay);
             this.gbox_syncMethod.Controls.Add(this.rbttn_twoWay);
-            this.gbox_syncMethod.Location = new System.Drawing.Point(12, 175);
+            this.gbox_syncMethod.Location = new System.Drawing.Point(12, 201);
             this.gbox_syncMethod.Name = "gbox_syncMethod";
             this.gbox_syncMethod.Size = new System.Drawing.Size(397, 62);
             this.gbox_syncMethod.TabIndex = 30;
@@ -309,12 +310,13 @@
             // 
             // gbox_downMethod
             // 
+            this.gbox_downMethod.Controls.Add(this.trackRadio);
             this.gbox_downMethod.Controls.Add(this.playlistRadio);
             this.gbox_downMethod.Controls.Add(this.artistRadio);
             this.gbox_downMethod.Controls.Add(this.favoritesRadio);
             this.gbox_downMethod.Location = new System.Drawing.Point(12, 81);
             this.gbox_downMethod.Name = "gbox_downMethod";
-            this.gbox_downMethod.Size = new System.Drawing.Size(397, 88);
+            this.gbox_downMethod.Size = new System.Drawing.Size(397, 114);
             this.gbox_downMethod.TabIndex = 31;
             this.gbox_downMethod.TabStop = false;
             this.gbox_downMethod.Text = "Download Method";
@@ -353,7 +355,7 @@
             this.gbox_advanced.Controls.Add(this.chk_includeArtistinFilename);
             this.gbox_advanced.Controls.Add(this.chk_replaceIllegalCharacters);
             this.gbox_advanced.Controls.Add(this.pnl_convert);
-            this.gbox_advanced.Location = new System.Drawing.Point(12, 245);
+            this.gbox_advanced.Location = new System.Drawing.Point(12, 271);
             this.gbox_advanced.Name = "gbox_advanced";
             this.gbox_advanced.Size = new System.Drawing.Size(397, 118);
             this.gbox_advanced.TabIndex = 33;
@@ -364,7 +366,7 @@
             // 
             this.gbox_localdir.Controls.Add(this.directoryPath);
             this.gbox_localdir.Controls.Add(this.browseButton);
-            this.gbox_localdir.Location = new System.Drawing.Point(12, 369);
+            this.gbox_localdir.Location = new System.Drawing.Point(12, 395);
             this.gbox_localdir.Name = "gbox_localdir";
             this.gbox_localdir.Size = new System.Drawing.Size(397, 51);
             this.gbox_localdir.TabIndex = 34;
@@ -380,11 +382,22 @@
             this.directoryPath.TabIndex = 5;
             this.directoryPath.Text = settings1.LocalPath;
             // 
+            // trackRadio
+            // 
+            this.trackRadio.AutoSize = true;
+            this.trackRadio.Location = new System.Drawing.Point(6, 88);
+            this.trackRadio.Name = "trackRadio";
+            this.trackRadio.Size = new System.Drawing.Size(106, 17);
+            this.trackRadio.TabIndex = 14;
+            this.trackRadio.TabStop = true;
+            this.trackRadio.Text = "Single track URL";
+            this.trackRadio.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(416, 490);
+            this.ClientSize = new System.Drawing.Size(416, 517);
             this.Controls.Add(this.gbox_localdir);
             this.Controls.Add(this.gbox_advanced);
             this.Controls.Add(this.gbox_url);
@@ -452,6 +465,7 @@
         private System.Windows.Forms.GroupBox gbox_url;
         private System.Windows.Forms.GroupBox gbox_advanced;
         private System.Windows.Forms.GroupBox gbox_localdir;
+        private System.Windows.Forms.RadioButton trackRadio;
     }
 }
 

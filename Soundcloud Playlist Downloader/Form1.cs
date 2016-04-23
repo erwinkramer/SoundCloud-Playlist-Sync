@@ -108,6 +108,10 @@ namespace Soundcloud_Playlist_Downloader
                 {
                     status.Text = "Aborting downloads... Please Wait.";
                 }
+                else if (_sync.DownloadingSingleTrack)
+                {
+                    status.Text = "Downloading track...";
+                }
                 else if (_sync.IsActive)
                 {
                     status.Text = "Enumerating tracks to download...";
@@ -193,45 +197,49 @@ namespace Soundcloud_Playlist_Downloader
 
                 var dlMode = playlistRadio.Checked
                     ? PlaylistSync.DownloadMode.Playlist
-                    : favoritesRadio.Checked ? PlaylistSync.DownloadMode.Favorites : PlaylistSync.DownloadMode.Artist;
+                    : favoritesRadio.Checked ? PlaylistSync.DownloadMode.Favorites
+                    : artistRadio.Checked ? PlaylistSync.DownloadMode.Artist : PlaylistSync.DownloadMode.Track;
 
                 var uri = new Uri(url.Text);
-                var uriWithoutScheme = uri.Host + uri.PathAndQuery;
-                var validManifestFilename = Track.StaticCoerceValidFileName(uriWithoutScheme, false);
-                ManifestName = ".MNFST=" + validManifestFilename + ",FPA=" + FoldersPerArtist + ",IAIF=" +
-                               IncludeArtistInFilename + ",DM=" + dlMode + ",SM=" + SyncMethod + ".csv";
-
-                if (Directory.Exists(directoryPath.Text))
+                if(dlMode != PlaylistSync.DownloadMode.Track)
                 {
-                    var files = Directory.GetFiles(directoryPath.Text, ".MNFST=*", SearchOption.TopDirectoryOnly);
-                    if ((files.Length > 0) || File.Exists(Path.Combine(directoryPath.Text, "manifest")))
+                    var uriWithoutScheme = uri.Host + uri.PathAndQuery;
+                    var validManifestFilename = Track.StaticCoerceValidFileName(uriWithoutScheme, false);
+                    ManifestName = ".MNFST=" + validManifestFilename + ",FPA=" + FoldersPerArtist + ",IAIF=" +
+                                   IncludeArtistInFilename + ",DM=" + dlMode + ",SM=" + SyncMethod + ".csv";
+
+                    if (Directory.Exists(directoryPath.Text))
                     {
-                        if (!File.Exists(Path.Combine(directoryPath.Text, ManifestName)) ||
-                            File.Exists(Path.Combine(directoryPath.Text, "manifest"))) //old manifest format
+                        var files = Directory.GetFiles(directoryPath.Text, ".MNFST=*", SearchOption.TopDirectoryOnly);
+                        if ((files.Length > 0) || File.Exists(Path.Combine(directoryPath.Text, "manifest")))
                         {
-                            //different or old manifest found, quitting
-                            status.Text = "Old or different manifest found, please change settings or local directoy.";
+                            if (!File.Exists(Path.Combine(directoryPath.Text, ManifestName)) ||
+                                File.Exists(Path.Combine(directoryPath.Text, "manifest"))) //old manifest format
+                            {
+                                //different or old manifest found, quitting
+                                status.Text = "Old or different manifest found, please change settings or local directoy.";
 
-                            completed = true;
-                            InvokeSyncComplete();
-                            return;
-                        }
-                        if (File.Exists(Path.Combine(directoryPath.Text, ManifestName)))
-                        {
-                            //copy to backup location
-                            var destinationPath =
-                                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                                    "SoundCloud Playlist Sync",
-                                    DateTime.Today.ToString("dd/MM/yyyy") + " Manifest Backups");
+                                completed = true;
+                                InvokeSyncComplete();
+                                return;
+                            }
+                            if (File.Exists(Path.Combine(directoryPath.Text, ManifestName)))
+                            {
+                                //copy to backup location
+                                var destinationPath =
+                                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                                        "SoundCloud Playlist Sync",
+                                        DateTime.Today.ToString("dd/MM/yyyy") + " Manifest Backups");
 
-                            var destinationPathWithFile = Path.Combine(destinationPath, ManifestName);
-                            Directory.CreateDirectory(destinationPath);
+                                var destinationPathWithFile = Path.Combine(destinationPath, ManifestName);
+                                Directory.CreateDirectory(destinationPath);
 
-                            File.Copy(Path.Combine(directoryPath.Text, ManifestName), destinationPathWithFile, true);
+                                File.Copy(Path.Combine(directoryPath.Text, ManifestName), destinationPathWithFile, true);
+                            }
                         }
                     }
                 }
-
+                
                 new Thread(() =>
                 {
                     try
@@ -249,7 +257,7 @@ namespace Soundcloud_Playlist_Downloader
                         InvokeSyncComplete();
                     }
                 }).Start();
-
+                
                 new Thread(() =>
                 {
                     // perform progress updates
@@ -257,7 +265,8 @@ namespace Soundcloud_Playlist_Downloader
                     {
                         Thread.Sleep(500);
                         InvokeUpdateStatus();
-                        InvokeUpdateProgressBar();
+                        if(!trackRadio.Checked)
+                            InvokeUpdateProgressBar();
                     }
                     if (!exiting)
                     {
