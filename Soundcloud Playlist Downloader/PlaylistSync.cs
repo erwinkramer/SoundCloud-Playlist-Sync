@@ -19,7 +19,8 @@ namespace Soundcloud_Playlist_Downloader
         {
             Playlist,
             Favorites,
-            Artist
+            Artist,
+            Track
         }
 
         private static readonly object WriteManifestLock = new object();
@@ -40,6 +41,7 @@ namespace Soundcloud_Playlist_Downloader
         public int SongsDownloaded { get; private set; }
 
         public bool IsActive { get; set; }
+        public bool DownloadingSingleTrack { get; set; }
 
         private void VerifyParameters(Dictionary<string, string> parameters)
         {
@@ -100,6 +102,10 @@ namespace Soundcloud_Playlist_Downloader
                     }
                     SynchronizeFromArtistUrl(apiURL, clientId, directory);
                     break;
+                case DownloadMode.Track:
+                    Track track = RetrieveTrackFromUrl(url, clientId);
+                    SynchronizeSingleTrack(track, clientId, directory);
+                    break;
                 default:
                     IsError = true;
                     throw new NotImplementedException("Unknown download mode");
@@ -146,7 +152,7 @@ namespace Soundcloud_Playlist_Downloader
             // a method already exists for downloading xml, so use that and refactor this to not have
             // the client id embedded in the url
             var playlistsJson = RetrieveJson(userApiUrl, clientId);
-
+            
             var playlists = JArray.Parse(playlistsJson);
             IList<JToken> results = playlists.Children().ToList();
             IList<PlaylistItem> playlistsitems = new List<PlaylistItem>();
@@ -166,6 +172,16 @@ namespace Soundcloud_Playlist_Downloader
             }
             IsError = true;
             throw new Exception("Unable to find a matching playlist");
+        }
+
+        private Track RetrieveTrackFromUrl(string url, string clientId)
+        {
+            var trackJson = RetrieveJson("https://api.soundcloud.com/resolve.json?url=" + url, clientId);
+            JObject track = JObject.Parse(trackJson);
+            if(track != null && track.GetValue("id") != null)
+                return JsonConvert.DeserializeObject<Track>(track.ToString());
+            
+            return null;
         }
 
         private string ParseUserIdFromProfileUrl(string url)
@@ -266,66 +282,80 @@ namespace Soundcloud_Playlist_Downloader
             return fullPathAndFilename.Length <= maxPathLength;
         }
 
+        internal void SynchronizeSingleTrack(Track track, string clientId, string directoryPath)
+        {
+            track.LocalPath = GetTrackLocalPath(track, directoryPath);
+
+            //Downloads track
+            DownloadingSingleTrack = true;
+            DownloadTrack(track, clientId);
+            DownloadingSingleTrack = false;
+        }
+
+        private string GetTrackLocalPath(Track track, string directoryPath)
+        {
+            string path;
+            var validArtist = track.CoerceValidFileName(track.Artist, true);
+            var validArtistFolderName = Track.TrimDotsAndSpacesForFolderName(validArtist);
+            var validTitle = track.CoerceValidFileName(track.Title, true);
+            var filenameWithArtist = validArtist + " - " + validTitle;
+
+            if (Form1.FoldersPerArtist)
+            {
+                if (Form1.IncludeArtistInFilename) //include artist name
+                {
+                    while (!IsPathWithinLimits(path = Path.Combine(directoryPath, validArtistFolderName,
+                        filenameWithArtist)))
+                    {
+                        filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
+                        //shorten to fit into max size of path
+                    }
+                }
+                else
+                {
+                    while (!IsPathWithinLimits(path = Path.Combine(directoryPath, validArtistFolderName,
+                        validTitle)))
+                    {
+                        validTitle = validTitle.Remove(validTitle.Length - 2);
+                        //shorten to fit into max size of path
+                    }
+                }
+            }
+            else
+            {
+                if (Form1.IncludeArtistInFilename) //include artist name
+                {
+                    while (!IsPathWithinLimits(path = Path.Combine(directoryPath, filenameWithArtist)))
+                    {
+                        filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
+                        //shorten to fit into max size of path
+                    }
+                }
+                else
+                {
+                    while (!IsPathWithinLimits(path = Path.Combine(directoryPath, validTitle)))
+                    {
+                        validTitle = validTitle.Remove(validTitle.Length - 2);
+                        //shorten to fit into max size of path
+                    }
+                }
+            }
+            if (track.IsHD)
+            {
+                path += " (HQ)";
+            }
+
+            return path;
+        }
+
         private void Synchronize(IList<Track> tracks, string clientId, string directoryPath)
         {
             //define all local paths by combining the sanitzed artist (if checked by user) with the santized title
             foreach (var track in tracks)
             {
-                var validArtist = track.CoerceValidFileName(track.Artist, true);
-                var validArtistFolderName = Track.TrimDotsAndSpacesForFolderName(validArtist);
-                var validTitle = track.CoerceValidFileName(track.Title, true);
-                var filenameWithArtist = validArtist + " - " + validTitle;
-
-                if (Form1.FoldersPerArtist)
-                {
-                    if (Form1.IncludeArtistInFilename) //include artist name
-                    {
-                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validArtistFolderName,
-                            filenameWithArtist)))
-                        {
-                            filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
-                                //shorten to fit into max size of path
-                        }
-                        ;
-                    }
-                    else
-                    {
-                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validArtistFolderName,
-                            validTitle)))
-                        {
-                            validTitle = validTitle.Remove(validTitle.Length - 2);
-                                //shorten to fit into max size of path
-                        }
-                        ;
-                    }
-                }
-                else
-                {
-                    if (Form1.IncludeArtistInFilename) //include artist name
-                    {
-                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, filenameWithArtist)))
-                        {
-                            filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
-                                //shorten to fit into max size of path
-                        }
-                        ;
-                    }
-                    else
-                    {
-                        while (!IsPathWithinLimits(track.LocalPath = Path.Combine(directoryPath, validTitle)))
-                        {
-                            validTitle = validTitle.Remove(validTitle.Length - 2);
-                                //shorten to fit into max size of path
-                        }
-                        ;
-                    }
-                }
-                if (track.IsHD)
-                {
-                    track.LocalPath += " (HQ)";
-                }
+                track.LocalPath = GetTrackLocalPath(track, directoryPath);
             }
-            ;
+            
             // determine which tracks should be deleted or re-added
             DeleteOrAddRemovedTrack(directoryPath, tracks);
 
@@ -414,7 +444,7 @@ namespace Soundcloud_Playlist_Downloader
             var trackLock = new object();
             SongsToDownload = Alltracks.Count(x => x.HasToBeDownloaded);
             Parallel.ForEach(Alltracks.Where(x => x.HasToBeDownloaded),
-                new ParallelOptions {MaxDegreeOfParallelism = Settings.Default.ConcurrentDownloads},
+                new ParallelOptions { MaxDegreeOfParallelism = Settings.Default.ConcurrentDownloads },
                 track =>
                 {
                     try
@@ -423,7 +453,7 @@ namespace Soundcloud_Playlist_Downloader
                         {
                             lock (trackLock)
                             {
-                                track.HasToBeDownloaded = false;                               
+                                track.HasToBeDownloaded = false;
                                 UpdateSyncManifest(track, directoryPath);
                             }
                         }
@@ -513,7 +543,6 @@ namespace Soundcloud_Playlist_Downloader
                             song.LocalPath += extension;
                             client.DownloadFile(song.stream_url + $"?client_id={apiKey}", song.LocalPath);
                         }
-                        ;
                     }
                     else
                     {
