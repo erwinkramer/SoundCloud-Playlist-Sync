@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using Soundcloud_Playlist_Downloader.Properties;
+using Soundcloud_Playlist_Downloader.Utils;
 
 namespace Soundcloud_Playlist_Downloader
 {
@@ -15,6 +16,7 @@ namespace Soundcloud_Playlist_Downloader
         public static bool ConvertToMp3;
         public static bool IncludeArtistInFilename;
         public static int SyncMethod = 1;
+        private static EnumUtil.DownloadMode dlMode;
 
         public static bool FoldersPerArtist;
         public static bool ReplaceIllegalCharacters;
@@ -22,22 +24,16 @@ namespace Soundcloud_Playlist_Downloader
         public static bool excludeAAC;
         public static string ManifestName = "";
         private readonly string AbortActionText = "Abort";
-        private readonly BoxAbout aboutWindow = new BoxAbout();
-
-        //private string CLIENT_ID = "93a4fae1bd98b84c9b4f6bf1cc838b4f";
-        //new key should fix same reason as stated here: 
-        //https://stackoverflow.com/questions/29914622/get-http-mp3-stream-from-every-song/30018216#30018216
-        private readonly string CLIENT_ID = "376f225bf427445fc4bfb6b99b72e0bf";
-
-        private bool completed;
+        private readonly BoxAbout _aboutWindow = new BoxAbout();
+        private bool _completed;
 
         private readonly string DefaultActionText = "Synchronize";
 
-        private bool exiting;
-        private readonly PerformStatusUpdate PerformStatusUpdateImplementation;
+        private bool _exiting;
+        private readonly PerformStatusUpdate _performStatusUpdateImplementation;
 
-        private readonly PerformSyncComplete PerformSyncCompleteImplementation;
-        private readonly ProgressBarUpdate ProgressBarUpdateImplementation;
+        private readonly PerformSyncComplete _performSyncCompleteImplementation;
+        private readonly ProgressBarUpdate _progressBarUpdateImplementation;
 
         private readonly PlaylistSync _sync;
 
@@ -46,10 +42,10 @@ namespace Soundcloud_Playlist_Downloader
             InitializeComponent();         
             Text = $"SoundCloud Playlist Sync {Version()} Stable";
             _sync = new PlaylistSync();
-            PerformSyncCompleteImplementation = SyncCompleteButton;
-            ProgressBarUpdateImplementation = UpdateProgressBar;
-            PerformStatusUpdateImplementation = UpdateStatus;
-            status.Text = "Ready";
+            _performSyncCompleteImplementation = SyncCompleteButton;
+            _progressBarUpdateImplementation = UpdateProgressBar;
+            _performStatusUpdateImplementation = UpdateStatus;
+            status.Text = @"Ready";
             MinimumSize = new Size(Width, Height);
             MaximumSize = new Size(Width, Height);
         }
@@ -60,10 +56,7 @@ namespace Soundcloud_Playlist_Downloader
             {
                 return ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString(4);
             }
-            else
-            {
-                return "_";
-            }
+            return "_";
         }
 
         public sealed override string Text
@@ -84,44 +77,42 @@ namespace Soundcloud_Playlist_Downloader
         [SilentFailure]
         private void UpdateStatus()
         {
-            if (!exiting)
+            if (!_exiting)
             {
-                if (_sync.IsActive && progressBar.Value == progressBar.Maximum &&
+                if (DownloadUtils.IsActive && progressBar.Value == progressBar.Maximum &&
                     progressBar.Value != progressBar.Minimum)
                 {
-                    status.Text = "Completed";
+                    status.Text = @"Completed";
                 }
-                else if (_sync.IsActive && progressBar.Value >= progressBar.Minimum && progressBar.Maximum > 0)
+                else if (DownloadUtils.IsActive && progressBar.Value >= progressBar.Minimum && progressBar.Maximum > 0)
                 {
-                    status.Text = "Synchronizing... " + progressBar.Value + " of " + progressBar.Maximum +
-                                  " songs downloaded.";
+                    status.Text = $"Synchronizing... {progressBar.Value} of {progressBar.Maximum} songs downloaded.";
                 }
-                else if (_sync.IsActive && completed && !_sync.IsError)
+                else if (DownloadUtils.IsActive && _completed && !PlaylistSync.IsError)
                 {
-                    status.Text = "Tracks are already synchronized";
+                    status.Text = @"Tracks are already synchronized";
                 }
-                else if (_sync.IsActive && completed && _sync.IsError)
+                else if (DownloadUtils.IsActive && _completed && PlaylistSync.IsError)
                 {
-                    status.Text = "An error prevented synchronization from starting";
+                    status.Text = @"An error prevented synchronization from starting";
                 }
-                else if (!_sync.IsActive && syncButton.Text == AbortActionText)
+                else if (!DownloadUtils.IsActive && syncButton.Text == AbortActionText)
                 {
-                    status.Text = "Aborting downloads... Please Wait.";
+                    status.Text = @"Aborting downloads... Please Wait.";
                 }
-                else if (_sync.DownloadingSingleTrack)
+                else if (DownloadUtils.IsActive)
                 {
-                    status.Text = "Downloading track...";
+                    var plural = "";
+                    if (dlMode != EnumUtil.DownloadMode.Track)
+                        plural = "s";              
+                    status.Text = $"Fetching track{plural} to download...";
                 }
-                else if (_sync.IsActive)
+                else if (!DownloadUtils.IsActive)
                 {
-                    status.Text = "Enumerating tracks to download...";
-                }
-                else if (!_sync.IsActive)
-                {
-                    status.Text = "Aborted";
+                    status.Text = @"Aborted";
                 }
             }
-            else if (completed)
+            else if (_completed)
             {
                 // the form has indicated it is being closed and the sync utility has finished aborting
                 Close();
@@ -132,17 +123,18 @@ namespace Soundcloud_Playlist_Downloader
         [SilentFailure]
         private void InvokeUpdateStatus()
         {
-            statusStrip1.Invoke(PerformStatusUpdateImplementation);
+            statusStrip1.Invoke(_performStatusUpdateImplementation);
         }
 
         [SilentFailure]
         private void UpdateProgressBar()
         {
             progressBar.Minimum = 0;
-            progressBar.Maximum = _sync.SongsToDownload;
-            progressBar.Value = _sync.SongsDownloaded;
+            progressBar.Maximum = dlMode == EnumUtil.DownloadMode.Track ? 1 : DownloadUtils.SongsToDownload;
 
-            TaskbarManager.Instance.SetProgressValue(_sync.SongsDownloaded, _sync.SongsToDownload);
+            progressBar.Value = DownloadUtils.SongsDownloaded;
+
+            TaskbarManager.Instance.SetProgressValue(DownloadUtils.SongsDownloaded, DownloadUtils.SongsToDownload);
             if (progressBar.Minimum != 0 && progressBar.Maximum == progressBar.Value)
             {
                 TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
@@ -151,12 +143,12 @@ namespace Soundcloud_Playlist_Downloader
 
         private void InvokeUpdateProgressBar()
         {
-            progressBar.Invoke(ProgressBarUpdateImplementation);
+            progressBar.Invoke(_progressBarUpdateImplementation);
         }
 
         private void InvokeSyncComplete()
         {
-            syncButton.Invoke(PerformSyncCompleteImplementation);
+            syncButton.Invoke(_performSyncCompleteImplementation);
         }
 
         [SilentFailure]
@@ -164,7 +156,7 @@ namespace Soundcloud_Playlist_Downloader
         {
             syncButton.Text = DefaultActionText;
             syncButton.Enabled = true;
-            if (exiting)
+            if (_exiting)
             {
                 Dispose();
             }
@@ -172,18 +164,21 @@ namespace Soundcloud_Playlist_Downloader
 
         private void syncButton_Click(object sender, EventArgs e)
         {
+            dlMode = playlistRadio.Checked
+                ? EnumUtil.DownloadMode.Playlist
+                : favoritesRadio.Checked ? EnumUtil.DownloadMode.Favorites
+                    : artistRadio.Checked ? EnumUtil.DownloadMode.Artist : EnumUtil.DownloadMode.Track;
             if (!string.IsNullOrWhiteSpace(url.Text) &&
                 !string.IsNullOrWhiteSpace(directoryPath.Text) &&
                 syncButton.Text == DefaultActionText)
             {
                 syncButton.Text = AbortActionText;
-                status.Text = "Checking for track changes...";
-                completed = false;
+                status.Text = @"Checking for track changes...";
+                _completed = false;
 
                 progressBar.Value = 0;
                 progressBar.Maximum = 0;
                 progressBar.Minimum = 0;
-
                 TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
 
                 Highqualitysong = chk_highquality.Checked;
@@ -195,18 +190,13 @@ namespace Soundcloud_Playlist_Downloader
                 excludeAAC = chk_excl_m4a.Checked;
                 excludeM4A = chk_excl_m4a.Checked;
 
-                var dlMode = playlistRadio.Checked
-                    ? PlaylistSync.DownloadMode.Playlist
-                    : favoritesRadio.Checked ? PlaylistSync.DownloadMode.Favorites
-                    : artistRadio.Checked ? PlaylistSync.DownloadMode.Artist : PlaylistSync.DownloadMode.Track;
-
                 var uri = new Uri(url.Text);
-                if(dlMode != PlaylistSync.DownloadMode.Track)
+                if(dlMode != EnumUtil.DownloadMode.Track)
                 {
                     var uriWithoutScheme = uri.Host + uri.PathAndQuery;
-                    var validManifestFilename = Track.StaticCoerceValidFileName(uriWithoutScheme, false);
-                    ManifestName = ".MNFST=" + validManifestFilename + ",FPA=" + FoldersPerArtist + ",IAIF=" +
-                                   IncludeArtistInFilename + ",DM=" + dlMode + ",SM=" + SyncMethod + ".csv";
+                    var validManifestFilename = FilesystemUtils.CoerceValidFileName(uriWithoutScheme, false);
+                    ManifestName = ManifestUtils.MakeManifestString(validManifestFilename, FoldersPerArtist,
+                        IncludeArtistInFilename, dlMode, SyncMethod);                 
 
                     if (Directory.Exists(directoryPath.Text))
                     {
@@ -217,77 +207,67 @@ namespace Soundcloud_Playlist_Downloader
                                 File.Exists(Path.Combine(directoryPath.Text, "manifest"))) //old manifest format
                             {
                                 //different or old manifest found, quitting
-                                status.Text = "Old or different manifest found, please change settings or local directoy.";
+                                status.Text = @"Old or different manifest found, please change settings or local directoy.";
 
-                                completed = true;
+                                _completed = true;
                                 InvokeSyncComplete();
                                 return;
                             }
                             if (File.Exists(Path.Combine(directoryPath.Text, ManifestName)))
                             {
-                                //copy to backup location
-                                var destinationPath =
-                                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                                        "SoundCloud Playlist Sync",
-                                        DateTime.Today.ToString("dd/MM/yyyy") + " Manifest Backups");
-
-                                var destinationPathWithFile = Path.Combine(destinationPath, ManifestName);
-                                Directory.CreateDirectory(destinationPath);
-
-                                File.Copy(Path.Combine(directoryPath.Text, ManifestName), destinationPathWithFile, true);
+                                ManifestUtils.BackupManifest(directoryPath.Text, ManifestName);                             
                             }
                         }
                     }
                 }
-                
+                new Thread(() =>
+                {
+                    // perform progress updates
+                    while (!_completed && !_exiting)
+                    {
+                        Thread.Sleep(500);
+                        InvokeUpdateStatus();
+                        InvokeUpdateProgressBar();
+                    }
+                    if (!_exiting)
+                    {
+                        InvokeUpdateStatus();
+                    }
+                }).Start();
+
                 new Thread(() =>
                 {
                     try
                     {
-                        _sync.Synchronize(url.Text, dlMode, directoryPath.Text, CLIENT_ID
+                        _sync.Synchronize(url.Text, dlMode, directoryPath.Text, DownloadUtils.ClientId
                             );
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Error");
+                        MessageBox.Show(ex.Message, @"Error");
                     }
                     finally
                     {
-                        completed = true;
+                        _completed = true;
                         InvokeSyncComplete();
                     }
                 }).Start();
                 
-                new Thread(() =>
-                {
-                    // perform progress updates
-                    while (!completed && !exiting)
-                    {
-                        Thread.Sleep(500);
-                        InvokeUpdateStatus();
-                        if(!trackRadio.Checked)
-                            InvokeUpdateProgressBar();
-                    }
-                    if (!exiting)
-                    {
-                        InvokeUpdateStatus();
-                    }
-                }).Start();
             }
-            else if (_sync.IsActive && syncButton.Text == AbortActionText)
+            else if (DownloadUtils.IsActive && syncButton.Text == AbortActionText)
             {
-                _sync.IsActive = false;
+                DownloadUtils.IsActive = false;
                 syncButton.Enabled = false;
             }
             else if (syncButton.Text == DefaultActionText &&
                      string.IsNullOrWhiteSpace(url.Text))
             {
-                status.Text = "Enter the download url";
+                status.Text = @"Enter the download url";
             }
             else if (syncButton.Text == DefaultActionText &&
                      string.IsNullOrWhiteSpace(directoryPath.Text))
             {
-                status.Text = "Enter local directory path";
+                status.Text = @"Enter local directory path";
             }
         }
 
@@ -297,9 +277,9 @@ namespace Soundcloud_Playlist_Downloader
             Settings.Default.PlaylistUrl = url.Text;
             Settings.Default.LocalPath = directoryPath.Text;
             Settings.Default.Save();
-            exiting = true;
-            _sync.IsActive = false;
-            status.Text = "Preparing for exit... Please Wait.";
+            _exiting = true;
+            DownloadUtils.IsActive = false;
+            status.Text = @"Preparing for exit... Please Wait.";
             syncButton.Enabled = false;
 
             if (syncButton.Text != DefaultActionText)
@@ -318,23 +298,15 @@ namespace Soundcloud_Playlist_Downloader
             directoryPath.Text = Settings.Default.LocalPath;
         }
 
-        private void chk_folderByArtist_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-        }
-
         private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            if (aboutWindow.Visible)
+            if (_aboutWindow.Visible)
             {
-                aboutWindow.Focus();
+                _aboutWindow.Focus();
             }
             else
             {
-                aboutWindow.Show();
+                _aboutWindow.Show();
             }
         }
 
@@ -372,30 +344,10 @@ namespace Soundcloud_Playlist_Downloader
             }
         }
 
-        private void chk_deleteRemovedOrAlteredSongs_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void cbox_syncMethod_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void url_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-        }
-
-        private void progressBar_Click(object sender, EventArgs e)
-        {
-        }
-
         private delegate void ProgressBarUpdate();
 
         private delegate void PerformSyncComplete();
 
-        private delegate void PerformStatusUpdate();
+        private delegate void PerformStatusUpdate();   
     }
 }

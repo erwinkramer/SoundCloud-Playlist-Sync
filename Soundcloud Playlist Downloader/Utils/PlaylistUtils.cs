@@ -4,10 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 
-namespace Soundcloud_Playlist_Downloader
+namespace Soundcloud_Playlist_Downloader.Utils
 {
-    internal class PlaylistCreator : PlaylistSync
+    internal class PlaylistUtils
     {
+        protected static object WritePlaylistLock = new object();
+
         public static bool[] CreateSimpleM3U(IList<Track> tracks, string directoryPath)
         {
             var completed = new bool[4];
@@ -139,7 +141,7 @@ namespace Soundcloud_Playlist_Downloader
             IList<string> tempNewM3U = new List<string>();
             foreach (var song in songsDownloaded)
             {
-                tempNewM3U.Add(Utils.ParseTrackPath(song, 1).Substring(1));
+                tempNewM3U.Add(ManifestUtils.ParseTrackPath(song, 1).Substring(1));
                     //substring to remove the '\' at the beginning
             }
 
