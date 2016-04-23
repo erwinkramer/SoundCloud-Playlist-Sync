@@ -6,32 +6,31 @@ using NAudio.MediaFoundation;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 
-namespace Soundcloud_Playlist_Downloader
+namespace Soundcloud_Playlist_Downloader.Utils
 {
-    internal class AudioConverter
+    public class AudioConverterUtils
     {
         //NOTE  Default bitrate is set to 320 to keep the track high quality, 
         //      we won't use 128 because that would mean we can just 
         //      download the low quality stream (128 bit) and forget about converting
-        private static readonly int bitRate = 320;
-        private static readonly int sampleRate = 44100; //44100 Hz Sample rate 
-        private static readonly int bitDepth = 16;
-        private static readonly int channels = 2;
+        private const int BitRate = 320;
+        private const int SampleRate = 44100; //44100 Hz Sample rate 
+        private const int BitDepth = 16;
+        private const int Channels = 2;
         private static int _uniqueTempFileCounter;
 
         public static bool ConvertAllTheThings(byte[] strangefile, ref Track song, string extension)
         {
             var directory = Path.GetDirectoryName(song.LocalPath);
-
-            byte[] mp3bytes = null;
+            byte[] mp3Bytes;
 
             if (extension == ".wav")
             {
-                mp3bytes = ConvertWavToMp3(strangefile, directory);
-                if (mp3bytes != null)
+                mp3Bytes = ConvertWavToMp3(strangefile, directory);
+                if (mp3Bytes != null)
                 {
                     song.LocalPath += ".mp3"; //conversion wil result in an mp3
-                    File.WriteAllBytes(song.LocalPath, mp3bytes);
+                    File.WriteAllBytes(song.LocalPath, mp3Bytes);
                     return true;
                 }
                 return false;
@@ -39,16 +38,16 @@ namespace Soundcloud_Playlist_Downloader
             if (extension == ".aiff" || extension == ".aif")
             {
                 var succesfullAiffConvert = false;
-                succesfullAiffConvert = ConvertAiffToMp3(strangefile, directory, out mp3bytes);
-                if (succesfullAiffConvert && mp3bytes != null)
+                succesfullAiffConvert = ConvertAiffToMp3(strangefile, directory, out mp3Bytes);
+                if (succesfullAiffConvert && mp3Bytes != null)
                 {
                     song.LocalPath += ".mp3"; //conversion wil result in an mp3
-                    File.WriteAllBytes(song.LocalPath, mp3bytes);
+                    File.WriteAllBytes(song.LocalPath, mp3Bytes);
                     return true;
                 }
                 return false;
             }
-            if ((extension == ".m4a" || extension == ".aac") && isWindows8OrHigher())
+            if ((extension == ".m4a" || extension == ".aac") && isWindows8_OrHigher())
             {
                 return ConvertM4aToMp3(strangefile, directory, ref song);
             }
@@ -57,8 +56,8 @@ namespace Soundcloud_Playlist_Downloader
 
         public static byte[] ConvertWavToMp3(byte[] wavFile, string directory)
         {
-            byte[] mp3bytes = null;
-            var newFormat = new WaveFormat(bitRate, bitDepth, channels);
+            byte[] mp3Bytes = null;
+            var newFormat = new WaveFormat(BitRate, BitDepth, Channels);
 
             try
             {
@@ -72,41 +71,41 @@ namespace Soundcloud_Playlist_Downloader
                         //can't go from 24 bits wav to mp3 directly, create temporary 16 bit wav 
                     {
                         ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr); //24 bit to sample
-                        var resampler = new WdlResamplingSampleProvider(sampleprovider, sampleRate);
+                        var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate);
                             //sample to new sample rate
                         WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
-                        mp3bytes = ConvertWavToMp3(tempFile, true); //file to mp3 bytes
+                        mp3Bytes = ConvertWavToMp3(tempFile, true); //file to mp3 bytes
                     }
                     else
                     {
                         using (var retMs = new MemoryStream())
-                        using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, bitRate))
+                        using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, BitRate))
                         {
                             rdr.CopyTo(wtr);
-                            mp3bytes = retMs.ToArray();
+                            mp3Bytes = retMs.ToArray();
                         }
                     }
                 }
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                // ignored
             }
-            return mp3bytes;
+            return mp3Bytes;
         }
 
         public static byte[] ConvertWavToMp3(string wavFile, bool deleteWavAfter)
             //this method takes an actual wav file and converts it
         {
-            byte[] mp3bytes = null;
+            byte[] mp3Bytes = null;
             try
             {
                 using (var retMs = new MemoryStream())
                 using (var rdr = new WaveFileReader(wavFile))
-                using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, bitRate))
+                using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, BitRate))
                 {
                     rdr.CopyTo(wtr);
-                    mp3bytes = retMs.ToArray();
+                    mp3Bytes = retMs.ToArray();
                 }
                 if (deleteWavAfter)
                 {
@@ -117,13 +116,13 @@ namespace Soundcloud_Playlist_Downloader
             {
                 Debug.WriteLine(e);
             }
-            return mp3bytes;
+            return mp3Bytes;
         }
 
         public static bool ConvertAiffToMp3(byte[] aiffFile, string directory, out byte[] mp3bytes)
         {
             mp3bytes = null;
-            var newFormat = new WaveFormat(bitRate, bitDepth, channels);
+            var newFormat = new WaveFormat(BitRate, BitDepth, Channels);
             try
             {
                 _uniqueTempFileCounter += 1;
@@ -136,7 +135,7 @@ namespace Soundcloud_Playlist_Downloader
                         //can't go from 24 bits aif to mp3 directly, create temporary 16 bit wav 
                     {
                         ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr); //24 bit to sample
-                        var resampler = new WdlResamplingSampleProvider(sampleprovider, sampleRate);
+                        var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate);
                             //sample to new sample rate
                         WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
                         mp3bytes = ConvertWavToMp3(tempFile, true); //file to mp3 bytes                       
@@ -144,7 +143,7 @@ namespace Soundcloud_Playlist_Downloader
                     else
                     {
                         using (var retMs = new MemoryStream())
-                        using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, bitRate))
+                        using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, BitRate))
                         {
                             rdr.CopyTo(wtr);
                             mp3bytes = retMs.ToArray();
@@ -183,7 +182,6 @@ namespace Soundcloud_Playlist_Downloader
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
                 if (File.Exists(tempFile))
                 {
                     File.Delete(tempFile);
@@ -192,15 +190,14 @@ namespace Soundcloud_Playlist_Downloader
             }
         }
 
-        public static bool isWindows8OrHigher()
+        private static bool isWindows8_OrHigher()
         {
-            var win8version = new Version(6, 2, 9200, 0);
+            var win8Version = new Version(6, 2, 9200, 0);
 
             if (Environment.OSVersion.Platform == PlatformID.Win32NT &&
-                Environment.OSVersion.Version >= win8version)
+                Environment.OSVersion.Version >= win8Version)
             {
-                // its win8 or higher.
-                return true;
+                return true; // its win8 or higher.
             }
             return false;
         }

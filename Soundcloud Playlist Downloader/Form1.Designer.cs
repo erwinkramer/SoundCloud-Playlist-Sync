@@ -55,12 +55,12 @@
             this.rbttn_oneWay = new System.Windows.Forms.RadioButton();
             this.gbox_syncMethod = new System.Windows.Forms.GroupBox();
             this.gbox_downMethod = new System.Windows.Forms.GroupBox();
+            this.trackRadio = new System.Windows.Forms.RadioButton();
             this.gbox_url = new System.Windows.Forms.GroupBox();
             this.url = new System.Windows.Forms.TextBox();
             this.gbox_advanced = new System.Windows.Forms.GroupBox();
             this.gbox_localdir = new System.Windows.Forms.GroupBox();
             this.directoryPath = new System.Windows.Forms.TextBox();
-            this.trackRadio = new System.Windows.Forms.RadioButton();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnl_convert.SuspendLayout();
@@ -112,16 +112,15 @@
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(397, 10);
             this.progressBar.TabIndex = 10;
-            this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
             // 
             // favoritesRadio
             // 
             this.favoritesRadio.AutoSize = true;
             this.favoritesRadio.Location = new System.Drawing.Point(6, 42);
             this.favoritesRadio.Name = "favoritesRadio";
-            this.favoritesRadio.Size = new System.Drawing.Size(303, 17);
+            this.favoritesRadio.Size = new System.Drawing.Size(253, 17);
             this.favoritesRadio.TabIndex = 12;
-            this.favoritesRadio.Text = "Download all songs favorited by the user at this profile URL";
+            this.favoritesRadio.Text = "All songs favorited by the user at this profile URL";
             this.favoritesRadio.UseVisualStyleBackColor = true;
             // 
             // playlistRadio
@@ -130,10 +129,10 @@
             this.playlistRadio.Checked = true;
             this.playlistRadio.Location = new System.Drawing.Point(6, 19);
             this.playlistRadio.Name = "playlistRadio";
-            this.playlistRadio.Size = new System.Drawing.Size(218, 17);
+            this.playlistRadio.Size = new System.Drawing.Size(168, 17);
             this.playlistRadio.TabIndex = 11;
             this.playlistRadio.TabStop = true;
-            this.playlistRadio.Text = "Download all songs from this playlist URL";
+            this.playlistRadio.Text = "All songs from this playlist URL";
             this.playlistRadio.UseVisualStyleBackColor = true;
             // 
             // artistRadio
@@ -141,9 +140,9 @@
             this.artistRadio.AutoSize = true;
             this.artistRadio.Location = new System.Drawing.Point(6, 65);
             this.artistRadio.Name = "artistRadio";
-            this.artistRadio.Size = new System.Drawing.Size(205, 17);
+            this.artistRadio.Size = new System.Drawing.Size(155, 17);
             this.artistRadio.TabIndex = 13;
-            this.artistRadio.Text = "Download all songs by this artists URL";
+            this.artistRadio.Text = "All songs by this artists URL";
             this.artistRadio.UseVisualStyleBackColor = true;
             // 
             // chk_folderByArtist
@@ -157,7 +156,6 @@
             this.chk_folderByArtist.TabIndex = 15;
             this.chk_folderByArtist.Text = "Sort songs into folders by artist ";
             this.chk_folderByArtist.UseVisualStyleBackColor = true;
-            this.chk_folderByArtist.CheckedChanged += new System.EventHandler(this.chk_folderByArtist_CheckedChanged);
             // 
             // menuStrip1
             // 
@@ -169,7 +167,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(416, 24);
             this.menuStrip1.TabIndex = 16;
             this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // aboutToolStripMenuItem
             // 
@@ -321,6 +318,17 @@
             this.gbox_downMethod.TabStop = false;
             this.gbox_downMethod.Text = "Download Method";
             // 
+            // trackRadio
+            // 
+            this.trackRadio.AutoSize = true;
+            this.trackRadio.Location = new System.Drawing.Point(6, 88);
+            this.trackRadio.Name = "trackRadio";
+            this.trackRadio.Size = new System.Drawing.Size(212, 17);
+            this.trackRadio.TabIndex = 14;
+            this.trackRadio.TabStop = true;
+            this.trackRadio.Text = "Single track URL (ignores sync method)";
+            this.trackRadio.UseVisualStyleBackColor = true;
+            // 
             // gbox_url
             // 
             this.gbox_url.Controls.Add(this.url);
@@ -346,7 +354,6 @@
             this.url.Size = new System.Drawing.Size(383, 20);
             this.url.TabIndex = 1;
             this.url.Text = settings1.PlaylistUrl;
-            this.url.TextChanged += new System.EventHandler(this.url_TextChanged);
             // 
             // gbox_advanced
             // 
@@ -381,17 +388,6 @@
             this.directoryPath.Size = new System.Drawing.Size(315, 20);
             this.directoryPath.TabIndex = 5;
             this.directoryPath.Text = settings1.LocalPath;
-            // 
-            // trackRadio
-            // 
-            this.trackRadio.AutoSize = true;
-            this.trackRadio.Location = new System.Drawing.Point(6, 88);
-            this.trackRadio.Name = "trackRadio";
-            this.trackRadio.Size = new System.Drawing.Size(106, 17);
-            this.trackRadio.TabIndex = 14;
-            this.trackRadio.TabStop = true;
-            this.trackRadio.Text = "Single track URL";
-            this.trackRadio.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

@@ -8,9 +8,9 @@ using TagLib;
 using File = TagLib.File;
 using Tag = TagLib.Id3v2.Tag;
 
-namespace Soundcloud_Playlist_Downloader
+namespace Soundcloud_Playlist_Downloader.Utils
 {
-    internal class MetadataTagging
+    public class MetadataTaggingUtils
     {
         public static void TagIt(ref Track song)
         {

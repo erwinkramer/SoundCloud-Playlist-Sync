@@ -4,13 +4,12 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace Soundcloud_Playlist_Downloader
+namespace Soundcloud_Playlist_Downloader.Utils
 {
-    internal class ExceptionHandler
+    internal class ExceptionHandlerUtils
     {
-        public static void handleException(Exception e)
+        public static void HandleException(Exception e)
         {
-            Debug.WriteLine(e);
             if (e is WebException)
             {
                 var text = "";
@@ -18,16 +17,14 @@ namespace Soundcloud_Playlist_Downloader
                 var w = (WebException) e;
                 using (var response = w.Response)
                 {
-                    var httpResponse = (HttpWebResponse) response;
-                    Debug.WriteLine("Error code: {0}", httpResponse.StatusCode);
                     using (var data = response.GetResponseStream())
-                    using (var reader = new StreamReader(data))
-                    {
-                        text = reader.ReadToEnd();
-                    }
+                        if (data != null)
+                            using (var reader = new StreamReader(data))
+                            {
+                                text = reader.ReadToEnd();
+                            }
                 }
                 scrubbedtext = ScrubHtml(text);
-                Debug.WriteLine(scrubbedtext);
 
                 throw new Exception("Soundcloud API seems to be down, please check: http://status.soundcloud.com/ or https://developers.soundcloud.com/docs#errors for more information."
                                     + Environment.NewLine + Environment.NewLine + "The following error was thrown: "
