@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Soundcloud_Playlist_Downloader
+﻿namespace Soundcloud_Playlist_Downloader.Views
 {
     partial class BoxAbout
     {

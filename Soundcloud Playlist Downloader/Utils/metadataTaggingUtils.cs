@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
+using Soundcloud_Playlist_Downloader.JsonObjects;
 using TagLib;
 using File = TagLib.File;
 using Tag = TagLib.Id3v2.Tag;
@@ -12,7 +13,15 @@ namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class MetadataTaggingUtils
     {
-        public static void TagIt(ref Track song)
+        public static void ReTag(ref Track retagTrack, Track compareTrack)
+        {
+            retagTrack.ModifiedDateTimeUtc = DateTime.UtcNow;
+            retagTrack.Title = compareTrack.Title;
+            retagTrack.artwork_url = compareTrack.artwork_url;
+            retagTrack.favoritings_count = compareTrack.favoritings_count;
+            TagIt(retagTrack);
+        }
+        public static void TagIt(Track song)
         {
             // metadata tagging
             File tagFile = null;
@@ -128,10 +137,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 tagFile.Dispose();
             }
 
-            //Sets file creation time to creation time that matches with Soundcloud track
+            // Sets file creation time to creation time that matches with Soundcloud track
             System.IO.File.SetCreationTime(song.LocalPath, creationDate);
-            System.IO.File.SetLastWriteTime(song.LocalPath, creationDate);
-                //set last write time to original file creation date
+            // Set last write time to original file creation date
+            System.IO.File.SetLastWriteTime(song.LocalPath, creationDate);         
         }
 
         public static void GetAvatarImg(ref File tagFile, ref Track song)
@@ -152,9 +161,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     tagFile.Tag.Pictures = new IPicture[] {artwork};
                     break;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Debug.WriteLine(e);
+                    // ignored
                 }
                 Thread.Sleep(50); // Pause 50ms before new attempt
             }

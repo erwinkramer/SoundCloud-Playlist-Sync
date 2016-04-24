@@ -10,11 +10,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
     {
         public static void HandleException(Exception e)
         {
-            if (e is WebException)
+            var exception = e as WebException;
+            if (exception != null)
             {
                 var text = "";
                 var scrubbedtext = "";
-                var w = (WebException) e;
+                var w = exception;
                 using (var response = w.Response)
                 {
                     using (var data = response.GetResponseStream())

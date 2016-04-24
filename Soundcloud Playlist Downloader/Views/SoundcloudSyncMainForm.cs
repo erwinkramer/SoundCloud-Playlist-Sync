@@ -8,9 +8,9 @@ using Microsoft.WindowsAPICodePack.Taskbar;
 using Soundcloud_Playlist_Downloader.Properties;
 using Soundcloud_Playlist_Downloader.Utils;
 
-namespace Soundcloud_Playlist_Downloader
+namespace Soundcloud_Playlist_Downloader.Views
 {
-    public partial class Form1 : Form
+    public partial class SoundcloudSyncMainForm : Form
     {
         public static bool Highqualitysong;
         public static bool ConvertToMp3;
@@ -35,13 +35,13 @@ namespace Soundcloud_Playlist_Downloader
         private readonly PerformSyncComplete _performSyncCompleteImplementation;
         private readonly ProgressBarUpdate _progressBarUpdateImplementation;
 
-        private readonly PlaylistSync _sync;
+        private readonly SoundcloudSync _sync;
 
-        public Form1()
+        public SoundcloudSyncMainForm()
         {
             InitializeComponent();         
             Text = $"SoundCloud Playlist Sync {Version()} Stable";
-            _sync = new PlaylistSync();
+            _sync = new SoundcloudSync();
             _performSyncCompleteImplementation = SyncCompleteButton;
             _progressBarUpdateImplementation = UpdateProgressBar;
             _performStatusUpdateImplementation = UpdateStatus;
@@ -88,11 +88,11 @@ namespace Soundcloud_Playlist_Downloader
                 {
                     status.Text = $"Synchronizing... {progressBar.Value} of {progressBar.Maximum} songs downloaded.";
                 }
-                else if (DownloadUtils.IsActive && _completed && !PlaylistSync.IsError)
+                else if (DownloadUtils.IsActive && _completed && !SoundcloudSync.IsError)
                 {
                     status.Text = @"Tracks are already synchronized";
                 }
-                else if (DownloadUtils.IsActive && _completed && PlaylistSync.IsError)
+                else if (DownloadUtils.IsActive && _completed && SoundcloudSync.IsError)
                 {
                     status.Text = @"An error prevented synchronization from starting";
                 }

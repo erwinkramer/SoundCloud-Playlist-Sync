@@ -3,82 +3,59 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using Soundcloud_Playlist_Downloader.JsonObjects;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
     internal class PlaylistUtils
     {
-        protected static object WritePlaylistLock = new object();
-
-        public static bool[] CreateSimpleM3U(IList<Track> tracks, string directoryPath)
+        public static bool[] CreateSimpleM3U(string directoryPath)
         {
+            var manifestPath = ManifestUtils.DetermineManifestPath(directoryPath);
             var completed = new bool[4];
-            var manifestPath = Path.Combine(directoryPath, Form1.ManifestName);
-            if (File.Exists(manifestPath))
-            {
-                var songsDownloaded = File.ReadAllLines(manifestPath);
+            if (!File.Exists(manifestPath)) return completed;
+            var manifest = ManifestUtils.LoadManifestFromFile(directoryPath);
+        
+            WriteM3UtoFile(
+                new List<string>(SortOnMostLiked(directoryPath, manifest)), 
+                Path.Combine(directoryPath, "Most Liked (SC Downloader).m3u8"), 
+                out completed[0]
+                );
+              
+            WriteM3UtoFile(
+                new List<string>(SortOnMostPlayed(directoryPath, manifest)), 
+                Path.Combine(directoryPath, "Most Played (SC Downloader).m3u8"), 
+                out completed[1]
+                );
 
-                var recentlyAddedPath = Path.Combine(directoryPath, "Recently Added (SC Downloader).m3u8");
-                IList<string> recentlyAddedM3U = new List<string>(recentlyAdded(tracks, directoryPath, songsDownloaded));
-                WriteM3UtoFile(recentlyAddedM3U, recentlyAddedPath, out completed[0]);
+            WriteM3UtoFile(
+                new List<string>(RecentlyChanged(manifest)), 
+                Path.Combine(directoryPath, "Recently Changed (SC Downloader).m3u8"), 
+                out completed[2]
+                );
 
-                var sortOnMostLikedPath = Path.Combine(directoryPath, "Most Liked (SC Downloader).m3u8");
-                IList<string> sortOnMostLikedM3U =
-                    new List<string>(sortOnMostLiked(tracks, directoryPath, songsDownloaded));
-                WriteM3UtoFile(sortOnMostLikedM3U, sortOnMostLikedPath, out completed[1]);
+            WriteM3UtoFile(
+                new List<string>(RecentlyAdded(directoryPath, manifest)),
+                Path.Combine(directoryPath, "Recently Added (SC Downloader).m3u8"),
+                out completed[3]
+                );
 
-                var sortOnMostPlayedPath = Path.Combine(directoryPath, "Most Played (SC Downloader).m3u8");
-                IList<string> sortOnMostPlayedM3U =
-                    new List<string>(sortOnMostPlayed(tracks, directoryPath, songsDownloaded));
-                WriteM3UtoFile(sortOnMostPlayedM3U, sortOnMostPlayedPath, out completed[2]);
-
-                var sortOnRecentlyChangedPath = Path.Combine(directoryPath, "Recently Changed (SC Downloader).m3u8");
-                IList<string> sortOnRecentlyChangedM3U =
-                    new List<string>(RecentlyChanged(tracks, directoryPath, songsDownloaded));
-                WriteM3UtoFile(sortOnRecentlyChangedM3U, sortOnRecentlyChangedPath, out completed[3]);
-            }
             return completed;
-        }
-
-        public static string GetExtension(IList<string> songsDownloaded, string trackLocalpath)
-        {
-            var extension = ".mp3";
-
-            var indexInArray = -1;
-            for (var i = 0; i < songsDownloaded.Count; i++)
-            {
-                if (songsDownloaded[i].Contains(trackLocalpath))
-                {
-                    indexInArray = i;
-                    break;
-                }
-            }
-
-            if (indexInArray > -1)
-            {
-                var positionInString = songsDownloaded[indexInArray].LastIndexOf('.');
-                if (positionInString > -1)
-                    extension = songsDownloaded[indexInArray].Substring(positionInString);
-            }
-            return extension;
-        }
-
+        }       
         public static void WriteM3UtoFile(IList<string> newM3U, string m3uPath, out bool updateSuccesful)
         {
             updateSuccesful = false;
             for (var attempts = 0; attempts < 5; attempts++)
             {
                 try
-                {
-                    lock (WritePlaylistLock)
-                    {
-                        File.WriteAllLines(m3uPath, newM3U);
-                        updateSuccesful = true;
-                        break;
-                    }
+                {             
+                    File.WriteAllLines(m3uPath, newM3U);
+                    updateSuccesful = true;
+                    break;                    
                 }
                 catch (Exception)
                 {
+                    // ignored
                 }
                 Thread.Sleep(50); // Pause 50ms before new attempt
             }
@@ -88,68 +65,51 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
 
-        public static IList<string> sortOnMostLiked(IList<Track> tracks, string dir, string[] songsDownloaded)
+        public static IList<string> SortOnMostLiked(string dir, List<Track> manifest)
         {
-            IList<string> newM3U = new List<string>();
-            newM3U.Add(
-                "# Simple M3U8 playlist. Sorted on most liked (on SoundCloud). Generated by the SoundCloud Playlist Sync tool.");
-
-            IEnumerable<Track> sortedTracks =
-                tracks.OrderByDescending(r => r.GetType().GetProperty("favoritings_count").GetValue(r, null));
-            foreach (var track in sortedTracks)
-            {
-                var relativeTrackPath = MakeRelative(track.LocalPath, dir);
-                newM3U.Add(relativeTrackPath);
-            }
-
-            return newM3U;
-        }
-
-        public static IList<string> sortOnMostPlayed(IList<Track> tracks, string dir, string[] songsDownloaded)
-        {
-            IList<string> newM3U = new List<string>();
-            newM3U.Add(
-                "# Simple M3U8 playlist. Sorted on most played (on SoundCloud). Generated by the SoundCloud Playlist Sync tool.");
-
-            IEnumerable<Track> sortedTracks =
-                tracks.OrderByDescending(r => r.GetType().GetProperty("playback_count").GetValue(r, null));
-            foreach (var track in sortedTracks)
-            {
-                var relativeTrackPath = MakeRelative(track.LocalPath, dir);
-                newM3U.Add(relativeTrackPath);
-            }
-
-            return newM3U;
-        }
-
-        public static IList<string> recentlyAdded(IList<Track> tracks, string dir, string[] songsDownloaded)
-        {
-            IList<string> newM3U = new List<string>();
-            newM3U.Add(
-                "# Simple M3U8 playlist. Sorted on recently added (on SoundCloud). Generated by the SoundCloud Playlist Sync tool.");
-
-            foreach (var track in tracks)
-            {
-                var relativeTrackPath = MakeRelative(track.LocalPath, dir);
-                newM3U.Add(relativeTrackPath);
-            }
-            return newM3U;
-        }
-
-        public static IList<string> RecentlyChanged(IList<Track> tracks, string dir, string[] songsDownloaded)
-        {
-            IList<string> tempNewM3U = new List<string>();
-            foreach (var song in songsDownloaded)
-            {
-                tempNewM3U.Add(ManifestUtils.ParseTrackPath(song, 1).Substring(1));
-                    //substring to remove the '\' at the beginning
-            }
-
-            IList<string> newM3U = tempNewM3U.Reverse().ToList(); //invert the list
+            IEnumerable<string> tempNewM3U =
+                from m in manifest
+                orderby m.favoritings_count ascending
+                select m.LocalPathRelative.Substring(1);
+            IList<string> newM3U = tempNewM3U.ToList();
             newM3U.Insert(0,
-                "# Simple M3U8 playlist. Sorted on recently changed. This is the only playlist that includes every song downloaded because only this playlist gets the data from the manifest file. Generated by the SoundCloud Playlist Sync tool.");
-
+                "# Simple M3U8 playlist. Sorted on most liked (on SoundCloud). Generated by the SoundCloud Playlist Sync tool.");
             return newM3U;
+        }
+
+        public static IList<string> SortOnMostPlayed(string dir, List<Track> manifest)
+        {
+            IEnumerable<string> tempNewM3U =
+                from m in manifest
+                orderby m.playback_count descending 
+                select m.LocalPathRelative.Substring(1);
+            IList<string> newM3U = tempNewM3U.ToList();
+            newM3U.Insert(0, 
+                "# Simple M3U8 playlist. Sorted on most played (on SoundCloud). Generated by the SoundCloud Playlist Sync tool.");         
+            return newM3U;
+        }
+
+        public static IList<string> RecentlyAdded(string dir, List<Track> manifest)
+        {
+            IEnumerable<string> tempNewM3U =
+                from m in manifest
+                orderby m.DownloadDateTimeUtc descending
+                select m.LocalPathRelative.Substring(1);
+            IList<string> newM3U = tempNewM3U.ToList();
+            newM3U.Insert(0,
+                "# Simple M3U8 playlist. Sorted on recently added (on SoundCloud). Generated by the SoundCloud Playlist Sync tool.");         
+            return newM3U;
+        }
+
+        public static IList<string> RecentlyChanged(List<Track> manifest)
+        {
+            IEnumerable<string> tempNewM3U =
+                from m in manifest
+                orderby m.ModifiedDateTimeUtc descending
+                select m.LocalPathRelative.Substring(1);         
+            IList<string> newM3U = tempNewM3U.ToList();
+            newM3U.Insert(0, "# Simple M3U8 playlist. Sorted on recently changed. This is the only playlist that includes every song downloaded because only this playlist gets the data from the manifest file. Generated by the SoundCloud Playlist Sync tool.");
+            return newM3U;          
         }
 
 

@@ -34,7 +34,7 @@
     <ProductName>SoundCloud Playlist Sync</ProductName>
     <PublisherName>SoundCloud-Playlist-Sync team</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>2.10.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -137,39 +137,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox1.cs">
+    <Compile Include="Views\BoxAbout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox1.Designer.cs">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
+    <Compile Include="Views\BoxAbout.Designer.cs">
+      <DependentUpon>BoxAbout.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\AudioConverterUtils.cs" />
     <Compile Include="Utils\ExceptionHandlerUtils.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Views\SoundcloudSyncMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Views\SoundcloudSyncMainForm.Designer.cs">
+      <DependentUpon>SoundcloudSyncMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\EnumUtil.cs" />
     <Compile Include="Utils\JsonUtils.cs" />
     <Compile Include="Utils\metadataTaggingUtils.cs" />
     <Compile Include="Utils\PlaylistUtils.cs" />
-    <Compile Include="PlaylistSync.cs" />
+    <Compile Include="SoundcloudSync.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SafeRetryWrapper.cs" />
-    <Compile Include="JsonPOCO.cs" />
+    <Compile Include="JsonObjects\JsonPOCO.cs" />
     <Compile Include="Utils\DownloadUtils.cs" />
     <Compile Include="Utils\FilesystemUtils.cs" />
     <Compile Include="Utils\SyncUtils.cs" />
     <Compile Include="Utils\ManifestUtils.cs" />
-    <EmbeddedResource Include="AboutBox1.resx">
-      <DependentUpon>AboutBox1.cs</DependentUpon>
+    <EmbeddedResource Include="Views\BoxAbout.resx">
+      <DependentUpon>BoxAbout.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Views\SoundcloudSyncMainForm.resx">
+      <DependentUpon>SoundcloudSyncMainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

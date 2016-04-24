@@ -1,6 +1,7 @@
-﻿using Soundcloud_Playlist_Downloader.Utils;
+﻿using System;
+using Soundcloud_Playlist_Downloader.Utils;
 
-namespace Soundcloud_Playlist_Downloader
+namespace Soundcloud_Playlist_Downloader.JsonObjects
 {
     public class PaginatedCollectionPlaylist
     {
@@ -113,6 +114,9 @@ namespace Soundcloud_Playlist_Downloader
         public string Title { get; set; } = null;
         public string EffectiveDownloadUrl => DownloadUtils.GetEffectiveDownloadUrl(stream_url, download_url, id);
         public string LocalPath { get; set; }
+        public string LocalPathRelative { get; set; }
+        public DateTime DownloadDateTimeUtc { get; set; }
+        public DateTime ModifiedDateTimeUtc { get; set; }
         // song is considered HD when there is a download_url available
         public bool IsHD => download_url == EffectiveDownloadUrl;
         public string description { get; set; }
@@ -153,9 +157,8 @@ namespace Soundcloud_Playlist_Downloader
                 user.username = value;
             }
         }
-        public bool HasToBeDownloaded { get; set; }             
+        public bool IsDownloaded { get; set; } = false;
     }
-
     public class Label
     {
         public int id { get; set; }

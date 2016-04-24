@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using Soundcloud_Playlist_Downloader.JsonObjects;
+using Soundcloud_Playlist_Downloader.Views;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -13,7 +15,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             const int maxPathLength = 250;
             return fullPathAndFilename.Length <= maxPathLength;
         }
-        public static string GetTrackLocalPath(Track track, string directoryPath)
+        public static string BuildTrackLocalPath(Track track, string directoryPath)
         {
             string path;
             var validArtist = CoerceValidFileName(track.Artist, true);
@@ -21,9 +23,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
             var validTitle = CoerceValidFileName(track.Title, true);
             var filenameWithArtist = validArtist + " - " + validTitle;
 
-            if (Form1.FoldersPerArtist)
+            if (SoundcloudSyncMainForm.FoldersPerArtist)
             {
-                if (Form1.IncludeArtistInFilename) //include artist name
+                if (SoundcloudSyncMainForm.IncludeArtistInFilename) //include artist name
                 {
                     while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(directoryPath, validArtistFolderName,
                         filenameWithArtist)))
@@ -44,7 +46,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             else
             {
-                if (Form1.IncludeArtistInFilename) //include artist name
+                if (SoundcloudSyncMainForm.IncludeArtistInFilename) //include artist name
                 {
                     while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(directoryPath, filenameWithArtist)))
                     {
@@ -71,7 +73,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public static string CoerceValidFileName(string filename, bool checkForReplaceCharacters)
         {
-            if (checkForReplaceCharacters && Form1.ReplaceIllegalCharacters)
+            if (checkForReplaceCharacters && SoundcloudSyncMainForm.ReplaceIllegalCharacters)
             {
                 filename = AlterChars(filename);
             }

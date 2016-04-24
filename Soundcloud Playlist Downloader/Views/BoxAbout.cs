@@ -4,14 +4,14 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Soundcloud_Playlist_Downloader
+namespace Soundcloud_Playlist_Downloader.Views
 {
     internal partial class BoxAbout : Form
     {
         public BoxAbout()
         {
             InitializeComponent();
-            Text = string.Format("About {0}", AssemblyTitle);
+            Text = $"About {AssemblyTitle}";
 
             var link = new LinkLabel.Link();
             var link2 = new LinkLabel.Link();
@@ -35,6 +35,12 @@ namespace Soundcloud_Playlist_Downloader
             link_nAudio.Links.Add(link6);
             link7.LinkData = "https://github.com/Corey-M/NAudio.Lame";
             link_naudioLame.Links.Add(link7);
+        }
+
+        public sealed override string Text
+        {
+            get { return base.Text; }
+            set { base.Text = value; }
         }
 
         #region Assembly Attribute Accessors
