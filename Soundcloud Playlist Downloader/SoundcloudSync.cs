@@ -116,7 +116,7 @@ namespace Soundcloud_Playlist_Downloader
         {
             DownloadUtils.SongsToDownload = 1;
             track.LocalPath = FilesystemUtils.BuildTrackLocalPath(track, directoryPath);
-            DownloadUtils.DownloadTrack(ref track, clientId);
+            DownloadUtils.DownloadTrackAndTag(ref track, clientId);
         }             
         internal void SynchronizeFromPlaylistApiUrl(string playlistApiUrl, string clientId, string directoryPath)
         {

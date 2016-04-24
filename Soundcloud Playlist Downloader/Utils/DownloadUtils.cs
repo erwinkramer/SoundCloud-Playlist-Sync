@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Soundcloud_Playlist_Downloader.JsonObjects;
@@ -33,7 +31,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 {
                     try
                     {
-                        if (!DownloadTrack(ref track, apiKey)) return;
+                        if (!DownloadTrackAndTag(ref track, apiKey)) return;
                         lock (trackLock)
                         {
                             track.IsDownloaded = true;
@@ -75,7 +73,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return null;
         }
 
-        public static bool DownloadTrack(ref Track song, string apiKey)
+        public static bool DownloadTrackAndTag(ref Track song, string apiKey)
         {
             if (!IsActive) return false;
             if (song?.LocalPath == null)

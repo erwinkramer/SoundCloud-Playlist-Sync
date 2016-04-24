@@ -11,22 +11,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
     public class ManifestUtils
     {
         private static readonly object ReadWriteManifestLock = new object();
-
-        public static string ParseTrackPath(string csv, int position)
-        {
-            if (csv != null && csv.IndexOf(',') >= 0)
-            {
-                //only make 1 split, as a comma (,) can be found in a song name!
-                return csv.Split(new[] {','}, 2)[position]; //position 0 is streampath, position 1 is local path
-            }
-            return csv;
-        }
-
         public static string DetermineManifestPath(string directoryPath)
         {
             return Path.Combine(directoryPath, SoundcloudSyncMainForm.ManifestName);
         }
-
         public static void UpdateManifest(Track trackDownloaded, string directoryPath)
         {            
             var updateSuccesful = false;
