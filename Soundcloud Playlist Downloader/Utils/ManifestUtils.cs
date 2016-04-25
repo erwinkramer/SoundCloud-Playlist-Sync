@@ -5,25 +5,30 @@ using System.Threading;
 using Newtonsoft.Json;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using Soundcloud_Playlist_Downloader.Views;
+public delegate void ProcessUpdateManifestDelegate(Track trackDownloaded, string directoryPath);
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class ManifestUtils
     {
-        private static readonly object ReadWriteManifestLock = new object();
+        static ReaderWriterLock ReadWriteManifestLock = new ReaderWriterLock();
+        const int ReadLockTimeoutMs = 500;
+        const int WriteLockTimeoutMs = 1000;
+        public static string ManifestName = "";
+
         public static string DetermineManifestPath(string directoryPath)
         {
-            return Path.Combine(directoryPath, SoundcloudSyncMainForm.ManifestName);
+            return Path.Combine(directoryPath, ManifestName);
         }
         public static void UpdateManifest(Track trackDownloaded, string directoryPath)
-        {            
+        {
             var updateSuccesful = false;
             for (var attempts = 0; attempts < 5; attempts++)
             {
                 try
                 {                  
                     List<Track> manifest = LoadManifestFromFile(directoryPath);                       
-                    AppendToJsonManifestObject(manifest, trackDownloaded, directoryPath);
+                    AppendToJsonManifestObject(ref manifest, trackDownloaded, directoryPath);
                     WriteManifestToFile(manifest, directoryPath);                       
                     updateSuccesful = true;
                     break;
@@ -41,51 +46,48 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public static List<Track> LoadManifestFromFile(string directoryPath)
         {
-            var manifestPath = DetermineManifestPath(directoryPath);
             List<Track> manifest = new List<Track>();
+            var manifestPath = DetermineManifestPath(directoryPath);
+            if (!File.Exists(manifestPath)) return manifest;
+            ReadWriteManifestLock.AcquireReaderLock(ReadLockTimeoutMs);
             try
             {
-                lock (ReadWriteManifestLock)
-                {
-                    using (var sr = new StreamReader(manifestPath))
-                    {
-                        var jsonManifestText = sr.ReadToEnd();
-                        manifest = JsonConvert.DeserializeObject<List<Track>>(jsonManifestText);
-                    }
+                using (var sr = new StreamReader(manifestPath))
+                {                
+                    var jsonManifestText = sr.ReadToEnd();
+                    manifest = JsonConvert.DeserializeObject<List<Track>>(jsonManifestText);
                 }
             }
-            catch (Exception)
+            finally
             {
-                // ignored
+                ReadWriteManifestLock.ReleaseReaderLock();
             }
             return manifest;
         }
 
         public static void WriteManifestToFile(List<Track> manifest, string directoryPath)
         {
+            if (manifest.Count < 1) return;
             var manifestPath = DetermineManifestPath(directoryPath);
+            ReadWriteManifestLock.AcquireWriterLock(WriteLockTimeoutMs);
             try
-            {
-                lock (ReadWriteManifestLock)
+            { 
+                using (var sw = new StreamWriter(manifestPath))
                 {
-                    using (var sw = new StreamWriter(manifestPath))
+                    using (JsonWriter jw = new JsonTextWriter(sw))
                     {
-                        using (JsonWriter jw = new JsonTextWriter(sw))
-                        {
-                            jw.Formatting = Formatting.Indented;
-                            JsonSerializer serializer = new JsonSerializer();
-                            serializer.Serialize(jw, manifest);
-                        }
+                        jw.Formatting = Formatting.Indented;
+                        JsonSerializer serializer = new JsonSerializer();
+                        serializer.Serialize(jw, manifest);
                     }
                 }
             }
-            catch (Exception)
+            finally
             {
-                // ignored
+                ReadWriteManifestLock.ReleaseWriterLock();
             }
         }
-
-        internal static void AppendToJsonManifestObject(List<Track> manifests, Track trackDownloaded, string directoryPath)
+        internal static void AppendToJsonManifestObject(ref List<Track> manifests, Track trackDownloaded, string directoryPath)
         {
             trackDownloaded.DownloadDateTimeUtc = DateTime.UtcNow;
             trackDownloaded.ModifiedDateTimeUtc = DateTime.UtcNow;
@@ -101,15 +103,44 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public static void BackupManifest(string directoryPath, string manifestName)
         {
-            //copy to backup location
             var destinationPath =
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                     "SoundCloud Playlist Sync",
-                    DateTime.Today.ToString("dd/MM/yyyy") + " Manifest Backups");
+                    DateTime.Today.ToString("dd/MM/yyyy") + " Manifest Backups"); 
 
             var destinationPathWithFile = Path.Combine(destinationPath, manifestName);
             Directory.CreateDirectory(destinationPath);
-            File.Copy(Path.Combine(directoryPath, manifestName), destinationPathWithFile, true);
+            ReadWriteManifestLock.AcquireReaderLock(WriteLockTimeoutMs);
+            try
+            {
+                File.Copy(Path.Combine(directoryPath, manifestName), destinationPathWithFile, true);
+            }
+            finally
+            {
+                ReadWriteManifestLock.ReleaseReaderLock();
+            }
+        }
+
+        public static bool FindManifestAndBackup(string directoryPath, string manifestName, out bool differentmanifest)
+        {
+            if (manifestName == "")
+            {
+                differentmanifest = true;
+                return false;
+            }
+            differentmanifest = false;
+            if (!Directory.Exists(directoryPath)) return false;        
+            var files = Directory.GetFiles(directoryPath, ".MNFST=*", SearchOption.TopDirectoryOnly);
+            if (files.Length > 0)
+            {
+                if (File.Exists(Path.Combine(directoryPath, manifestName)))
+                {
+                    BackupManifest(directoryPath, manifestName);
+                    return true;
+                }
+                differentmanifest = true;
+            }
+            return false;
         }
     }
 }

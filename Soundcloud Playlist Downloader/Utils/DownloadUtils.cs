@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using Soundcloud_Playlist_Downloader.Properties;
@@ -11,39 +13,54 @@ namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class DownloadUtils
     {
-        //private string CLIENT_ID = "93a4fae1bd98b84c9b4f6bf1cc838b4f";
-        //new key should fix same reason as stated here: 
+        //OLD CLIENT_ID = "93a4fae1bd98b84c9b4f6bf1cc838b4f";
+        //NEW key should fix same reason as stated here: 
         //https://stackoverflow.com/questions/29914622/get-http-mp3-stream-from-every-song/30018216#30018216
         public const string ClientId = "376f225bf427445fc4bfb6b99b72e0bf";
         public static bool IsActive { get; set; }
         public static int SongsToDownload { get; set; }
-        public static int SongsDownloaded { get; set; }
-        private static readonly object SongsDownloadedLock = new object();
+        public static int SongsDownloaded = 0;
 
         public static void DownloadSongs(IList<Track> tracksToDownload, string apiKey, string directoryPath)
         {
-            if (tracksToDownload.Count == 0)
-                return;
-            var trackLock = new object();          
-            Parallel.ForEach(tracksToDownload,
-                new ParallelOptions { MaxDegreeOfParallelism = Settings.Default.ConcurrentDownloads },
-                track =>
-                {
-                    try
+            SongsToDownload = tracksToDownload.Count;
+            if (SongsToDownload == 0) return;
+            var exceptions = new ConcurrentQueue<Exception>();
+            CancellationTokenSource cts = new CancellationTokenSource();
+            ParallelOptions po = new ParallelOptions
+            {
+                CancellationToken = cts.Token,
+                MaxDegreeOfParallelism = Settings.Default.ConcurrentDownloads
+            };
+            try
+            {
+                Parallel.ForEach(tracksToDownload, po,
+                    track =>
                     {
-                        if (!DownloadTrackAndTag(ref track, apiKey)) return;
-                        lock (trackLock)
+                        try
                         {
+                            if (!DownloadTrackAndTag(ref track, apiKey)) return;
                             track.IsDownloaded = true;
-                            ManifestUtils.UpdateManifest(track, directoryPath);
+                            ProcessUpdateManifestDelegate pumd = ManifestUtils.UpdateManifest;
+                            pumd(track, directoryPath);
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        SoundcloudSync.IsError = true;
-                        ExceptionHandlerUtils.HandleException(e);
-                    }
-                });
+                        catch (Exception e)
+                        {
+                            exceptions.Enqueue(e);
+                            SoundcloudSync.IsError = true;
+                            po.CancellationToken.ThrowIfCancellationRequested();
+                            cts.Cancel();
+                        }
+                    });
+            }
+            catch (OperationCanceledException e)
+            {
+                if (exceptions.Count > 0) throw new AggregateException(e.Message, exceptions);
+            }
+            finally
+            {
+                cts.Dispose();
+            }
         }
 
         public static string GetEffectiveDownloadUrl(string streamUrl, string downloadUrl, int id)
@@ -116,20 +133,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 {
                     song.LocalPath += ".mp3";
                     client.DownloadFile(song.stream_url + $"?client_id={apiKey}", song.LocalPath);
-                }            
-                lock (SongsDownloadedLock)
-                {
-                    SongsDownloaded++;
                 }
             }
-            try
-            {
-                MetadataTaggingUtils.TagIt(song);
-            }
-            catch (Exception e)
-            {
-                ExceptionHandlerUtils.HandleException(e);
-            }
+            MetadataTaggingUtils.TagIt(song);
+            Interlocked.Increment(ref SongsDownloaded);
             return true;
         }
 
@@ -139,9 +146,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 ".wav", ".aiff", ".aif", ".m4a", ".aac"            
             };
-            if (SoundcloudSyncMainForm.excludeAAC)
+            if (SoundcloudSyncMainForm.ExcludeAac)
                 formats.Remove(".aac");
-            if (SoundcloudSyncMainForm.excludeM4A)
+            if (SoundcloudSyncMainForm.ExcludeM4A)
                 formats.Remove(".m4a");
             return formats;
         }

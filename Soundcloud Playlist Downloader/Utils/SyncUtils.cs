@@ -120,8 +120,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         }        
         private static bool DeleteEmptyDirectory(string filenameWithPath)
         {
-            if (!SoundcloudSyncMainForm.FoldersPerArtist)
-                return false;
+            if (!SoundcloudSyncMainForm.FoldersPerArtist) return false;
             var path = Path.GetDirectoryName(filenameWithPath);
             if (path != null && !Directory.EnumerateFileSystemEntries(path).Any()) //folder = empty
             {
