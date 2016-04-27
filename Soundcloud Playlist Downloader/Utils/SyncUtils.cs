@@ -13,7 +13,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             List<Track> tracksToDownload = new List<Track>();
 
-            //define all local paths by combining the sanitzed artist (if checked by user) with the santized title
+            // define all local paths by combining the sanitzed artist (if checked by user) with the santized title
             foreach (var track in tracks)
             {
                 track.LocalPath = FilesystemUtils.BuildTrackLocalPath(track, directoryPath);
@@ -68,39 +68,32 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     var compareTrack = allTracks.FirstOrDefault(i => i.id == manifest[index].id);
                     if (compareTrack == null)
                     {
-                        if (SoundcloudSyncMainForm.SyncMethod == 2)
-                        {
-                            DeleteFile(fullPathSong);
-                            manifest.Remove(manifest[index]);
-                        }
+                        if (SoundcloudSyncMainForm.SyncMethod == 1) return;                                    
+                        DeleteFile(fullPathSong);
+                        manifest.Remove(manifest[index]);                       
                         continue;
                     }
-
-                    if (manifest[index].duration <= compareTrack.duration)
-                    //If the duration is shorter suspect a change from full song to sample song
+                    if (!File.Exists(fullPathSong))
                     {
-                        if (!compareTrack.IsHD && manifest[index].IsHD)
-                        {
-                            // ignore 
-                        }
-                        else
-                        {
-                            DeleteFile(fullPathSong);
-                            tracksToDownload.Add(manifest[index]);
-                            continue;
-                        }
+                        tracksToDownload.Add(compareTrack);
+                        continue;
+                    }
+                    //If the duration is shorter than before; suspect a change from full song to sample song
+                    if (manifest[index].duration > compareTrack.duration) continue;
+
+                    if (compareTrack.IsHD && !manifest[index].IsHD) //track changed to HD
+                    {
+                        DeleteFile(fullPathSong);
+                        tracksToDownload.Add(compareTrack);
+                        continue;
                     }
                     if (manifest[index].Title != compareTrack.Title)
                     {                    
                         Track retagTrack = manifest[index];
                         MetadataTaggingUtils.ReTag(ref retagTrack, compareTrack);
                         manifest[index] = retagTrack;
-                    }
-
-                    if (!File.Exists(fullPathSong))
-                    {
-                        tracksToDownload.Add(manifest[index]);
-                    }
+                        continue;
+                    }               
                 }
                 ManifestUtils.WriteManifestToFile(manifest, directoryPath);             
             }
@@ -112,29 +105,24 @@ namespace Soundcloud_Playlist_Downloader.Utils
         }
         private static void DeleteFile(string fullPathSong)
         {
-            if (File.Exists(fullPathSong))
-            {
-                File.Delete(fullPathSong);
-                DeleteEmptyDirectory(fullPathSong);
-            }
+            if (!File.Exists(fullPathSong)) return;
+            File.Delete(fullPathSong);
+            DeleteEmptyDirectory(fullPathSong);
         }        
         private static bool DeleteEmptyDirectory(string filenameWithPath)
         {
             if (!SoundcloudSyncMainForm.FoldersPerArtist) return false;
             var path = Path.GetDirectoryName(filenameWithPath);
-            if (path != null && !Directory.EnumerateFileSystemEntries(path).Any()) //folder = empty
+            if (path == null || Directory.EnumerateFileSystemEntries(path).Any()) return false;
+            try
             {
-                try
-                {
-                    Directory.Delete(path, false); //recursive not true because should be already empty
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                Directory.Delete(path, false); //recursive not true because should be already empty
+                return true;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
