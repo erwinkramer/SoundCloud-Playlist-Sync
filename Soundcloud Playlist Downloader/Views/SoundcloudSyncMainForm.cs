@@ -272,7 +272,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Settings.Default.PlaylistUrl = url.Text;
-            Settings.Default.LocalPath = FilesystemUtils.Directory.FullName;
+            Settings.Default.LocalPath = directoryPath.Text;
             Settings.Default.Save();
             _exiting = true;
             DownloadUtils.IsActive = false;
