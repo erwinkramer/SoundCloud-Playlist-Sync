@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 using Soundcloud_Playlist_Downloader.JsonObjects;
@@ -173,11 +174,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
         }
         public static string GetExtensionFromWebRequest(WebRequest request)
         {
-            string extension;
+            string extension = "";
             request.Method = "HEAD";
             using (var response = request.GetResponse())
             {
-                extension = "." + response.Headers["x-amz-meta-file-type"];
+                ContentDisposition disposition = new ContentDisposition(response.Headers["Content-Disposition"]); 
+                extension = Path.GetExtension(disposition.FileName);
             }
             return extension;
         }
