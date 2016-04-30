@@ -125,7 +125,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     }
                     else //get the low res mp3 if all above not possible
                     {
-                        song.LocalPath += extension;
+                        song.LocalPath += ".mp3";
                         client.DownloadFile(song.stream_url + $"?client_id={DownloadUtils.ClientId}", song.LocalPath);
                     }
                 }

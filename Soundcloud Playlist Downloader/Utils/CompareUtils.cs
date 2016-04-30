@@ -22,7 +22,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 (a.Username != b.Username) ||
                 (a.artwork_url != b.artwork_url) ||
                 (a.attachments_uri != b.attachments_uri) ||
-                (a.available_country_codes != b.available_country_codes) ||
                 (a.bpm != b.bpm) ||
                 (a.created_at != b.created_at) ||
                 (a.description != b.description) ||
@@ -30,11 +29,13 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 (a.genre != b.genre) ||
                 (a.isrc != b.isrc) ||
                 (a.license != b.license) ||
-                (a.label != b.label) ||
                 (a.tag_list != b.tag_list) ||
                 (a.video_url != b.video_url) ||
                 (a.kind != b.kind))
                 return false;
+            if (a.label != null)
+                if (a.label.id != b.label.id)
+                    return false;
             return true;
         }
 
