@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -64,17 +65,18 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 List<Track> manifest = ManifestUtils.LoadManifestFromFile(directoryPath);
                 for (int index = 0; index < manifest.Count; index++)
                 {
-                    string fullPathSong = Path.Combine(directoryPath, manifest[index].LocalPath);
+                    string fullPathSongLocal = manifest[index].LocalPath;
                     var compareTrack = allTracks.FirstOrDefault(i => i.id == manifest[index].id);
                     if (compareTrack == null)
                     {
                         if (SoundcloudSyncMainForm.SyncMethod == 1) return;                                    
-                        DeleteFile(fullPathSong);
+                        DeleteFile(fullPathSongLocal);
                         manifest.Remove(manifest[index]);                       
                         continue;
                     }
-                    if (!File.Exists(fullPathSong))
+                    if (!File.Exists(fullPathSongLocal))
                     {
+                        manifest.Remove(manifest[index]);
                         tracksToDownload.Add(compareTrack);
                         continue;
                     }
@@ -83,17 +85,20 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
                     if (compareTrack.IsHD && !manifest[index].IsHD) //track changed to HD
                     {
-                        DeleteFile(fullPathSong);
+                        DeleteFile(fullPathSongLocal);
                         tracksToDownload.Add(compareTrack);
                         continue;
                     }
-                    if (manifest[index].Title != compareTrack.Title)
-                    {                    
-                        Track retagTrack = manifest[index];
-                        MetadataTaggingUtils.ReTag(ref retagTrack, compareTrack);
-                        manifest[index] = retagTrack;
+                    IEqualityComparer<SoundcloudBaseTrack> comparer = new CompareUtils();                
+                    if (!comparer.Equals(manifest[index], compareTrack))
+                    {
+                        ManifestUtils.ReplaceJsonManifestObject(ref manifest, ref compareTrack, manifest[index], directoryPath, index);
+                        Directory.CreateDirectory(Path.GetDirectoryName(compareTrack.LocalPath));
+                        File.Move(fullPathSongLocal, compareTrack.LocalPath);
+                        DeleteEmptyDirectory(fullPathSongLocal);
+                        MetadataTaggingUtils.TagIt(ref compareTrack);
                         continue;
-                    }               
+                    }            
                 }
                 ManifestUtils.WriteManifestToFile(manifest, directoryPath);             
             }

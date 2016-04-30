@@ -135,7 +135,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     client.DownloadFile(song.stream_url + $"?client_id={apiKey}", song.LocalPath);
                 }
             }
-            MetadataTaggingUtils.TagIt(song);
+            MetadataTaggingUtils.TagIt(ref song);
             Interlocked.Increment(ref SongsDownloaded);
             return true;
         }

@@ -137,6 +137,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JsonObjects\SoundcloudTrack.cs" />
+    <Compile Include="JsonObjects\Track.cs" />
+    <Compile Include="Utils\CompareUtils.cs" />
     <Compile Include="Views\BoxAbout.cs">
       <SubType>Form</SubType>
     </Compile>

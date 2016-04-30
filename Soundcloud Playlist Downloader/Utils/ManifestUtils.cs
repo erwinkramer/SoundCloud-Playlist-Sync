@@ -95,6 +95,15 @@ namespace Soundcloud_Playlist_Downloader.Utils
             manifests.Add(trackDownloaded);
         }
 
+        internal static void ReplaceJsonManifestObject(ref List<Track> manifests, ref Track trackChanged, Track oldTrack, string directoryPath, int index)
+        {
+            trackChanged.ModifiedDateTimeUtc = DateTime.UtcNow;
+            trackChanged.DownloadDateTimeUtc = oldTrack.DownloadDateTimeUtc;
+            trackChanged.LocalPath += Path.GetExtension(oldTrack.LocalPath);
+            trackChanged.LocalPathRelative = trackChanged.LocalPath.Replace(directoryPath, "");
+            manifests[index] = trackChanged;
+        }
+
         public static string MakeManifestString(string validManifestFilename, bool foldersPerArtist, bool includeArtistInFilename, EnumUtil.DownloadMode dlMode, int syncMethod)
         {
             return ".MNFST=" + validManifestFilename + ",FPA=" + foldersPerArtist + ",IAIF=" +
