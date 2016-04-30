@@ -160,7 +160,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 WebRequest requestEffectiveDownloadUrl = WebRequest.Create(song.EffectiveDownloadUrl + $"?client_id={apiKey}");
                 return GetExtensionFromWebRequest(requestEffectiveDownloadUrl);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }

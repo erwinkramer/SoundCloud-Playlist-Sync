@@ -12,15 +12,7 @@ using Tag = TagLib.Id3v2.Tag;
 namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class MetadataTaggingUtils
-    {
-        //public static void ReTag(ref Track retagTrack, Track compareTrack)
-        //{
-        //    retagTrack.ModifiedDateTimeUtc = DateTime.UtcNow;
-        //    retagTrack.Title = compareTrack.Title;
-        //    retagTrack.artwork_url = compareTrack.artwork_url;
-        //    retagTrack.favoritings_count = compareTrack.favoritings_count;
-        //    TagIt(retagTrack);
-        //}
+    {      
         public static void TagIt(ref Track song)
         {
             // metadata tagging
