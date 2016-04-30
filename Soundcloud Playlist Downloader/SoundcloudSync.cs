@@ -25,19 +25,19 @@ namespace Soundcloud_Playlist_Downloader
                 }
             }
         }
-        internal void Synchronize(string url, EnumUtil.DownloadMode mode, string directory, string clientId)
+        internal void Synchronize(string url, EnumUtil.DownloadMode mode)
         {
             VerifyParameters(
                 new Dictionary<string, string>
                 {
                     {"URL", url},
-                    {"Directory", directory},
-                    {"Client ID", clientId}
+                    {"Directory", FilesystemUtils.Directory.FullName},
+                    {"Client ID", DownloadUtils.ClientId}
                 }
                 );
             ResetProgress();
 
-            string apiURL = null;
+            string apiUrl = null;
 
             switch (mode)
             {
@@ -46,33 +46,33 @@ namespace Soundcloud_Playlist_Downloader
                     // and then call SynchronizeFromPlaylistAPIUrl. Otherwise just call that method directly
 
                     if (url.Contains("api.soundcloud.com"))
-                        apiURL = url;
+                        apiUrl = url;
                     else
-                        apiURL = DetermineApiUrlForNormalUrl(url, clientId, "playlists");
-                    SynchronizeFromPlaylistApiUrl(apiURL, clientId, directory);
+                        apiUrl = DetermineApiUrlForNormalUrl(url, "playlists");
+                    SynchronizeFromPlaylistApiUrl(apiUrl);
                     break;
                 case EnumUtil.DownloadMode.Favorites:
                     // get the username from the url and then call SynchronizeFromProfile
                     var username = DownloadUtils.ParseUserIdFromProfileUrl(url);
-                    SynchronizeFromProfile(username, clientId, directory);
+                    SynchronizeFromProfile(username);
                     break;
                 case EnumUtil.DownloadMode.Artist:
                     if (url.Contains("api.soundcloud.com"))
-                        apiURL = url;
+                        apiUrl = url;
                     else
-                        apiURL = DetermineApiUrlForNormalUrl(url, clientId, "tracks");
-                    SynchronizeFromArtistUrl(apiURL, clientId, directory);
+                        apiUrl = DetermineApiUrlForNormalUrl(url, "tracks");
+                    SynchronizeFromArtistUrl(apiUrl);
                     break;
                 case EnumUtil.DownloadMode.Track:
-                    Track track = JsonUtils.RetrieveTrackFromUrl(url, clientId);
-                    SynchronizeSingleTrack(track, clientId, directory);
+                    Track track = JsonUtils.RetrieveTrackFromUrl(url);
+                    SynchronizeSingleTrack(track);
                     break;
                 default:
                     IsError = true;
                     throw new NotImplementedException("Unknown download mode");
             }
         }
-        private string DetermineApiUrlForNormalUrl(string url, string clientId, string resulttype)
+        private string DetermineApiUrlForNormalUrl(string url, string resulttype)
         {
             // parse the username from the url
             var username = DownloadUtils.ParseUserIdFromProfileUrl(url);
@@ -102,31 +102,31 @@ namespace Soundcloud_Playlist_Downloader
             }
 
             return "https://api.soundcloud.com/playlists/" +
-                   JsonUtils.RetrievePlaylistId(userUrl, playlistName, clientId);
+                   JsonUtils.RetrievePlaylistId(userUrl, playlistName);
         }                  
 
-        internal void SynchronizeFromProfile(string username, string clientId, string directoryPath)
+        internal void SynchronizeFromProfile(string username)
         {
             // hit the /username/favorites endpoint for the username in the url, then download all the tracks
-            var tracks = JsonUtils.RetrieveTracksFromUrl("https://api.soundcloud.com/users/" + username + "/favorites", clientId,
+            var tracks = JsonUtils.RetrieveTracksFromUrl("https://api.soundcloud.com/users/" + username + "/favorites",
                 true);
-            SyncUtils.Synchronize(tracks, clientId, directoryPath);
+            SyncUtils.Synchronize(tracks);
         } 
-        internal void SynchronizeSingleTrack(Track track, string clientId, string directoryPath)
+        internal void SynchronizeSingleTrack(Track track)
         {
             DownloadUtils.SongsToDownload = 1;
-            track.LocalPath = FilesystemUtils.BuildTrackLocalPath(track, directoryPath);
-            DownloadUtils.DownloadTrackAndTag(ref track, clientId);
+            track.LocalPath = FilesystemUtils.BuildTrackLocalPath(track);
+            DownloadUtils.DownloadTrackAndTag(ref track);
         }             
-        internal void SynchronizeFromPlaylistApiUrl(string playlistApiUrl, string clientId, string directoryPath)
+        internal void SynchronizeFromPlaylistApiUrl(string playlistApiUrl)
         {
-            var tracks = JsonUtils.RetrieveTracksFromUrl(playlistApiUrl, clientId, false);
-            SyncUtils.Synchronize(tracks, clientId, directoryPath);
+            var tracks = JsonUtils.RetrieveTracksFromUrl(playlistApiUrl, false);
+            SyncUtils.Synchronize(tracks);
         }
-        internal void SynchronizeFromArtistUrl(string artistUrl, string clientId, string directoryPath)
+        internal void SynchronizeFromArtistUrl(string artistUrl)
         {
-            var tracks = JsonUtils.RetrieveTracksFromUrl(artistUrl, clientId, true);
-            SyncUtils.Synchronize(tracks, clientId, directoryPath);
+            var tracks = JsonUtils.RetrieveTracksFromUrl(artistUrl, true);
+            SyncUtils.Synchronize(tracks);
         }
         private void ResetProgress()
         {

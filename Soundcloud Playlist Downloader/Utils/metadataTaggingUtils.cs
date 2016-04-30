@@ -13,7 +13,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class MetadataTaggingUtils
     {      
-        public static void TagIt(ref Track song)
+        public static void TagIt(Track song)
         {
             // metadata tagging
             File tagFile = null;
@@ -88,8 +88,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 tagFile.Save();
                 tagFile.Dispose();
             }
-
-            song.ModifiedDateTimeUtc = DateTime.UtcNow;
 
             // Sets file creation time to creation time that matches with Soundcloud track
             System.IO.File.SetCreationTime(song.LocalPath, creationDate);

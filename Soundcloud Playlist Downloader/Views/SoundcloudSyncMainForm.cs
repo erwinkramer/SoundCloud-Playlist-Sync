@@ -17,7 +17,6 @@ namespace Soundcloud_Playlist_Downloader.Views
         public static bool IncludeArtistInFilename;
         public static int SyncMethod = 1;
         private static EnumUtil.DownloadMode _dlMode;
-
         public static bool FoldersPerArtist;
         public static bool ReplaceIllegalCharacters;
         public static bool ExcludeM4A;
@@ -188,7 +187,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 ReplaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
                 ExcludeAac = chk_excl_m4a.Checked;
                 ExcludeM4A = chk_excl_m4a.Checked;
-
+                FilesystemUtils.Directory = new DirectoryInfo(directoryPath.Text);
                 Uri uri;
                 bool differentmanifest;
                 try
@@ -208,8 +207,7 @@ namespace Soundcloud_Playlist_Downloader.Views
 
                 if (_dlMode != EnumUtil.DownloadMode.Track)
                 {
-                    if (!ManifestUtils.FindManifestAndBackup( 
-                        directoryPath.Text, ManifestUtils.ManifestName, out differentmanifest))
+                    if (!ManifestUtils.FindManifestAndBackup(ManifestUtils.ManifestName, out differentmanifest))
                     {
                         if (differentmanifest)
                         {
@@ -239,8 +237,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 {
                     try
                     {
-                        _sync.Synchronize(url.Text, _dlMode, directoryPath.Text, DownloadUtils.ClientId
-                            );
+                        _sync.Synchronize(url.Text, _dlMode);
                     }
                     catch (Exception ex)
                     {
@@ -275,7 +272,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Settings.Default.PlaylistUrl = url.Text;
-            Settings.Default.LocalPath = directoryPath.Text;
+            Settings.Default.LocalPath = FilesystemUtils.Directory.FullName;
             Settings.Default.Save();
             _exiting = true;
             DownloadUtils.IsActive = false;

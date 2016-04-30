@@ -11,7 +11,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class JsonUtils
     {
-        public static string RetrieveJson(string url, string clientId = null, int? limit = null, int? offset = null)
+        public static string RetrieveJson(string url, int? limit = null, int? offset = null)
         {
             string json = null;
             if (limit == 0)
@@ -26,7 +26,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     client.Encoding = Encoding.UTF8;
                     if (!url.Contains("client_id="))
                     {
-                        url += (url.Contains("?") ? "&" : "?") + "client_id=" + clientId;
+                        url += (url.Contains("?") ? "&" : "?") + "client_id=" + DownloadUtils.ClientId;
                     }
                     if (limit != null)
                     {
@@ -51,11 +51,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return json;
         }
 
-        public static string RetrievePlaylistId(string userApiUrl, string playlistName, string clientId)
+        public static string RetrievePlaylistId(string userApiUrl, string playlistName)
         {
             // parse each playlist out, match the name based on the
             // permalink, and return the id of the matching playlist.           
-            var playlistsJson = RetrieveJson(userApiUrl, clientId);
+            var playlistsJson = RetrieveJson(userApiUrl);
 
             var playlists = JArray.Parse(playlistsJson);
             IList<JToken> results = playlists.Children().ToList();
@@ -77,9 +77,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
             throw new Exception("Unable to find a matching playlist");
         }
 
-        public static Track RetrieveTrackFromUrl(string url, string clientId)
+        public static Track RetrieveTrackFromUrl(string url)
         {
-            var trackJson = RetrieveJson("https://api.soundcloud.com/resolve.json?url=" + url, clientId);
+            var trackJson = RetrieveJson("https://api.soundcloud.com/resolve.json?url=" + url);
             JObject track = JObject.Parse(trackJson);
             if (track?.GetValue("id") != null)
                 return JsonConvert.DeserializeObject<Track>(track.ToString());
@@ -87,14 +87,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return null;
         }
 
-        public static IList<Track> RetrieveTracksFromUrl(string url, string clientId, bool isRawTracksUrl)
+        public static IList<Track> RetrieveTracksFromUrl(string url, bool isRawTracksUrl)
         {
             var limit = isRawTracksUrl ? 200 : 0; //200 is the limit set by SoundCloud itself. Remember; limits are only with 'collection' types in JSON 
             IList<Track> tracks = new List<Track>();
             try
             {
                 var tracksAdded = true;
-                var tracksJson = RetrieveJson(url, clientId, limit);
+                var tracksJson = RetrieveJson(url, limit);
                 var lastStep = false;
 
                 while (tracksAdded && tracksJson != null)
