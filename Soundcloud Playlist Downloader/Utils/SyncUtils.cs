@@ -19,11 +19,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 track.LocalPath = FilesystemUtils.BuildTrackLocalPath(track);
             }
 
-            // deletes, retags, or sets track in tracksToDownload for download
-            AnalyseManifestTracks(tracks, tracksToDownload);
-
             // determine which new tracks should be downloaded
             NewTracksToDownload(tracks, tracksToDownload);
+
+            // deletes, retags, or sets track in tracksToDownload for download
+            AnalyseManifestTracks(tracks, tracksToDownload);  
 
             // download the relevant tracks and continuously update the manifest
             DownloadUtils.DownloadSongs(tracksToDownload);
@@ -49,10 +49,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
             List<Track> manifest = new List<Track>();
             if (File.Exists(manifestPath))
             {
-                manifest = ManifestUtils.LoadManifestFromFile();               
-            }                      
-            //all who's id is not in the manifest  
-            tracksToDownload.AddRange(allSongs.Where(c => manifest.All(d => c.id != d.id)).ToList());
+                manifest = ManifestUtils.LoadManifestFromFile();
+                //all who's id is not in the manifest  
+                tracksToDownload.AddRange(allSongs.Where(c => manifest.All(d => c.id != d.id)).ToList());
+            }
+            else
+            {
+                tracksToDownload.AddRange(allSongs);
+            }
         }
        
         private static void AnalyseManifestTracks(IList<Track> allTracks, List<Track> tracksToDownload)
@@ -68,9 +72,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     var compareTrack = allTracks.FirstOrDefault(i => i.id == manifest[index].id);
                     if (compareTrack == null)
                     {
-                        if (SoundcloudSyncMainForm.SyncMethod == 1) return;                                    
+                        if (SoundcloudSyncMainForm.SyncMethod == 1) return;
+                        manifest.Remove(manifest[index]);
                         DeleteFile(manifest[index].LocalPath);
-                        manifest.Remove(manifest[index]);                       
                         continue;
                     }
                     if (!File.Exists(manifest[index].LocalPath))
@@ -84,6 +88,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
                     if (compareTrack.IsHD && !manifest[index].IsHD) //track changed to HD
                     {
+                        manifest.Remove(manifest[index]);
                         DeleteFile(manifest[index].LocalPath);
                         tracksToDownload.Add(compareTrack);
                         continue;
