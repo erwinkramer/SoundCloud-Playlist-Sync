@@ -45,10 +45,7 @@ namespace Soundcloud_Playlist_Downloader
                     // determine whether it is an api url or a normal url. if it is a normal url, get the api url from it
                     // and then call SynchronizeFromPlaylistAPIUrl. Otherwise just call that method directly
 
-                    if (url.Contains("api.soundcloud.com"))
-                        apiUrl = url;
-                    else
-                        apiUrl = DetermineApiUrlForNormalUrl(url, "playlists");
+                    apiUrl = url.Contains("api.soundcloud.com") ? url : DetermineApiUrlForNormalUrl(url, "playlists");
                     SynchronizeFromPlaylistApiUrl(apiUrl);
                     break;
                 case EnumUtil.DownloadMode.Favorites:
@@ -57,10 +54,7 @@ namespace Soundcloud_Playlist_Downloader
                     SynchronizeFromProfile(username);
                     break;
                 case EnumUtil.DownloadMode.Artist:
-                    if (url.Contains("api.soundcloud.com"))
-                        apiUrl = url;
-                    else
-                        apiUrl = DetermineApiUrlForNormalUrl(url, "tracks");
+                    apiUrl = url.Contains("api.soundcloud.com") ? url : DetermineApiUrlForNormalUrl(url, "tracks");
                     SynchronizeFromArtistUrl(apiUrl);
                     break;
                 case EnumUtil.DownloadMode.Track:

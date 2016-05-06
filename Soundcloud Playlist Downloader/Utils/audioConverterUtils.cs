@@ -49,7 +49,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             if ((extension == ".m4a" || extension == ".aac") && isWindows8_OrHigher())
             {
-                return ConvertM4aToMp3(strangefile, directory, ref song);
+                return ConvertM4AToMp3(strangefile, directory, ref song);
             }
             return false;
         }
@@ -57,8 +57,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static byte[] ConvertWavToMp3(byte[] wavFile, string directory)
         {
             byte[] mp3Bytes = null;
-            var newFormat = new WaveFormat(BitRate, BitDepth, Channels);
-
             try
             {
                 _uniqueTempFileCounter += 1;
@@ -119,10 +117,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return mp3Bytes;
         }
 
-        public static bool ConvertAiffToMp3(byte[] aiffFile, string directory, out byte[] mp3bytes)
+        public static bool ConvertAiffToMp3(byte[] aiffFile, string directory, out byte[] mp3Bytes)
         {
-            mp3bytes = null;
-            var newFormat = new WaveFormat(BitRate, BitDepth, Channels);
+            mp3Bytes = null;
             try
             {
                 _uniqueTempFileCounter += 1;
@@ -138,7 +135,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate);
                             //sample to new sample rate
                         WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
-                        mp3bytes = ConvertWavToMp3(tempFile, true); //file to mp3 bytes                       
+                        mp3Bytes = ConvertWavToMp3(tempFile, true); //file to mp3 bytes                       
                     }
                     else
                     {
@@ -146,20 +143,20 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, BitRate))
                         {
                             rdr.CopyTo(wtr);
-                            mp3bytes = retMs.ToArray();
+                            mp3Bytes = retMs.ToArray();
                         }
                     }
                 }
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Debug.WriteLine(e);
+                // ignored
             }
             return false;
         }
 
-        public static bool ConvertM4aToMp3(byte[] m4aFile, string directory, ref Track song)
+        public static bool ConvertM4AToMp3(byte[] m4AFile, string directory, ref Track song)
             //requires windows 8 or higher
         {
             var tempFile = Path.Combine(directory, "tempdata" + _uniqueTempFileCounter + ".m4a");
@@ -168,12 +165,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
             try
             {
                 _uniqueTempFileCounter += 1;
-                File.WriteAllBytes(tempFile, m4aFile);
+                File.WriteAllBytes(tempFile, m4AFile);
                 song.LocalPath += ".mp3"; //conversion wil result in an mp3
                 using (var reader = new MediaFoundationReader(tempFile)) //this reader supports: MP3, AAC and WAV
                 {
-                    var AACtype = AudioSubtypes.MFAudioFormat_AAC;
-                    var bitrates = MediaFoundationEncoder.GetEncodeBitrates(AACtype, reader.WaveFormat.SampleRate,
+                    var aaCtype = AudioSubtypes.MFAudioFormat_AAC;
+                    var bitrates = MediaFoundationEncoder.GetEncodeBitrates(aaCtype, reader.WaveFormat.SampleRate,
                         reader.WaveFormat.Channels);
                     MediaFoundationEncoder.EncodeToMp3(reader, song.LocalPath, bitrates[bitrates.GetUpperBound(0)]);
                 }

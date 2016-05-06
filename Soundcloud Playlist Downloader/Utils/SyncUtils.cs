@@ -46,7 +46,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         private static void NewTracksToDownload(IList<Track> allSongs, List<Track> tracksToDownload)
         {
             var manifestPath = ManifestUtils.DetermineManifestPath();
-            List<Track> manifest = new List<Track>();
+            List<Track> manifest;
             if (File.Exists(manifestPath))
             {
                 manifest = ManifestUtils.LoadManifestFromFile();
@@ -96,11 +96,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     IEqualityComparer<SoundcloudBaseTrack> comparer = new CompareUtils();                
                     if (!comparer.Equals(manifest[index], compareTrack))
                     {
-                        var OldPath = manifest[index].LocalPath;
+                        var oldPath = manifest[index].LocalPath;
                         ManifestUtils.ReplaceJsonManifestObject(ref manifest, compareTrack, manifest[index], index);
                         Directory.CreateDirectory(Path.GetDirectoryName(manifest[index].LocalPath));
-                        File.Move(OldPath, manifest[index].LocalPath);
-                        DeleteEmptyDirectory(OldPath);
+                        File.Move(oldPath, manifest[index].LocalPath);
+                        DeleteEmptyDirectory(oldPath);
                         MetadataTaggingUtils.TagIt(manifest[index]);
                         continue;
                     }            

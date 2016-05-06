@@ -34,7 +34,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 if (SoundcloudSyncMainForm.IncludeArtistInFilename) //include artist name
                 {
-                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(Directory.FullName, validArtistFolderName,
+                    while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, validArtistFolderName,
                         filenameWithArtist)))
                     {
                         filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
@@ -43,7 +43,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 }
                 else
                 {
-                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(Directory.FullName, validArtistFolderName,
+                    while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, validArtistFolderName,
                         validTitle)))
                     {
                         validTitle = validTitle.Remove(validTitle.Length - 2);
@@ -55,7 +55,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 if (SoundcloudSyncMainForm.IncludeArtistInFilename) //include artist name
                 {
-                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(Directory.FullName, filenameWithArtist)))
+                    while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, filenameWithArtist)))
                     {
                         filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
                         //shorten to fit into max size of path
@@ -63,7 +63,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 }
                 else
                 {
-                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(Directory.FullName, validTitle)))
+                    while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, validTitle)))
                     {
                         validTitle = validTitle.Remove(validTitle.Length - 2);
                         //shorten to fit into max size of path
@@ -127,7 +127,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return word;
         }
 
-        // <summary>
+        /// <summary>
         ///     Strip illegal chars and reserved words from a candidate filename (should not include the directory path)
         /// </summary>
         /// <remarks>

@@ -109,31 +109,31 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     {
                         //get the wav song as byte data, as we won't store it just yet
                         var soundbytes = client.DownloadData(song.EffectiveDownloadUrl +
-                                                             $"?client_id={DownloadUtils.ClientId}");
+                                                             $"?client_id={ClientId}");
                         //convert to mp3 & then write bytes to file
                         var succesfulConvert = AudioConverterUtils.ConvertAllTheThings(soundbytes, ref song, extension);
                         if (!succesfulConvert)
                             //something has gone wrong, download the stream url instead of download url 
                         {
                             song.LocalPath += ".mp3";
-                            client.DownloadFile(song.stream_url + $"?client_id={DownloadUtils.ClientId}", song.LocalPath);
+                            client.DownloadFile(song.stream_url + $"?client_id={ClientId}", song.LocalPath);
                         }
                     }
                     else if (extension == ".mp3") //get the high res mp3 without converting
                     {
                         song.LocalPath += extension;
-                        client.DownloadFile(song.EffectiveDownloadUrl + $"?client_id={DownloadUtils.ClientId}", song.LocalPath);
+                        client.DownloadFile(song.EffectiveDownloadUrl + $"?client_id={ClientId}", song.LocalPath);
                     }
                     else //get the low res mp3 if all above not possible
                     {
                         song.LocalPath += ".mp3";
-                        client.DownloadFile(song.stream_url + $"?client_id={DownloadUtils.ClientId}", song.LocalPath);
+                        client.DownloadFile(song.stream_url + $"?client_id={ClientId}", song.LocalPath);
                     }
                 }
                 else
                 {
                     song.LocalPath += ".mp3";
-                    client.DownloadFile(song.stream_url + $"?client_id={DownloadUtils.ClientId}", song.LocalPath);
+                    client.DownloadFile(song.stream_url + $"?client_id={ClientId}", song.LocalPath);
                 }
             }
             MetadataTaggingUtils.TagIt(song);
@@ -158,7 +158,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             try
             {
-                WebRequest requestEffectiveDownloadUrl = WebRequest.Create(song.EffectiveDownloadUrl + $"?client_id={DownloadUtils.ClientId}");
+                WebRequest requestEffectiveDownloadUrl = WebRequest.Create(song.EffectiveDownloadUrl + $"?client_id={ClientId}");
                 return GetExtensionFromWebRequest(requestEffectiveDownloadUrl);
             }
             catch (Exception)
@@ -169,7 +169,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 //all hope is lost when there is no stream url, return to safety
                 return "";
 
-            var requeststreamUrl = WebRequest.Create(song.stream_url + $"?client_id={DownloadUtils.ClientId}");
+            var requeststreamUrl = WebRequest.Create(song.stream_url + $"?client_id={ClientId}");
             return GetExtensionFromWebRequest(requeststreamUrl);
         }
         public static string GetExtensionFromWebRequest(WebRequest request)

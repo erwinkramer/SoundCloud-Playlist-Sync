@@ -43,6 +43,7 @@ namespace Soundcloud_Playlist_Downloader
             }
             catch (Exception)
             {
+                // ignored
             }
         }
     }

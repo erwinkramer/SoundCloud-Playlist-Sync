@@ -11,7 +11,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class ManifestUtils
     {
-        static ReaderWriterLock ReadWriteManifestLock = new ReaderWriterLock();
+        static readonly ReaderWriterLock ReadWriteManifestLock = new ReaderWriterLock();
         const int ReadLockTimeoutMs = 500;
         const int WriteLockTimeoutMs = 1000;
         public static string ManifestName = "";

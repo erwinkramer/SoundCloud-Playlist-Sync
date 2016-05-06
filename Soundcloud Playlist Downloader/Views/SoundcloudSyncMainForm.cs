@@ -189,7 +189,6 @@ namespace Soundcloud_Playlist_Downloader.Views
                 ExcludeM4A = chk_excl_m4a.Checked;
                 FilesystemUtils.Directory = new DirectoryInfo(directoryPath.Text);
                 Uri uri;
-                bool differentmanifest;
                 try
                 {
                     uri = new Uri(url.Text);
@@ -207,6 +206,7 @@ namespace Soundcloud_Playlist_Downloader.Views
 
                 if (_dlMode != EnumUtil.DownloadMode.Track)
                 {
+                    bool differentmanifest;
                     if (!ManifestUtils.FindManifestAndBackup(ManifestUtils.ManifestName, out differentmanifest))
                     {
                         if (differentmanifest)
@@ -216,7 +216,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                             InvokeSyncComplete();
                             return;
                         }
-                    }               
+                    }
                 }
                 new Thread(() =>
                 {
