@@ -182,11 +182,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 {
                     ContentDisposition disposition = new ContentDisposition(response.Headers["Content-Disposition"]);
                     extension = Path.GetExtension(disposition.FileName);
-                }catch(FormatException fe) {}
-                
-                //If it fails to get extention from disposition
-                if (String.IsNullOrEmpty(extension))
-                    extension = response.Headers["x-amz-meta-file-type"];   
+                }
+                catch (FormatException)
+                {
+                    //If it fails to get extention from disposition (if ContentDisposition works it gives more reliable results)
+                    extension = $".{response.Headers["x-amz-meta-file-type"]}";
+                }
             }
             return extension;
         }
