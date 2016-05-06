@@ -178,8 +178,15 @@ namespace Soundcloud_Playlist_Downloader.Utils
             request.Method = "HEAD";
             using (var response = request.GetResponse())
             {
-                ContentDisposition disposition = new ContentDisposition(response.Headers["Content-Disposition"]); 
-                extension = Path.GetExtension(disposition.FileName);
+                try
+                {
+                    ContentDisposition disposition = new ContentDisposition(response.Headers["Content-Disposition"]);
+                    extension = Path.GetExtension(disposition.FileName);
+                }catch(FormatException fe) {}
+                
+                //If it fails to get extention from disposition
+                if (String.IsNullOrEmpty(extension))
+                    extension = response.Headers["x-amz-meta-file-type"];   
             }
             return extension;
         }
