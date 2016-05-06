@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 
@@ -10,11 +12,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
     {
         public static void HandleException(Exception e)
         {
-            if (e is WebException)
+            var exception = e as WebException;
+            if (exception != null)
             {
                 var text = "";
                 var scrubbedtext = "";
-                var w = (WebException) e;
+                var w = exception;
                 using (var response = w.Response)
                 {
                     using (var data = response.GetResponseStream())
@@ -32,6 +35,29 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             throw new Exception("The following error was thrown: "
                                 + Environment.NewLine + e);
+        }
+
+        public static string GetExceptionMessages(Exception e, string msgs = "")
+        {
+            if (e == null) return string.Empty;
+            if (msgs == "") msgs = e.Message;
+
+            IEnumerable<Exception> innerExceptions = Enumerable.Empty<Exception>();
+            if (e is AggregateException && (e as AggregateException).InnerExceptions.Any())
+            {
+                innerExceptions = (e as AggregateException).InnerExceptions;
+            }
+            else
+            {
+                if (e.InnerException != null)
+                    msgs += "\r\nInnerException: " + e.InnerException.Message;
+            }
+            foreach (var innerEx in innerExceptions)
+            {
+                if (innerEx == null) continue;
+                msgs += "\r\nInnerException: " + innerEx.Message;
+            }
+            return msgs;
         }
 
         public static string ScrubHtml(string value)

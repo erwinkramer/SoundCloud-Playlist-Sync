@@ -1,6 +1,6 @@
-﻿namespace Soundcloud_Playlist_Downloader
+﻿namespace Soundcloud_Playlist_Downloader.Views
 {
-    partial class Form1
+    partial class SoundcloudSyncMainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             Soundcloud_Playlist_Downloader.Properties.Settings settings1 = new Soundcloud_Playlist_Downloader.Properties.Settings();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoundcloudSyncMainForm));
             this.syncButton = new System.Windows.Forms.Button();
             this.browseButton = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -406,7 +406,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "SoundcloudSyncMainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);

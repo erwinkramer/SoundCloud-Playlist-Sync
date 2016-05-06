@@ -1,11 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using Soundcloud_Playlist_Downloader.JsonObjects;
+using Soundcloud_Playlist_Downloader.Views;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class FilesystemUtils
     {
+        public static DirectoryInfo Directory;
+
+        public static string MakeRelativePath(string fullpath)
+        {
+            return fullpath.Replace(Directory.FullName, "").Substring(1);           
+        }
+
         public static bool IsPathWithinLimits(string fullPathAndFilename)
         {
             //In the Windows API the maximum length for a path is MAX_PATH, which is defined as 260 characters.
@@ -13,7 +22,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             const int maxPathLength = 250;
             return fullPathAndFilename.Length <= maxPathLength;
         }
-        public static string GetTrackLocalPath(Track track, string directoryPath)
+        public static string BuildTrackLocalPath(Track track)
         {
             string path;
             var validArtist = CoerceValidFileName(track.Artist, true);
@@ -21,11 +30,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
             var validTitle = CoerceValidFileName(track.Title, true);
             var filenameWithArtist = validArtist + " - " + validTitle;
 
-            if (Form1.FoldersPerArtist)
+            if (SoundcloudSyncMainForm.FoldersPerArtist)
             {
-                if (Form1.IncludeArtistInFilename) //include artist name
+                if (SoundcloudSyncMainForm.IncludeArtistInFilename) //include artist name
                 {
-                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(directoryPath, validArtistFolderName,
+                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(Directory.FullName, validArtistFolderName,
                         filenameWithArtist)))
                     {
                         filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
@@ -34,7 +43,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 }
                 else
                 {
-                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(directoryPath, validArtistFolderName,
+                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(Directory.FullName, validArtistFolderName,
                         validTitle)))
                     {
                         validTitle = validTitle.Remove(validTitle.Length - 2);
@@ -44,9 +53,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             else
             {
-                if (Form1.IncludeArtistInFilename) //include artist name
+                if (SoundcloudSyncMainForm.IncludeArtistInFilename) //include artist name
                 {
-                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(directoryPath, filenameWithArtist)))
+                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(Directory.FullName, filenameWithArtist)))
                     {
                         filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
                         //shorten to fit into max size of path
@@ -54,7 +63,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 }
                 else
                 {
-                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(directoryPath, validTitle)))
+                    while (!FilesystemUtils.IsPathWithinLimits(path = Path.Combine(Directory.FullName, validTitle)))
                     {
                         validTitle = validTitle.Remove(validTitle.Length - 2);
                         //shorten to fit into max size of path
@@ -71,7 +80,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public static string CoerceValidFileName(string filename, bool checkForReplaceCharacters)
         {
-            if (checkForReplaceCharacters && Form1.ReplaceIllegalCharacters)
+            if (checkForReplaceCharacters && SoundcloudSyncMainForm.ReplaceIllegalCharacters)
             {
                 filename = AlterChars(filename);
             }
@@ -128,7 +137,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             var trimmed = foldername.Trim('.', ' ');
 
-            if (string.IsNullOrEmpty(trimmed))
+            if (String.IsNullOrEmpty(trimmed))
                 trimmed = "(blank)"; //if completely trimmed, make something that's not an empty string
             return trimmed;
         }

@@ -5,6 +5,7 @@ using NAudio.Lame;
 using NAudio.MediaFoundation;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using Soundcloud_Playlist_Downloader.JsonObjects;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -37,8 +38,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             if (extension == ".aiff" || extension == ".aif")
             {
-                var succesfullAiffConvert = false;
-                succesfullAiffConvert = ConvertAiffToMp3(strangefile, directory, out mp3Bytes);
+                var succesfullAiffConvert = ConvertAiffToMp3(strangefile, directory, out mp3Bytes);
                 if (succesfullAiffConvert && mp3Bytes != null)
                 {
                     song.LocalPath += ".mp3"; //conversion wil result in an mp3
@@ -87,7 +87,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // ignored
             }
@@ -112,9 +112,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     File.Delete(wavFile);
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Debug.WriteLine(e);
+                // ignored
             }
             return mp3Bytes;
         }
@@ -180,7 +180,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 File.Delete(tempFile);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 if (File.Exists(tempFile))
                 {

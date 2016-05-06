@@ -2,163 +2,137 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Soundcloud_Playlist_Downloader.JsonObjects;
+using Soundcloud_Playlist_Downloader.Views;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class SyncUtils
     {
-        public static void Synchronize(IList<Track> tracks, string clientId, string directoryPath)
+        public static void Synchronize(IList<Track> tracks)
         {
-            //define all local paths by combining the sanitzed artist (if checked by user) with the santized title
+            List<Track> tracksToDownload = new List<Track>();
+
+            // define all local paths by combining the sanitzed artist (if checked by user) with the santized title
             foreach (var track in tracks)
             {
-                track.LocalPath = FilesystemUtils.GetTrackLocalPath(track, directoryPath);
+                track.LocalPath = FilesystemUtils.BuildTrackLocalPath(track);
             }
 
-            // determine which tracks should be deleted or re-added
-            DeleteOrAddRemovedTrack(directoryPath, tracks);
+            // determine which new tracks should be downloaded
+            NewTracksToDownload(tracks, tracksToDownload);
 
-            // determine which tracks should be downloaded
-            DetermineTracksToDownload(directoryPath, ref tracks);
+            // deletes, retags, or sets track in tracksToDownload for download
+            AnalyseManifestTracks(tracks, tracksToDownload);  
 
             // download the relevant tracks and continuously update the manifest
-            DownloadUtils.DownloadSongs(tracks, clientId, directoryPath);
+            DownloadUtils.DownloadSongs(tracksToDownload);
+      
+            PlaylistUtils.CreateSimpleM3U(); //Create playlist file
 
-            //Create playlist file
-            var completed = PlaylistUtils.CreateSimpleM3U(tracks, directoryPath);
-
-            var songstodownload = tracks.Count(x => x.HasToBeDownloaded);
-            // validation
-            if (songstodownload > 0 && DownloadUtils.IsActive)
+            var songsNotDownloaded = tracksToDownload.Count(x => x.IsDownloaded == false);        
+            if (songsNotDownloaded > 0 && DownloadUtils.IsActive) // validation
             {
-                PlaylistSync.IsError = true;
+                SoundcloudSync.IsError = true;
                 throw new Exception(
                     "Some tracks failed to download. You might need to try a few more times before they can download correctly. " +
                     "The following tracks were not downloaded:" + Environment.NewLine +
                     string.Join(Environment.NewLine,
-                        tracks.Where(x => x.HasToBeDownloaded)
+                        tracksToDownload.Where(x => x.IsDownloaded == false)
                             .Select(x => "Title: " + x.Title + ", Artist: " + x.Artist)
                         ));
             }
         }
-        private static void DetermineTracksToDownload(string directoryPath, ref IList<Track> allSongs)
+        private static void NewTracksToDownload(IList<Track> allSongs, List<Track> tracksToDownload)
         {
-            var manifestPath = ManifestUtils.DetermineManifestPath(directoryPath);
-            IList<string> streamUrls = new List<string>();
-            IList<string> songsDownloaded = new List<string>();
+            var manifestPath = ManifestUtils.DetermineManifestPath();
+            List<Track> manifest = new List<Track>();
             if (File.Exists(manifestPath))
             {
-                songsDownloaded = File.ReadAllLines(manifestPath);
-                foreach (var track in File.ReadAllLines(manifestPath))
-                {
-                    streamUrls.Add(ManifestUtils.ParseTrackPath(track, 0));
-                }
+                manifest = ManifestUtils.LoadManifestFromFile();
+                //all who's id is not in the manifest  
+                tracksToDownload.AddRange(allSongs.Where(c => manifest.All(d => c.id != d.id)).ToList());
             }
-            foreach (var track in allSongs)
+            else
             {
-                if (!streamUrls.Contains(track.EffectiveDownloadUrl))
-                    track.HasToBeDownloaded = true;
-                else if (songsDownloaded.Count > 0)
-                {
-                    // we need to add the extention to the local path for further use
-                    // the only way we can know what the extention was when previously downloaded 
-                    // is by checking the file directly, or by checking the manifest file, 
-                    // we will do the latter
-                    track.LocalPath += PlaylistUtils.GetExtension(songsDownloaded, track.LocalPath);
-                }
+                tracksToDownload.AddRange(allSongs);
             }
         }
        
-        private static void DeleteOrAddRemovedTrack(string directoryPath, IList<Track> allTracks)
+        private static void AnalyseManifestTracks(IList<Track> allTracks, List<Track> tracksToDownload)
         {
-            var manifestPath = ManifestUtils.DetermineManifestPath(directoryPath);
+            var manifestPath = ManifestUtils.DetermineManifestPath();
             try
             {
-                if (File.Exists(manifestPath))
+                if (!File.Exists(manifestPath)) return;
+                List<Track> manifest = ManifestUtils.LoadManifestFromFile();
+                for (int index = 0; index < manifest.Count; index++)
                 {
-                    var songsDownloaded = File.ReadAllLines(manifestPath);
-                    IList<string> newManifest = new List<string>();
-
-                    foreach (var songDownloaded in songsDownloaded)
+                    manifest[index].LocalPath = Path.Combine(FilesystemUtils.Directory.FullName, manifest[index].LocalPathRelative);
+                    var compareTrack = allTracks.FirstOrDefault(i => i.id == manifest[index].id);
+                    if (compareTrack == null)
                     {
-                        var localTrackpath = ManifestUtils.ParseTrackPath(songDownloaded, 1);
-                        var localPathDownloadedSongRelative = directoryPath + localTrackpath.Replace(directoryPath, "");
-                        var songId =
-                            new string(
-                                ManifestUtils.ParseTrackPath(songDownloaded, 0)
-                                    .ToCharArray()
-                                    .Where(char.IsDigit)
-                                    .ToArray());
-                        var neutralPath = Path.ChangeExtension(localPathDownloadedSongRelative, null);
-                        Track soundCloudTrack = null;
-                        soundCloudTrack = allTracks.FirstOrDefault(song => song.stream_url.Contains("/" + songId + "/"));
-
-                        var trackArtistOrNameChanged = false;
-                        //WARNING      If we want to look if allTracks contains the downloaded file we need to trim the extention
-                        //              because allTracks doesn't store the extention of the path                            
-                        trackArtistOrNameChanged = !allTracks.Any(song => song.LocalPath.Contains(neutralPath));
-
-                        //file does not exist anymore, it will be redownloaded by not adding it to the newManifest
-                        if (!File.Exists(localPathDownloadedSongRelative))
-                        {
-                            continue;
-                        }                       
-                        //song is changed on SoundCloud (only checks artist and filename), redownload and remove old one.
-                        if (trackArtistOrNameChanged && soundCloudTrack != null)
-                        {
-                            var localIsHd = ManifestUtils.ParseTrackPath(songDownloaded, 0).EndsWith("download");
-                            if (soundCloudTrack.IsHD || (soundCloudTrack.IsHD == false && localIsHd == false))
-                            // do not download Low Quality if HQ is already downloaded, even if the track is changed!
-                            {
-                                if (File.Exists(localPathDownloadedSongRelative))
-                                {
-                                    File.Delete(localPathDownloadedSongRelative);
-                                    DeleteEmptyDirectory(localPathDownloadedSongRelative);
-                                }
-                                continue;
-                            }
-                        }
-                        //file exists locally but not externally and can be removed
-                        if (Form1.SyncMethod == 2 && soundCloudTrack == null)
-                        {
-                            File.Delete(localPathDownloadedSongRelative);
-                            DeleteEmptyDirectory(localPathDownloadedSongRelative);
-                        }
-                        else
-                        {
-                            newManifest.Add(songDownloaded);
-                        }
+                        if (SoundcloudSyncMainForm.SyncMethod == 1) return;
+                        manifest.Remove(manifest[index]);
+                        DeleteFile(manifest[index].LocalPath);
+                        continue;
                     }
-                    // the manifest is updated again later, but might as well update it here
-                    // to save the deletions in event of crash or abort
-                    File.WriteAllLines(manifestPath, newManifest);
+                    if (!File.Exists(manifest[index].LocalPath))
+                    {
+                        manifest.Remove(manifest[index]);
+                        tracksToDownload.Add(compareTrack);
+                        continue;
+                    }
+                    //If the duration is shorter than before; suspect a change from full song to sample song
+                    if (manifest[index].duration > compareTrack.duration) continue;
+
+                    if (compareTrack.IsHD && !manifest[index].IsHD) //track changed to HD
+                    {
+                        manifest.Remove(manifest[index]);
+                        DeleteFile(manifest[index].LocalPath);
+                        tracksToDownload.Add(compareTrack);
+                        continue;
+                    }
+                    IEqualityComparer<SoundcloudBaseTrack> comparer = new CompareUtils();                
+                    if (!comparer.Equals(manifest[index], compareTrack))
+                    {
+                        var OldPath = manifest[index].LocalPath;
+                        ManifestUtils.ReplaceJsonManifestObject(ref manifest, compareTrack, manifest[index], index);
+                        Directory.CreateDirectory(Path.GetDirectoryName(manifest[index].LocalPath));
+                        File.Move(OldPath, manifest[index].LocalPath);
+                        DeleteEmptyDirectory(OldPath);
+                        MetadataTaggingUtils.TagIt(manifest[index]);
+                        continue;
+                    }            
                 }
+                ManifestUtils.WriteManifestToFile(manifest);             
             }
             catch (Exception e)
             {
-                PlaylistSync.IsError = true;
+                SoundcloudSync.IsError = true;
                 throw new Exception("Unable to read manifest to determine tracks to delete; exception: " + e);
             }
         }
-
+        private static void DeleteFile(string fullPathSong)
+        {
+            if (!File.Exists(fullPathSong)) return;
+            File.Delete(fullPathSong);
+            DeleteEmptyDirectory(fullPathSong);
+        }        
         private static bool DeleteEmptyDirectory(string filenameWithPath)
         {
-            if (!Form1.FoldersPerArtist)
-                return false;
+            if (!SoundcloudSyncMainForm.FoldersPerArtist) return false;
             var path = Path.GetDirectoryName(filenameWithPath);
-            if (path != null && !Directory.EnumerateFileSystemEntries(path).Any()) //folder = empty
+            if (path == null || Directory.EnumerateFileSystemEntries(path).Any()) return false;
+            try
             {
-                try
-                {
-                    Directory.Delete(path, false); //recursive not true because should be already empty
-                    return true;
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                Directory.Delete(path, false); //recursive not true because should be already empty
+                return true;
             }
-            return false;
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

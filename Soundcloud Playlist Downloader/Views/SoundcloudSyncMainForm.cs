@@ -8,21 +8,19 @@ using Microsoft.WindowsAPICodePack.Taskbar;
 using Soundcloud_Playlist_Downloader.Properties;
 using Soundcloud_Playlist_Downloader.Utils;
 
-namespace Soundcloud_Playlist_Downloader
+namespace Soundcloud_Playlist_Downloader.Views
 {
-    public partial class Form1 : Form
+    public partial class SoundcloudSyncMainForm : Form
     {
         public static bool Highqualitysong;
         public static bool ConvertToMp3;
         public static bool IncludeArtistInFilename;
         public static int SyncMethod = 1;
-        private static EnumUtil.DownloadMode dlMode;
-
+        private static EnumUtil.DownloadMode _dlMode;
         public static bool FoldersPerArtist;
         public static bool ReplaceIllegalCharacters;
-        public static bool excludeM4A;
-        public static bool excludeAAC;
-        public static string ManifestName = "";
+        public static bool ExcludeM4A;
+        public static bool ExcludeAac;
         private readonly string AbortActionText = "Abort";
         private readonly BoxAbout _aboutWindow = new BoxAbout();
         private bool _completed;
@@ -35,13 +33,13 @@ namespace Soundcloud_Playlist_Downloader
         private readonly PerformSyncComplete _performSyncCompleteImplementation;
         private readonly ProgressBarUpdate _progressBarUpdateImplementation;
 
-        private readonly PlaylistSync _sync;
+        private readonly SoundcloudSync _sync;
 
-        public Form1()
+        public SoundcloudSyncMainForm()
         {
             InitializeComponent();         
             Text = $"SoundCloud Playlist Sync {Version()} Stable";
-            _sync = new PlaylistSync();
+            _sync = new SoundcloudSync();
             _performSyncCompleteImplementation = SyncCompleteButton;
             _progressBarUpdateImplementation = UpdateProgressBar;
             _performStatusUpdateImplementation = UpdateStatus;
@@ -88,11 +86,11 @@ namespace Soundcloud_Playlist_Downloader
                 {
                     status.Text = $"Synchronizing... {progressBar.Value} of {progressBar.Maximum} songs downloaded.";
                 }
-                else if (DownloadUtils.IsActive && _completed && !PlaylistSync.IsError)
+                else if (DownloadUtils.IsActive && _completed && !SoundcloudSync.IsError)
                 {
                     status.Text = @"Tracks are already synchronized";
                 }
-                else if (DownloadUtils.IsActive && _completed && PlaylistSync.IsError)
+                else if (DownloadUtils.IsActive && _completed && SoundcloudSync.IsError)
                 {
                     status.Text = @"An error prevented synchronization from starting";
                 }
@@ -103,7 +101,7 @@ namespace Soundcloud_Playlist_Downloader
                 else if (DownloadUtils.IsActive)
                 {
                     var plural = "";
-                    if (dlMode != EnumUtil.DownloadMode.Track)
+                    if (_dlMode != EnumUtil.DownloadMode.Track)
                         plural = "s";              
                     status.Text = $"Fetching track{plural} to download...";
                 }
@@ -164,7 +162,7 @@ namespace Soundcloud_Playlist_Downloader
 
         private void syncButton_Click(object sender, EventArgs e)
         {
-            dlMode = playlistRadio.Checked
+            _dlMode = playlistRadio.Checked
                 ? EnumUtil.DownloadMode.Playlist
                 : favoritesRadio.Checked ? EnumUtil.DownloadMode.Favorites
                     : artistRadio.Checked ? EnumUtil.DownloadMode.Artist : EnumUtil.DownloadMode.Track;
@@ -187,38 +185,38 @@ namespace Soundcloud_Playlist_Downloader
                 SyncMethod = rbttn_oneWay.Checked ? 1 : 2;
                 FoldersPerArtist = chk_folderByArtist.Checked;
                 ReplaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
-                excludeAAC = chk_excl_m4a.Checked;
-                excludeM4A = chk_excl_m4a.Checked;
-
-                var uri = new Uri(url.Text);
-                if(dlMode != EnumUtil.DownloadMode.Track)
+                ExcludeAac = chk_excl_m4a.Checked;
+                ExcludeM4A = chk_excl_m4a.Checked;
+                FilesystemUtils.Directory = new DirectoryInfo(directoryPath.Text);
+                Uri uri;
+                bool differentmanifest;
+                try
                 {
-                    var uriWithoutScheme = uri.Host + uri.PathAndQuery;
-                    var validManifestFilename = FilesystemUtils.CoerceValidFileName(uriWithoutScheme, false);
-                    ManifestName = ManifestUtils.MakeManifestString(validManifestFilename, FoldersPerArtist,
-                        IncludeArtistInFilename, dlMode, SyncMethod);                 
+                    uri = new Uri(url.Text);
+                }
+                catch (Exception)
+                {
+                    status.Text = @"Invalid URL";
+                    _completed = true;
+                    InvokeSyncComplete();
+                    return;
+                }
+                ManifestUtils.ManifestName = ManifestUtils.MakeManifestString(
+                    FilesystemUtils.CoerceValidFileName(uri.Host + uri.PathAndQuery, false), FoldersPerArtist,
+                    IncludeArtistInFilename, _dlMode, SyncMethod);
 
-                    if (Directory.Exists(directoryPath.Text))
+                if (_dlMode != EnumUtil.DownloadMode.Track)
+                {
+                    if (!ManifestUtils.FindManifestAndBackup(ManifestUtils.ManifestName, out differentmanifest))
                     {
-                        var files = Directory.GetFiles(directoryPath.Text, ".MNFST=*", SearchOption.TopDirectoryOnly);
-                        if ((files.Length > 0) || File.Exists(Path.Combine(directoryPath.Text, "manifest")))
+                        if (differentmanifest)
                         {
-                            if (!File.Exists(Path.Combine(directoryPath.Text, ManifestName)) ||
-                                File.Exists(Path.Combine(directoryPath.Text, "manifest"))) //old manifest format
-                            {
-                                //different or old manifest found, quitting
-                                status.Text = @"Old or different manifest found, please change settings or local directoy.";
-
-                                _completed = true;
-                                InvokeSyncComplete();
-                                return;
-                            }
-                            if (File.Exists(Path.Combine(directoryPath.Text, ManifestName)))
-                            {
-                                ManifestUtils.BackupManifest(directoryPath.Text, ManifestName);                             
-                            }
+                            status.Text = @"Change settings or directoy.";
+                            _completed = true;
+                            InvokeSyncComplete();
+                            return;
                         }
-                    }
+                    }               
                 }
                 new Thread(() =>
                 {
@@ -239,12 +237,11 @@ namespace Soundcloud_Playlist_Downloader
                 {
                     try
                     {
-                        _sync.Synchronize(url.Text, dlMode, directoryPath.Text, DownloadUtils.ClientId
-                            );
+                        _sync.Synchronize(url.Text, _dlMode);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, @"Error");
+                        MessageBox.Show($"{ex.Message} \r\nInnerException(s): { ExceptionHandlerUtils.GetExceptionMessages(ex)}", @"Error");
                     }
                     finally
                     {

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
+using Soundcloud_Playlist_Downloader.JsonObjects;
 using TagLib;
 using File = TagLib.File;
 using Tag = TagLib.Id3v2.Tag;
@@ -11,8 +12,8 @@ using Tag = TagLib.Id3v2.Tag;
 namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class MetadataTaggingUtils
-    {
-        public static void TagIt(ref Track song)
+    {      
+        public static void TagIt(Track song)
         {
             // metadata tagging
             File tagFile = null;
@@ -37,8 +38,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 //tag all other metadata fields
                 tagFile.Tag.Title = song.Title;
                 tagFile.Tag.Year = Convert.ToUInt32(creationDate.Year);
-
-                var listGenreAndTags = new List<string>();
 
                 if (!string.IsNullOrEmpty(song.Username))
                 {
@@ -68,50 +67,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
                 if (!string.IsNullOrEmpty(song.genre))
                 {
-                    listGenreAndTags.Add(song.genre);
-                    tagFile.Tag.Genres = listGenreAndTags.ToArray();
+                    tagFile.Tag.Genres = new []{song.genre};
                 }
                 if (!string.IsNullOrEmpty(song.tag_list))
                 {
-                    //NOTE      Tags behave very similar as genres in SoundCloud, 
-                    //          so tags will be added to the genre part of the metadata
-                    //WARNING   Tags are seperated by \" when a single tag includes a whitespace! (for instance: New Wave)
-                    //          Single worded tags are seperated by a single whitespace, this has led me to make
-                    //          this code longer than I initially thought it would be (could perhaps made easier)
-                    //FEATURES  Rare occasions, where the artist uses tags that include the seperation tags SoundCloud uses;
-                    //          like \" or \"Hip-Hop\", are handled, but NOT necessary, because the quote (") is an illegal sign to use in tags
-
-                    var tag = "";
-                    var partOfLongertag = false;
-
-                    foreach (var word in song.tag_list.Split(' '))
-                    {
-                        if (word.EndsWith("\""))
-                        {
-                            tag += " " + word.Substring(0, word.Length - 1);
-                            partOfLongertag = false;
-                            listGenreAndTags.Add(tag);
-                            tag = "";
-                        }
-                        else if (word.StartsWith("\""))
-                        {
-                            partOfLongertag = true;
-                            tag += word.Substring(1, word.Length - 1);
-                        }
-                        else if (partOfLongertag)
-                        {
-                            tag += " " + word;
-                        }
-                        else
-                        {
-                            tag = word;
-                            listGenreAndTags.Add(tag);
-                            tag = "";
-                        }
-                    }
-                    tagFile.Tag.Genres = listGenreAndTags.ToArray();
+                    tagFile.Tag.Genres = BuildTagList(song).ToArray();
                 }
-
                 if (!string.IsNullOrEmpty(song.description))
                 {
                     tagFile.Tag.Comment = song.description;
@@ -128,10 +89,56 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 tagFile.Dispose();
             }
 
-            //Sets file creation time to creation time that matches with Soundcloud track
+            // Sets file creation time to creation time that matches with Soundcloud track
             System.IO.File.SetCreationTime(song.LocalPath, creationDate);
-            System.IO.File.SetLastWriteTime(song.LocalPath, creationDate);
-                //set last write time to original file creation date
+            // Set last write time to original file creation date
+            System.IO.File.SetLastWriteTime(song.LocalPath, creationDate);         
+        }
+
+        private static List<string> BuildTagList(Track song)
+        {
+            var listTags = new List<string>();
+            if (!string.IsNullOrEmpty(song.genre))
+            {
+                listTags.Add(song.genre);
+            }
+            //NOTE      Tags behave very similar as genres in SoundCloud, 
+            //          so tags will be added to the genre part of the metadata
+            //WARNING   Tags are seperated by \" when a single tag includes a whitespace! (for instance: New Wave)
+            //          Single worded tags are seperated by a single whitespace, this has led me to make
+            //          this code longer than I initially thought it would be (could perhaps made easier)
+            //FEATURES  Rare occasions, where the artist uses tags that include the seperation tags SoundCloud uses;
+            //          like \" or \"Hip-Hop\", are handled, but NOT necessary, because the quote (") is an illegal sign to use in tags
+
+            var tag = "";
+            var partOfLongertag = false;
+
+            foreach (var word in song.tag_list.Split(' '))
+            {
+                if (word.EndsWith("\""))
+                {
+                    tag += " " + word.Substring(0, word.Length - 1);
+                    partOfLongertag = false;
+                    listTags.Add(tag);
+                    tag = "";
+                }
+                else if (word.StartsWith("\""))
+                {
+                    partOfLongertag = true;
+                    tag += word.Substring(1, word.Length - 1);
+                }
+                else if (partOfLongertag)
+                {
+                    tag += " " + word;
+                }
+                else
+                {
+                    tag = word;
+                    listTags.Add(tag);
+                    tag = "";
+                }
+            }
+            return listTags;
         }
 
         public static void GetAvatarImg(ref File tagFile, ref Track song)
@@ -152,9 +159,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     tagFile.Tag.Pictures = new IPicture[] {artwork};
                     break;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Debug.WriteLine(e);
+                    // ignored
                 }
                 Thread.Sleep(50); // Pause 50ms before new attempt
             }

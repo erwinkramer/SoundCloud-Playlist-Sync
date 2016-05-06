@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Soundcloud_Playlist_Downloader.Views;
 
 namespace Soundcloud_Playlist_Downloader
 {
@@ -13,7 +14,7 @@ namespace Soundcloud_Playlist_Downloader
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new SoundcloudSyncMainForm());
         }
     }
 }
