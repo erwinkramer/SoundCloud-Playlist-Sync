@@ -62,9 +62,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.url = new System.Windows.Forms.TextBox();
             this.gbox_advanced = new System.Windows.Forms.GroupBox();
             this.concurrency = new System.Windows.Forms.Label();
-            this.dudConcurrency = new System.Windows.Forms.DomainUpDown();
             this.gbox_localdir = new System.Windows.Forms.GroupBox();
             this.directoryPath = new System.Windows.Forms.TextBox();
+            this.nudConcurrency = new System.Windows.Forms.NumericUpDown();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnl_convert.SuspendLayout();
@@ -73,6 +73,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_url.SuspendLayout();
             this.gbox_advanced.SuspendLayout();
             this.gbox_localdir.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudConcurrency)).BeginInit();
             this.SuspendLayout();
             // 
             // syncButton
@@ -360,8 +361,8 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             // gbox_advanced
             // 
+            this.gbox_advanced.Controls.Add(this.nudConcurrency);
             this.gbox_advanced.Controls.Add(this.concurrency);
-            this.gbox_advanced.Controls.Add(this.dudConcurrency);
             this.gbox_advanced.Controls.Add(this.chk_highquality);
             this.gbox_advanced.Controls.Add(this.chk_folderByArtist);
             this.gbox_advanced.Controls.Add(this.chk_includeArtistinFilename);
@@ -383,30 +384,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.concurrency.TabIndex = 29;
             this.concurrency.Text = "Amount of concurrency";
             // 
-            // dudConcurrency
-            // 
-            this.dudConcurrency.Items.Add("0");
-            this.dudConcurrency.Items.Add("1");
-            this.dudConcurrency.Items.Add("2");
-            this.dudConcurrency.Items.Add("3");
-            this.dudConcurrency.Items.Add("4");
-            this.dudConcurrency.Items.Add("5");
-            this.dudConcurrency.Items.Add("6");
-            this.dudConcurrency.Items.Add("7");
-            this.dudConcurrency.Items.Add("8");
-            this.dudConcurrency.Items.Add("9");
-            this.dudConcurrency.Items.Add("10");
-            this.dudConcurrency.Items.Add("11");
-            this.dudConcurrency.Items.Add("12");
-            this.dudConcurrency.Items.Add("13");
-            this.dudConcurrency.Items.Add("14");
-            this.dudConcurrency.Items.Add("15");
-            this.dudConcurrency.Location = new System.Drawing.Point(129, 116);
-            this.dudConcurrency.Name = "dudConcurrency";
-            this.dudConcurrency.ReadOnly = true;
-            this.dudConcurrency.Size = new System.Drawing.Size(45, 20);
-            this.dudConcurrency.TabIndex = 28;
-            // 
             // gbox_localdir
             // 
             this.gbox_localdir.Controls.Add(this.directoryPath);
@@ -424,6 +401,29 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.directoryPath.Name = "directoryPath";
             this.directoryPath.Size = new System.Drawing.Size(315, 20);
             this.directoryPath.TabIndex = 5;
+            // 
+            // nudConcurrency
+            // 
+            this.nudConcurrency.Location = new System.Drawing.Point(129, 116);
+            this.nudConcurrency.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nudConcurrency.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudConcurrency.Name = "nudConcurrency";
+            this.nudConcurrency.ReadOnly = true;
+            this.nudConcurrency.Size = new System.Drawing.Size(45, 20);
+            this.nudConcurrency.TabIndex = 30;
+            this.nudConcurrency.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // SoundcloudSyncMainForm
             // 
@@ -461,6 +461,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_advanced.PerformLayout();
             this.gbox_localdir.ResumeLayout(false);
             this.gbox_localdir.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudConcurrency)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -500,7 +501,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private System.Windows.Forms.RadioButton trackRadio;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
         private System.Windows.Forms.Label concurrency;
-        private System.Windows.Forms.DomainUpDown dudConcurrency;
+        private System.Windows.Forms.NumericUpDown nudConcurrency;
     }
 }
 

@@ -164,7 +164,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             Settings.Default.LocalPath = directoryPath.Text;
             Settings.Default.PlaylistUrl = url.Text;
-            Settings.Default.ConcurrentDownloads = dudConcurrency.SelectedIndex;
+            Settings.Default.ConcurrentDownloads = (int) nudConcurrency.Value;
             Settings.Default.favoritesRadio = favoritesRadio.Checked;
             Settings.Default.PlaylistRadio = playlistRadio.Checked;
             Settings.Default.artistRadio = artistRadio.Checked;
@@ -307,7 +307,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             url.Text = Settings.Default.PlaylistUrl;
             directoryPath.Text = Settings.Default.LocalPath;
-            dudConcurrency.SelectedIndex = Settings.Default.ConcurrentDownloads;
+            nudConcurrency.Value = Settings.Default.ConcurrentDownloads;
             favoritesRadio.Checked = Settings.Default.favoritesRadio;
             playlistRadio.Checked = Settings.Default.PlaylistRadio;
             artistRadio.Checked = Settings.Default.artistRadio;
