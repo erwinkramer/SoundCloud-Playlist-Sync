@@ -38,18 +38,6 @@ namespace Soundcloud_Playlist_Downloader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ApiKey {
-            get {
-                return ((string)(this["ApiKey"]));
-            }
-            set {
-                this["ApiKey"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string LocalPath {
             get {
                 return ((string)(this["LocalPath"]));
@@ -61,37 +49,169 @@ namespace Soundcloud_Playlist_Downloader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool playlistUrlChecked {
-            get {
-                return ((bool)(this["playlistUrlChecked"]));
-            }
-            set {
-                this["playlistUrlChecked"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool ProfileUrlChecked {
-            get {
-                return ((bool)(this["ProfileUrlChecked"]));
-            }
-            set {
-                this["ProfileUrlChecked"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public int ConcurrentDownloads {
             get {
                 return ((int)(this["ConcurrentDownloads"]));
             }
             set {
                 this["ConcurrentDownloads"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool favoritesRadio {
+            get {
+                return ((bool)(this["favoritesRadio"]));
+            }
+            set {
+                this["favoritesRadio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool rbttn_oneWay {
+            get {
+                return ((bool)(this["rbttn_oneWay"]));
+            }
+            set {
+                this["rbttn_oneWay"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chk_highquality {
+            get {
+                return ((bool)(this["chk_highquality"]));
+            }
+            set {
+                this["chk_highquality"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chk_folderByArtist {
+            get {
+                return ((bool)(this["chk_folderByArtist"]));
+            }
+            set {
+                this["chk_folderByArtist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chk_includeArtistinFilename {
+            get {
+                return ((bool)(this["chk_includeArtistinFilename"]));
+            }
+            set {
+                this["chk_includeArtistinFilename"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chk_replaceIllegalCharacters {
+            get {
+                return ((bool)(this["chk_replaceIllegalCharacters"]));
+            }
+            set {
+                this["chk_replaceIllegalCharacters"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chk_convertToMp3 {
+            get {
+                return ((bool)(this["chk_convertToMp3"]));
+            }
+            set {
+                this["chk_convertToMp3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool chk_excl_m4a {
+            get {
+                return ((bool)(this["chk_excl_m4a"]));
+            }
+            set {
+                this["chk_excl_m4a"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool chk_exl_aac {
+            get {
+                return ((bool)(this["chk_exl_aac"]));
+            }
+            set {
+                this["chk_exl_aac"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool artistRadio {
+            get {
+                return ((bool)(this["artistRadio"]));
+            }
+            set {
+                this["artistRadio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PlaylistRadio {
+            get {
+                return ((bool)(this["PlaylistRadio"]));
+            }
+            set {
+                this["PlaylistRadio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool trackRadio {
+            get {
+                return ((bool)(this["trackRadio"]));
+            }
+            set {
+                this["trackRadio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool rbttn_twoWay {
+            get {
+                return ((bool)(this["rbttn_twoWay"]));
+            }
+            set {
+                this["rbttn_twoWay"] = value;
             }
         }
     }

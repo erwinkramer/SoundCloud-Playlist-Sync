@@ -162,6 +162,24 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void syncButton_Click(object sender, EventArgs e)
         {
+            Settings.Default.LocalPath = directoryPath.Text;
+            Settings.Default.PlaylistUrl = url.Text;
+            Settings.Default.ConcurrentDownloads = dudConcurrency.SelectedIndex;
+            Settings.Default.favoritesRadio = favoritesRadio.Checked;
+            Settings.Default.PlaylistRadio = playlistRadio.Checked;
+            Settings.Default.artistRadio = artistRadio.Checked;
+            Settings.Default.trackRadio = trackRadio.Checked;
+            Settings.Default.chk_convertToMp3 = chk_convertToMp3.Checked;
+            Settings.Default.chk_excl_m4a = chk_excl_m4a.Checked;
+            Settings.Default.chk_exl_aac = chk_exl_aac.Checked;
+            Settings.Default.chk_folderByArtist = chk_folderByArtist.Checked;
+            Settings.Default.chk_highquality = chk_highquality.Checked;
+            Settings.Default.chk_includeArtistinFilename = chk_includeArtistinFilename.Checked;
+            Settings.Default.chk_replaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
+            Settings.Default.rbttn_oneWay = rbttn_oneWay.Checked;
+            Settings.Default.rbttn_twoWay = rbttn_twoWay.Checked;
+            Settings.Default.Save();
+
             _dlMode = playlistRadio.Checked
                 ? EnumUtil.DownloadMode.Playlist
                 : favoritesRadio.Checked ? EnumUtil.DownloadMode.Favorites
@@ -270,15 +288,11 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         [SilentFailure]
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Settings.Default.PlaylistUrl = url.Text;
-            Settings.Default.LocalPath = directoryPath.Text;
-            Settings.Default.Save();
+        {          
             _exiting = true;
             DownloadUtils.IsActive = false;
             status.Text = @"Preparing for exit... Please Wait.";
             syncButton.Enabled = false;
-
             if (syncButton.Text != DefaultActionText)
             {
                 e.Cancel = true;
@@ -293,6 +307,20 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             url.Text = Settings.Default.PlaylistUrl;
             directoryPath.Text = Settings.Default.LocalPath;
+            dudConcurrency.SelectedIndex = Settings.Default.ConcurrentDownloads;
+            favoritesRadio.Checked = Settings.Default.favoritesRadio;
+            playlistRadio.Checked = Settings.Default.PlaylistRadio;
+            artistRadio.Checked = Settings.Default.artistRadio;
+            trackRadio.Checked = Settings.Default.trackRadio;
+            chk_convertToMp3.Checked = Settings.Default.chk_convertToMp3;
+            chk_excl_m4a.Checked = Settings.Default.chk_excl_m4a;
+            chk_exl_aac.Checked = Settings.Default.chk_exl_aac;
+            chk_folderByArtist.Checked = Settings.Default.chk_folderByArtist;
+            chk_highquality.Checked = Settings.Default.chk_highquality;
+            chk_includeArtistinFilename.Checked = Settings.Default.chk_includeArtistinFilename;
+            chk_replaceIllegalCharacters.Checked = Settings.Default.chk_replaceIllegalCharacters;
+            rbttn_oneWay.Checked = Settings.Default.rbttn_oneWay;
+            rbttn_twoWay.Checked = Settings.Default.rbttn_twoWay;
         }
 
         private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)

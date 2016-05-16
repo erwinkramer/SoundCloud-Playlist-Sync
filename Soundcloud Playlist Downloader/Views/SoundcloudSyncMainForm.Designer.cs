@@ -1,4 +1,6 @@
-﻿namespace Soundcloud_Playlist_Downloader.Views
+﻿using Soundcloud_Playlist_Downloader.Properties;
+
+namespace Soundcloud_Playlist_Downloader.Views
 {
     partial class SoundcloudSyncMainForm
     {
@@ -29,7 +31,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Soundcloud_Playlist_Downloader.Properties.Settings settings1 = new Soundcloud_Playlist_Downloader.Properties.Settings();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoundcloudSyncMainForm));
             this.syncButton = new System.Windows.Forms.Button();
             this.browseButton = new System.Windows.Forms.Button();
@@ -42,6 +43,7 @@
             this.chk_folderByArtist = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chk_highquality = new System.Windows.Forms.CheckBox();
             this.tt_qualityExplanation = new System.Windows.Forms.ToolTip(this.components);
             this.chk_convertToMp3 = new System.Windows.Forms.CheckBox();
@@ -59,9 +61,10 @@
             this.gbox_url = new System.Windows.Forms.GroupBox();
             this.url = new System.Windows.Forms.TextBox();
             this.gbox_advanced = new System.Windows.Forms.GroupBox();
+            this.concurrency = new System.Windows.Forms.Label();
+            this.dudConcurrency = new System.Windows.Forms.DomainUpDown();
             this.gbox_localdir = new System.Windows.Forms.GroupBox();
             this.directoryPath = new System.Windows.Forms.TextBox();
-            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnl_convert.SuspendLayout();
@@ -74,7 +77,7 @@
             // 
             // syncButton
             // 
-            this.syncButton.Location = new System.Drawing.Point(12, 452);
+            this.syncButton.Location = new System.Drawing.Point(12, 483);
             this.syncButton.Name = "syncButton";
             this.syncButton.Size = new System.Drawing.Size(397, 23);
             this.syncButton.TabIndex = 4;
@@ -96,9 +99,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.status});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 495);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 525);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(416, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(417, 22);
             this.statusStrip1.TabIndex = 9;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -109,7 +112,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(12, 481);
+            this.progressBar.Location = new System.Drawing.Point(12, 512);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(397, 10);
             this.progressBar.TabIndex = 10;
@@ -166,7 +169,7 @@
             this.updateToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(416, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(417, 24);
             this.menuStrip1.TabIndex = 16;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -176,6 +179,13 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click_1);
+            // 
+            // updateToolStripMenuItem
+            // 
+            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.updateToolStripMenuItem.Text = "Update";
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // chk_highquality
             // 
@@ -343,22 +353,15 @@
             // 
             // url
             // 
-            settings1.ApiKey = "";
-            settings1.ConcurrentDownloads = 3;
-            settings1.LocalPath = "";
-            settings1.PlaylistUrl = "";
-            settings1.playlistUrlChecked = true;
-            settings1.ProfileUrlChecked = false;
-            settings1.SettingsKey = "";
-            this.url.DataBindings.Add(new System.Windows.Forms.Binding("Text", settings1, "PlaylistUrl", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.url.Location = new System.Drawing.Point(6, 19);
             this.url.Name = "url";
-            this.url.Size = new System.Drawing.Size(383, 20);
-            this.url.TabIndex = 1;
-            this.url.Text = settings1.PlaylistUrl;
+            this.url.Size = new System.Drawing.Size(376, 20);
+            this.url.TabIndex = 0;
             // 
             // gbox_advanced
             // 
+            this.gbox_advanced.Controls.Add(this.concurrency);
+            this.gbox_advanced.Controls.Add(this.dudConcurrency);
             this.gbox_advanced.Controls.Add(this.chk_highquality);
             this.gbox_advanced.Controls.Add(this.chk_folderByArtist);
             this.gbox_advanced.Controls.Add(this.chk_includeArtistinFilename);
@@ -366,16 +369,49 @@
             this.gbox_advanced.Controls.Add(this.pnl_convert);
             this.gbox_advanced.Location = new System.Drawing.Point(12, 271);
             this.gbox_advanced.Name = "gbox_advanced";
-            this.gbox_advanced.Size = new System.Drawing.Size(397, 118);
+            this.gbox_advanced.Size = new System.Drawing.Size(397, 149);
             this.gbox_advanced.TabIndex = 33;
             this.gbox_advanced.TabStop = false;
             this.gbox_advanced.Text = "Advanced Options";
+            // 
+            // concurrency
+            // 
+            this.concurrency.AutoSize = true;
+            this.concurrency.Location = new System.Drawing.Point(6, 118);
+            this.concurrency.Name = "concurrency";
+            this.concurrency.Size = new System.Drawing.Size(117, 13);
+            this.concurrency.TabIndex = 29;
+            this.concurrency.Text = "Amount of concurrency";
+            // 
+            // dudConcurrency
+            // 
+            this.dudConcurrency.Items.Add("0");
+            this.dudConcurrency.Items.Add("1");
+            this.dudConcurrency.Items.Add("2");
+            this.dudConcurrency.Items.Add("3");
+            this.dudConcurrency.Items.Add("4");
+            this.dudConcurrency.Items.Add("5");
+            this.dudConcurrency.Items.Add("6");
+            this.dudConcurrency.Items.Add("7");
+            this.dudConcurrency.Items.Add("8");
+            this.dudConcurrency.Items.Add("9");
+            this.dudConcurrency.Items.Add("10");
+            this.dudConcurrency.Items.Add("11");
+            this.dudConcurrency.Items.Add("12");
+            this.dudConcurrency.Items.Add("13");
+            this.dudConcurrency.Items.Add("14");
+            this.dudConcurrency.Items.Add("15");
+            this.dudConcurrency.Location = new System.Drawing.Point(129, 116);
+            this.dudConcurrency.Name = "dudConcurrency";
+            this.dudConcurrency.ReadOnly = true;
+            this.dudConcurrency.Size = new System.Drawing.Size(45, 20);
+            this.dudConcurrency.TabIndex = 28;
             // 
             // gbox_localdir
             // 
             this.gbox_localdir.Controls.Add(this.directoryPath);
             this.gbox_localdir.Controls.Add(this.browseButton);
-            this.gbox_localdir.Location = new System.Drawing.Point(12, 395);
+            this.gbox_localdir.Location = new System.Drawing.Point(12, 426);
             this.gbox_localdir.Name = "gbox_localdir";
             this.gbox_localdir.Size = new System.Drawing.Size(397, 51);
             this.gbox_localdir.TabIndex = 34;
@@ -384,25 +420,16 @@
             // 
             // directoryPath
             // 
-            this.directoryPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", settings1, "LocalPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.directoryPath.Location = new System.Drawing.Point(6, 19);
             this.directoryPath.Name = "directoryPath";
             this.directoryPath.Size = new System.Drawing.Size(315, 20);
             this.directoryPath.TabIndex = 5;
-            this.directoryPath.Text = settings1.LocalPath;
-            // 
-            // updateToolStripMenuItem
-            // 
-            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.updateToolStripMenuItem.Text = "Update";
-            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // SoundcloudSyncMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(416, 517);
+            this.ClientSize = new System.Drawing.Size(417, 547);
             this.Controls.Add(this.gbox_localdir);
             this.Controls.Add(this.gbox_advanced);
             this.Controls.Add(this.gbox_url);
@@ -472,6 +499,8 @@
         private System.Windows.Forms.GroupBox gbox_localdir;
         private System.Windows.Forms.RadioButton trackRadio;
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
+        private System.Windows.Forms.Label concurrency;
+        private System.Windows.Forms.DomainUpDown dudConcurrency;
     }
 }
 

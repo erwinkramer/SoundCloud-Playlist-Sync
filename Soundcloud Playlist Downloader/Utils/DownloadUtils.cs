@@ -28,10 +28,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
             if (SongsToDownload == 0) return;
             var exceptions = new ConcurrentQueue<Exception>();
             CancellationTokenSource cts = new CancellationTokenSource();
+            if (Settings.Default.ConcurrentDownloads == 0)
+                throw new Exception("Number for concurrent downloads must be at least 1");
             ParallelOptions po = new ParallelOptions
             {
                 CancellationToken = cts.Token,
-                MaxDegreeOfParallelism = Settings.Default.ConcurrentDownloads
+                MaxDegreeOfParallelism = Settings.Default.ConcurrentDownloads 
             };
             try
             {
