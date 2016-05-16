@@ -73,6 +73,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("No update available");
+            }
         }
     }
 }
