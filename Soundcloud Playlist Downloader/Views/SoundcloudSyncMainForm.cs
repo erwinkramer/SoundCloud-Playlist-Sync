@@ -345,6 +345,11 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private delegate void PerformSyncComplete();
 
-        private delegate void PerformStatusUpdate();   
+        private delegate void PerformStatusUpdate();
+
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateUtils.InstallUpdateSyncWithInfo();
+        }
     }
 }
