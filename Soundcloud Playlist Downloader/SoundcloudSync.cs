@@ -103,7 +103,7 @@ namespace Soundcloud_Playlist_Downloader
         {
             // hit the /username/favorites endpoint for the username in the url, then download all the tracks
             var tracks = JsonUtils.RetrieveTracksFromUrl("https://api.soundcloud.com/users/" + username + "/favorites",
-                true);
+                true, true);
             SyncUtils.Synchronize(tracks);
         } 
         internal void SynchronizeSingleTrack(Track track)
@@ -114,12 +114,12 @@ namespace Soundcloud_Playlist_Downloader
         }             
         internal void SynchronizeFromPlaylistApiUrl(string playlistApiUrl)
         {
-            var tracks = JsonUtils.RetrieveTracksFromUrl(playlistApiUrl, false);
+            var tracks = JsonUtils.RetrieveTracksFromUrl(playlistApiUrl, false, true);
             SyncUtils.Synchronize(tracks);
         }
         internal void SynchronizeFromArtistUrl(string artistUrl)
         {
-            var tracks = JsonUtils.RetrieveTracksFromUrl(artistUrl, true);
+            var tracks = JsonUtils.RetrieveTracksFromUrl(artistUrl, true, true);
             SyncUtils.Synchronize(tracks);
         }
         private void ResetProgress()

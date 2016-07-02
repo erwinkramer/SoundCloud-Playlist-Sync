@@ -9,7 +9,7 @@ using Soundcloud_Playlist_Downloader.JsonObjects;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
-    public class JsonUtils
+    public static class JsonUtils
     {
         public static string RetrieveJson(string url, int? limit = null, int? offset = null)
         {
@@ -87,17 +87,15 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return null;
         }
 
-        public static IList<Track> RetrieveTracksFromUrl(string url, bool isRawTracksUrl)
+        public static IList<Track> RetrieveTracksFromUrl(string url, bool isRawTracksUrl, bool ignoreSampleSongs)
         {
             var limit = isRawTracksUrl ? 200 : 0; //200 is the limit set by SoundCloud itself. Remember; limits are only with 'collection' types in JSON 
             IList<Track> tracks = new List<Track>();
+            var lastStep = false;
             try
             {
-                var tracksAdded = true;
                 var tracksJson = RetrieveJson(url, limit);
-                var lastStep = false;
-
-                while (tracksAdded && tracksJson != null)
+                while (tracksJson != null)
                 {
                     var JOBtracksJson = JObject.Parse(tracksJson);
                     IList<JToken> JTOKENcurrentTracks = isRawTracksUrl
@@ -111,14 +109,19 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         currentTracks.Add(currentTrack);
                     }
 
-                    if (!currentTracks.Any())
-                        tracksAdded = false;
-                    else
-                        foreach (var track in currentTracks)
+                    foreach (var track in currentTracks)
+                    {
+                        //If it's a preview song (SNIP), ignore the track and do not retrieve
+                        if (ignoreSampleSongs)
+                        {
+                            if (track.policy != "SNIP")
+                                tracks.Add(track);
+                        }
+                        else
                         {
                             tracks.Add(track);
                         }
-
+                    }
                     if (lastStep)
                         break;
 

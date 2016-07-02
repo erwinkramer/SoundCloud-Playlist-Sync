@@ -7,11 +7,11 @@ using Soundcloud_Playlist_Downloader.Views;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
-    public class SyncUtils
+    public static class SyncUtils
     {
         public static void Synchronize(IList<Track> tracks)
         {
-            List<Track> tracksToDownload = new List<Track>();
+            var tracksToDownload = new List<Track>();
 
             // define all local paths by combining the sanitzed artist (if checked by user) with the santized title
             foreach (var track in tracks)
@@ -50,6 +50,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             if (File.Exists(manifestPath))
             {
                 manifest = ManifestUtils.LoadManifestFromFile();
+
                 //all who's id is not in the manifest  
                 tracksToDownload.AddRange(allSongs.Where(c => manifest.All(d => c.id != d.id)).ToList());
             }
@@ -83,6 +84,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         tracksToDownload.Add(compareTrack);
                         continue;
                     }
+
                     //If the duration is shorter than before; suspect a change from full song to sample song
                     if (manifest[index].duration > compareTrack.duration) continue;
 

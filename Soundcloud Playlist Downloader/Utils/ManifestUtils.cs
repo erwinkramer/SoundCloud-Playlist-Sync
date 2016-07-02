@@ -9,7 +9,7 @@ public delegate void ProcessUpdateManifestDelegate(Track trackDownloaded);
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
-    public class ManifestUtils
+    public static class ManifestUtils
     {
         static readonly ReaderWriterLock ReadWriteManifestLock = new ReaderWriterLock();
         const int ReadLockTimeoutMs = 500;
@@ -46,7 +46,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public static List<Track> LoadManifestFromFile()
         {
-            List<Track> manifest = new List<Track>();
+            var manifest = new List<Track>();
             var manifestPath = DetermineManifestPath();
             if (!File.Exists(manifestPath)) return manifest;
             ReadWriteManifestLock.AcquireReaderLock(ReadLockTimeoutMs);
@@ -77,7 +77,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     using (JsonWriter jw = new JsonTextWriter(sw))
                     {
                         jw.Formatting = Formatting.Indented;
-                        JsonSerializer serializer = new JsonSerializer();
+                        var serializer = new JsonSerializer();
                         serializer.Serialize(jw, manifest);
                     }
                 }

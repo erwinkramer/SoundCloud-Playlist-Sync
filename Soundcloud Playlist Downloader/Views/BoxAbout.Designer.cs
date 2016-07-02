@@ -125,9 +125,9 @@
             this.lbl_taglib.AutoSize = true;
             this.lbl_taglib.Location = new System.Drawing.Point(156, 12);
             this.lbl_taglib.Name = "lbl_taglib";
-            this.lbl_taglib.Size = new System.Drawing.Size(46, 13);
+            this.lbl_taglib.Size = new System.Drawing.Size(36, 13);
             this.lbl_taglib.TabIndex = 31;
-            this.lbl_taglib.Text = "v2.1.0.0";
+            this.lbl_taglib.Text = "v2.1.x";
             // 
             // link_JSON
             // 
@@ -145,9 +145,9 @@
             this.lbl_JSON.AutoSize = true;
             this.lbl_JSON.Location = new System.Drawing.Point(156, 25);
             this.lbl_JSON.Name = "lbl_JSON";
-            this.lbl_JSON.Size = new System.Drawing.Size(37, 13);
+            this.lbl_JSON.Size = new System.Drawing.Size(36, 13);
             this.lbl_JSON.TabIndex = 33;
-            this.lbl_JSON.Text = "v8.0.2";
+            this.lbl_JSON.Text = "v9.0.x";
             // 
             // link_postsharp
             // 
@@ -165,9 +165,9 @@
             this.lbl_postSharp.AutoSize = true;
             this.lbl_postSharp.Location = new System.Drawing.Point(156, 38);
             this.lbl_postSharp.Name = "lbl_postSharp";
-            this.lbl_postSharp.Size = new System.Drawing.Size(52, 13);
+            this.lbl_postSharp.Size = new System.Drawing.Size(36, 13);
             this.lbl_postSharp.TabIndex = 35;
-            this.lbl_postSharp.Text = "v4.2.18.0";
+            this.lbl_postSharp.Text = "v4.2.x";
             // 
             // richTextBox1
             // 
@@ -257,9 +257,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(156, 64);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 13);
+            this.label2.Size = new System.Drawing.Size(36, 13);
             this.label2.TabIndex = 39;
-            this.label2.Text = "v1.0.3.3135";
+            this.label2.Text = "v1.0.x";
             // 
             // link_naudioLame
             // 
@@ -277,9 +277,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(156, 51);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 37;
-            this.label1.Text = "v1.7.3";
+            this.label1.Text = "v1.7.x";
             // 
             // link_nAudio
             // 

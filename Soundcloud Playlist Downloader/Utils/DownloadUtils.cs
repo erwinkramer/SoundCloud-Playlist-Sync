@@ -12,7 +12,7 @@ using Soundcloud_Playlist_Downloader.Views;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
-    public class DownloadUtils
+    public static class DownloadUtils
     {
         //OLD CLIENT_ID = "93a4fae1bd98b84c9b4f6bf1cc838b4f";
         //NEW key should fix same reason as stated here: 
@@ -20,17 +20,17 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public const string ClientId = "376f225bf427445fc4bfb6b99b72e0bf";
         public static bool IsActive { get; set; }
         public static int SongsToDownload { get; set; }
-        public static int SongsDownloaded = 0;
+        public static int SongsDownloaded;
 
         public static void DownloadSongs(IList<Track> tracksToDownload)
         {
             SongsToDownload = tracksToDownload.Count;
             if (SongsToDownload == 0) return;
             var exceptions = new ConcurrentQueue<Exception>();
-            CancellationTokenSource cts = new CancellationTokenSource();
+            var cts = new CancellationTokenSource();
             if (Settings.Default.ConcurrentDownloads == 0)
                 throw new Exception("Number for concurrent downloads must be at least 1");
-            ParallelOptions po = new ParallelOptions
+            var po = new ParallelOptions
             {
                 CancellationToken = cts.Token,
                 MaxDegreeOfParallelism = Settings.Default.ConcurrentDownloads 
@@ -182,7 +182,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 try
                 {
-                    ContentDisposition disposition = new ContentDisposition(response.Headers["Content-Disposition"]);
+                    var disposition = new ContentDisposition(response.Headers["Content-Disposition"]);
                     extension = Path.GetExtension(disposition.FileName);
                 }
                 catch (FormatException)
