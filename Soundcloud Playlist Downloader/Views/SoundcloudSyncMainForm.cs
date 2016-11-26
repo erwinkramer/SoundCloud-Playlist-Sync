@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using Soundcloud_Playlist_Downloader.Properties;
 using Soundcloud_Playlist_Downloader.Utils;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Soundcloud_Playlist_Downloader.Views
 {
@@ -21,18 +23,18 @@ namespace Soundcloud_Playlist_Downloader.Views
         public static bool ReplaceIllegalCharacters;
         public static bool ExcludeM4A;
         public static bool ExcludeAac;
+        public static ICollection<string> trackProgress;
+
         private readonly string AbortActionText = "Abort";
         private readonly BoxAbout _aboutWindow = new BoxAbout();
         private bool _completed;
 
         private readonly string DefaultActionText = "Synchronize";
-
         private bool _exiting;
         private readonly PerformStatusUpdate _performStatusUpdateImplementation;
 
         private readonly PerformSyncComplete _performSyncCompleteImplementation;
         private readonly ProgressBarUpdate _progressBarUpdateImplementation;
-
         private readonly SoundcloudSync _sync;
 
         public SoundcloudSyncMainForm()
@@ -43,10 +45,11 @@ namespace Soundcloud_Playlist_Downloader.Views
             _performSyncCompleteImplementation = SyncCompleteButton;
             _progressBarUpdateImplementation = UpdateProgressBar;
             _performStatusUpdateImplementation = UpdateStatus;
+            trackProgress = new System.Collections.Generic.List<string>();
             status.Text = @"Ready";
             MinimumSize = new Size(Width, Height);
             MaximumSize = new Size(Width, Height);
-        }
+        }     
 
         private static string Version()
         {
@@ -243,6 +246,10 @@ namespace Soundcloud_Playlist_Downloader.Views
                     {
                         Thread.Sleep(500);
                         InvokeUpdateStatus();
+
+                        this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = trackProgress ));
+                        this.Invoke((MethodInvoker)(() => lb_progressOfTracks.Refresh() ) );
+                   
                         InvokeUpdateProgressBar();
                     }
                     if (!_exiting)
@@ -266,8 +273,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                         _completed = true;
                         InvokeSyncComplete();
                     }
-                }).Start();
-                
+                }).Start();             
             }
             else if (DownloadUtils.IsActive && syncButton.Text == AbortActionText)
             {
@@ -378,6 +384,16 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UpdateUtils.InstallUpdateSyncWithInfo();
+        }
+
+        private void rbttn_twoWay_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gbox_downMethod_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

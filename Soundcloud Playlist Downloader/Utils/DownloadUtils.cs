@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using Soundcloud_Playlist_Downloader.Properties;
 using Soundcloud_Playlist_Downloader.Views;
+using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -24,6 +26,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public static void DownloadSongs(IList<Track> tracksToDownload)
         {
+            var trackProgress = new ConcurrentDictionary<string, string>();
+
             SongsToDownload = tracksToDownload.Count;
             if (SongsToDownload == 0) return;
             var exceptions = new ConcurrentQueue<Exception>();
@@ -42,14 +46,24 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     {
                         try
                         {
+                            trackProgress.AddOrUpdate(track.id.ToString(), "[~] " + track.Title, (key, oldValue) => track.Title);
+                            SoundcloudSyncMainForm.trackProgress= trackProgress.Values;
+
                             if (!DownloadTrackAndTag(ref track)) return;
                             track.IsDownloaded = true;
+                            trackProgress.AddOrUpdate(track.id.ToString(), track.Title, (key, oldValue) => "[✓] " + track.Title);
+                            SoundcloudSyncMainForm.trackProgress = trackProgress.Values;
+
                             ProcessUpdateManifestDelegate pumd = ManifestUtils.UpdateManifest;
                             pumd(track);
                         }
                         catch (Exception e)
                         {
-                            exceptions.Enqueue(e);
+                            var exc = new Exception($"Exception while downloading track '{track.Title}' from artist '{track.Artist}'", e);
+                            exceptions.Enqueue(exc);
+                            trackProgress.AddOrUpdate(track.id.ToString(),  track.Title, (key, oldValue) => "[X] " + track.Title);
+                            SoundcloudSyncMainForm.trackProgress = trackProgress.Values;
+                            EventLog.WriteEntry(Application.ProductName, exc.ToString());
                             SoundcloudSync.IsError = true;
                             po.CancellationToken.ThrowIfCancellationRequested();
                             cts.Cancel();

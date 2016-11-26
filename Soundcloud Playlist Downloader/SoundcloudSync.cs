@@ -7,6 +7,7 @@ namespace Soundcloud_Playlist_Downloader
 {
     internal class SoundcloudSync
     {
+       
         public SoundcloudSync()
         {
             DownloadUtils.SongsToDownload = 0;

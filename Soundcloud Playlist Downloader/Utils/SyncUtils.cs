@@ -66,7 +66,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             try
             {
                 if (!File.Exists(manifestPath)) return;
-                List<Track> manifest = ManifestUtils.LoadManifestFromFile();
+                var manifest = ManifestUtils.LoadManifestFromFile();
                 for (int index = 0; index < manifest.Count; index++)
                 {
                     manifest[index].LocalPath = Path.Combine(FilesystemUtils.Directory.FullName, manifest[index].LocalPathRelative);
