@@ -1,5 +1,9 @@
-# SoundCloud-Playlist-Sync
+# SoundCloud Playlist Sync
+
+
 A utility to synchronize local directories with SoundCloud playlists and favorited lists.
+
+[![Join the chat at https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync](https://badges.gitter.im/erwinkramer/SoundCloud-Playlist-Sync.svg)](https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 This is a fork of the original utility from @StephenCasella. Besides numerous bug fixes, i've also included a few new features to improve the workings of the utility, for example:
 
