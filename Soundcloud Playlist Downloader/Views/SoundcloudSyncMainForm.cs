@@ -266,7 +266,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"{ex.Message} \r\nInnerException: { ex.InnerException?.Message}", @"Error");
+                        MessageBox.Show($"{ex.Message} { ExceptionHandlerUtils.GetInnerExceptionMessages(ex)}", @"Error");
                     }
                     finally
                     {
