@@ -11,6 +11,7 @@ using Soundcloud_Playlist_Downloader.Properties;
 using Soundcloud_Playlist_Downloader.Views;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -225,6 +226,26 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 SoundcloudSync.IsError = true;
                 throw new Exception("Invalid profile url: " + e.Message);
             }
+        }
+
+        public static string GetPlaylistIdFromHTML(string url)
+        {
+            var doc = new HtmlAgilityPack.HtmlDocument();
+            using (WebClient client = new WebClient())           
+            {
+                client.Headers.Add("Accept-Language", " en-US");
+                client.Headers.Add("Accept", " text/html, application/xhtml+xml, */*");
+                client.Headers.Add("User-Agent", "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)");
+                doc.LoadHtml(client.DownloadString(url));
+            }
+            foreach (var node in doc.DocumentNode.SelectNodes("/html/head/meta"))
+            {
+                if (node.Attributes["property"]?.Value == "al:android:url")
+                {
+                    return new String(node.Attributes["content"].Value.Where(Char.IsDigit).ToArray());
+                }
+            }
+            return null;
         }
     }
 }

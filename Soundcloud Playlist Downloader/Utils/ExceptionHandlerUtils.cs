@@ -36,29 +36,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
                                 + Environment.NewLine + e);
         }
 
-        public static string GetExceptionMessages(Exception e, string msgs = "")
-        {
-            if (e == null) return string.Empty;
-            if (msgs == "") msgs = e.Message;
-
-            IEnumerable<Exception> innerExceptions = Enumerable.Empty<Exception>();
-            if (e is AggregateException && (e as AggregateException).InnerExceptions.Any())
-            {
-                innerExceptions = (e as AggregateException).InnerExceptions;
-            }
-            else
-            {
-                if (e.InnerException != null)
-                    msgs += "\r\nInnerException: " + e.InnerException.Message;
-            }
-            foreach (var innerEx in innerExceptions)
-            {
-                if (innerEx == null) continue;
-                msgs += "\r\nInnerException: " + innerEx.Message;
-            }
-            return msgs;
-        }
-
         public static string ScrubHtml(string value)
         {
             var step1 = Regex.Replace(value, @"<[^>]+>|&nbsp;", "").Trim();

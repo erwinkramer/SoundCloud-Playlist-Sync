@@ -17,5 +17,6 @@ namespace Soundcloud_Playlist_Downloader.JsonObjects
         public int favoritings_count { get; set; }
         public int comment_count { get; set; }
         public bool IsDownloaded { get; set; } = false;
+        public int IndexFromSoundcloud { get; set; }
     }
 }

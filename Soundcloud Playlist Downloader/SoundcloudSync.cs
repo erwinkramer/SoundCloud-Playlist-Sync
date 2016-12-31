@@ -45,8 +45,7 @@ namespace Soundcloud_Playlist_Downloader
                 case EnumUtil.DownloadMode.Playlist:
                     // determine whether it is an api url or a normal url. if it is a normal url, get the api url from it
                     // and then call SynchronizeFromPlaylistAPIUrl. Otherwise just call that method directly
-
-                    apiUrl = url.Contains("api.soundcloud.com") ? url : DetermineApiUrlForNormalUrl(url, "playlists");
+                    apiUrl = url.Contains("api.soundcloud.com") ? url : "https://api.soundcloud.com/playlists/" + GetPlaylistId(url);
                     SynchronizeFromPlaylistApiUrl(apiUrl);
                     break;
                 case EnumUtil.DownloadMode.Favorites:
@@ -55,7 +54,7 @@ namespace Soundcloud_Playlist_Downloader
                     SynchronizeFromProfile(username);
                     break;
                 case EnumUtil.DownloadMode.Artist:
-                    apiUrl = url.Contains("api.soundcloud.com") ? url : DetermineApiUrlForNormalUrl(url, "tracks");
+                    apiUrl = url.Contains("api.soundcloud.com") ? url : ApiUrlForArtistTracks(url);
                     SynchronizeFromArtistUrl(apiUrl);
                     break;
                 case EnumUtil.DownloadMode.Track:
@@ -67,20 +66,19 @@ namespace Soundcloud_Playlist_Downloader
                     throw new NotImplementedException("Unknown download mode");
             }
         }
-        private string DetermineApiUrlForNormalUrl(string url, string resulttype)
+
+        private string ApiUrlForArtistTracks(string url)
         {
-            // parse the username from the url
-            var username = DownloadUtils.ParseUserIdFromProfileUrl(url);
+            return "https://api.soundcloud.com/users/" + 
+                DownloadUtils.ParseUserIdFromProfileUrl(url) + "/tracks";             
+        }
+
+        private string GetPlaylistId(string url)
+        {
             string playlistName = null;
             try
             {
-                // parse the playlist name from the url
-                var startingPoint = "/sets/";
-                var startingIndex = url.IndexOf(startingPoint, StringComparison.Ordinal) + startingPoint.Length;
-                var endingIndex = url.Substring(startingIndex).Contains("/")
-                    ? url.Substring(startingIndex).IndexOf("/", StringComparison.Ordinal) + startingIndex
-                    : url.Length;
-                playlistName = url.Substring(startingIndex, endingIndex - startingIndex);
+                playlistName = PlaylistNameFromUrl(url);
             }
             catch (Exception e)
             {
@@ -88,17 +86,42 @@ namespace Soundcloud_Playlist_Downloader
                 throw new Exception("Invalid playlist url: " + e.Message);
             }
 
-            // hit the users/username/playlists endpoint and match the playlist on the permalink
-            var userUrl = "https://api.soundcloud.com/users/" + username + "/" + resulttype;
+            var userUrl = "https://api.soundcloud.com/users/" + 
+                DownloadUtils.ParseUserIdFromProfileUrl(url) + "/playlists";
 
-            if (resulttype == "tracks")
+            List<Exception> exceptions = new List<Exception>();
+            try
             {
-                return userUrl;
+                return JsonUtils.RetrievePlaylistId(userUrl, playlistName);
             }
+            catch (Exception e)
+            {   
+                exceptions.Add(e);
+            }          
+            try
+            {   
+                //try again using a different method for SoundCloud GO users, because at this time 
+                //the api doesn't function for these users. 
+                return DownloadUtils.GetPlaylistIdFromHTML(url);
+            }
+            catch(Exception e)
+            {
+                exceptions.Add(e);
+            }
+            if(exceptions.Count > 0) throw new AggregateException(exceptions);
+            return null;
+        }   
 
-            return "https://api.soundcloud.com/playlists/" +
-                   JsonUtils.RetrievePlaylistId(userUrl, playlistName);
-        }                  
+        internal string PlaylistNameFromUrl(string url)
+        {
+            var startingPoint = "/sets/";
+            var startingIndex = url.IndexOf(startingPoint, StringComparison.Ordinal) + startingPoint.Length;
+            var endingIndex = url.Substring(startingIndex).Contains("/")
+                ? url.Substring(startingIndex).IndexOf("/", StringComparison.Ordinal) + startingIndex
+                : url.Length;
+            return url.Substring(startingIndex, endingIndex - startingIndex);
+            //return url.Substring(url.IndexOf(startingPoint, StringComparison.Ordinal) + startingPoint.Length).Trim('/');
+        }
 
         internal void SynchronizeFromProfile(string username)
         {

@@ -13,7 +13,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         private const string Definition = "Simple M3U8 playlist.";
         public static bool[] CreateSimpleM3U()
         {
-            var completed = new bool[4];
+            var completed = new bool[5];
             var manifest = ManifestUtils.LoadManifestFromFile();
             if (manifest.Count < 1) return completed;
 
@@ -40,6 +40,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 Path.Combine(FilesystemUtils.Directory.FullName, "Recently Downloaded (SC Downloader).m3u8"),
                 out completed[3]
                 );
+
+            WriteM3UtoFile(
+               new List<string>(SortOnSoundcloudIndexes(manifest)),
+               Path.Combine(FilesystemUtils.Directory.FullName, "Ordered by SoundCloud (SC Downloader).m3u8"),
+               out completed[4]
+               );
 
             return completed;
         }       
@@ -81,6 +87,16 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 orderby m.playback_count descending 
                 select m.LocalPathRelative).ToList();
             newM3U.Insert(0, $"# {Definition} Sorted on most played (on SoundCloud). {GeneratedBy}");
+            return newM3U;
+        }
+
+        public static IList<string> SortOnSoundcloudIndexes(List<Track> manifest)
+        {
+            IList<string> newM3U = (
+                from m in manifest
+                orderby m.IndexFromSoundcloud ascending
+                select m.LocalPathRelative).ToList();
+            newM3U.Insert(0, $"# {Definition} Sorted SoundCloud order (on SoundCloud). {GeneratedBy}");
             return newM3U;
         }
         public static IList<string> RecentlyAdded(List<Track> manifest)

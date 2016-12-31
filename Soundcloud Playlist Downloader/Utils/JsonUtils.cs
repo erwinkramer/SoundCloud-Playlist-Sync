@@ -91,6 +91,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             var limit = isRawTracksUrl ? 200 : 0; //200 is the limit set by SoundCloud itself. Remember; limits are only with 'collection' types in JSON 
             IList<Track> tracks = new List<Track>();
+            int index = 0;
             var lastStep = false;
             try
             {
@@ -102,29 +103,15 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         ? JOBtracksJson["collection"].Children().ToList()
                         : JOBtracksJson["tracks"].Children().ToList();
 
-                    IList<Track> currentTracks = new List<Track>();
                     foreach (var Jtrack in JTOKENcurrentTracks)
                     {
-                        var currentTrack = JsonConvert.DeserializeObject<Track>(Jtrack.ToString());
-                        currentTracks.Add(currentTrack);
-                    }
-
-                    foreach (var track in currentTracks)
-                    {
-                        //If it's a preview song (SNIP), ignore the track and do not retrieve
-                        if (ignoreSampleSongs)
-                        {
-                            if (track.policy != "SNIP")
-                                tracks.Add(track);
-                        }
-                        else
-                        {
-                            tracks.Add(track);
-                        }
+                        var track = JsonConvert.DeserializeObject<Track>(Jtrack.ToString());
+                        if (track.policy == "SNIP") continue;
+                        track.IndexFromSoundcloud = index++;
+                        tracks.Add(track);
                     }
                     if (lastStep)
                         break;
-
                     var linkedPartitioningUrl = JsonConvert.DeserializeObject<NextInfo>(tracksJson).next_href;
                     tracksJson = RetrieveJson(linkedPartitioningUrl);
                     if (!string.IsNullOrEmpty(tracksJson)) continue;
