@@ -167,7 +167,7 @@
             this.lbl_postSharp.Name = "lbl_postSharp";
             this.lbl_postSharp.Size = new System.Drawing.Size(36, 13);
             this.lbl_postSharp.TabIndex = 35;
-            this.lbl_postSharp.Text = "v4.2.x";
+            this.lbl_postSharp.Text = "v4.3.x";
             // 
             // richTextBox1
             // 
@@ -279,7 +279,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 37;
-            this.label1.Text = "v1.7.x";
+            this.label1.Text = "v1.8.x";
             // 
             // link_nAudio
             // 
