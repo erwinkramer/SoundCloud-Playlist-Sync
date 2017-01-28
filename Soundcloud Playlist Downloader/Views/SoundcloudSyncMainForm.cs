@@ -27,6 +27,7 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private readonly string AbortActionText = "Abort";
         private readonly BoxAbout _aboutWindow = new BoxAbout();
+        private readonly API_Config _apiConfigSettings = new API_Config();
         private bool _completed;
 
         private readonly string DefaultActionText = "Synchronize";
@@ -394,6 +395,18 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void gbox_downMethod_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void clientIDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_apiConfigSettings.Visible)
+            {
+                _apiConfigSettings.Focus();
+            }
+            else
+            {
+                _apiConfigSettings.Show();
+            }
         }
     }
 }

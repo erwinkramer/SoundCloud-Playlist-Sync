@@ -46,12 +46,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.Libraries = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.link_HtmlAgilityPack = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.link_naudioLame = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.link_nAudio = new System.Windows.Forms.LinkLabel();
-            this.link_HtmlAgilityPack = new System.Windows.Forms.LinkLabel();
-            this.label5 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.License.SuspendLayout();
             this.Projectwebsites.SuspendLayout();
@@ -256,6 +256,26 @@
             this.Libraries.Text = "Libraries";
             this.Libraries.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(156, 77);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(36, 13);
+            this.label5.TabIndex = 41;
+            this.label5.Text = "v1.4.x";
+            // 
+            // link_HtmlAgilityPack
+            // 
+            this.link_HtmlAgilityPack.AutoSize = true;
+            this.link_HtmlAgilityPack.Location = new System.Drawing.Point(3, 77);
+            this.link_HtmlAgilityPack.Name = "link_HtmlAgilityPack";
+            this.link_HtmlAgilityPack.Size = new System.Drawing.Size(80, 13);
+            this.link_HtmlAgilityPack.TabIndex = 40;
+            this.link_HtmlAgilityPack.TabStop = true;
+            this.link_HtmlAgilityPack.Text = "HtmlAgilityPack";
+            this.link_HtmlAgilityPack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_HtmlAgilityPack_LinkClicked);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -295,26 +315,6 @@
             this.link_nAudio.TabStop = true;
             this.link_nAudio.Text = "NAudio";
             this.link_nAudio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // link_HtmlAgilityPack
-            // 
-            this.link_HtmlAgilityPack.AutoSize = true;
-            this.link_HtmlAgilityPack.Location = new System.Drawing.Point(3, 77);
-            this.link_HtmlAgilityPack.Name = "link_HtmlAgilityPack";
-            this.link_HtmlAgilityPack.Size = new System.Drawing.Size(80, 13);
-            this.link_HtmlAgilityPack.TabIndex = 40;
-            this.link_HtmlAgilityPack.TabStop = true;
-            this.link_HtmlAgilityPack.Text = "HtmlAgilityPack";
-            this.link_HtmlAgilityPack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_HtmlAgilityPack_LinkClicked);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(156, 77);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 13);
-            this.label5.TabIndex = 41;
-            this.label5.Text = "v1.4.x";
             // 
             // BoxAbout
             // 
