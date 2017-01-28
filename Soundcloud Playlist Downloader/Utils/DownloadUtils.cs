@@ -17,10 +17,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
 {
     public static class DownloadUtils
     {
-        //OLD CLIENT_ID = "93a4fae1bd98b84c9b4f6bf1cc838b4f";
-        //NEW key should fix same reason as stated here: 
+        //OLD CLIENT_ID = "376f225bf427445fc4bfb6b99b72e0bf";
+        //OLD key (not working anymore) should fix same reason as stated here: 
         //https://stackoverflow.com/questions/29914622/get-http-mp3-stream-from-every-song/30018216#30018216
-        public const string ClientId = "376f225bf427445fc4bfb6b99b72e0bf";
+        public const string ClientId = "93a4fae1bd98b84c9b4f6bf1cc838b4f";
         public static bool IsActive { get; set; }
         public static int SongsToDownload { get; set; }
         public static int SongsDownloaded;

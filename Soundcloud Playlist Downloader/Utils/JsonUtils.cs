@@ -118,10 +118,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     lastStep = true;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 SoundcloudSync.IsError = true;
-                throw new Exception("Errors occurred retrieving the tracks list information. Double check your url.");
+                throw new Exception("Errors occurred retrieving the tracks list information. Double check your url.", e);
             }
             return tracks;
         }
