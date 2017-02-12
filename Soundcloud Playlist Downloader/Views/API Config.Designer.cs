@@ -33,17 +33,20 @@
             this.txt_alteredClientID = new System.Windows.Forms.TextBox();
             this.lbl_ClientID = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.txt_stockClientID = new System.Windows.Forms.TextBox();
-            this.txt_CurrentClientID = new System.Windows.Forms.TextBox();
+            this.txt_CustomClientID = new System.Windows.Forms.TextBox();
+            this.txt_stockClientID2 = new System.Windows.Forms.TextBox();
+            this.rbutton_clientid1 = new System.Windows.Forms.RadioButton();
+            this.rbutton_clientid2 = new System.Windows.Forms.RadioButton();
+            this.rbutton_clientidcustom = new System.Windows.Forms.RadioButton();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // bttn_save
             // 
             this.bttn_save.Location = new System.Drawing.Point(12, 226);
             this.bttn_save.Name = "bttn_save";
-            this.bttn_save.Size = new System.Drawing.Size(260, 23);
+            this.bttn_save.Size = new System.Drawing.Size(271, 23);
             this.bttn_save.TabIndex = 0;
             this.bttn_save.Text = "Save settings";
             this.bttn_save.UseVisualStyleBackColor = true;
@@ -51,7 +54,7 @@
             // 
             // txt_alteredClientID
             // 
-            this.txt_alteredClientID.Location = new System.Drawing.Point(89, 148);
+            this.txt_alteredClientID.Location = new System.Drawing.Point(100, 185);
             this.txt_alteredClientID.Name = "txt_alteredClientID";
             this.txt_alteredClientID.Size = new System.Drawing.Size(183, 20);
             this.txt_alteredClientID.TabIndex = 1;
@@ -59,66 +62,104 @@
             // lbl_ClientID
             // 
             this.lbl_ClientID.AutoSize = true;
-            this.lbl_ClientID.Location = new System.Drawing.Point(16, 151);
+            this.lbl_ClientID.Location = new System.Drawing.Point(15, 188);
             this.lbl_ClientID.Name = "lbl_ClientID";
-            this.lbl_ClientID.Size = new System.Drawing.Size(73, 13);
+            this.lbl_ClientID.Size = new System.Drawing.Size(79, 13);
             this.lbl_ClientID.TabIndex = 2;
-            this.lbl_ClientID.Text = "Alter client ID:";
+            this.lbl_ClientID.Text = "Edit custom ID:";
+            this.lbl_ClientID.Click += new System.EventHandler(this.lbl_ClientID_Click);
             // 
             // label1
             // 
             this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(263, 81);
+            this.label1.Size = new System.Drawing.Size(274, 81);
             this.label1.TabIndex = 3;
             this.label1.Text = resources.GetString("label1.Text");
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.label2.Location = new System.Drawing.Point(9, 90);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Stock client ID:";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 116);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Current client ID:";
-            // 
             // txt_stockClientID
             // 
-            this.txt_stockClientID.Location = new System.Drawing.Point(89, 87);
+            this.txt_stockClientID.Location = new System.Drawing.Point(100, 107);
             this.txt_stockClientID.Name = "txt_stockClientID";
             this.txt_stockClientID.ReadOnly = true;
             this.txt_stockClientID.Size = new System.Drawing.Size(183, 20);
             this.txt_stockClientID.TabIndex = 7;
-            this.txt_stockClientID.Text = "93a4fae1bd98b84c9b4f6bf1cc838b4f";
+            this.txt_stockClientID.TextChanged += new System.EventHandler(this.txt_stockClientID_TextChanged);
             // 
-            // txt_CurrentClientID
+            // txt_CustomClientID
             // 
-            this.txt_CurrentClientID.Location = new System.Drawing.Point(89, 113);
-            this.txt_CurrentClientID.Name = "txt_CurrentClientID";
-            this.txt_CurrentClientID.ReadOnly = true;
-            this.txt_CurrentClientID.Size = new System.Drawing.Size(183, 20);
-            this.txt_CurrentClientID.TabIndex = 8;
+            this.txt_CustomClientID.Location = new System.Drawing.Point(100, 159);
+            this.txt_CustomClientID.Name = "txt_CustomClientID";
+            this.txt_CustomClientID.ReadOnly = true;
+            this.txt_CustomClientID.Size = new System.Drawing.Size(183, 20);
+            this.txt_CustomClientID.TabIndex = 8;
+            this.txt_CustomClientID.TextChanged += new System.EventHandler(this.txt_CustomClientID_TextChanged);
+            // 
+            // txt_stockClientID2
+            // 
+            this.txt_stockClientID2.Location = new System.Drawing.Point(100, 132);
+            this.txt_stockClientID2.Name = "txt_stockClientID2";
+            this.txt_stockClientID2.ReadOnly = true;
+            this.txt_stockClientID2.Size = new System.Drawing.Size(183, 20);
+            this.txt_stockClientID2.TabIndex = 10;
+            // 
+            // rbutton_clientid1
+            // 
+            this.rbutton_clientid1.AutoSize = true;
+            this.rbutton_clientid1.Location = new System.Drawing.Point(18, 108);
+            this.rbutton_clientid1.Name = "rbutton_clientid1";
+            this.rbutton_clientid1.Size = new System.Drawing.Size(77, 17);
+            this.rbutton_clientid1.TabIndex = 11;
+            this.rbutton_clientid1.TabStop = true;
+            this.rbutton_clientid1.Text = "Client ID 1:";
+            this.rbutton_clientid1.UseVisualStyleBackColor = true;
+            this.rbutton_clientid1.CheckedChanged += new System.EventHandler(this.rbutton_clientid1_CheckedChanged);
+            // 
+            // rbutton_clientid2
+            // 
+            this.rbutton_clientid2.AutoSize = true;
+            this.rbutton_clientid2.Location = new System.Drawing.Point(18, 133);
+            this.rbutton_clientid2.Name = "rbutton_clientid2";
+            this.rbutton_clientid2.Size = new System.Drawing.Size(77, 17);
+            this.rbutton_clientid2.TabIndex = 12;
+            this.rbutton_clientid2.TabStop = true;
+            this.rbutton_clientid2.Text = "Client ID 2:";
+            this.rbutton_clientid2.UseVisualStyleBackColor = true;
+            this.rbutton_clientid2.CheckedChanged += new System.EventHandler(this.rbutton_clientid2_CheckedChanged);
+            // 
+            // rbutton_clientidcustom
+            // 
+            this.rbutton_clientidcustom.AutoSize = true;
+            this.rbutton_clientidcustom.Location = new System.Drawing.Point(18, 160);
+            this.rbutton_clientidcustom.Name = "rbutton_clientidcustom";
+            this.rbutton_clientidcustom.Size = new System.Drawing.Size(77, 17);
+            this.rbutton_clientidcustom.TabIndex = 13;
+            this.rbutton_clientidcustom.TabStop = true;
+            this.rbutton_clientidcustom.Text = "Custom ID:";
+            this.rbutton_clientidcustom.UseVisualStyleBackColor = true;
+            this.rbutton_clientidcustom.CheckedChanged += new System.EventHandler(this.rbutton_clientidcustom_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 90);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(40, 13);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Active:";
             // 
             // API_Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.txt_CurrentClientID);
+            this.ClientSize = new System.Drawing.Size(298, 258);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.rbutton_clientidcustom);
+            this.Controls.Add(this.rbutton_clientid2);
+            this.Controls.Add(this.rbutton_clientid1);
+            this.Controls.Add(this.txt_stockClientID2);
+            this.Controls.Add(this.txt_CustomClientID);
             this.Controls.Add(this.txt_stockClientID);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_ClientID);
             this.Controls.Add(this.txt_alteredClientID);
@@ -139,9 +180,12 @@
         private System.Windows.Forms.TextBox txt_alteredClientID;
         private System.Windows.Forms.Label lbl_ClientID;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt_stockClientID;
-        private System.Windows.Forms.TextBox txt_CurrentClientID;
+        private System.Windows.Forms.TextBox txt_CustomClientID;
+        private System.Windows.Forms.TextBox txt_stockClientID2;
+        private System.Windows.Forms.RadioButton rbutton_clientid1;
+        private System.Windows.Forms.RadioButton rbutton_clientid2;
+        private System.Windows.Forms.RadioButton rbutton_clientidcustom;
+        private System.Windows.Forms.Label label5;
     }
 }

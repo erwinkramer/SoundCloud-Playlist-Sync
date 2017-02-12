@@ -26,7 +26,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     client.Encoding = Encoding.UTF8;
                     if (!url.Contains("client_id="))
                     {
-                        url += (url.Contains("?") ? "&" : "?") + "client_id=" + DownloadUtils.ClientId;
+                        url += (url.Contains("?") ? "&" : "?") + "client_id=" + DownloadUtils.ClientIdCurrent;
                     }
                     if (limit != null)
                     {

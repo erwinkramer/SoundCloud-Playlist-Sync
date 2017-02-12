@@ -33,7 +33,7 @@ namespace Soundcloud_Playlist_Downloader
                 {
                     {"URL", url},
                     {"Directory", FilesystemUtils.Directory.FullName},
-                    {"Client ID", DownloadUtils.ClientId}
+                    {"Client ID", DownloadUtils.ClientIdCurrent}
                 }
                 );
             ResetProgress();
