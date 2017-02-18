@@ -87,6 +87,18 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return null;
         }
 
+        public static string RetrieveUserIdFromUserName(string username)
+        {
+            var userJson = RetrieveJson("https://api.soundcloud.com/resolve.json?url=http://soundcloud.com/" + username);
+            JObject user = JObject.Parse(userJson);
+            if (user == null)
+                return null;
+            JToken userid;
+            if (user.TryGetValue("id", StringComparison.InvariantCultureIgnoreCase, out userid))
+                return (string)JsonConvert.DeserializeObject(userid.ToString(), typeof(string));
+            return null;
+        }
+
         public static IList<Track> RetrieveTracksFromUrl(string url, bool isRawTracksUrl, bool ignoreSampleSongs)
         {
             var limit = isRawTracksUrl ? 200 : 0; //200 is the limit set by SoundCloud itself. Remember; limits are only with 'collection' types in JSON 

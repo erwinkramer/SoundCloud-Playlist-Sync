@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Linq;
 using System.Configuration;
+using Soundcloud_Playlist_Downloader.Utils;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -140,7 +141,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                             exceptions.Enqueue(exc);
                             trackProgress.AddOrUpdate(track.id.ToString(),  track.Title, (key, oldValue) => "[X] " + track.Title);
                             SoundcloudSyncMainForm.trackProgress = trackProgress.Values;
-                            EventLog.WriteEntry(Application.ProductName, exc.ToString());
+                            //EventLog.WriteEntry(Application.ProductName, exc.ToString());
                             SoundcloudSync.IsError = true;
                             po.CancellationToken.ThrowIfCancellationRequested();
                             cts.Cancel();
@@ -286,6 +287,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
         }
 
         public static string ParseUserIdFromProfileUrl(string url)
+        {        
+            return JsonUtils.RetrieveUserIdFromUserName(GetUserNameFromProfileUrl(url));
+        }
+
+        private static string GetUserNameFromProfileUrl(string url)
         {
             try
             {
