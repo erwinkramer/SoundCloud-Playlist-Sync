@@ -158,7 +158,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
 
-        public static string GetEffectiveDownloadUrl(string streamUrl, string downloadUrl, int id)
+        public static string GetEffectiveDownloadUrl(string streamUrl, string downloadUrl, int id, bool downloadable)
         {
             string url;
             if (streamUrl == null)
@@ -170,7 +170,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             if (SoundcloudSyncMainForm.Highqualitysong) //user has selected to download high quality songs if available
             {
-                url = !string.IsNullOrWhiteSpace(downloadUrl)
+                url = !string.IsNullOrWhiteSpace(downloadUrl) && downloadable
                     ? downloadUrl
                     : streamUrl; //check if high quality url (download_url) is available
             }

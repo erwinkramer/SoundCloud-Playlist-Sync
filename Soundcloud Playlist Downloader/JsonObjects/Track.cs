@@ -5,7 +5,7 @@ namespace Soundcloud_Playlist_Downloader.JsonObjects
 {
     public class Track : SoundcloudBaseTrack
     {
-        public string EffectiveDownloadUrl => DownloadUtils.GetEffectiveDownloadUrl(stream_url, download_url, id);
+        public string EffectiveDownloadUrl => DownloadUtils.GetEffectiveDownloadUrl(stream_url, download_url, id, downloadable);
         public string LocalPath { get; set; }
         public string LocalPathRelative { get; set; }
         public DateTime DownloadDateTimeUtc { get; set; }
