@@ -161,7 +161,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static string GetEffectiveDownloadUrl(string streamUrl, string downloadUrl, int id, bool downloadable)
         {
             string url;
-            if (streamUrl == null)
+            if (string.IsNullOrWhiteSpace(streamUrl))
             {
                 //WARNING       On rare occaisions the stream url is not available, blame this on the SoundCloud API
                 //              We can manually create the stream url anyway because we have the song id
