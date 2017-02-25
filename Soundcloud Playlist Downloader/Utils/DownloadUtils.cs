@@ -288,7 +288,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public static string ParseUserIdFromProfileUrl(string url)
         {        
-            return JsonUtils.RetrieveUserIdFromUserName(GetUserNameFromProfileUrl(url));
+            return new JsonUtils(DownloadUtils.ClientIdSelected).RetrieveUserIdFromUserName(GetUserNameFromProfileUrl(url));
         }
 
         private static string GetUserNameFromProfileUrl(string url)

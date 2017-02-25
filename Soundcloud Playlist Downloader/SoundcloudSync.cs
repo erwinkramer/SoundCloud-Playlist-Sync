@@ -58,7 +58,7 @@ namespace Soundcloud_Playlist_Downloader
                     SynchronizeFromArtistUrl(apiUrl);
                     break;
                 case EnumUtil.DownloadMode.Track:
-                    Track track = JsonUtils.RetrieveTrackFromUrl(url);
+                    Track track = new JsonUtils(DownloadUtils.ClientIdCurrent).RetrieveTrackFromUrl(url);
                     SynchronizeSingleTrack(track);
                     break;
                 default:
@@ -92,7 +92,7 @@ namespace Soundcloud_Playlist_Downloader
             List<Exception> exceptions = new List<Exception>();
             try
             {
-                return JsonUtils.RetrievePlaylistId(userUrl, playlistName);
+                return new JsonUtils(DownloadUtils.ClientIdSelected).RetrievePlaylistId(userUrl, playlistName);
             }
             catch (Exception e)
             {   
@@ -126,7 +126,7 @@ namespace Soundcloud_Playlist_Downloader
         internal void SynchronizeFromProfile(string username)
         {
             // hit the /username/favorites endpoint for the username in the url, then download all the tracks
-            var tracks = JsonUtils.RetrieveTracksFromUrl("https://api.soundcloud.com/users/" + username + "/favorites",
+            var tracks = new JsonUtils(DownloadUtils.ClientIdSelected).RetrieveTracksFromUrl("https://api.soundcloud.com/users/" + username + "/favorites",
                 true, true);
             SyncUtils.Synchronize(tracks);
         } 
@@ -138,12 +138,12 @@ namespace Soundcloud_Playlist_Downloader
         }             
         internal void SynchronizeFromPlaylistApiUrl(string playlistApiUrl)
         {
-            var tracks = JsonUtils.RetrieveTracksFromUrl(playlistApiUrl, false, true);
+            var tracks = new JsonUtils(DownloadUtils.ClientIdSelected).RetrieveTracksFromUrl(playlistApiUrl, false, true);
             SyncUtils.Synchronize(tracks);
         }
         internal void SynchronizeFromArtistUrl(string artistUrl)
         {
-            var tracks = JsonUtils.RetrieveTracksFromUrl(artistUrl, true, true);
+            var tracks = new JsonUtils(DownloadUtils.ClientIdSelected).RetrieveTracksFromUrl(artistUrl, true, true);
             SyncUtils.Synchronize(tracks);
         }
         private void ResetProgress()
