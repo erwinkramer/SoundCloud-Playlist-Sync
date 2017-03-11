@@ -56,7 +56,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
 
-        public static string ClientIdSelected
+        public static string ClientIdCurrentName
         {
             get
             {
@@ -68,7 +68,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
 
-        public static string ClientIdCurrent
+        public static string ClientIdCurrentValue
         {
             get
             {
@@ -203,31 +203,31 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     {
                         //get the wav song as byte data, as we won't store it just yet
                         var soundbytes = client.DownloadData(song.EffectiveDownloadUrl +
-                                                             $"?client_id={ClientIdCurrent}");
+                                                             $"?client_id={ClientIdCurrentValue}");
                         //convert to mp3 & then write bytes to file
                         var succesfulConvert = AudioConverterUtils.ConvertAllTheThings(soundbytes, ref song, extension);
                         if (!succesfulConvert)
                             //something has gone wrong, download the stream url instead of download url 
                         {
                             song.LocalPath += ".mp3";
-                            client.DownloadFile(song.stream_url + $"?client_id={ClientIdCurrent}", song.LocalPath);
+                            client.DownloadFile(song.stream_url + $"?client_id={ClientIdCurrentValue}", song.LocalPath);
                         }
                     }
                     else if (extension == ".mp3") //get the high res mp3 without converting
                     {
                         song.LocalPath += extension;
-                        client.DownloadFile(song.EffectiveDownloadUrl + $"?client_id={ClientIdCurrent}", song.LocalPath);
+                        client.DownloadFile(song.EffectiveDownloadUrl + $"?client_id={ClientIdCurrentValue}", song.LocalPath);
                     }
                     else //get the low res mp3 if all above not possible
                     {
                         song.LocalPath += ".mp3";
-                        client.DownloadFile(song.stream_url + $"?client_id={ClientIdCurrent}", song.LocalPath);
+                        client.DownloadFile(song.stream_url + $"?client_id={ClientIdCurrentValue}", song.LocalPath);
                     }
                 }
                 else
                 {
                     song.LocalPath += ".mp3";
-                    client.DownloadFile(song.stream_url + $"?client_id={ClientIdCurrent}", song.LocalPath);
+                    client.DownloadFile(song.stream_url + $"?client_id={ClientIdCurrentValue}", song.LocalPath);
                 }
             }
             MetadataTaggingUtils.TagIt(song);
@@ -252,7 +252,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             try
             {
-                WebRequest requestEffectiveDownloadUrl = WebRequest.Create(song.EffectiveDownloadUrl + $"?client_id={ClientIdCurrent}");
+                WebRequest requestEffectiveDownloadUrl = WebRequest.Create(song.EffectiveDownloadUrl + $"?client_id={ClientIdCurrentValue}");
                 return GetExtensionFromWebRequest(requestEffectiveDownloadUrl);
             }
             catch (Exception)
@@ -263,7 +263,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 //all hope is lost when there is no stream url, return to safety
                 return "";
 
-            var requeststreamUrl = WebRequest.Create(song.stream_url + $"?client_id={ClientIdCurrent}");
+            var requeststreamUrl = WebRequest.Create(song.stream_url + $"?client_id={ClientIdCurrentValue}");
             return GetExtensionFromWebRequest(requeststreamUrl);
         }
         public static string GetExtensionFromWebRequest(WebRequest request)
@@ -288,7 +288,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public static string ParseUserIdFromProfileUrl(string url)
         {        
-            return new JsonUtils(DownloadUtils.ClientIdSelected).RetrieveUserIdFromUserName(GetUserNameFromProfileUrl(url));
+            return new JsonUtils(DownloadUtils.ClientIdCurrentValue).RetrieveUserIdFromUserName(GetUserNameFromProfileUrl(url));
         }
 
         private static string GetUserNameFromProfileUrl(string url)

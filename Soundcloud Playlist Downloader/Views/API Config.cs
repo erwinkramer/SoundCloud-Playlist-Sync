@@ -35,7 +35,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             txt_stockClientID2.Text = DownloadUtils.ClientId2;         
             txt_CustomClientID.Text = DownloadUtils.ClientIdCustom;
             txt_alteredClientID.Text = DownloadUtils.ClientIdCustom;
-            switch (DownloadUtils.ClientIdSelected)
+            switch (DownloadUtils.ClientIdCurrentName)
             {
                 case "clientID1":
                     rbutton_clientid1.Checked = true;
@@ -78,21 +78,21 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             if (!((RadioButton)sender).Checked)
                 return;
-            DownloadUtils.ClientIdSelected = "clientID2";
+            DownloadUtils.ClientIdCurrentName = "clientID2";
         }
 
         private void rbutton_clientidcustom_CheckedChanged(object sender, EventArgs e)
         {
             if (!((RadioButton)sender).Checked)
                 return;
-            DownloadUtils.ClientIdSelected = "clientIDcustom";
+            DownloadUtils.ClientIdCurrentName = "clientIDcustom";
         }
 
         private void rbutton_clientid1_CheckedChanged(object sender, EventArgs e)
         {
             if (!((RadioButton)sender).Checked)
                 return;
-            DownloadUtils.ClientIdSelected = "clientID1";
+            DownloadUtils.ClientIdCurrentName = "clientID1";
         }
     }
 }
