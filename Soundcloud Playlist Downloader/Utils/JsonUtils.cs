@@ -11,11 +11,16 @@ namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class JsonUtils
     {
+        private ManifestUtils _manifestUtil;
         private string _clientID;
-        public JsonUtils(string clientID)
+
+        public JsonUtils(ManifestUtils manifestUtil, string clientID)
         {
+            _manifestUtil = manifestUtil;
             _clientID = clientID;
+
         }
+
         public string RetrieveJson(string url, int? limit = null, int? offset = null)
         {
             string json = null;
@@ -49,7 +54,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             catch (Exception e)
             {
-                SoundcloudSync.IsError = true;
+                _manifestUtil.ProgressUtil.IsError = true;
                 ExceptionHandlerUtils.HandleException(e);
             }
 
@@ -78,7 +83,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 return matchingPlaylistItem.id.ToString();
             }
-            SoundcloudSync.IsError = true;
+            _manifestUtil.ProgressUtil.IsError = true;
             throw new Exception("Unable to find a matching playlist");
         }
 
@@ -98,8 +103,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             JObject user = JObject.Parse(userJson);
             if (user == null)
                 return null;
-            JToken userid;
-            if (user.TryGetValue("id", StringComparison.InvariantCultureIgnoreCase, out userid))
+            if (user.TryGetValue("id", StringComparison.InvariantCultureIgnoreCase, out JToken userid))
                 return (string)JsonConvert.DeserializeObject(userid.ToString(), typeof(string));
             return null;
         }
@@ -137,7 +141,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             catch (Exception e)
             {
-                SoundcloudSync.IsError = true;
+                _manifestUtil.ProgressUtil.IsError = true;
                 throw new Exception("Errors occurred retrieving the tracks list information. Double check your url.", e);
             }
             return tracks;

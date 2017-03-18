@@ -1,21 +1,15 @@
 ﻿using Soundcloud_Playlist_Downloader.Utils;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Soundcloud_Playlist_Downloader.Views
 {
     public partial class API_Config : Form
     {
-        public API_Config()
+        public ClientIDsUtils ClientIDsUtil;
+        public API_Config(ClientIDsUtils clientIDsUtil)
         {
+            ClientIDsUtil = clientIDsUtil;
             InitializeComponent();
         }
 
@@ -23,19 +17,19 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             if(!string.IsNullOrWhiteSpace(txt_alteredClientID.Text))
             {
-                DownloadUtils.ClientIdCustom = txt_alteredClientID.Text.Trim();
-                txt_CustomClientID.Text = DownloadUtils.ClientIdCustom;
+                ClientIDsUtil.ClientIdCustom = txt_alteredClientID.Text.Trim();
+                txt_CustomClientID.Text = ClientIDsUtil.ClientIdCustom;
             }
             Hide();
         }
 
         private void API_Config_Load(object sender, EventArgs e)
         {
-            txt_stockClientID.Text = DownloadUtils.ClientId1;
-            txt_stockClientID2.Text = DownloadUtils.ClientId2;         
-            txt_CustomClientID.Text = DownloadUtils.ClientIdCustom;
-            txt_alteredClientID.Text = DownloadUtils.ClientIdCustom;
-            switch (DownloadUtils.ClientIdCurrentName)
+            txt_stockClientID.Text = ClientIDsUtil.ClientId1;
+            txt_stockClientID2.Text = ClientIDsUtil.ClientId2;         
+            txt_CustomClientID.Text = ClientIDsUtil.ClientIdCustom;
+            txt_alteredClientID.Text = ClientIDsUtil.ClientIdCustom;
+            switch (ClientIDsUtil.ClientIdCurrentName)
             {
                 case "clientID1":
                     rbutton_clientid1.Checked = true;
@@ -78,21 +72,21 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             if (!((RadioButton)sender).Checked)
                 return;
-            DownloadUtils.ClientIdCurrentName = "clientID2";
+            ClientIDsUtil.ClientIdCurrentName = "clientID2";
         }
 
         private void rbutton_clientidcustom_CheckedChanged(object sender, EventArgs e)
         {
             if (!((RadioButton)sender).Checked)
                 return;
-            DownloadUtils.ClientIdCurrentName = "clientIDcustom";
+            ClientIDsUtil.ClientIdCurrentName = "clientIDcustom";
         }
 
         private void rbutton_clientid1_CheckedChanged(object sender, EventArgs e)
         {
             if (!((RadioButton)sender).Checked)
                 return;
-            DownloadUtils.ClientIdCurrentName = "clientID1";
+            ClientIDsUtil.ClientIdCurrentName = "clientID1";
         }
     }
 }

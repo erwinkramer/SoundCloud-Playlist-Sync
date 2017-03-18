@@ -9,18 +9,34 @@ public delegate void ProcessUpdateManifestDelegate(Track trackDownloaded);
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
-    public static class ManifestUtils
+    public class ManifestUtils
     {
+        public FilesystemUtils FileSystemUtil;
+        public string ManifestName = "";
+        public Uri SoundCloudUri;
+        public int SyncMethod;
+        public EnumUtil.DownloadMode DownloadMode;
+        public ProgressUtils ProgressUtil;
+        public ManifestUtils(ProgressUtils progressUtil, FilesystemUtils fileSystemUtil, Uri soundCloudUri, EnumUtil.DownloadMode downloadMode, int syncMethod)
+        {
+            ProgressUtil = progressUtil;
+            SyncMethod = syncMethod;
+            DownloadMode = downloadMode;
+            SoundCloudUri = soundCloudUri;
+            ManifestName = MakeManifestString(
+                    fileSystemUtil.CoerceValidFileName(soundCloudUri.Host + soundCloudUri.PathAndQuery, false), fileSystemUtil.FoldersPerArtist,
+                    fileSystemUtil.IncludeArtistInFilename, downloadMode, syncMethod); ;
+            FileSystemUtil = fileSystemUtil;
+        }
         static readonly ReaderWriterLock ReadWriteManifestLock = new ReaderWriterLock();
         const int ReadLockTimeoutMs = 500;
         const int WriteLockTimeoutMs = 1000;
-        public static string ManifestName = "";
 
-        public static string DetermineManifestPath()
+        public string DetermineManifestPath()
         {
-            return Path.Combine(FilesystemUtils.Directory.FullName, ManifestName);
+            return Path.Combine(FileSystemUtil.Directory.FullName, ManifestName);
         }
-        public static void UpdateManifest(Track trackDownloaded)
+        public void UpdateManifest(Track trackDownloaded)
         {
             var updateSuccesful = false;
             for (var attempts = 0; attempts < 5; attempts++)
@@ -40,11 +56,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 Thread.Sleep(50); // Pause 50ms before new attempt
             }
             if (updateSuccesful) return;
-            SoundcloudSync.IsError = true;
+            ProgressUtil.IsError = true;
             throw new Exception("Unable to update manifest");
         }
 
-        public static List<Track> LoadManifestFromFile()
+        public List<Track> LoadManifestFromFile()
         {
             var manifest = new List<Track>();
             var manifestPath = DetermineManifestPath();
@@ -65,7 +81,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return manifest;
         }
 
-        public static void WriteManifestToFile(List<Track> manifest)
+        public void WriteManifestToFile(List<Track> manifest)
         {
             if (manifest.Count < 1) return;
             var manifestPath = DetermineManifestPath();
@@ -87,20 +103,20 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 ReadWriteManifestLock.ReleaseWriterLock();
             }
         }
-        internal static void AppendToJsonManifestObject(ref List<Track> manifests, Track trackDownloaded)
+        internal void AppendToJsonManifestObject(ref List<Track> manifests, Track trackDownloaded)
         {
             trackDownloaded.DownloadDateTimeUtc = DateTime.UtcNow;
             trackDownloaded.ModifiedDateTimeUtc = DateTime.UtcNow;
-            trackDownloaded.LocalPathRelative = FilesystemUtils.MakeRelativePath(trackDownloaded.LocalPath);
+            trackDownloaded.LocalPathRelative = FileSystemUtil.MakeRelativePath(trackDownloaded.LocalPath);
             manifests.Add(trackDownloaded);
         }
 
-        internal static void ReplaceJsonManifestObject(ref List<Track> manifests, Track trackChanged, Track oldTrack, int index)
+        internal void ReplaceJsonManifestObject(ref List<Track> manifests, Track trackChanged, Track oldTrack, int index)
         {
             trackChanged.ModifiedDateTimeUtc = DateTime.UtcNow;
             trackChanged.DownloadDateTimeUtc = oldTrack.DownloadDateTimeUtc;
             trackChanged.LocalPath += Path.GetExtension(oldTrack.LocalPath);
-            trackChanged.LocalPathRelative = FilesystemUtils.MakeRelativePath(trackChanged.LocalPath);
+            trackChanged.LocalPathRelative = FileSystemUtil.MakeRelativePath(trackChanged.LocalPath);
             manifests[index] = trackChanged;
         }
 
@@ -130,21 +146,21 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
 
-        public static bool FindManifestAndBackup(string manifestName, out bool differentmanifest)
+        public bool FindManifestAndBackup(out bool differentmanifest)
         {
-            if (manifestName == "")
+            if (ManifestName == "")
             {
                 differentmanifest = true;
                 return false;
             }
             differentmanifest = false;
-            if (!Directory.Exists(FilesystemUtils.Directory.FullName)) return false;        
-            var files = Directory.GetFiles(FilesystemUtils.Directory.FullName, ".MNFST=*", SearchOption.TopDirectoryOnly);
+            if (!Directory.Exists(FileSystemUtil.Directory.FullName)) return false;        
+            var files = Directory.GetFiles(FileSystemUtil.Directory.FullName, ".MNFST=*", SearchOption.TopDirectoryOnly);
             if (files.Length > 0)
             {
-                if (File.Exists(Path.Combine(FilesystemUtils.Directory.FullName, manifestName)))
+                if (File.Exists(Path.Combine(FileSystemUtil.Directory.FullName, ManifestName)))
                 {
-                    BackupManifest(FilesystemUtils.Directory.FullName, manifestName);
+                    BackupManifest(FileSystemUtil.Directory.FullName, ManifestName);
                     return true;
                 }
                 differentmanifest = true;

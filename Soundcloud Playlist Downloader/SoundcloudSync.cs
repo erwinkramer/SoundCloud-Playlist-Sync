@@ -7,40 +7,40 @@ namespace Soundcloud_Playlist_Downloader
 {
     internal class SoundcloudSync
     {
-       
-        public SoundcloudSync()
+        public SyncUtils _syncUtil;
+        public JsonUtils JsonUtil;
+        public SoundcloudSync(SyncUtils syncUtil)
         {
-            DownloadUtils.SongsToDownload = 0;
-            DownloadUtils.SongsDownloaded = 0;
-            ResetProgress();
+            _syncUtil = syncUtil;
+            JsonUtil = new JsonUtils(_syncUtil.ManifestUtil, _syncUtil.DownloadUtil.ClientIDsUtil.ClientIdCurrentValue);
+            _syncUtil.ManifestUtil.ProgressUtil.ResetProgress();
         }
-        public static bool IsError { get; set; }      
         private void VerifyParameters(Dictionary<string, string> parameters)
         {
             foreach (var parameter in parameters)
             {
                 if (string.IsNullOrWhiteSpace(parameter.Value))
                 {
-                    IsError = true;
+                    _syncUtil.ManifestUtil.ProgressUtil.IsError = true;
                     throw new Exception($"{parameter.Key} must be specified");
                 }
             }
         }
-        internal void Synchronize(string url, EnumUtil.DownloadMode mode)
+        internal void Synchronize(string url)
         {
             VerifyParameters(
                 new Dictionary<string, string>
                 {
                     {"URL", url},
-                    {"Directory", FilesystemUtils.Directory.FullName},
-                    {"Client ID", DownloadUtils.ClientIdCurrentValue}
+                    {"Directory", _syncUtil.ManifestUtil.FileSystemUtil.Directory.FullName},
+                    {"Client ID", _syncUtil.DownloadUtil.ClientIDsUtil.ClientIdCurrentValue}
                 }
                 );
-            ResetProgress();
+            _syncUtil.ManifestUtil.ProgressUtil.ResetProgress();
 
             string apiUrl = null;
 
-            switch (mode)
+            switch (_syncUtil.ManifestUtil.DownloadMode)
             {
                 case EnumUtil.DownloadMode.Playlist:
                     // determine whether it is an api url or a normal url. if it is a normal url, get the api url from it
@@ -50,7 +50,7 @@ namespace Soundcloud_Playlist_Downloader
                     break;
                 case EnumUtil.DownloadMode.Favorites:
                     // get the username from the url and then call SynchronizeFromProfile
-                    var username = DownloadUtils.ParseUserIdFromProfileUrl(url);
+                    var username = _syncUtil.DownloadUtil.ParseUserIdFromProfileUrl(url);
                     SynchronizeFromProfile(username);
                     break;
                 case EnumUtil.DownloadMode.Artist:
@@ -58,19 +58,19 @@ namespace Soundcloud_Playlist_Downloader
                     SynchronizeFromArtistUrl(apiUrl);
                     break;
                 case EnumUtil.DownloadMode.Track:
-                    Track track = new JsonUtils(DownloadUtils.ClientIdCurrentValue).RetrieveTrackFromUrl(url);
+                    Track track = JsonUtil.RetrieveTrackFromUrl(url);
                     SynchronizeSingleTrack(track);
                     break;
                 default:
-                    IsError = true;
+                    _syncUtil.ManifestUtil.ProgressUtil.IsError = true;
                     throw new NotImplementedException("Unknown download mode");
             }
         }
 
         private string ApiUrlForArtistTracks(string url)
         {
-            return "https://api.soundcloud.com/users/" + 
-                DownloadUtils.ParseUserIdFromProfileUrl(url) + "/tracks";             
+            return "https://api.soundcloud.com/users/" +
+                _syncUtil.DownloadUtil.ParseUserIdFromProfileUrl(url) + "/tracks";             
         }
 
         private string GetPlaylistId(string url)
@@ -82,17 +82,17 @@ namespace Soundcloud_Playlist_Downloader
             }
             catch (Exception e)
             {
-                IsError = true;
+                _syncUtil.ManifestUtil.ProgressUtil.IsError = true;
                 throw new Exception("Invalid playlist url: " + e.Message);
             }
 
-            var userUrl = "https://api.soundcloud.com/users/" + 
-                DownloadUtils.ParseUserIdFromProfileUrl(url) + "/playlists";
+            var userUrl = "https://api.soundcloud.com/users/" +
+                _syncUtil.DownloadUtil.ParseUserIdFromProfileUrl(url) + "/playlists";
 
             List<Exception> exceptions = new List<Exception>();
             try
             {
-                return new JsonUtils(DownloadUtils.ClientIdCurrentValue).RetrievePlaylistId(userUrl, playlistName);
+                return JsonUtil.RetrievePlaylistId(userUrl, playlistName);
             }
             catch (Exception e)
             {   
@@ -126,32 +126,27 @@ namespace Soundcloud_Playlist_Downloader
         internal void SynchronizeFromProfile(string username)
         {
             // hit the /username/favorites endpoint for the username in the url, then download all the tracks
-            var tracks = new JsonUtils(DownloadUtils.ClientIdCurrentValue).RetrieveTracksFromUrl("https://api.soundcloud.com/users/" + username + "/favorites",
+            var tracks = JsonUtil.RetrieveTracksFromUrl("https://api.soundcloud.com/users/" + username + "/favorites",
                 true, true);
-            SyncUtils.Synchronize(tracks);
+            _syncUtil.Synchronize(tracks);
         } 
         internal void SynchronizeSingleTrack(Track track)
         {
-            DownloadUtils.SongsToDownload = 1;
-            track.LocalPath = FilesystemUtils.BuildTrackLocalPath(track);
-            DownloadUtils.DownloadTrackAndTag(ref track);
-        }             
+            _syncUtil.ManifestUtil.ProgressUtil.SongsToDownload = 1;
+            track.LocalPath = _syncUtil.ManifestUtil.FileSystemUtil.BuildTrackLocalPath(track);
+            track.EffectiveDownloadUrl = _syncUtil.DownloadUtil.GetEffectiveDownloadUrl(track.stream_url, track.download_url, track.id, track.downloadable);
+            _syncUtil.DownloadUtil.DownloadTrackAndTag(ref track);
+        }
         internal void SynchronizeFromPlaylistApiUrl(string playlistApiUrl)
         {
-            var tracks = new JsonUtils(DownloadUtils.ClientIdCurrentValue).RetrieveTracksFromUrl(playlistApiUrl, false, true);
-            SyncUtils.Synchronize(tracks);
+            var tracks = JsonUtil.RetrieveTracksFromUrl(playlistApiUrl, false, true);
+            _syncUtil.Synchronize(tracks);
         }
         internal void SynchronizeFromArtistUrl(string artistUrl)
         {
-            var tracks = new JsonUtils(DownloadUtils.ClientIdCurrentValue).RetrieveTracksFromUrl(artistUrl, true, true);
-            SyncUtils.Synchronize(tracks);
+            var tracks = JsonUtil.RetrieveTracksFromUrl(artistUrl, true, true);
+            _syncUtil.Synchronize(tracks);
         }
-        private void ResetProgress()
-        {
-            DownloadUtils.SongsDownloaded = 0;
-            DownloadUtils.SongsToDownload = 0;
-            DownloadUtils.IsActive = true;
-            IsError = false;
-        }
+        
     }
 }

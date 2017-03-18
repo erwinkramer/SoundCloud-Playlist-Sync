@@ -7,49 +7,49 @@ using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using Soundcloud_Playlist_Downloader.Properties;
 using Soundcloud_Playlist_Downloader.Utils;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Soundcloud_Playlist_Downloader.Views
 {
     public partial class SoundcloudSyncMainForm : Form
     {
-        public static bool Highqualitysong;
-        public static bool ConvertToMp3;
-        public static bool IncludeArtistInFilename;
-        public static int SyncMethod = 1;
+        private static bool Highqualitysong;
+        private static bool ConvertToMp3;
+        private static bool IncludeArtistInFilename;
+        private static int SyncMethod = 1;
         private static EnumUtil.DownloadMode _dlMode;
-        public static bool FoldersPerArtist;
-        public static bool ReplaceIllegalCharacters;
-        public static bool ExcludeM4A;
-        public static bool ExcludeAac;
-        public static ICollection<string> trackProgress;
+        private static bool FoldersPerArtist;
+        private static bool ReplaceIllegalCharacters;
+        private static bool ExcludeM4A;
+        private static bool ExcludeAac;
+        private static bool CreatePlaylists;
 
         private readonly string AbortActionText = "Abort";
         private readonly BoxAbout _aboutWindow = new BoxAbout();
-        private readonly API_Config _apiConfigSettings = new API_Config();
-        private bool _completed;
+        private readonly API_Config _apiConfigSettings;
 
         private readonly string DefaultActionText = "Synchronize";
-        private bool _exiting;
         private readonly PerformStatusUpdate _performStatusUpdateImplementation;
 
         private readonly PerformSyncComplete _performSyncCompleteImplementation;
         private readonly ProgressBarUpdate _progressBarUpdateImplementation;
-        private readonly SoundcloudSync _sync;
+        private ProgressUtils progressUtil;
+        private ClientIDsUtils clientIdUtil;
 
         public SoundcloudSyncMainForm()
         {
-            InitializeComponent();         
+            InitializeComponent();
+
+            clientIdUtil = new ClientIDsUtils();
+            _apiConfigSettings = new API_Config(clientIdUtil);
+            progressUtil = new ProgressUtils();
+
             Text = $"SoundCloud Playlist Sync {Version()} Stable";
-            _sync = new SoundcloudSync();
             _performSyncCompleteImplementation = SyncCompleteButton;
             _progressBarUpdateImplementation = UpdateProgressBar;
             _performStatusUpdateImplementation = UpdateStatus;
-            trackProgress = new System.Collections.Generic.List<string>();
             status.Text = @"Ready";
             MinimumSize = new Size(Width, Height);
-            MaximumSize = new Size(Width, Height);
+            MaximumSize = new Size(Width, Height);          
         }     
 
         private static string Version()
@@ -79,42 +79,42 @@ namespace Soundcloud_Playlist_Downloader.Views
         [SilentFailure]
         private void UpdateStatus()
         {
-            if (!_exiting)
+            if (!progressUtil.Exiting)
             {
-                if (DownloadUtils.IsActive && progressBar.Value == progressBar.Maximum &&
+                if (progressUtil.IsActive && progressBar.Value == progressBar.Maximum &&
                     progressBar.Value != progressBar.Minimum)
                 {
                     status.Text = @"Completed";
                 }
-                else if (DownloadUtils.IsActive && progressBar.Value >= progressBar.Minimum && progressBar.Maximum > 0)
+                else if (progressUtil.IsActive && progressBar.Value >= progressBar.Minimum && progressBar.Maximum > 0)
                 {
                     status.Text = $"Synchronizing... {progressBar.Value} of {progressBar.Maximum} songs downloaded.";
                 }
-                else if (DownloadUtils.IsActive && _completed && !SoundcloudSync.IsError)
+                else if (progressUtil.IsActive && progressUtil.Completed && !progressUtil.IsError)
                 {
                     status.Text = @"Tracks are already synchronized";
                 }
-                else if (DownloadUtils.IsActive && _completed && SoundcloudSync.IsError)
+                else if (progressUtil.IsActive && progressUtil.Completed && progressUtil.IsError)
                 {
                     status.Text = @"An error prevented synchronization from starting";
                 }
-                else if (!DownloadUtils.IsActive && syncButton.Text == AbortActionText)
+                else if (!progressUtil.IsActive && syncButton.Text == AbortActionText)
                 {
                     status.Text = @"Aborting downloads... Please Wait.";
                 }
-                else if (DownloadUtils.IsActive)
+                else if (progressUtil.IsActive)
                 {
                     var plural = "";
                     if (_dlMode != EnumUtil.DownloadMode.Track)
                         plural = "s";              
                     status.Text = $"Fetching track{plural} to download...";
                 }
-                else if (!DownloadUtils.IsActive)
+                else if (!progressUtil.IsActive)
                 {
                     status.Text = @"Aborted";
                 }
             }
-            else if (_completed)
+            else if (progressUtil.Completed)
             {
                 // the form has indicated it is being closed and the sync utility has finished aborting
                 Close();
@@ -132,11 +132,11 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void UpdateProgressBar()
         {
             progressBar.Minimum = 0;
-            progressBar.Maximum = DownloadUtils.SongsToDownload;
+            progressBar.Maximum = progressUtil.SongsToDownload;
 
-            progressBar.Value = DownloadUtils.SongsDownloaded;
+            progressBar.Value = progressUtil.SongsDownloaded;
 
-            TaskbarManager.Instance.SetProgressValue(DownloadUtils.SongsDownloaded, DownloadUtils.SongsToDownload);
+            TaskbarManager.Instance.SetProgressValue(progressUtil.SongsDownloaded, progressUtil.SongsToDownload);
             if (progressBar.Minimum != 0 && progressBar.Maximum == progressBar.Value)
             {
                 TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.NoProgress);
@@ -158,7 +158,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             syncButton.Text = DefaultActionText;
             syncButton.Enabled = true;
-            if (_exiting)
+            if (progressUtil.Exiting)
             {
                 Dispose();
             }
@@ -182,6 +182,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             Settings.Default.chk_replaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
             Settings.Default.rbttn_oneWay = rbttn_oneWay.Checked;
             Settings.Default.rbttn_twoWay = rbttn_twoWay.Checked;
+            Settings.Default.chk_CreatePlaylists = chk_CreatePlaylists.Checked;
             Settings.Default.Save();
 
             _dlMode = playlistRadio.Checked
@@ -194,7 +195,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             {
                 syncButton.Text = AbortActionText;
                 status.Text = @"Checking for track changes...";
-                _completed = false;
+                progressUtil.Completed = false;
 
                 progressBar.Value = 0;
                 progressBar.Maximum = 0;
@@ -209,32 +210,35 @@ namespace Soundcloud_Playlist_Downloader.Views
                 ReplaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
                 ExcludeAac = chk_excl_m4a.Checked;
                 ExcludeM4A = chk_excl_m4a.Checked;
-                FilesystemUtils.Directory = new DirectoryInfo(directoryPath.Text);
-                Uri uri;
+                CreatePlaylists = chk_CreatePlaylists.Checked;
+
+                Uri soundCloudUri;
                 try
                 {
-                    uri = new Uri(url.Text);
+                    soundCloudUri = new Uri(url.Text);
                 }
                 catch (Exception)
                 {
                     status.Text = @"Invalid URL";
-                    _completed = true;
+                    progressUtil.Completed = true;
                     InvokeSyncComplete();
                     return;
                 }
-                ManifestUtils.ManifestName = ManifestUtils.MakeManifestString(
-                    FilesystemUtils.CoerceValidFileName(uri.Host + uri.PathAndQuery, false), FoldersPerArtist,
-                    IncludeArtistInFilename, _dlMode, SyncMethod);
 
+                var filesystemUtil = new FilesystemUtils(new DirectoryInfo(directoryPath.Text), IncludeArtistInFilename, FoldersPerArtist, ReplaceIllegalCharacters);
+                var manifestUtil = new ManifestUtils(progressUtil, filesystemUtil, soundCloudUri, _dlMode, SyncMethod);
+                var playlistUtil = new PlaylistUtils(manifestUtil);
+                DownloadUtils downloadUtil = new DownloadUtils(clientIdUtil, ExcludeM4A, ExcludeAac, ConvertToMp3, manifestUtil, Highqualitysong);
+                var syncUtil = new SyncUtils(CreatePlaylists, manifestUtil, downloadUtil, playlistUtil);
                 if (_dlMode != EnumUtil.DownloadMode.Track)
                 {
                     bool differentmanifest;
-                    if (!ManifestUtils.FindManifestAndBackup(ManifestUtils.ManifestName, out differentmanifest))
+                    if (!manifestUtil.FindManifestAndBackup(out differentmanifest))
                     {
                         if (differentmanifest)
                         {
                             status.Text = @"Change settings or directoy.";
-                            _completed = true;
+                            progressUtil.Completed = true;
                             InvokeSyncComplete();
                             return;
                         }
@@ -243,17 +247,17 @@ namespace Soundcloud_Playlist_Downloader.Views
                 new Thread(() =>
                 {
                     // perform progress updates
-                    while (!_completed && !_exiting)
+                    while (!progressUtil.Completed && !progressUtil.Exiting)
                     {
                         Thread.Sleep(500);
                         InvokeUpdateStatus();
 
-                        this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = trackProgress ));
+                        this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = progressUtil.TrackProgress));
                         this.Invoke((MethodInvoker)(() => lb_progressOfTracks.Refresh() ) );
                    
                         InvokeUpdateProgressBar();
                     }
-                    if (!_exiting)
+                    if (!progressUtil.Exiting)
                     {
                         InvokeUpdateStatus();
                     }
@@ -263,7 +267,8 @@ namespace Soundcloud_Playlist_Downloader.Views
                 {
                     try
                     {
-                        _sync.Synchronize(url.Text, _dlMode);
+                         var sync = new SoundcloudSync(syncUtil);
+                        sync.Synchronize(url.Text);
                     }
                     catch (Exception ex)
                     {
@@ -271,14 +276,14 @@ namespace Soundcloud_Playlist_Downloader.Views
                     }
                     finally
                     {
-                        _completed = true;
+                        progressUtil.Completed = true;
                         InvokeSyncComplete();
                     }
                 }).Start();             
             }
-            else if (DownloadUtils.IsActive && syncButton.Text == AbortActionText)
+            else if (progressUtil.IsActive && syncButton.Text == AbortActionText)
             {
-                DownloadUtils.IsActive = false;
+                progressUtil.IsActive = false;
                 syncButton.Enabled = false;
             }
             else if (syncButton.Text == DefaultActionText &&
@@ -295,9 +300,9 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         [SilentFailure]
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {          
-            _exiting = true;
-            DownloadUtils.IsActive = false;
+        {
+            progressUtil.Exiting = true;
+            progressUtil.IsActive = false;
             status.Text = @"Preparing for exit... Please Wait.";
             syncButton.Enabled = false;
             if (syncButton.Text != DefaultActionText)
@@ -407,6 +412,11 @@ namespace Soundcloud_Playlist_Downloader.Views
             {
                 _apiConfigSettings.Show();
             }
+        }
+
+        private void chk_CreatePlaylists_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

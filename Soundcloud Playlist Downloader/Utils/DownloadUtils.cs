@@ -17,97 +17,30 @@ using Soundcloud_Playlist_Downloader.Utils;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
-    public static class DownloadUtils
+    public class DownloadUtils
     {
-        //OLD CLIENT_ID = "376f225bf427445fc4bfb6b99b72e0bf";
-        //OLD key (not working anymore) should fix same reason as stated here: 
-        //https://stackoverflow.com/questions/29914622/get-http-mp3-stream-from-every-song/30018216#30018216
-        public static string ClientId1
+        public bool ConvertToMp3;
+        public bool Highqualitysong;
+        public bool ExcludeM4A;
+        public bool ExcludeAac;
+        ManifestUtils ManifestUtil;
+        public ClientIDsUtils ClientIDsUtil;
+        public DownloadUtils(ClientIDsUtils clientIDsUtil, bool excludeM4A, bool excludeAac, bool convertToMp3, ManifestUtils manifestUtil, bool highqualitysong)
         {
-            get
-            {
-                return ReadSetting("clientID1");
-            }
-            set
-            {
-                AddUpdateAppSettings("clientID1", value);
-            }
-        }
-        public static string ClientId2
-        {
-            get
-            {
-                return ReadSetting("clientID2");
-            }
-            set
-            {
-                AddUpdateAppSettings("clientID2", value);
-            }
-        }
-        public static string ClientIdCustom
-        {
-            get
-            {
-                return ReadSetting("clientIDcustom");
-            }
-            set
-            {          
-                AddUpdateAppSettings("clientIDcustom", value);
-            }
-        }
+            ExcludeM4A = excludeM4A;
+            ExcludeAac = excludeAac;
+            Highqualitysong = highqualitysong;
+            ManifestUtil = manifestUtil;
+            ConvertToMp3 = convertToMp3;
+            ClientIDsUtil = clientIDsUtil;
+        }   
 
-        public static string ClientIdCurrentName
-        {
-            get
-            {
-                return ReadSetting("clientIDcurrentSelected");
-            }
-            set
-            {
-                AddUpdateAppSettings("clientIDcurrentSelected", value);
-            }
-        }
-
-        public static string ClientIdCurrentValue
-        {
-            get
-            {
-                return ReadSetting(ReadSetting("clientIDcurrentSelected"));
-            }          
-        }
-
-        public static bool IsActive { get; set; }
-        public static int SongsToDownload { get; set; }
-        public static int SongsDownloaded;
-
-        static string ReadSetting(string key)
-        {
-            var appSettings = ConfigurationManager.AppSettings;
-            return appSettings[key] ?? "Not Found";
-        }
-
-        static void AddUpdateAppSettings(string key, string value)
-        {
-            var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            var settings = configFile.AppSettings.Settings;
-            if (settings[key] == null)
-            {
-                settings.Add(key, value);
-            }
-            else
-            {
-                settings[key].Value = value;
-            }
-            configFile.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-        }
-
-        public static void DownloadSongs(IList<Track> tracksToDownload)
+        public void DownloadSongs(IList<Track> tracksToDownload)
         {
             var trackProgress = new ConcurrentDictionary<string, string>();
 
-            SongsToDownload = tracksToDownload.Count;
-            if (SongsToDownload == 0) return;
+            ManifestUtil.ProgressUtil.SongsToDownload = tracksToDownload.Count;
+            if (ManifestUtil.ProgressUtil.SongsToDownload == 0) return;
             var exceptions = new ConcurrentQueue<Exception>();
             var cts = new CancellationTokenSource();
             if (Settings.Default.ConcurrentDownloads == 0)
@@ -125,14 +58,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         try
                         {
                             trackProgress.AddOrUpdate(track.id.ToString(), "[~] " + track.Title, (key, oldValue) => track.Title);
-                            SoundcloudSyncMainForm.trackProgress= trackProgress.Values;
+                            ManifestUtil.ProgressUtil.TrackProgress = trackProgress.Values;
 
                             if (!DownloadTrackAndTag(ref track)) return;
                             track.IsDownloaded = true;
                             trackProgress.AddOrUpdate(track.id.ToString(), track.Title, (key, oldValue) => "[✓] " + track.Title);
-                            SoundcloudSyncMainForm.trackProgress = trackProgress.Values;
+                            ManifestUtil.ProgressUtil.TrackProgress = trackProgress.Values;
 
-                            ProcessUpdateManifestDelegate pumd = ManifestUtils.UpdateManifest;
+                            ProcessUpdateManifestDelegate pumd = ManifestUtil.UpdateManifest;
                             pumd(track);
                         }
                         catch (Exception e)
@@ -140,9 +73,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
                             var exc = new Exception($"Exception while downloading track '{track.Title}' from artist '{track.Artist}'", e);
                             exceptions.Enqueue(exc);
                             trackProgress.AddOrUpdate(track.id.ToString(),  track.Title, (key, oldValue) => "[X] " + track.Title);
-                            SoundcloudSyncMainForm.trackProgress = trackProgress.Values;
+                            ManifestUtil.ProgressUtil.TrackProgress = trackProgress.Values;
                             //EventLog.WriteEntry(Application.ProductName, exc.ToString());
-                            SoundcloudSync.IsError = true;
+                            ManifestUtil.ProgressUtil.IsError = true;
                             po.CancellationToken.ThrowIfCancellationRequested();
                             cts.Cancel();
                         }
@@ -158,7 +91,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
 
-        public static string GetEffectiveDownloadUrl(string streamUrl, string downloadUrl, int id, bool downloadable)
+        public string GetEffectiveDownloadUrl(string streamUrl, string downloadUrl, int id, bool downloadable)
         {
             string url;
             if (string.IsNullOrWhiteSpace(streamUrl))
@@ -168,7 +101,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 //NOTE          This shouldn't be necessary anymore, since we changed the client_id to another one that actually works
                 streamUrl = $"https://api.soundcloud.com/tracks/{id}/stream";
             }
-            if (SoundcloudSyncMainForm.Highqualitysong) //user has selected to download high quality songs if available
+            if (Highqualitysong) //user has selected to download high quality songs if available
             {
                 url = !string.IsNullOrWhiteSpace(downloadUrl) && downloadable
                     ? downloadUrl
@@ -185,9 +118,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return null;
         }
 
-        public static bool DownloadTrackAndTag(ref Track song)
+        public bool DownloadTrackAndTag(ref Track song)
         {
-            if (!IsActive) return false;
+            if (!ManifestUtil.ProgressUtil.IsActive) return false;
             if (song?.LocalPath == null)
                 return false;
             Directory.CreateDirectory(Path.GetDirectoryName(song.LocalPath));
@@ -198,61 +131,61 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 {
                     string extension = DetermineExtension(song);
 
-                    if (SoundcloudSyncMainForm.ConvertToMp3 && SoundcloudSyncMainForm.Highqualitysong &&
+                    if (ConvertToMp3 && Highqualitysong &&
                         DetermineAllowedFormats().Contains(extension))
                     {
                         //get the wav song as byte data, as we won't store it just yet
                         var soundbytes = client.DownloadData(song.EffectiveDownloadUrl +
-                                                             $"?client_id={ClientIdCurrentValue}");
+                                                             $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
                         //convert to mp3 & then write bytes to file
                         var succesfulConvert = AudioConverterUtils.ConvertAllTheThings(soundbytes, ref song, extension);
                         if (!succesfulConvert)
                             //something has gone wrong, download the stream url instead of download url 
                         {
                             song.LocalPath += ".mp3";
-                            client.DownloadFile(song.stream_url + $"?client_id={ClientIdCurrentValue}", song.LocalPath);
+                            client.DownloadFile(song.stream_url + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}", song.LocalPath);
                         }
                     }
                     else if (extension == ".mp3") //get the high res mp3 without converting
                     {
                         song.LocalPath += extension;
-                        client.DownloadFile(song.EffectiveDownloadUrl + $"?client_id={ClientIdCurrentValue}", song.LocalPath);
+                        client.DownloadFile(song.EffectiveDownloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}", song.LocalPath);
                     }
                     else //get the low res mp3 if all above not possible
                     {
                         song.LocalPath += ".mp3";
-                        client.DownloadFile(song.stream_url + $"?client_id={ClientIdCurrentValue}", song.LocalPath);
+                        client.DownloadFile(song.stream_url + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}", song.LocalPath);
                     }
                 }
                 else
                 {
                     song.LocalPath += ".mp3";
-                    client.DownloadFile(song.stream_url + $"?client_id={ClientIdCurrentValue}", song.LocalPath);
+                    client.DownloadFile(song.stream_url + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}", song.LocalPath);
                 }
             }
             MetadataTaggingUtils.TagIt(song);
-            Interlocked.Increment(ref SongsDownloaded);
+            Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
             return true;
         }
 
-        private static List<string> DetermineAllowedFormats()
+        private List<string> DetermineAllowedFormats()
         {
             var formats = new List<string>
             {
                 ".wav", ".aiff", ".aif", ".m4a", ".aac"            
             };
-            if (SoundcloudSyncMainForm.ExcludeAac)
+            if (ExcludeAac)
                 formats.Remove(".aac");
-            if (SoundcloudSyncMainForm.ExcludeM4A)
+            if (ExcludeM4A)
                 formats.Remove(".m4a");
             return formats;
         }
 
-        public static string DetermineExtension(Track song)
+        public string DetermineExtension(Track song)
         {
             try
             {
-                WebRequest requestEffectiveDownloadUrl = WebRequest.Create(song.EffectiveDownloadUrl + $"?client_id={ClientIdCurrentValue}");
+                WebRequest requestEffectiveDownloadUrl = WebRequest.Create(song.EffectiveDownloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
                 return GetExtensionFromWebRequest(requestEffectiveDownloadUrl);
             }
             catch (Exception)
@@ -263,7 +196,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 //all hope is lost when there is no stream url, return to safety
                 return "";
 
-            var requeststreamUrl = WebRequest.Create(song.stream_url + $"?client_id={ClientIdCurrentValue}");
+            var requeststreamUrl = WebRequest.Create(song.stream_url + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
             return GetExtensionFromWebRequest(requeststreamUrl);
         }
         public static string GetExtensionFromWebRequest(WebRequest request)
@@ -286,12 +219,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return extension;
         }
 
-        public static string ParseUserIdFromProfileUrl(string url)
+        public string ParseUserIdFromProfileUrl(string url)
         {        
-            return new JsonUtils(DownloadUtils.ClientIdCurrentValue).RetrieveUserIdFromUserName(GetUserNameFromProfileUrl(url));
+            return new JsonUtils(ManifestUtil, ClientIDsUtil.ClientIdCurrentValue).RetrieveUserIdFromUserName(GetUserNameFromProfileUrl(url));
         }
-
-        private static string GetUserNameFromProfileUrl(string url)
+        
+        private string GetUserNameFromProfileUrl(string url)
         {
             try
             {
@@ -305,7 +238,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             catch (Exception e)
             {
-                SoundcloudSync.IsError = true;
+                ManifestUtil.ProgressUtil.IsError = true;
                 throw new Exception("Invalid profile url: " + e.Message);
             }
         }

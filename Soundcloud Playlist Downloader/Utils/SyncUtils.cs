@@ -3,37 +3,49 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Soundcloud_Playlist_Downloader.JsonObjects;
-using Soundcloud_Playlist_Downloader.Views;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
-    public static class SyncUtils
+    public class SyncUtils
     {
-        public static void Synchronize(IList<Track> tracks)
+        private bool _createPlaylists;
+        public ManifestUtils ManifestUtil;
+        public DownloadUtils DownloadUtil;
+        public PlaylistUtils PlaylistUtil;
+
+        public SyncUtils(bool createPlaylists, ManifestUtils manifestUtil, DownloadUtils downloadUtil, PlaylistUtils playlistUtil)
+        {
+            PlaylistUtil = playlistUtil;
+            DownloadUtil = downloadUtil;
+            ManifestUtil = manifestUtil;
+            _createPlaylists = createPlaylists;
+        }
+        public void Synchronize(IList<Track> tracks)
         {
             var tracksToDownload = new List<Track>();
 
             // define all local paths by combining the sanitzed artist (if checked by user) with the santized title
             foreach (var track in tracks)
             {
-                track.LocalPath = FilesystemUtils.BuildTrackLocalPath(track);
+                track.LocalPath = ManifestUtil.FileSystemUtil.BuildTrackLocalPath(track);
+                track.EffectiveDownloadUrl = DownloadUtil.GetEffectiveDownloadUrl(track.stream_url, track.download_url, track.id, track.downloadable);
             }
 
             // determine which new tracks should be downloaded
             NewTracksToDownload(tracks, tracksToDownload);
 
             // deletes, retags, or sets track in tracksToDownload for download
-            AnalyseManifestTracks(tracks, tracksToDownload);  
+            AnalyseManifestTracks(tracks, tracksToDownload);
 
             // download the relevant tracks and continuously update the manifest
-            DownloadUtils.DownloadSongs(tracksToDownload);
+            DownloadUtil.DownloadSongs(tracksToDownload);
       
-            PlaylistUtils.CreateSimpleM3U(); //Create playlist file
+            if(_createPlaylists) PlaylistUtil.CreateSimpleM3U(); //Create playlist file
 
             var songsNotDownloaded = tracksToDownload.Count(x => x.IsDownloaded == false);        
-            if (songsNotDownloaded > 0 && DownloadUtils.IsActive) // validation
+            if (songsNotDownloaded > 0 && ManifestUtil.ProgressUtil.IsActive) // validation
             {
-                SoundcloudSync.IsError = true;
+                ManifestUtil.ProgressUtil.IsError = true;
                 throw new Exception(
                     "Some tracks failed to download. You might need to try a few more times before they can download correctly. " +
                     "The following tracks were not downloaded:" + Environment.NewLine +
@@ -43,13 +55,13 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         ));
             }
         }
-        private static void NewTracksToDownload(IList<Track> allSongs, List<Track> tracksToDownload)
+        private void NewTracksToDownload(IList<Track> allSongs, List<Track> tracksToDownload)
         {
-            var manifestPath = ManifestUtils.DetermineManifestPath();
+            var manifestPath = ManifestUtil.DetermineManifestPath();
             List<Track> manifest;
             if (File.Exists(manifestPath))
             {
-                manifest = ManifestUtils.LoadManifestFromFile();
+                manifest = ManifestUtil.LoadManifestFromFile();
 
                 //all who's id is not in the manifest  
                 tracksToDownload.AddRange(allSongs.Where(c => manifest.All(d => c.id != d.id)).ToList());
@@ -60,20 +72,20 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
        
-        private static void AnalyseManifestTracks(IList<Track> allTracks, List<Track> tracksToDownload)
+        private void AnalyseManifestTracks(IList<Track> allTracks, List<Track> tracksToDownload)
         {
-            var manifestPath = ManifestUtils.DetermineManifestPath();
+            var manifestPath = ManifestUtil.DetermineManifestPath();
             try
             {
                 if (!File.Exists(manifestPath)) return;
-                var manifest = ManifestUtils.LoadManifestFromFile();
+                var manifest = ManifestUtil.LoadManifestFromFile();
                 for (int index = 0; index < manifest.Count; index++)
                 {
-                    manifest[index].LocalPath = Path.Combine(FilesystemUtils.Directory.FullName, manifest[index].LocalPathRelative);
+                    manifest[index].LocalPath = Path.Combine(ManifestUtil.FileSystemUtil.Directory.FullName, manifest[index].LocalPathRelative);
                     var compareTrack = allTracks.FirstOrDefault(i => i.id == manifest[index].id);
                     if (compareTrack == null)
                     {
-                        if (SoundcloudSyncMainForm.SyncMethod == 1) return;
+                        if (ManifestUtil.SyncMethod == 1) return;
                         manifest.Remove(manifest[index]);
                         DeleteFile(manifest[index].LocalPath);
                         continue;
@@ -99,7 +111,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     if (!comparer.Equals(manifest[index], compareTrack))
                     {
                         var oldPath = manifest[index].LocalPath;
-                        ManifestUtils.ReplaceJsonManifestObject(ref manifest, compareTrack, manifest[index], index);
+                        ManifestUtil.ReplaceJsonManifestObject(ref manifest, compareTrack, manifest[index], index);
                         Directory.CreateDirectory(Path.GetDirectoryName(manifest[index].LocalPath));
                         File.Move(oldPath, manifest[index].LocalPath);
                         DeleteEmptyDirectory(oldPath);
@@ -107,23 +119,23 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         continue;
                     }            
                 }
-                ManifestUtils.WriteManifestToFile(manifest);             
+                ManifestUtil.WriteManifestToFile(manifest);             
             }
             catch (Exception e)
             {
-                SoundcloudSync.IsError = true;
+                ManifestUtil.ProgressUtil.IsError = true;
                 throw new Exception("Unable to read manifest to determine tracks to delete; exception: " + e);
             }
         }
-        private static void DeleteFile(string fullPathSong)
+        private void DeleteFile(string fullPathSong)
         {
             if (!File.Exists(fullPathSong)) return;
             File.Delete(fullPathSong);
             DeleteEmptyDirectory(fullPathSong);
         }        
-        private static bool DeleteEmptyDirectory(string filenameWithPath)
+        private bool DeleteEmptyDirectory(string filenameWithPath)
         {
-            if (!SoundcloudSyncMainForm.FoldersPerArtist) return false;
+            if (ManifestUtil.FileSystemUtil.FoldersPerArtist) return false;
             var path = Path.GetDirectoryName(filenameWithPath);
             if (path == null || Directory.EnumerateFileSystemEntries(path).Any()) return false;
             try

@@ -4,8 +4,8 @@ using Soundcloud_Playlist_Downloader.Utils;
 namespace Soundcloud_Playlist_Downloader.JsonObjects
 {
     public class Track : SoundcloudBaseTrack
-    {
-        public string EffectiveDownloadUrl => DownloadUtils.GetEffectiveDownloadUrl(stream_url, download_url, id, downloadable);
+    {    
+        public string EffectiveDownloadUrl { get; set; }
         public string LocalPath { get; set; }
         public string LocalPathRelative { get; set; }
         public DateTime DownloadDateTimeUtc { get; set; }
