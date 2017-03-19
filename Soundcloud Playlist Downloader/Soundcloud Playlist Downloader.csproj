@@ -26,18 +26,17 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <InstallUrl>https://github.com/erwinkramer/</InstallUrl>
-    <UpdateUrl>https://dl.dropboxusercontent.com/u/35969/SC%2520Sync/</UpdateUrl>
+    <InstallUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync/raw/fix/Deployment/</InstallUrl>
     <SupportUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync</SupportUrl>
-    <ErrorReportUrl>https://dl.dropboxusercontent.com/u/35969/SC%2520Sync/</ErrorReportUrl>
+    <ErrorReportUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>SoundCloud Playlist Sync</ProductName>
     <PublisherName>SoundCloud-Playlist-Sync team</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>29</ApplicationRevision>
-    <ApplicationVersion>2.10.1.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
