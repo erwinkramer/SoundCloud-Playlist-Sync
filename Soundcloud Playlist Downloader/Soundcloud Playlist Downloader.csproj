@@ -36,7 +36,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>21</ApplicationRevision>
+    <ApplicationRevision>22</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -94,10 +94,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>C2E85E2C4D609B4D2E5F110EA89AC22F0E4DEC10</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>44B84CADE872AD85BD2BF00B6C14844F436E02FE</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Soundcloud Playlist Downloader_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Soundcloud Playlist Downloader_2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
@@ -222,6 +222,7 @@
     <None Include="singingkey.snk" />
     <None Include="Soundcloud Playlist Downloader.psproj" />
     <None Include="Soundcloud Playlist Downloader_1_TemporaryKey.pfx" />
+    <None Include="Soundcloud Playlist Downloader_2_TemporaryKey.pfx" />
     <None Include="Soundcloud Playlist Downloader_4_TemporaryKey.pfx" />
     <None Include="Soundcloud Playlist Downloader_TemporaryKey.pfx" />
   </ItemGroup>
