@@ -27,8 +27,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             // define all local paths by combining the sanitzed artist (if checked by user) with the santized title
             foreach (var track in tracks)
             {
-                track.LocalPath = ManifestUtil.FileSystemUtil.BuildTrackLocalPath(track);
-                track.EffectiveDownloadUrl = DownloadUtil.GetEffectiveDownloadUrl(track.stream_url, track.download_url, track.id, track.downloadable);
+                FinalizeTrackProperties(track);
             }
 
             // determine which new tracks should be downloaded
@@ -147,6 +146,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 return false;
             }
+        }
+
+        public void FinalizeTrackProperties(Track track)
+        {
+            track.EffectiveDownloadUrl = DownloadUtil.GetEffectiveDownloadUrl(track.stream_url, track.download_url, track.id, track.downloadable);
+            if (track.download_url == track.EffectiveDownloadUrl) track.IsHD = true;
+            else track.IsHD = false;
+            track.LocalPath = ManifestUtil.FileSystemUtil.BuildTrackLocalPath(track);
         }
     }
 }

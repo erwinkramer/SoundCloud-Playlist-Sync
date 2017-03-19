@@ -133,8 +133,7 @@ namespace Soundcloud_Playlist_Downloader
         internal void SynchronizeSingleTrack(Track track)
         {
             _syncUtil.ManifestUtil.ProgressUtil.SongsToDownload = 1;
-            track.LocalPath = _syncUtil.ManifestUtil.FileSystemUtil.BuildTrackLocalPath(track);
-            track.EffectiveDownloadUrl = _syncUtil.DownloadUtil.GetEffectiveDownloadUrl(track.stream_url, track.download_url, track.id, track.downloadable);
+            _syncUtil.FinalizeTrackProperties(track);
             _syncUtil.DownloadUtil.DownloadTrackAndTag(ref track);
         }
         internal void SynchronizeFromPlaylistApiUrl(string playlistApiUrl)
