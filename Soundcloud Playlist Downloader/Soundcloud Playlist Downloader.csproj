@@ -36,7 +36,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -67,7 +67,7 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>257B79FBDE1843E788ED65F859A51979BDAF1E9B</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>118C2D05B88518EA2531279B3ADF0F40803940BD</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestKeyFile>Soundcloud Playlist Downloader_TemporaryKey.pfx</ManifestKeyFile>
@@ -220,6 +220,7 @@
     </Compile>
     <None Include="singingkey.snk" />
     <None Include="Soundcloud Playlist Downloader.psproj" />
+    <None Include="Soundcloud Playlist Downloader_1_TemporaryKey.pfx" />
     <None Include="Soundcloud Playlist Downloader_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
