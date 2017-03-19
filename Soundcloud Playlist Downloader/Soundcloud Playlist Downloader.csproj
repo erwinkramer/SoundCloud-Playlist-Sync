@@ -36,7 +36,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationRevision>13</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -70,7 +70,7 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Soundcloud Playlist Downloader_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>Soundcloud Playlist Downloader_4_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestTimestampUrl>http://timestamp.verisign.com/scripts/timstamp.dll</ManifestTimestampUrl>
@@ -94,10 +94,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>AE8250DC7934BEA94938A341244D16A2805334F1</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>DD07BEE99AB1BDA58778BAAE16EA9D160FEBFE3D</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Soundcloud Playlist Downloader_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Soundcloud Playlist Downloader_4_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
@@ -224,6 +224,7 @@
     <None Include="Soundcloud Playlist Downloader_1_TemporaryKey.pfx" />
     <None Include="Soundcloud Playlist Downloader_2_TemporaryKey.pfx" />
     <None Include="Soundcloud Playlist Downloader_3_TemporaryKey.pfx" />
+    <None Include="Soundcloud Playlist Downloader_4_TemporaryKey.pfx" />
     <None Include="Soundcloud Playlist Downloader_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
