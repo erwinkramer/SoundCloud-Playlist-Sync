@@ -16,7 +16,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <TargetFrameworkProfile />
     <DontImportPostSharp>True</DontImportPostSharp>
-    <PublishUrl>C:\Users\Erwin\Dropbox\Public\SC Sync\</PublishUrl>
+    <PublishUrl>C:\Users\Erwin\Source\Repos\S\SoundCloud-Playlist-Sync\Deployment\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -26,15 +26,17 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <InstallUrl>https://dl.dropboxusercontent.com/u/35969/SC%2520Sync/</InstallUrl>
+    <InstallUrl>https://github.com/erwinkramer/</InstallUrl>
     <UpdateUrl>https://dl.dropboxusercontent.com/u/35969/SC%2520Sync/</UpdateUrl>
     <SupportUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync</SupportUrl>
     <ErrorReportUrl>https://dl.dropboxusercontent.com/u/35969/SC%2520Sync/</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>SoundCloud Playlist Sync</ProductName>
     <PublisherName>SoundCloud-Playlist-Sync team</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>27</ApplicationRevision>
+    <ApplicationRevision>29</ApplicationRevision>
     <ApplicationVersion>2.10.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -203,7 +205,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
+    <None Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
