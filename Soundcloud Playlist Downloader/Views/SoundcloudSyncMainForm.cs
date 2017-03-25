@@ -72,7 +72,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             var dialog = new FolderBrowserDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                directoryPath.Text = dialog.SelectedPath;
+                directoryPath.Text = dialog.SelectedPath?.ToLower();
             }
         }
 
@@ -166,8 +166,8 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void syncButton_Click(object sender, EventArgs e)
         {
-            Settings.Default.LocalPath = directoryPath.Text;
-            Settings.Default.PlaylistUrl = url.Text;
+            Settings.Default.LocalPath = directoryPath?.Text?.ToLower();
+            Settings.Default.PlaylistUrl = url?.Text?.ToLower();
             Settings.Default.ConcurrentDownloads = (int) nudConcurrency.Value;
             Settings.Default.favoritesRadio = favoritesRadio.Checked;
             Settings.Default.PlaylistRadio = playlistRadio.Checked;
@@ -189,8 +189,8 @@ namespace Soundcloud_Playlist_Downloader.Views
                 ? EnumUtil.DownloadMode.Playlist
                 : favoritesRadio.Checked ? EnumUtil.DownloadMode.Favorites
                     : artistRadio.Checked ? EnumUtil.DownloadMode.Artist : EnumUtil.DownloadMode.Track;
-            if (!string.IsNullOrWhiteSpace(url.Text) &&
-                !string.IsNullOrWhiteSpace(directoryPath.Text) &&
+            if (!string.IsNullOrWhiteSpace(url.Text?.ToLower()) &&
+                !string.IsNullOrWhiteSpace(directoryPath.Text?.ToLower()) &&
                 syncButton.Text == DefaultActionText)
             {
                 syncButton.Text = AbortActionText;
@@ -215,7 +215,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 Uri soundCloudUri;
                 try
                 {
-                    soundCloudUri = new Uri(url.Text);
+                    soundCloudUri = new Uri(url?.Text?.ToLower());
                 }
                 catch (Exception)
                 {
@@ -225,7 +225,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                     return;
                 }
 
-                var filesystemUtil = new FilesystemUtils(new DirectoryInfo(directoryPath.Text), IncludeArtistInFilename, FoldersPerArtist, ReplaceIllegalCharacters);
+                var filesystemUtil = new FilesystemUtils(new DirectoryInfo(directoryPath?.Text?.ToLower()), IncludeArtistInFilename, FoldersPerArtist, ReplaceIllegalCharacters);
                 var manifestUtil = new ManifestUtils(progressUtil, filesystemUtil, soundCloudUri, _dlMode, SyncMethod);
                 var playlistUtil = new PlaylistUtils(manifestUtil);
                 DownloadUtils downloadUtil = new DownloadUtils(clientIdUtil, ExcludeM4A, ExcludeAac, ConvertToMp3, manifestUtil, Highqualitysong);
@@ -268,7 +268,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                     try
                     {
                          var sync = new SoundcloudSync(syncUtil);
-                        sync.Synchronize(url.Text);
+                        sync.Synchronize(url?.Text?.ToLower());
                     }
                     catch (Exception ex)
                     {
@@ -317,8 +317,8 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            url.Text = Settings.Default.PlaylistUrl;
-            directoryPath.Text = Settings.Default.LocalPath;
+            url.Text = Settings.Default.PlaylistUrl?.ToLower();
+            directoryPath.Text = Settings.Default.LocalPath?.ToLower();
             nudConcurrency.Value = Settings.Default.ConcurrentDownloads;
             favoritesRadio.Checked = Settings.Default.favoritesRadio;
             playlistRadio.Checked = Settings.Default.PlaylistRadio;

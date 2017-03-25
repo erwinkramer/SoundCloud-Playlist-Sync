@@ -156,15 +156,24 @@ namespace Soundcloud_Playlist_Downloader.Utils
             differentmanifest = false;
             if (!Directory.Exists(FileSystemUtil.Directory.FullName)) return false;        
             var files = Directory.GetFiles(FileSystemUtil.Directory.FullName, ".MNFST=*", SearchOption.TopDirectoryOnly);
-            if (files.Length > 0)
+
+            string[] manifestProperties = ManifestName.Split(',');
+
+            foreach (string ManifestFileName in files)
             {
-                if (File.Exists(Path.Combine(FileSystemUtil.Directory.FullName, ManifestName)))
+                if (ManifestFileName.StartsWith(Path.Combine(FileSystemUtil.Directory.FullName, manifestProperties[0] + ",")))
                 {
-                    BackupManifest(FileSystemUtil.Directory.FullName, ManifestName);
-                    return true;
+                    if(File.Exists(Path.Combine(FileSystemUtil.Directory.FullName, ManifestName)))
+                    {
+                        BackupManifest(FileSystemUtil.Directory.FullName, ManifestName);
+                        return true;
+                    }
+                    else
+                    {
+                        differentmanifest = true;
+                    }
                 }
-                differentmanifest = true;
-            }
+            }       
             return false;
         }
     }
