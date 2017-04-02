@@ -147,9 +147,9 @@
             this.lbl_JSON.AutoSize = true;
             this.lbl_JSON.Location = new System.Drawing.Point(156, 25);
             this.lbl_JSON.Name = "lbl_JSON";
-            this.lbl_JSON.Size = new System.Drawing.Size(36, 13);
+            this.lbl_JSON.Size = new System.Drawing.Size(42, 13);
             this.lbl_JSON.TabIndex = 33;
-            this.lbl_JSON.Text = "v9.0.x";
+            this.lbl_JSON.Text = "v10.0.x";
             // 
             // link_postsharp
             // 
