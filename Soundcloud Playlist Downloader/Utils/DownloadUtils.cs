@@ -202,38 +202,45 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public bool IsDownloadable(string downloadUrl)
         {
-            var requeststreamUrl = WebRequest.Create(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
-            var a = GetExtensionFromWebRequest(requeststreamUrl);
-            if (a == "")
-                return false;
-            else
-                return true;
+            var requestdownloadUrl = WebRequest.Create(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
+            return IsValidUrl(requestdownloadUrl);
+        }
+
+        public static bool IsValidUrl(WebRequest request)
+        {
+            bool succeeded = true;
+            request.Method = "HEAD";
+            try
+            {
+                using (var response = request.GetResponse())
+                {
+                    succeeded = true;
+                }
+            }
+            catch (WebException exception)
+            {
+                succeeded = false;
+            }
+            return succeeded;
         }
 
         public static string GetExtensionFromWebRequest(WebRequest request)
         {
             string extension = "";
-            request.Method = "HEAD";
-            try
-            {       
-                using (var response = request.GetResponse())
-                {
-                    try
-                    {
-                        var disposition = new ContentDisposition(response.Headers["Content-Disposition"]);
-                        extension = Path.GetExtension(disposition.FileName);
-                    }
-                    catch (FormatException)
-                    {
-                        //If it fails to get extention from disposition (if ContentDisposition works it gives more reliable results)
-                        extension = $".{response.Headers["x-amz-meta-file-type"]}";
-                    }
-                    }
-            }
-            catch(WebException exception)
+            request.Method = "HEAD";      
+            using (var response = request.GetResponse())
             {
-
-            }
+                try
+                {
+                    var disposition = new ContentDisposition(response.Headers["Content-Disposition"]);
+                    extension = Path.GetExtension(disposition.FileName);
+                }
+                catch (FormatException)
+                {
+                    //If it fails to get extention from disposition (if ContentDisposition works it gives more reliable results)
+                    extension = $".{response.Headers["x-amz-meta-file-type"]}";
+                }
+            }          
             return extension;
         }
 
