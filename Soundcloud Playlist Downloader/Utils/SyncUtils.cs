@@ -150,6 +150,19 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public void FinalizeTrackProperties(Track track)
         {
+            if(track.downloadable == true)
+            {
+                //really make sure it's downloadable
+                if (DownloadUtil.IsDownloadable(track.download_url))
+                {
+                    track.downloadable = true;
+                }
+                else
+                {
+                    track.downloadable = false;
+                }
+            }
+
             track.EffectiveDownloadUrl = DownloadUtil.GetEffectiveDownloadUrl(track.stream_url, track.download_url, track.id, track.downloadable);
             if (track.download_url == track.EffectiveDownloadUrl) track.IsHD = true;
             else track.IsHD = false;
