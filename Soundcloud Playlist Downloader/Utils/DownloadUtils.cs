@@ -217,7 +217,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     succeeded = true;
                 }
             }
-            catch (WebException exception)
+            catch (WebException)
             {
                 succeeded = false;
             }
