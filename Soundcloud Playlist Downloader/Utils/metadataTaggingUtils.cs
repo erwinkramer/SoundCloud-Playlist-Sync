@@ -16,7 +16,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static void TagIt(Track song)
         {
             // metadata tagging
-            Tag.DefaultVersion = 2;
+            Tag.DefaultVersion = 3;
             Tag.ForceDefaultVersion = true;
             // Possible values for DefaultVersion are 2(id3v2.2), 3(id3v2.3) or 4(id3v2.4)
             // it seems that id3v2.4 is more prone to misinterpret utf-8. id3v2.2 seems most stable. 
@@ -153,8 +153,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     {
                         web.DownloadFile(highResAvatarUrl, avatarFilepath);
                     }
-                    var artwork = new Picture(avatarFilepath) {Type = PictureType.FrontCover};
-                    tagFile.Tag.Pictures = new IPicture[] {artwork};
+                    var artwork = new Picture(avatarFilepath) {
+                        Type = PictureType.FrontCover,
+                        Description = "cover"
+                };
+                    tagFile.Tag.Pictures = new [] {artwork};
                     break;
                 }
                 catch (Exception)
@@ -184,8 +187,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     {
                         web.DownloadFile(highResArtworkUrl, artworkFilepath);
                     }
-                    var artwork = new Picture(artworkFilepath) {Type = PictureType.FrontCover};
-                    tagFile.Tag.Pictures = new IPicture[] {artwork};
+                    var artwork = new Picture(artworkFilepath)
+                    {
+                        Type = PictureType.FrontCover,
+                        Description = "cover"
+                    };
+                    tagFile.Tag.Pictures = new [] {artwork};
                     break;
                 }
                 catch (Exception e)
