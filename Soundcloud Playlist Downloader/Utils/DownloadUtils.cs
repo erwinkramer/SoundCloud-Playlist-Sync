@@ -38,7 +38,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public void DownloadSongs(IList<Track> tracksToDownload)
         {
             var trackProgress = new ConcurrentDictionary<string, string>();
-
+            const int maximumExceptionsCount = 10;
+            int currentAmountOfExceptions = 0;
             ManifestUtil.ProgressUtil.SongsToDownload = tracksToDownload.Count;
             if (ManifestUtil.ProgressUtil.SongsToDownload == 0) return;
             var exceptions = new ConcurrentQueue<Exception>();
@@ -70,14 +71,20 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         }
                         catch (Exception e)
                         {
+                            currentAmountOfExceptions++;
+
                             var exc = new Exception($"Exception while downloading track '{track.Title}' from artist '{track.Artist}'", e);
                             exceptions.Enqueue(exc);
                             trackProgress.AddOrUpdate(track.id.ToString(),  track.Title, (key, oldValue) => "[X] " + track.Title);
                             ManifestUtil.ProgressUtil.TrackProgress = trackProgress.Values;
                             //EventLog.WriteEntry(Application.ProductName, exc.ToString());
-                            ManifestUtil.ProgressUtil.IsError = true;
-                            po.CancellationToken.ThrowIfCancellationRequested();
-                            cts.Cancel();
+
+                            if(maximumExceptionsCount <= currentAmountOfExceptions)
+                            {
+                                ManifestUtil.ProgressUtil.IsError = true;
+                                cts.Cancel();
+                                po.CancellationToken.ThrowIfCancellationRequested();
+                            }
                         }
                     });
             }
