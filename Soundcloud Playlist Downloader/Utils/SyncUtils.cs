@@ -73,6 +73,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
        
         private void AnalyseManifestTracks(IList<Track> allTracks, List<Track> tracksToDownload)
         {
+            Track track = null;
             var manifestPath = ManifestUtil.DetermineManifestPath();
             try
             {
@@ -80,41 +81,44 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 var manifest = ManifestUtil.LoadManifestFromFile();
                 for (int index = 0; index < manifest.Count; index++)
                 {
-                    manifest[index].LocalPath = Path.Combine(ManifestUtil.FileSystemUtil.Directory.FullName, manifest[index].LocalPathRelative);
-                    var compareTrack = allTracks.FirstOrDefault(i => i.id == manifest[index].id);
+                    track = manifest[index];
+
+                    track.LocalPath = Path.Combine(ManifestUtil.FileSystemUtil.Directory.FullName, track.LocalPathRelative);
+                    var compareTrack = allTracks.FirstOrDefault(i => i.id == track.id);
                     if (compareTrack == null)
                     {
                         if (ManifestUtil.SyncMethod == 1) return;
-                        manifest.Remove(manifest[index]);
-                        DeleteFile(manifest[index].LocalPath);
+                        manifest.Remove(track);
+                        DeleteFile(track.LocalPath);
                         continue;
                     }
-                    if (!File.Exists(manifest[index].LocalPath))
+                    if (!File.Exists(track.LocalPath))
                     {
-                        manifest.Remove(manifest[index]);
+                        manifest.Remove(track);
                         tracksToDownload.Add(compareTrack);
                         continue;
                     }
 
                     //If the duration is shorter than before; suspect a change from full song to sample song
-                    if (manifest[index].duration > compareTrack.duration) continue;
+                    if (track.duration > compareTrack.duration) continue;
 
-                    if (compareTrack.IsHD && !manifest[index].IsHD) //track changed to HD
+                    if (compareTrack.IsHD && !track.IsHD) //track changed to HD
                     {
-                        manifest.Remove(manifest[index]);
-                        DeleteFile(manifest[index].LocalPath);
+                        manifest.Remove(track);
+                        DeleteFile(track.LocalPath);
                         tracksToDownload.Add(compareTrack);
                         continue;
                     }
                     IEqualityComparer<SoundcloudBaseTrack> comparer = new CompareUtils();                
-                    if (!comparer.Equals(manifest[index], compareTrack))
+                    if (!comparer.Equals(track, compareTrack))
                     {
-                        var oldPath = manifest[index].LocalPath;
-                        ManifestUtil.ReplaceJsonManifestObject(ref manifest, compareTrack, manifest[index], index);
-                        Directory.CreateDirectory(Path.GetDirectoryName(manifest[index].LocalPath));
-                        File.Move(oldPath, manifest[index].LocalPath);
+
+                        var oldPath = track.LocalPath;
+                        ManifestUtil.ReplaceJsonManifestObject(ref manifest, compareTrack, track, index);
+                        Directory.CreateDirectory(Path.GetDirectoryName(track.LocalPath));
+                        File.Move(oldPath, track.LocalPath);
                         DeleteEmptyDirectory(oldPath);
-                        MetadataTaggingUtils.TagIt(manifest[index]);
+                        MetadataTaggingUtils.TagIt(track);
                         continue;
                     }            
                 }
@@ -123,7 +127,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             catch (Exception e)
             {
                 ManifestUtil.ProgressUtil.IsError = true;
-                throw new Exception("Unable to read manifest to determine tracks to delete; exception: " + e);
+                throw new Exception($"Unable to read manifest or to modify existing tracks. Occurred at track with EffectiveDownloadUrl: {track?.EffectiveDownloadUrl} and local path: {track?.LocalPath}; exception: " + e);
             }
         }
         private void DeleteFile(string fullPathSong)
