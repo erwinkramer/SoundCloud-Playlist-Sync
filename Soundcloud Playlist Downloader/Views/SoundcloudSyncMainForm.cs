@@ -19,6 +19,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private static EnumUtil.DownloadMode _dlMode;
         private static bool FoldersPerArtist;
         private static bool ReplaceIllegalCharacters;
+        private static bool IncludeDateInFilename;
         private static bool ExcludeM4A;
         private static bool ExcludeAac;
         private static bool CreatePlaylists;
@@ -178,7 +179,10 @@ namespace Soundcloud_Playlist_Downloader.Views
             Settings.Default.chk_exl_aac = chk_exl_aac.Checked;
             Settings.Default.chk_folderByArtist = chk_folderByArtist.Checked;
             Settings.Default.chk_highquality = chk_highquality.Checked;
-            Settings.Default.chk_includeArtistinFilename = chk_includeArtistinFilename.Checked;
+            Settings.Default.chk_includeArtistinFilename = chk_includeArtistinFilename.Checked;            Settings.Default.chk_includeArtistinFilename = chk_includeArtistinFilename.Checked;
+
+            Settings.Default.chk_IncludeCreationDate = chk_IncludeCreationDate.Checked;
+
             Settings.Default.chk_replaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
             Settings.Default.rbttn_oneWay = rbttn_oneWay.Checked;
             Settings.Default.rbttn_twoWay = rbttn_twoWay.Checked;
@@ -205,6 +209,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 Highqualitysong = chk_highquality.Checked;
                 ConvertToMp3 = chk_convertToMp3.Checked;
                 IncludeArtistInFilename = chk_includeArtistinFilename.Checked;
+                IncludeDateInFilename = chk_IncludeCreationDate.Checked;
                 SyncMethod = rbttn_oneWay.Checked ? 1 : 2;
                 FoldersPerArtist = chk_folderByArtist.Checked;
                 ReplaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
@@ -225,7 +230,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                     return;
                 }
 
-                var filesystemUtil = new FilesystemUtils(new DirectoryInfo(directoryPath?.Text?.ToLower()), IncludeArtistInFilename, FoldersPerArtist, ReplaceIllegalCharacters);
+                var filesystemUtil = new FilesystemUtils(new DirectoryInfo(directoryPath?.Text?.ToLower()), IncludeArtistInFilename, FoldersPerArtist, ReplaceIllegalCharacters, IncludeDateInFilename);
                 var manifestUtil = new ManifestUtils(progressUtil, filesystemUtil, soundCloudUri, _dlMode, SyncMethod);
                 var playlistUtil = new PlaylistUtils(manifestUtil);
                 DownloadUtils downloadUtil = new DownloadUtils(clientIdUtil, ExcludeM4A, ExcludeAac, ConvertToMp3, manifestUtil, Highqualitysong);

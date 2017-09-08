@@ -62,13 +62,14 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_url = new System.Windows.Forms.GroupBox();
             this.url = new System.Windows.Forms.TextBox();
             this.gbox_advanced = new System.Windows.Forms.GroupBox();
+            this.chk_CreatePlaylists = new System.Windows.Forms.CheckBox();
             this.nudConcurrency = new System.Windows.Forms.NumericUpDown();
             this.concurrency = new System.Windows.Forms.Label();
             this.gbox_localdir = new System.Windows.Forms.GroupBox();
             this.directoryPath = new System.Windows.Forms.TextBox();
             this.lb_progressOfTracks = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chk_CreatePlaylists = new System.Windows.Forms.CheckBox();
+            this.chk_IncludeCreationDate = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnl_convert.SuspendLayout();
@@ -376,6 +377,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             // gbox_advanced
             // 
+            this.gbox_advanced.Controls.Add(this.chk_IncludeCreationDate);
             this.gbox_advanced.Controls.Add(this.chk_CreatePlaylists);
             this.gbox_advanced.Controls.Add(this.nudConcurrency);
             this.gbox_advanced.Controls.Add(this.concurrency);
@@ -390,6 +392,19 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_advanced.TabIndex = 33;
             this.gbox_advanced.TabStop = false;
             this.gbox_advanced.Text = "Advanced Options";
+            // 
+            // chk_CreatePlaylists
+            // 
+            this.chk_CreatePlaylists.AutoSize = true;
+            this.chk_CreatePlaylists.Checked = true;
+            this.chk_CreatePlaylists.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_CreatePlaylists.Location = new System.Drawing.Point(6, 116);
+            this.chk_CreatePlaylists.Name = "chk_CreatePlaylists";
+            this.chk_CreatePlaylists.Size = new System.Drawing.Size(109, 17);
+            this.chk_CreatePlaylists.TabIndex = 31;
+            this.chk_CreatePlaylists.Text = "Generate playlists";
+            this.chk_CreatePlaylists.UseVisualStyleBackColor = true;
+            this.chk_CreatePlaylists.CheckedChanged += new System.EventHandler(this.chk_CreatePlaylists_CheckedChanged);
             // 
             // nudConcurrency
             // 
@@ -461,18 +476,15 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Downl. Progress";
             // 
-            // chk_CreatePlaylists
+            // chk_IncludeCreationDate
             // 
-            this.chk_CreatePlaylists.AutoSize = true;
-            this.chk_CreatePlaylists.Checked = true;
-            this.chk_CreatePlaylists.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_CreatePlaylists.Location = new System.Drawing.Point(6, 116);
-            this.chk_CreatePlaylists.Name = "chk_CreatePlaylists";
-            this.chk_CreatePlaylists.Size = new System.Drawing.Size(109, 17);
-            this.chk_CreatePlaylists.TabIndex = 31;
-            this.chk_CreatePlaylists.Text = "Generate playlists";
-            this.chk_CreatePlaylists.UseVisualStyleBackColor = true;
-            this.chk_CreatePlaylists.CheckedChanged += new System.EventHandler(this.chk_CreatePlaylists_CheckedChanged);
+            this.chk_IncludeCreationDate.AutoSize = true;
+            this.chk_IncludeCreationDate.Location = new System.Drawing.Point(139, 116);
+            this.chk_IncludeCreationDate.Name = "chk_IncludeCreationDate";
+            this.chk_IncludeCreationDate.Size = new System.Drawing.Size(143, 17);
+            this.chk_IncludeCreationDate.TabIndex = 32;
+            this.chk_IncludeCreationDate.Text = "Include SC creation date";
+            this.chk_IncludeCreationDate.UseVisualStyleBackColor = true;
             // 
             // SoundcloudSyncMainForm
             // 
@@ -557,6 +569,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ToolStripMenuItem clientIDToolStripMenuItem;
         private System.Windows.Forms.CheckBox chk_CreatePlaylists;
+        private System.Windows.Forms.CheckBox chk_IncludeCreationDate;
     }
 }
 

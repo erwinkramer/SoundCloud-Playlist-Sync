@@ -10,10 +10,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
     {
         public DirectoryInfo Directory;
         public bool IncludeArtistInFilename;
+        public bool IncludeDateInFilename;
         public bool FoldersPerArtist;
         public bool ReplaceIllegalCharacters;
-        public FilesystemUtils(DirectoryInfo targetDirectory, bool includeArtistInFilename, bool foldersPerArtist, bool replaceIllegalCharacters)
+        public FilesystemUtils(DirectoryInfo targetDirectory, bool includeArtistInFilename, bool foldersPerArtist, bool replaceIllegalCharacters, bool includeDateInFilename)
         {
+            IncludeDateInFilename = includeDateInFilename;
             ReplaceIllegalCharacters = replaceIllegalCharacters;
             FoldersPerArtist = foldersPerArtist;
             IncludeArtistInFilename = includeArtistInFilename;
@@ -27,8 +29,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static bool IsPathWithinLimits(string fullPathAndFilename)
         {
             //In the Windows API the maximum length for a path is MAX_PATH, which is defined as 260 characters.
-            //We'll make it 250 because there will be an extention and, in some cases, an HQ tag appended to the filename.  
-            const int maxPathLength = 250;
+            //We'll make it 255 because there will be an extention (like .mp3).  
+            const int maxPathLength = 255;
             return fullPathAndFilename.Length <= maxPathLength;
         }
         public string BuildTrackLocalPath(Track track)
@@ -37,53 +39,39 @@ namespace Soundcloud_Playlist_Downloader.Utils
             var validArtist = CoerceValidFileName(track.Artist, true);
             var validArtistFolderName = TrimDotsAndSpacesForFolderName(validArtist);
             var validTitle = CoerceValidFileName(track.Title, true);
-            var filenameWithArtist = validArtist + " - " + validTitle;
+            var filename = string.Empty;
+
+            if (IncludeDateInFilename)
+            {
+                var dateTimeCreatedAt = DateTime.Parse(track.created_at);
+                filename += dateTimeCreatedAt.ToString("yyyy-MM-dd HH.mm.ss ");
+            }
+
+            if (IncludeArtistInFilename)
+                filename += validArtist + " - ";
+
+            if (track.IsHD)
+                validTitle += " (HQ)";
+
+            filename += validTitle;           
 
             if (FoldersPerArtist)
             {
-                if (IncludeArtistInFilename) //include artist name
+                while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, validArtistFolderName,
+                    filename)))
                 {
-                    while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, validArtistFolderName,
-                        filenameWithArtist)))
-                    {
-                        filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
-                        //shorten to fit into max size of path
-                    }
-                }
-                else
-                {
-                    while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, validArtistFolderName,
-                        validTitle)))
-                    {
-                        validTitle = validTitle.Remove(validTitle.Length - 2);
-                        //shorten to fit into max size of path
-                    }
-                }
+                    filename = filename.Remove(filename.Length - 2);
+                    //shorten to fit into max size of path
+                }          
             }
             else
-            {
-                if (IncludeArtistInFilename) //include artist name
+            {               
+                while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, filename)))
                 {
-                    while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, filenameWithArtist)))
-                    {
-                        filenameWithArtist = filenameWithArtist.Remove(filenameWithArtist.Length - 2);
-                        //shorten to fit into max size of path
-                    }
-                }
-                else
-                {
-                    while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, validTitle)))
-                    {
-                        validTitle = validTitle.Remove(validTitle.Length - 2);
-                        //shorten to fit into max size of path
-                    }
-                }
-            }
-            if (track.IsHD)
-            {
-                path += " (HQ)";
-            }
-
+                    filename = filename.Remove(filename.Length - 2);
+                    //shorten to fit into max size of path
+                }        
+            } 
             return path;
         }
 
