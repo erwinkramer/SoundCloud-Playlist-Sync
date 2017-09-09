@@ -208,27 +208,18 @@ namespace Soundcloud_Playlist_Downloader.Utils
         }
 
         public bool IsDownloadable(string downloadUrl)
-        {
-            var requestdownloadUrl = WebRequest.Create(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
-            return IsValidUrl(requestdownloadUrl);
-        }
-
-        public static bool IsValidUrl(WebRequest request)
-        {
-            bool succeeded = true;
-            request.Method = "HEAD";
+        {           
+            var requestdownloadUrl = (HttpWebRequest)WebRequest.Create(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
+            requestdownloadUrl.Method = WebRequestMethods.Http.Head;
             try
             {
-                using (var response = request.GetResponse())
-                {
-                    succeeded = true;
-                }
+                HttpWebResponse response = (HttpWebResponse)requestdownloadUrl.GetResponse();
+                return response.StatusCode == HttpStatusCode.OK;
             }
-            catch (WebException)
+            catch (Exception e)
             {
-                succeeded = false;
+                return false;
             }
-            return succeeded;
         }
 
         public static string GetExtensionFromWebRequest(WebRequest request)
