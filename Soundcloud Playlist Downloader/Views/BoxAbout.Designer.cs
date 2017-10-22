@@ -263,7 +263,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(36, 13);
             this.label5.TabIndex = 41;
-            this.label5.Text = "v1.5.x";
+            this.label5.Text = "v1.6.x";
             // 
             // link_HtmlAgilityPack
             // 

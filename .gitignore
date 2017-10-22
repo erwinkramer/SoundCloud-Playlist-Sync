@@ -187,3 +187,6 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/.vs/Soundcloud Playlist Downloader/v15/Server/sqlite3
+/.vs/Soundcloud Playlist Downloader/v15/sqlite3/db.lock
+/.vs/Soundcloud Playlist Downloader/v15/sqlite3/storage.ide-shm
