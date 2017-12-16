@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\PostSharp.5.0.32\build\PostSharp.props" Condition="Exists('..\packages\PostSharp.5.0.32\build\PostSharp.props')" />
+  <Import Project="..\packages\PostSharp.5.0.41\build\PostSharp.props" Condition="Exists('..\packages\PostSharp.5.0.41\build\PostSharp.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -10,18 +10,18 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Soundcloud_Playlist_Downloader</RootNamespace>
     <AssemblyName>Soundcloud Playlist Sync</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>C:\Users\Erwin\Source\Repos\S\SoundCloud-Playlist-Sync\Deployment\</PublishUrl>
+    <PublishUrl>C:\Users\Erwin\Source\Repos\SoundCloud-Playlist-Sync\Deployment\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
+    <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -29,17 +29,15 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync/raw/fix/Deployment/</InstallUrl>
     <UpdateUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync/raw/fix/Deployment/</UpdateUrl>
     <SupportUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync</SupportUrl>
     <ErrorReportUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
     <ProductName>SoundCloud Playlist Sync</ProductName>
     <PublisherName>SoundCloud-Playlist-Sync team</PublisherName>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>40</ApplicationRevision>
+    <ApplicationRevision>42</ApplicationRevision>
     <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -75,7 +73,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Soundcloud Playlist Downloader_4_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestTimestampUrl>http://timestamp.verisign.com/scripts/timstamp.dll</ManifestTimestampUrl>
@@ -96,18 +95,18 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>44B84CADE872AD85BD2BF00B6C14844F436E02FE</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>54F0C3532D695F6A39E625F732833345B280DB2D</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Soundcloud Playlist Downloader_2_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Soundcloud Playlist Downloader_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack, Version=1.6.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.6.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.6.8.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.6.8\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAPICodePack-Core.1.1.0.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
@@ -121,17 +120,17 @@
       <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NAudio, Version=1.8.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.1.8.3\lib\net35\NAudio.dll</HintPath>
+    <Reference Include="NAudio, Version=1.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.8.4\lib\net35\NAudio.dll</HintPath>
     </Reference>
-    <Reference Include="NAudio.Lame, Version=1.0.5.27653, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NAudio.Lame.1.0.6\lib\net20\NAudio.Lame.dll</HintPath>
+    <Reference Include="NAudio.Lame, Version=1.0.5.22475, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Lame.1.0.7\lib\net20\NAudio.Lame.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PostSharp, Version=5.0.32.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
-      <HintPath>..\packages\PostSharp.Redist.5.0.32\lib\net45\PostSharp.dll</HintPath>
+    <Reference Include="PostSharp, Version=5.0.41.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostSharp.Redist.5.0.41\lib\net45\PostSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -224,9 +223,6 @@
     <None Include="singingkey.snk" />
     <None Include="Soundcloud Playlist Downloader.psproj" />
     <None Include="Soundcloud Playlist Downloader_1_TemporaryKey.pfx" />
-    <None Include="Soundcloud Playlist Downloader_2_TemporaryKey.pfx" />
-    <None Include="Soundcloud Playlist Downloader_4_TemporaryKey.pfx" />
-    <None Include="Soundcloud Playlist Downloader_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -234,9 +230,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -271,10 +267,10 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\PostSharp.5.0.32\build\PostSharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PostSharp.5.0.32\build\PostSharp.props'))" />
-    <Error Condition="!Exists('..\packages\PostSharp.5.0.32\build\PostSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PostSharp.5.0.32\build\PostSharp.targets'))" />
+    <Error Condition="!Exists('..\packages\PostSharp.5.0.41\build\PostSharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PostSharp.5.0.41\build\PostSharp.props'))" />
+    <Error Condition="!Exists('..\packages\PostSharp.5.0.41\build\PostSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PostSharp.5.0.41\build\PostSharp.targets'))" />
   </Target>
-  <Import Project="..\packages\PostSharp.5.0.32\build\PostSharp.targets" Condition="Exists('..\packages\PostSharp.5.0.32\build\PostSharp.targets')" />
+  <Import Project="..\packages\PostSharp.5.0.41\build\PostSharp.targets" Condition="Exists('..\packages\PostSharp.5.0.41\build\PostSharp.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
