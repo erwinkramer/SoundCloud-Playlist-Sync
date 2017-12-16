@@ -5,6 +5,7 @@
         public enum DownloadMode
         {
             Playlist,
+            UserPlaylists,
             Favorites,
             Artist,
             Track

@@ -108,6 +108,36 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return null;
         }
 
+        public IList<PlaylistItem> RetrievePlaylistsFromUrl(string url)
+        {
+            // parse each playlist out, match the name based on the
+            // permalink, and return the id of the matching playlist.           
+            var playlistsJson = RetrieveJson(url);
+            var playlists = JArray.Parse(playlistsJson);
+
+            IList<JToken> results = playlists.Children().ToList();
+            IList<PlaylistItem> playlistsitems = new List<PlaylistItem>();
+
+            try
+            {
+                if (playlistsJson != null)
+                {
+                    foreach (var result in results)
+                    {
+                        var playlistsitem = JsonConvert.DeserializeObject<PlaylistItem>(result.ToString());
+                        playlistsitems.Add(playlistsitem);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                _manifestUtil.ProgressUtil.IsError = true;
+                throw new Exception("Errors occurred retrieving the playlist list information. Double check your url.", e);
+            }
+            return playlistsitems;
+        }
+
+
         public IList<Track> RetrieveTracksFromUrl(string url, bool isRawTracksUrl, bool ignoreSampleSongs)
         {
             var limit = isRawTracksUrl ? 200 : 0; //200 is the limit set by SoundCloud itself. Remember; limits are only with 'collection' types in JSON 

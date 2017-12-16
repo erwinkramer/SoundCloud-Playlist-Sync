@@ -11,7 +11,7 @@
     <Setting Name="ConcurrentDownloads" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
-    <Setting Name="favoritesRadio" Type="System.Boolean" Scope="User">
+    <Setting Name="userPlaylists" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="rbttn_oneWay" Type="System.Boolean" Scope="User">
@@ -55,6 +55,9 @@
     </Setting>
     <Setting Name="chk_IncludeCreationDate" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="favoritesRadio" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -62,12 +62,12 @@ namespace Soundcloud_Playlist_Downloader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool favoritesRadio {
+        public bool userPlaylists {
             get {
-                return ((bool)(this["favoritesRadio"]));
+                return ((bool)(this["userPlaylists"]));
             }
             set {
-                this["favoritesRadio"] = value;
+                this["userPlaylists"] = value;
             }
         }
         
@@ -236,6 +236,18 @@ namespace Soundcloud_Playlist_Downloader.Properties {
             }
             set {
                 this["chk_IncludeCreationDate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool favoritesRadio {
+            get {
+                return ((bool)(this["favoritesRadio"]));
+            }
+            set {
+                this["favoritesRadio"] = value;
             }
         }
     }

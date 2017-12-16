@@ -9,10 +9,26 @@ namespace Soundcloud_Playlist_Downloader.Utils
     public class FilesystemUtils
     {
         public DirectoryInfo Directory;
+        public DirectoryInfo OriginalDirectory;
         public bool IncludeArtistInFilename;
         public bool IncludeDateInFilename;
         public bool FoldersPerArtist;
         public bool ReplaceIllegalCharacters;
+
+        public void ResetDirectoryInfo()
+        {
+            Directory = OriginalDirectory;
+        }
+
+        public void ChangeDirectoryInfo(string targetDirectory)
+        {
+            var targetLastFolder = Path.GetFileName(targetDirectory).TrimEnd('\\');
+
+            targetDirectory = OriginalDirectory.FullName + '\\' + targetLastFolder;
+
+            Directory = new DirectoryInfo(targetDirectory);
+        }
+
         public FilesystemUtils(DirectoryInfo targetDirectory, bool includeArtistInFilename, bool foldersPerArtist, bool replaceIllegalCharacters, bool includeDateInFilename)
         {
             IncludeDateInFilename = includeDateInFilename;
@@ -20,10 +36,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
             FoldersPerArtist = foldersPerArtist;
             IncludeArtistInFilename = includeArtistInFilename;
             Directory = targetDirectory;
+            OriginalDirectory = new DirectoryInfo(targetDirectory.FullName);
         }
+
         public string MakeRelativePath(string fullpath)
         {
-            return fullpath.Replace(Directory.FullName, "").Substring(1);           
+            return fullpath.Replace(Directory.FullName, "").Substring(1);
         }
 
         public static bool IsPathWithinLimits(string fullPathAndFilename)
@@ -53,7 +71,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             if (track.IsHD)
                 validTitle += " (HQ)";
 
-            filename += validTitle;           
+            filename += validTitle;
 
             if (FoldersPerArtist)
             {
@@ -62,16 +80,16 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 {
                     filename = filename.Remove(filename.Length - 2);
                     //shorten to fit into max size of path
-                }          
+                }
             }
             else
-            {               
+            {
                 while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, filename)))
                 {
                     filename = filename.Remove(filename.Length - 2);
                     //shorten to fit into max size of path
-                }        
-            } 
+                }
+            }
             return path;
         }
 

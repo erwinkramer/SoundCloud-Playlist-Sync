@@ -21,11 +21,14 @@ namespace Soundcloud_Playlist_Downloader.Views
             var link6 = new LinkLabel.Link();
             var link7 = new LinkLabel.Link();
             var link8 = new LinkLabel.Link();
+            var link9 = new LinkLabel.Link();
 
             link.LinkData = "https://github.com/StephenCasella/SoundCloud-Playlist-Sync/releases";
             link_github2.Links.Add(link);
             link2.LinkData = "https://github.com/erwinkramer/SoundCloud-Playlist-Sync/releases";
             link_github.Links.Add(link2);
+            link9.LinkData = "https://github.com/valentingiraud";
+            link_github_contributor_1.Links.Add(link9);
             link3.LinkData = "https://github.com/mono/taglib-sharp/releases";
             link_taglib.Links.Add(link3);
             link4.LinkData = "https://github.com/JamesNK/Newtonsoft.Json/releases";
@@ -123,6 +126,11 @@ namespace Soundcloud_Playlist_Downloader.Views
         }
 
         private void link_HtmlAgilityPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+        }
+
+        private void link_github_contributor_1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
         }

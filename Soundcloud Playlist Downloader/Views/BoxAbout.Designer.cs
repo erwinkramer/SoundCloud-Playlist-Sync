@@ -43,6 +43,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.License = new System.Windows.Forms.TabPage();
             this.Projectwebsites = new System.Windows.Forms.TabPage();
+            this.link_github_contributor_1 = new System.Windows.Forms.LinkLabel();
+            this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.Libraries = new System.Windows.Forms.TabPage();
@@ -205,6 +207,8 @@
             // 
             // Projectwebsites
             // 
+            this.Projectwebsites.Controls.Add(this.link_github_contributor_1);
+            this.Projectwebsites.Controls.Add(this.label6);
             this.Projectwebsites.Controls.Add(this.label4);
             this.Projectwebsites.Controls.Add(this.label3);
             this.Projectwebsites.Controls.Add(this.link_github2);
@@ -216,6 +220,26 @@
             this.Projectwebsites.TabIndex = 1;
             this.Projectwebsites.Text = "Project website(s)";
             this.Projectwebsites.UseVisualStyleBackColor = true;
+            // 
+            // link_github_contributor_1
+            // 
+            this.link_github_contributor_1.AutoSize = true;
+            this.link_github_contributor_1.Location = new System.Drawing.Point(105, 61);
+            this.link_github_contributor_1.Name = "link_github_contributor_1";
+            this.link_github_contributor_1.Size = new System.Drawing.Size(73, 13);
+            this.link_github_contributor_1.TabIndex = 30;
+            this.link_github_contributor_1.TabStop = true;
+            this.link_github_contributor_1.Text = "valentingiraud";
+            this.link_github_contributor_1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_github_contributor_1_LinkClicked);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 61);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.TabIndex = 29;
+            this.label6.Text = "Contributors:";
             // 
             // label4
             // 
@@ -373,5 +397,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.LinkLabel link_HtmlAgilityPack;
+        private System.Windows.Forms.LinkLabel link_github_contributor_1;
+        private System.Windows.Forms.Label label6;
     }
 }
