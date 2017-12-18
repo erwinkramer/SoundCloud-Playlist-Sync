@@ -18,8 +18,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public bool ExcludeM4A;
         public bool ExcludeAac;
         ManifestUtils ManifestUtil;
+        public int ConcurrentDownloads;
         public ClientIDsUtils ClientIDsUtil;
-        public DownloadUtils(ClientIDsUtils clientIDsUtil, bool excludeM4A, bool excludeAac, bool convertToMp3, ManifestUtils manifestUtil, bool highqualitysong)
+        public DownloadUtils(ClientIDsUtils clientIDsUtil, bool excludeM4A, bool excludeAac, bool convertToMp3, ManifestUtils manifestUtil, bool highqualitysong, int concurrentDownloads)
         {
             ExcludeM4A = excludeM4A;
             ExcludeAac = excludeAac;
@@ -27,6 +28,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             ManifestUtil = manifestUtil;
             ConvertToMp3 = convertToMp3;
             ClientIDsUtil = clientIDsUtil;
+            ConcurrentDownloads = concurrentDownloads;
         }   
 
         public void DownloadSongs(IList<Track> tracksToDownload)
@@ -35,12 +37,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
             if (ManifestUtil.ProgressUtil.SongsToDownload == 0) return;
             var cts = new CancellationTokenSource();
-            if (Settings.Default.ConcurrentDownloads == 0)
+            if (ConcurrentDownloads == 0)
                 throw new Exception("Number for concurrent downloads must be at least 1");
             var po = new ParallelOptions
             {
                 CancellationToken = cts.Token,
-                MaxDegreeOfParallelism = Settings.Default.ConcurrentDownloads 
+                MaxDegreeOfParallelism = ConcurrentDownloads
             };
             try
             {

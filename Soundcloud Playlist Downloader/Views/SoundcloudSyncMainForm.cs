@@ -23,6 +23,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private static bool ExcludeM4A;
         private static bool ExcludeAac;
         private static bool CreatePlaylists;
+        private static int ConcurrentDownloads;
 
         private readonly string AbortActionText = "Abort";
         private readonly BoxAbout _aboutWindow = new BoxAbout();
@@ -216,6 +217,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 ExcludeAac = chk_excl_m4a.Checked;
                 ExcludeM4A = chk_excl_m4a.Checked;
                 CreatePlaylists = chk_CreatePlaylists.Checked;
+                ConcurrentDownloads = (int)nudConcurrency.Value;
 
                 Uri soundCloudUri;
                 try
@@ -233,7 +235,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 var filesystemUtil = new FilesystemUtils(new DirectoryInfo(directoryPath?.Text?.ToLower()), IncludeArtistInFilename, FoldersPerArtist, ReplaceIllegalCharacters, IncludeDateInFilename);
                 var manifestUtil = new ManifestUtils(progressUtil, filesystemUtil, soundCloudUri, _dlMode, SyncMethod);
                 var playlistUtil = new PlaylistUtils(manifestUtil);
-                DownloadUtils downloadUtil = new DownloadUtils(clientIdUtil, ExcludeM4A, ExcludeAac, ConvertToMp3, manifestUtil, Highqualitysong);
+                DownloadUtils downloadUtil = new DownloadUtils(clientIdUtil, ExcludeM4A, ExcludeAac, ConvertToMp3, manifestUtil, Highqualitysong, ConcurrentDownloads);
                 var syncUtil = new SyncUtils(CreatePlaylists, manifestUtil, downloadUtil, playlistUtil);
                 if (_dlMode != EnumUtil.DownloadMode.Track)
                 {
