@@ -70,6 +70,13 @@ namespace Soundcloud_Playlist_Downloader
                     _syncUtil.ManifestUtil.ProgressUtil.IsError = true;
                     throw new NotImplementedException("Unknown download mode");
             }
+
+            if (_syncUtil.ManifestUtil.FileSystemUtil.ErrorsLogged)
+            {
+                _syncUtil.ManifestUtil.ProgressUtil.IsError = true;
+                _syncUtil.ManifestUtil.ProgressUtil.ThrowAllExceptionsWithMessage("Some tracks failed to download.You might need to try a few more times before they can download correctly. " +
+                   "The following tracks were not downloaded: ");
+            }
         }
 
         private string ApiUrlForArtistTracks(string url)

@@ -20,6 +20,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             ManifestUtil = manifestUtil;
             _createPlaylists = createPlaylists;
         }
+
         public void Synchronize(IList<Track> tracks)
         {
             var tracksToDownload = new List<Track>();
@@ -39,33 +40,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
             // download the relevant tracks and continuously update the manifest
             DownloadUtil.DownloadSongs(tracksToDownload);
       
-            if(_createPlaylists) PlaylistUtil.CreateSimpleM3U(); //Create playlist file
-
-            // create log file path
-            string path = this.ManifestUtil.FileSystemUtil.OriginalDirectory.FullName + '\\' + "log.txt";
-
-            var songsNotDownloaded = tracksToDownload.Count(x => x.IsDownloaded == false);        
-            if (songsNotDownloaded > 0 && ManifestUtil.ProgressUtil.IsActive) // validation
-            {
-                ManifestUtil.ProgressUtil.IsError = true;
-
-                // append text to logfile
-                string textError = string.Join(Environment.NewLine,
-                        tracksToDownload.Where(x => x.IsDownloaded == false)
-                            .Select(x => "Title: " + x.Title + ", Artist: " + x.Artist + Environment.NewLine)
-                        );
-
-                File.AppendAllText(path, textError);
-
-                //throw new Exception(
-                //    "Some tracks failed to download. You might need to try a few more times before they can download correctly. " +
-                //    "The following tracks were not downloaded:" + Environment.NewLine +
-                //    string.Join(Environment.NewLine,
-                //        tracksToDownload.Where(x => x.IsDownloaded == false)
-                //            .Select(x => "Title: " + x.Title + ", Artist: " + x.Artist)
-                //        ));
-            }
+            if(_createPlaylists) PlaylistUtil.CreateSimpleM3U(); //Create playlist file       
         }
+
         private void NewTracksToDownload(IList<Track> allSongs, List<Track> tracksToDownload)
         {
             var manifestPath = ManifestUtil.DetermineManifestPath();

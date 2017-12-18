@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Soundcloud_Playlist_Downloader.JsonObjects;
-using Soundcloud_Playlist_Downloader.Views;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -14,6 +14,57 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public bool IncludeDateInFilename;
         public bool FoldersPerArtist;
         public bool ReplaceIllegalCharacters;
+        public string LogPath;
+        public bool ErrorsLogged;
+
+        public FilesystemUtils(DirectoryInfo targetDirectory, bool includeArtistInFilename, bool foldersPerArtist, bool replaceIllegalCharacters, bool includeDateInFilename)
+        {
+            IncludeDateInFilename = includeDateInFilename;
+            ReplaceIllegalCharacters = replaceIllegalCharacters;
+            FoldersPerArtist = foldersPerArtist;
+            IncludeArtistInFilename = includeArtistInFilename;
+            Directory = targetDirectory;
+            OriginalDirectory = new DirectoryInfo(targetDirectory.FullName);
+            ErrorsLogged = false;
+            LogPath = $"{OriginalDirectory.FullName}\\log{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.txt";
+        }
+
+        public void LogTrackWithError(Track trackWithErrors, Exception e)
+        {
+            string textError = e.Message;
+            if(e.InnerException?.InnerException != null)
+                textError = e.InnerException?.InnerException?.Message;
+
+            string textTrack = "Title: " + trackWithErrors.Title + ", Artist: " + trackWithErrors.Artist;
+            UpdateLog($"{textTrack} Exception: {textError}." + Environment.NewLine);
+            ErrorsLogged = true;
+        }
+
+        public void UpdateLog(string logLine)
+        {
+            var updateSuccesful = false;
+            for (var attempts = 0; attempts < 5; attempts++)
+            {
+                try
+                {
+                    File.AppendAllText(LogPath, logLine);
+                    updateSuccesful = true;
+                    break;
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+                Thread.Sleep(50); // Pause 50ms before new attempt
+            }
+            if (updateSuccesful) return;
+            throw new Exception("Unable to update log");
+        }
+
+        public string GetAllErrorsFromLog()
+        {
+            return File.ReadAllText(LogPath).ToString();
+        }
 
         public void ResetDirectoryInfo()
         {
@@ -27,16 +78,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
             targetDirectory = OriginalDirectory.FullName + '\\' + targetLastFolder;
 
             Directory = new DirectoryInfo(targetDirectory);
-        }
-
-        public FilesystemUtils(DirectoryInfo targetDirectory, bool includeArtistInFilename, bool foldersPerArtist, bool replaceIllegalCharacters, bool includeDateInFilename)
-        {
-            IncludeDateInFilename = includeDateInFilename;
-            ReplaceIllegalCharacters = replaceIllegalCharacters;
-            FoldersPerArtist = foldersPerArtist;
-            IncludeArtistInFilename = includeArtistInFilename;
-            Directory = targetDirectory;
-            OriginalDirectory = new DirectoryInfo(targetDirectory.FullName);
         }
 
         public string MakeRelativePath(string fullpath)

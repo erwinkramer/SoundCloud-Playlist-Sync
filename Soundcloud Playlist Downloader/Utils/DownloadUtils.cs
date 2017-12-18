@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -8,12 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using Soundcloud_Playlist_Downloader.Properties;
-using Soundcloud_Playlist_Downloader.Views;
-using System.Diagnostics;
-using System.Windows.Forms;
 using System.Linq;
-using System.Configuration;
-using Soundcloud_Playlist_Downloader.Utils;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -37,12 +31,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public void DownloadSongs(IList<Track> tracksToDownload)
         {
-            var trackProgress = new ConcurrentDictionary<string, string>();
-            const int maximumExceptionsCount = 10;
-            int currentAmountOfExceptions = 0;
-            ManifestUtil.ProgressUtil.SongsToDownload = tracksToDownload.Count;
+            Interlocked.Add(ref ManifestUtil.ProgressUtil.SongsToDownload, tracksToDownload.Count);
+
             if (ManifestUtil.ProgressUtil.SongsToDownload == 0) return;
-            var exceptions = new ConcurrentQueue<Exception>();
             var cts = new CancellationTokenSource();
             if (Settings.Default.ConcurrentDownloads == 0)
                 throw new Exception("Number for concurrent downloads must be at least 1");
@@ -58,28 +49,23 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     {
                         try
                         {
-                            trackProgress.AddOrUpdate(track.id.ToString(), "[~] " + track.Title, (key, oldValue) => track.Title);
-                            ManifestUtil.ProgressUtil.TrackProgress = trackProgress.Values;
+                            ManifestUtil.ProgressUtil.AddOrUpdateInProgressTrack(track);
 
                             if (!DownloadTrackAndTag(ref track)) return;
-                            track.IsDownloaded = true;
-                            trackProgress.AddOrUpdate(track.id.ToString(), track.Title, (key, oldValue) => "[✓] " + track.Title);
-                            ManifestUtil.ProgressUtil.TrackProgress = trackProgress.Values;
 
+                            track.IsDownloaded = true;
+
+                            ManifestUtil.ProgressUtil.AddOrUpdateSuccessFullTrack(track);
                             ProcessUpdateManifestDelegate pumd = ManifestUtil.UpdateManifest;
                             pumd(track);
                         }
                         catch (Exception e)
-                        {
-                            currentAmountOfExceptions++;
+                        {                          
+                            ManifestUtil.ProgressUtil.AddOrUpdateFailedTrack(track, e);
+                            ManifestUtil.FileSystemUtil.LogTrackWithError(track, e);
 
-                            var exc = new Exception($"Exception while downloading track '{track.Title}' from artist '{track.Artist}'", e);
-                            exceptions.Enqueue(exc);
-                            trackProgress.AddOrUpdate(track.id.ToString(),  track.Title, (key, oldValue) => "[X] " + track.Title);
-                            ManifestUtil.ProgressUtil.TrackProgress = trackProgress.Values;
                             //EventLog.WriteEntry(Application.ProductName, exc.ToString());
-
-                            if(maximumExceptionsCount <= currentAmountOfExceptions)
+                            if (ProgressUtils.MaximumExceptionsCount <= ManifestUtil.ProgressUtil.CurrentAmountOfExceptions)
                             {
                                 ManifestUtil.ProgressUtil.IsError = true;
                                 cts.Cancel();
@@ -90,7 +76,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             catch (OperationCanceledException e)
             {
-                if (exceptions.Count > 0) throw new AggregateException(e.Message, exceptions);
+                ManifestUtil.ProgressUtil.ThrowAllExceptionsWithRootException(e);
             }
             finally
             {
