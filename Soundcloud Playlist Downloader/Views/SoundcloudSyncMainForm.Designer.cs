@@ -43,9 +43,15 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.artistRadio = new System.Windows.Forms.RadioButton();
             this.chk_folderByArtist = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configurationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.config1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.config2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.config3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.config4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.config5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chk_highquality = new System.Windows.Forms.CheckBox();
             this.tt_qualityExplanation = new System.Windows.Forms.ToolTip(this.components);
             this.chk_convertToMp3 = new System.Windows.Forms.CheckBox();
@@ -62,6 +68,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.trackRadio = new System.Windows.Forms.RadioButton();
             this.gbox_url = new System.Windows.Forms.GroupBox();
             this.url = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lbl_currentConfig = new System.Windows.Forms.Label();
+            this.chk_configActive = new System.Windows.Forms.CheckBox();
             this.gbox_advanced = new System.Windows.Forms.GroupBox();
             this.chk_IncludeCreationDate = new System.Windows.Forms.CheckBox();
             this.chk_CreatePlaylists = new System.Windows.Forms.CheckBox();
@@ -77,6 +86,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_syncMethod.SuspendLayout();
             this.gbox_downMethod.SuspendLayout();
             this.gbox_url.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.gbox_advanced.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudConcurrency)).BeginInit();
             this.gbox_localdir.SuspendLayout();
@@ -147,7 +157,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.userPlaylists.TabStop = true;
             this.userPlaylists.Text = "All playlists from this user URL";
             this.userPlaylists.UseVisualStyleBackColor = true;
-            this.userPlaylists.CheckedChanged += new System.EventHandler(this.userPlaylists_CheckedChanged);
             // 
             // playlistRadio
             // 
@@ -185,35 +194,83 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem,
+            this.configurationsToolStripMenuItem,
             this.updateToolStripMenuItem,
-            this.clientIDToolStripMenuItem});
+            this.clientIDToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(416, 24);
             this.menuStrip1.TabIndex = 16;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // aboutToolStripMenuItem
+            // configurationsToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click_1);
+            this.configurationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.config1ToolStripMenuItem,
+            this.config2ToolStripMenuItem,
+            this.config3ToolStripMenuItem,
+            this.config4ToolStripMenuItem,
+            this.config5ToolStripMenuItem});
+            this.configurationsToolStripMenuItem.Name = "configurationsToolStripMenuItem";
+            this.configurationsToolStripMenuItem.Size = new System.Drawing.Size(98, 20);
+            this.configurationsToolStripMenuItem.Text = "Configurations";
+            // 
+            // config1ToolStripMenuItem
+            // 
+            this.config1ToolStripMenuItem.Name = "config1ToolStripMenuItem";
+            this.config1ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.config1ToolStripMenuItem.Text = "Config 1";
+            this.config1ToolStripMenuItem.Click += new System.EventHandler(this.config1ToolStripMenuItem_Click);
+            // 
+            // config2ToolStripMenuItem
+            // 
+            this.config2ToolStripMenuItem.Name = "config2ToolStripMenuItem";
+            this.config2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.config2ToolStripMenuItem.Text = "Config 2";
+            this.config2ToolStripMenuItem.Click += new System.EventHandler(this.config2ToolStripMenuItem_Click);
+            // 
+            // config3ToolStripMenuItem
+            // 
+            this.config3ToolStripMenuItem.Name = "config3ToolStripMenuItem";
+            this.config3ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.config3ToolStripMenuItem.Text = "Config 3";
+            this.config3ToolStripMenuItem.Click += new System.EventHandler(this.config3ToolStripMenuItem_Click);
+            // 
+            // config4ToolStripMenuItem
+            // 
+            this.config4ToolStripMenuItem.Name = "config4ToolStripMenuItem";
+            this.config4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.config4ToolStripMenuItem.Text = "Config 4";
+            this.config4ToolStripMenuItem.Click += new System.EventHandler(this.config4ToolStripMenuItem_Click);
+            // 
+            // config5ToolStripMenuItem
+            // 
+            this.config5ToolStripMenuItem.Name = "config5ToolStripMenuItem";
+            this.config5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.config5ToolStripMenuItem.Text = "Config 5";
+            this.config5ToolStripMenuItem.Click += new System.EventHandler(this.config5ToolStripMenuItem_Click);
             // 
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.updateToolStripMenuItem.Text = "Update";
             this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // clientIDToolStripMenuItem
             // 
             this.clientIDToolStripMenuItem.Name = "clientIDToolStripMenuItem";
-            this.clientIDToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.clientIDToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.clientIDToolStripMenuItem.Text = "Client ID";
             this.clientIDToolStripMenuItem.Click += new System.EventHandler(this.clientIDToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click_1);
             // 
             // chk_highquality
             // 
@@ -376,7 +433,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_url.Controls.Add(this.url);
             this.gbox_url.Location = new System.Drawing.Point(12, 27);
             this.gbox_url.Name = "gbox_url";
-            this.gbox_url.Size = new System.Drawing.Size(397, 48);
+            this.gbox_url.Size = new System.Drawing.Size(298, 48);
             this.gbox_url.TabIndex = 32;
             this.gbox_url.TabStop = false;
             this.gbox_url.Text = "SoundCloud URL";
@@ -385,8 +442,41 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             this.url.Location = new System.Drawing.Point(6, 19);
             this.url.Name = "url";
-            this.url.Size = new System.Drawing.Size(383, 20);
+            this.url.Size = new System.Drawing.Size(284, 20);
             this.url.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lbl_currentConfig);
+            this.groupBox2.Controls.Add(this.chk_configActive);
+            this.groupBox2.Location = new System.Drawing.Point(316, 27);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(93, 48);
+            this.groupBox2.TabIndex = 39;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Config State";
+            // 
+            // lbl_currentConfig
+            // 
+            this.lbl_currentConfig.AutoSize = true;
+            this.lbl_currentConfig.Location = new System.Drawing.Point(10, 20);
+            this.lbl_currentConfig.Name = "lbl_currentConfig";
+            this.lbl_currentConfig.Size = new System.Drawing.Size(13, 13);
+            this.lbl_currentConfig.TabIndex = 39;
+            this.lbl_currentConfig.Text = "1";
+            // 
+            // chk_configActive
+            // 
+            this.chk_configActive.AutoSize = true;
+            this.chk_configActive.Checked = true;
+            this.chk_configActive.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_configActive.Location = new System.Drawing.Point(29, 19);
+            this.chk_configActive.Name = "chk_configActive";
+            this.chk_configActive.Size = new System.Drawing.Size(56, 17);
+            this.chk_configActive.TabIndex = 38;
+            this.chk_configActive.Text = "Active";
+            this.chk_configActive.UseVisualStyleBackColor = true;
+            this.chk_configActive.CheckedChanged += new System.EventHandler(this.chk_configActive_CheckedChanged);
             // 
             // gbox_advanced
             // 
@@ -427,7 +517,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.chk_CreatePlaylists.TabIndex = 31;
             this.chk_CreatePlaylists.Text = "Generate playlists";
             this.chk_CreatePlaylists.UseVisualStyleBackColor = true;
-            this.chk_CreatePlaylists.CheckedChanged += new System.EventHandler(this.chk_CreatePlaylists_CheckedChanged);
             // 
             // nudConcurrency
             // 
@@ -504,6 +593,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(416, 559);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gbox_localdir);
             this.Controls.Add(this.gbox_advanced);
@@ -532,6 +622,8 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_downMethod.PerformLayout();
             this.gbox_url.ResumeLayout(false);
             this.gbox_url.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.gbox_advanced.ResumeLayout(false);
             this.gbox_advanced.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudConcurrency)).EndInit();
@@ -584,5 +676,14 @@ namespace Soundcloud_Playlist_Downloader.Views
         private System.Windows.Forms.ToolStripMenuItem clientIDToolStripMenuItem;
         private System.Windows.Forms.CheckBox chk_CreatePlaylists;
         private System.Windows.Forms.CheckBox chk_IncludeCreationDate;
+        private System.Windows.Forms.ToolStripMenuItem configurationsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem config1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem config2ToolStripMenuItem;
+        private System.Windows.Forms.CheckBox chk_configActive;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lbl_currentConfig;
+        private System.Windows.Forms.ToolStripMenuItem config3ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem config4ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem config5ToolStripMenuItem;
     }
 }

@@ -25,30 +25,6 @@ namespace Soundcloud_Playlist_Downloader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PlaylistUrl {
-            get {
-                return ((string)(this["PlaylistUrl"]));
-            }
-            set {
-                this["PlaylistUrl"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LocalPath {
-            get {
-                return ((string)(this["LocalPath"]));
-            }
-            set {
-                this["LocalPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public int ConcurrentDownloads {
             get {
@@ -248,6 +224,54 @@ namespace Soundcloud_Playlist_Downloader.Properties {
             }
             set {
                 this["favoritesRadio"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chk_configActive {
+            get {
+                return ((bool)(this["chk_configActive"]));
+            }
+            set {
+                this["chk_configActive"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int ConfigStateCurrentIndex {
+            get {
+                return ((int)(this["ConfigStateCurrentIndex"]));
+            }
+            set {
+                this["ConfigStateCurrentIndex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PlaylistUrl {
+            get {
+                return ((string)(this["PlaylistUrl"]));
+            }
+            set {
+                this["PlaylistUrl"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LocalPath {
+            get {
+                return ((string)(this["LocalPath"]));
+            }
+            set {
+                this["LocalPath"] = value;
             }
         }
     }

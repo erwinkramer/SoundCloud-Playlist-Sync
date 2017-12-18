@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Deployment.Application;
 using System.Drawing;
 using System.IO;
@@ -24,6 +25,8 @@ namespace Soundcloud_Playlist_Downloader.Views
         private static bool ExcludeAac;
         private static bool CreatePlaylists;
         private static int ConcurrentDownloads;
+        private static bool ConfigStateActive;
+        private static int ConfigStateCurrentIndex = 1;
 
         private readonly string AbortActionText = "Abort";
         private readonly BoxAbout _aboutWindow = new BoxAbout();
@@ -168,26 +171,7 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void syncButton_Click(object sender, EventArgs e)
         {
-            Settings.Default.LocalPath = directoryPath?.Text?.ToLower();
-            Settings.Default.PlaylistUrl = url?.Text?.ToLower();
-            Settings.Default.ConcurrentDownloads = (int)nudConcurrency.Value;
-            Settings.Default.favoritesRadio = favoritesRadio.Checked;
-            Settings.Default.PlaylistRadio = playlistRadio.Checked;
-            Settings.Default.userPlaylists = userPlaylists.Checked;
-            Settings.Default.artistRadio = artistRadio.Checked;
-            Settings.Default.trackRadio = trackRadio.Checked;
-            Settings.Default.chk_convertToMp3 = chk_convertToMp3.Checked;
-            Settings.Default.chk_excl_m4a = chk_excl_m4a.Checked;
-            Settings.Default.chk_exl_aac = chk_exl_aac.Checked;
-            Settings.Default.chk_folderByArtist = chk_folderByArtist.Checked;
-            Settings.Default.chk_highquality = chk_highquality.Checked;
-            Settings.Default.chk_includeArtistinFilename = chk_includeArtistinFilename.Checked;
-            Settings.Default.chk_IncludeCreationDate = chk_IncludeCreationDate.Checked;
-            Settings.Default.chk_replaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
-            Settings.Default.rbttn_oneWay = rbttn_oneWay.Checked;
-            Settings.Default.rbttn_twoWay = rbttn_twoWay.Checked;
-            Settings.Default.chk_CreatePlaylists = chk_CreatePlaylists.Checked;
-            Settings.Default.Save();
+            SaveSettingsToConfig(ConfigStateCurrentIndex);
 
             _dlMode = playlistRadio.Checked
             ? EnumUtil.DownloadMode.Playlist
@@ -324,23 +308,111 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            url.Text = Settings.Default.PlaylistUrl?.ToLower();
-            directoryPath.Text = Settings.Default.LocalPath?.ToLower();
-            nudConcurrency.Value = Settings.Default.ConcurrentDownloads;
-            favoritesRadio.Checked = Settings.Default.favoritesRadio;
-            userPlaylists.Checked = Settings.Default.userPlaylists;
-            playlistRadio.Checked = Settings.Default.PlaylistRadio;
-            artistRadio.Checked = Settings.Default.artistRadio;
-            trackRadio.Checked = Settings.Default.trackRadio;
-            chk_convertToMp3.Checked = Settings.Default.chk_convertToMp3;
-            chk_excl_m4a.Checked = Settings.Default.chk_excl_m4a;
-            chk_exl_aac.Checked = Settings.Default.chk_exl_aac;
-            chk_folderByArtist.Checked = Settings.Default.chk_folderByArtist;
-            chk_highquality.Checked = Settings.Default.chk_highquality;
-            chk_includeArtistinFilename.Checked = Settings.Default.chk_includeArtistinFilename;
-            chk_replaceIllegalCharacters.Checked = Settings.Default.chk_replaceIllegalCharacters;
-            rbttn_oneWay.Checked = Settings.Default.rbttn_oneWay;
-            rbttn_twoWay.Checked = Settings.Default.rbttn_twoWay;
+            LoadSettingsFromCurrentConfig(Settings.Default.ConfigStateCurrentIndex);
+        }
+
+        private void SaveSettingsToConfig(int currentIndex)
+        {
+            Settings.Default.ConfigStateCurrentIndex = currentIndex;
+            SaveSettingToConfig(chk_configActive.Name, chk_configActive.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig("LocalPath", directoryPath?.Text, directoryPath?.Text?.GetType());
+            SaveSettingToConfig("PlaylistUrl", url?.Text, url?.Text?.GetType());
+            SaveSettingToConfig(nameof(ConcurrentDownloads), nudConcurrency.Value.ToString(), nudConcurrency.Value.GetType());
+            SaveSettingToConfig(favoritesRadio.Name, favoritesRadio.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig("playlistRadio", playlistRadio.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(userPlaylists.Name, userPlaylists.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(artistRadio.Name, artistRadio.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(trackRadio.Name, trackRadio.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_convertToMp3.Name, chk_convertToMp3.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_excl_m4a.Name, chk_excl_m4a.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_exl_aac.Name, chk_exl_aac.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_folderByArtist.Name, chk_folderByArtist.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_highquality.Name, chk_highquality.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_includeArtistinFilename.Name, chk_includeArtistinFilename.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_IncludeCreationDate.Name, chk_IncludeCreationDate.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_replaceIllegalCharacters.Name, chk_replaceIllegalCharacters.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(rbttn_oneWay.Name, rbttn_oneWay.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(rbttn_twoWay.Name, rbttn_twoWay.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_CreatePlaylists.Name, chk_CreatePlaylists.Checked.ToString(), typeof(Boolean));
+            Settings.Default.Save();
+        }
+
+        public void SaveSettingToConfig(string propertyName, string propertyValue, Type propertyType)
+        {
+            string accessString = GetAccessString(Settings.Default.ConfigStateCurrentIndex);
+            switch (Type.GetTypeCode(propertyType))
+            {
+                case TypeCode.Boolean:
+                    Settings.Default[accessString + propertyName] = Boolean.Parse(propertyValue);
+                    break;
+                case TypeCode.Decimal:
+                    Settings.Default[accessString + propertyName] = Int32.Parse(propertyValue);
+                    break;
+                case TypeCode.String:
+                    Settings.Default[accessString + propertyName] = propertyValue.ToLower();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void LoadSettingsFromCurrentConfig(int currentIndex)
+        {
+            Settings.Default.ConfigStateCurrentIndex = currentIndex;
+            string accessString = GetAccessString(currentIndex);
+            lbl_currentConfig.Text = Settings.Default.ConfigStateCurrentIndex.ToString();
+
+            chk_configActive.Checked = (bool) LoadSettingFromConfig(accessString, chk_configActive.Name, typeof(Boolean));
+            url.Text = (string)LoadSettingFromConfig(accessString, "PlaylistUrl", typeof(String));
+            directoryPath.Text = (string)LoadSettingFromConfig(accessString, "LocalPath", typeof(String));
+            nudConcurrency.Value = (int)LoadSettingFromConfig(accessString, nameof(ConcurrentDownloads), typeof(Int32));
+            favoritesRadio.Checked = (bool)LoadSettingFromConfig(accessString, favoritesRadio.Name, typeof(Boolean));
+            userPlaylists.Checked = (bool)LoadSettingFromConfig(accessString, userPlaylists.Name, typeof(Boolean));
+            playlistRadio.Checked = (bool)LoadSettingFromConfig(accessString, "playlistRadio", typeof(Boolean));
+            artistRadio.Checked = (bool)LoadSettingFromConfig(accessString, artistRadio.Name, typeof(Boolean));
+            trackRadio.Checked = (bool)LoadSettingFromConfig(accessString, trackRadio.Name, typeof(Boolean));
+            chk_convertToMp3.Checked = (bool)LoadSettingFromConfig(accessString, chk_convertToMp3.Name, typeof(Boolean));
+            chk_excl_m4a.Checked = (bool)LoadSettingFromConfig(accessString, chk_excl_m4a.Name, typeof(Boolean));
+            chk_exl_aac.Checked = (bool)LoadSettingFromConfig(accessString, chk_exl_aac.Name, typeof(Boolean));
+            chk_IncludeCreationDate.Checked = (bool)LoadSettingFromConfig(accessString, chk_IncludeCreationDate.Name, typeof(Boolean));
+            chk_folderByArtist.Checked = (bool)LoadSettingFromConfig(accessString, chk_folderByArtist.Name, typeof(Boolean));
+            chk_highquality.Checked = (bool)LoadSettingFromConfig(accessString, chk_highquality.Name, typeof(Boolean));
+            chk_includeArtistinFilename.Checked = (bool)LoadSettingFromConfig(accessString, chk_includeArtistinFilename.Name, typeof(Boolean));
+            chk_replaceIllegalCharacters.Checked = (bool)LoadSettingFromConfig(accessString, chk_replaceIllegalCharacters.Name, typeof(Boolean));
+            chk_CreatePlaylists.Checked = (bool)LoadSettingFromConfig(accessString, chk_CreatePlaylists.Name, typeof(Boolean));
+            rbttn_oneWay.Checked = (bool)LoadSettingFromConfig(accessString, rbttn_oneWay.Name, typeof(Boolean));
+            rbttn_twoWay.Checked = (bool)LoadSettingFromConfig(accessString, rbttn_twoWay.Name, typeof(Boolean));
+        }
+
+        public object LoadSettingFromConfig(string accessString, string propertyName, Type propertyType)
+        {
+            try
+            {
+                return Settings.Default[accessString + propertyName];
+
+            }
+            catch (SettingsPropertyNotFoundException)
+            {
+                var property = new SettingsProperty(accessString + propertyName)
+                {
+                    DefaultValue = LoadSettingFromConfig("", propertyName, propertyType),
+                    IsReadOnly = false,
+                    PropertyType = propertyType,
+                    Provider = Settings.Default.Providers["LocalFileSettingsProvider"],
+                };
+                property.Attributes.Add(typeof(System.Configuration.UserScopedSettingAttribute), new System.Configuration.UserScopedSettingAttribute());
+                Settings.Default.Properties.Add(property);
+                Settings.Default.Save();
+                return Settings.Default[accessString + propertyName];
+            }
+        }
+
+        private string GetAccessString(int currentIndex)
+        {
+            string accessString = "";
+            if (currentIndex != 1)
+                accessString = ConfigStateCurrentIndex.ToString();
+            return accessString;
         }
 
         private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -421,15 +493,50 @@ namespace Soundcloud_Playlist_Downloader.Views
                 _apiConfigSettings.Show();
             }
         }
-
-        private void chk_CreatePlaylists_CheckedChanged(object sender, EventArgs e)
+      
+        private void chk_configActive_CheckedChanged(object sender, EventArgs e)
         {
-
+            ConfigStateActive = chk_configActive.Checked;
         }
 
-        private void userPlaylists_CheckedChanged(object sender, EventArgs e)
+        private void config1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SaveSettingsToConfig(ConfigStateCurrentIndex);
+            lbl_currentConfig.Text = "1";
+            ConfigStateCurrentIndex = 1;
+            LoadSettingsFromCurrentConfig(ConfigStateCurrentIndex);
+        }
 
+        private void config2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveSettingsToConfig(ConfigStateCurrentIndex);
+            lbl_currentConfig.Text = "2";
+            ConfigStateCurrentIndex = 2;
+            LoadSettingsFromCurrentConfig(ConfigStateCurrentIndex);
+        }
+
+        private void config3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveSettingsToConfig(ConfigStateCurrentIndex);
+            lbl_currentConfig.Text = "3";
+            ConfigStateCurrentIndex = 3;
+            LoadSettingsFromCurrentConfig(ConfigStateCurrentIndex);
+        }
+
+        private void config4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveSettingsToConfig(ConfigStateCurrentIndex);
+            lbl_currentConfig.Text = "4";
+            ConfigStateCurrentIndex = 4;
+            LoadSettingsFromCurrentConfig(ConfigStateCurrentIndex);
+        }
+
+        private void config5ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveSettingsToConfig(ConfigStateCurrentIndex);
+            lbl_currentConfig.Text = "5";
+            ConfigStateCurrentIndex = 5;
+            LoadSettingsFromCurrentConfig(ConfigStateCurrentIndex);
         }
     }
 }
