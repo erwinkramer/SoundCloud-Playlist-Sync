@@ -474,6 +474,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             updateUtil.InstallUpdateSyncWithInfo();
+            updateToolStripMenuItem.Text += updateUtil.LabelTextForCurrentStatus();
         }
 
         private void rbttn_twoWay_CheckedChanged(object sender, EventArgs e)
