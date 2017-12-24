@@ -33,6 +33,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private readonly API_Config _apiConfigSettings;
 
         private readonly string DefaultActionText = "Synchronize";
+
         private readonly PerformStatusUpdate _performStatusUpdateImplementation;
 
         private readonly PerformSyncComplete _performSyncCompleteImplementation;

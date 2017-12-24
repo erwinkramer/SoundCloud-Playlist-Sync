@@ -21,7 +21,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public ProgressUtils()
         {
-            Completed = false;
+            Completed = true;
             Exiting = false;
             IsError = false;
             IsActive = false;
