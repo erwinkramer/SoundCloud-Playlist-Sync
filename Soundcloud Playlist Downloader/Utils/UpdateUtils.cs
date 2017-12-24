@@ -54,13 +54,13 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 case UpdateCheckStatus.OptionalUpdateAvailable:
                 case UpdateCheckStatus.MandatoryUpdateAvailable:
-                    return " [!]";
+                    return "Update [!]";
                 case UpdateCheckStatus.NoUpdateAvailable:
-                    return " [✓]";
+                    return "Update [✓]";
                 case UpdateCheckStatus.IsNotNetworkDeployed:
-                    return " [~]";
+                    return "Update [~]";
                 case UpdateCheckStatus.InError:
-                    return " [X]";
+                    return "Update [X]";
                 default:
                     return "";
             }
