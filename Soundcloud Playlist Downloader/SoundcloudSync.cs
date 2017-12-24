@@ -141,16 +141,14 @@ namespace Soundcloud_Playlist_Downloader
             var playlists = JsonUtil.RetrievePlaylistsFromUrl("https://api.soundcloud.com/users/" + username + "/playlists");
             var originalFolderName = _syncUtil.ManifestUtil.FileSystemUtil.Directory.FullName;
 
-            // hack to avoid bug
-            _syncUtil.ManifestUtil.FileSystemUtil.ChangeDirectoryInfo("folder");
+            //no bug?
+            //_syncUtil.ManifestUtil.FileSystemUtil.ChangeDirectoryInfo("folder");
 
             foreach (var playlist in playlists)
             {
                 _syncUtil.ManifestUtil.FileSystemUtil.ChangeDirectoryInfo(playlist.permalink);
-
                 SynchronizeFromPlaylistApiUrl(playlist.uri);
             }
-
             _syncUtil.ManifestUtil.FileSystemUtil.ResetDirectoryInfo();
         }
 

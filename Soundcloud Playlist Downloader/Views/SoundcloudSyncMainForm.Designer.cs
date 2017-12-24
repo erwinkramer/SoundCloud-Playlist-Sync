@@ -219,35 +219,35 @@ namespace Soundcloud_Playlist_Downloader.Views
             // config1ToolStripMenuItem
             // 
             this.config1ToolStripMenuItem.Name = "config1ToolStripMenuItem";
-            this.config1ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.config1ToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.config1ToolStripMenuItem.Text = "Config 1";
             this.config1ToolStripMenuItem.Click += new System.EventHandler(this.config1ToolStripMenuItem_Click);
             // 
             // config2ToolStripMenuItem
             // 
             this.config2ToolStripMenuItem.Name = "config2ToolStripMenuItem";
-            this.config2ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.config2ToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.config2ToolStripMenuItem.Text = "Config 2";
             this.config2ToolStripMenuItem.Click += new System.EventHandler(this.config2ToolStripMenuItem_Click);
             // 
             // config3ToolStripMenuItem
             // 
             this.config3ToolStripMenuItem.Name = "config3ToolStripMenuItem";
-            this.config3ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.config3ToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.config3ToolStripMenuItem.Text = "Config 3";
             this.config3ToolStripMenuItem.Click += new System.EventHandler(this.config3ToolStripMenuItem_Click);
             // 
             // config4ToolStripMenuItem
             // 
             this.config4ToolStripMenuItem.Name = "config4ToolStripMenuItem";
-            this.config4ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.config4ToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.config4ToolStripMenuItem.Text = "Config 4";
             this.config4ToolStripMenuItem.Click += new System.EventHandler(this.config4ToolStripMenuItem_Click);
             // 
             // config5ToolStripMenuItem
             // 
             this.config5ToolStripMenuItem.Name = "config5ToolStripMenuItem";
-            this.config5ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.config5ToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.config5ToolStripMenuItem.Text = "Config 5";
             this.config5ToolStripMenuItem.Click += new System.EventHandler(this.config5ToolStripMenuItem_Click);
             // 
