@@ -28,10 +28,16 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 UpdateCheckInfo info = ApplicationDeployment.CurrentDeployment.CheckForDetailedUpdate();
                 if (!info.UpdateAvailable)
+                {
                     CurrentStatus = UpdateCheckStatus.NoUpdateAvailable;
+                    return;
+                }
 
                 if (info.IsUpdateRequired)
+                {
                     CurrentStatus = UpdateCheckStatus.MandatoryUpdateAvailable;
+                    return;
+                }
 
                 CurrentStatus = UpdateCheckStatus.OptionalUpdateAvailable;
             }
@@ -48,13 +54,13 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 case UpdateCheckStatus.OptionalUpdateAvailable:
                 case UpdateCheckStatus.MandatoryUpdateAvailable:
-                    return " !";
+                    return " [!]";
                 case UpdateCheckStatus.NoUpdateAvailable:
-                    return " ✓";
+                    return " [✓]";
                 case UpdateCheckStatus.IsNotNetworkDeployed:
-                    return " ~";
+                    return " [~]";
                 case UpdateCheckStatus.InError:
-                    return " X";
+                    return " [X]";
                 default:
                     return "";
             }
