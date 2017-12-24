@@ -39,10 +39,14 @@ namespace Soundcloud_Playlist_Downloader.Views
         private readonly ProgressBarUpdate _progressBarUpdateImplementation;
         private ProgressUtils progressUtil;
         private ClientIDsUtils clientIdUtil;
+        private UpdateUtils updateUtil;
 
         public SoundcloudSyncMainForm()
         {
             InitializeComponent();
+
+            updateUtil = new UpdateUtils();
+            updateToolStripMenuItem.Text += updateUtil.LabelTextForCurrentStatus();
 
             clientIdUtil = new ClientIDsUtils();
             _apiConfigSettings = new API_Config(clientIdUtil);
@@ -469,7 +473,7 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            UpdateUtils.InstallUpdateSyncWithInfo();
+            updateUtil.InstallUpdateSyncWithInfo();
         }
 
         private void rbttn_twoWay_CheckedChanged(object sender, EventArgs e)

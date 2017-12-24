@@ -6,77 +6,103 @@ namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class UpdateUtils
     {
-        public static void InstallUpdateSyncWithInfo()
+        public enum UpdateCheckStatus {
+            NoUpdateAvailable,  OptionalUpdateAvailable, MandatoryUpdateAvailable, IsNotNetworkDeployed, InError };
+
+        public Exception InErrorException;
+        public UpdateCheckStatus CurrentStatus;
+
+        public UpdateUtils()
         {
+            CheckForUpdates();
+        }
+        public void CheckForUpdates()
+        {
+            InErrorException = null;
             if (!ApplicationDeployment.IsNetworkDeployed)
             {
-                MessageBox.Show("IsNetworkDeployed false");
+                CurrentStatus = UpdateCheckStatus.IsNotNetworkDeployed;
                 return;
             }
-            UpdateCheckInfo info = null;
-            ApplicationDeployment ad = ApplicationDeployment.CurrentDeployment;
             try
             {
-                info = ad.CheckForDetailedUpdate();
+                UpdateCheckInfo info = ApplicationDeployment.CurrentDeployment.CheckForDetailedUpdate();
+                if (!info.UpdateAvailable)
+                    CurrentStatus = UpdateCheckStatus.NoUpdateAvailable;
 
-            }
-            catch (DeploymentDownloadException dde)
-            {
-                MessageBox.Show("The new version of the application cannot be downloaded at this time. \n\nPlease check your network connection, or try again later. Error: " + dde.Message);
-                return;
-            }
-            catch (InvalidDeploymentException ide)
-            {
-                MessageBox.Show("Cannot check for a new version of the application. The ClickOnce deployment is corrupt. Please redeploy the application and try again. Error: " + ide.Message);
-                return;
-            }
-            catch (InvalidOperationException ioe)
-            {
-                MessageBox.Show("This application cannot be updated. It is likely not a ClickOnce application. Error: " + ioe.Message);
-                return;
-            }
+                if (info.IsUpdateRequired)
+                    CurrentStatus = UpdateCheckStatus.MandatoryUpdateAvailable;
 
-            if (info.UpdateAvailable)
+                CurrentStatus = UpdateCheckStatus.OptionalUpdateAvailable;
+            }
+            catch(Exception e)
             {
-                Boolean doUpdate = true;
+                CurrentStatus = UpdateCheckStatus.InError;
+                InErrorException = e;
+            }
+        }
 
-                if (!info.IsUpdateRequired)
-                {
-                    DialogResult dr = MessageBox.Show("An update is available. Would you like to update the application now?", "Update Available", MessageBoxButtons.OKCancel);
-                    if (!(DialogResult.OK == dr))
+        public string LabelTextForCurrentStatus()
+        {
+            switch (CurrentStatus)
+            {
+                case UpdateCheckStatus.OptionalUpdateAvailable:
+                case UpdateCheckStatus.MandatoryUpdateAvailable:
+                    return " !";
+                case UpdateCheckStatus.NoUpdateAvailable:
+                    return " ✓";
+                case UpdateCheckStatus.IsNotNetworkDeployed:
+                    return " ~";
+                case UpdateCheckStatus.InError:
+                    return " X";
+                default:
+                    return "";
+            }
+        }
+
+        internal void Update()
+        {
+            ApplicationDeployment.CurrentDeployment.Update();
+            Application.Restart();       
+        }
+
+        public void InstallUpdateSyncWithInfo()
+        {
+            CheckForUpdates();
+            switch (CurrentStatus)
+            {
+                case UpdateCheckStatus.OptionalUpdateAvailable:
+                case UpdateCheckStatus.MandatoryUpdateAvailable:
                     {
-                        doUpdate = false;
+                        DialogResult dr = MessageBox.Show("An update is available. Would you like to update the application now?", "Update Available", MessageBoxButtons.OKCancel);
+                        if ((DialogResult.OK == dr))
+                        {
+                            try
+                            {
+                                Update();
+                            }
+                            catch (Exception dde)
+                            {
+                                MessageBox.Show("Cannot install the latest version of the application. \n\nPlease check your network connection, or try again later. Error: " + dde);
+                                return;
+                            }
+                        }
+                        break;
                     }
-                }
-                else
-                {
-                    // Display a message that the app MUST reboot. Display the minimum required version.
-                    MessageBox.Show("This application has detected a mandatory update from your current " +
-                                    "version to version " + info.MinimumRequiredVersion.ToString() +
-                                    ". The application will now install the update and restart.",
-                        "Update Available", MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-                }
-
-                if (doUpdate)
-                {
-                    try
+                case UpdateCheckStatus.NoUpdateAvailable:
+                case UpdateCheckStatus.IsNotNetworkDeployed:
                     {
-                        ad.Update();
-                        MessageBox.Show("The application has been upgraded, and will now restart.");
-                        Application.Restart();
+                        MessageBox.Show("No update available");
+                        break;
                     }
-                    catch (DeploymentDownloadException dde)
+                case UpdateCheckStatus.InError:
                     {
-                        MessageBox.Show("Cannot install the latest version of the application. \n\nPlease check your network connection, or try again later. Error: " + dde);
-                        return;
+                        MessageBox.Show("Exception while checking for updates available. Exception thrown:" + InErrorException.Message);
+                        break;
                     }
-                }
-            }
-            else
-            {
-                MessageBox.Show("No update available");
-            }
+                default:
+                    break;
+            }        
         }
     }
 }
