@@ -62,7 +62,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 case UpdateCheckStatus.InError:
                     return "Update [X]";
                 default:
-                    return "";
+                    return "Update";
             }
         }
 
