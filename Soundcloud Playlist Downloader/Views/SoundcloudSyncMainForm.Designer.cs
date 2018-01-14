@@ -69,6 +69,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_url = new System.Windows.Forms.GroupBox();
             this.url = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lbl_configurationPrefix = new System.Windows.Forms.Label();
             this.lbl_currentConfig = new System.Windows.Forms.Label();
             this.chk_configActive = new System.Windows.Forms.CheckBox();
             this.gbox_advanced_conversion = new System.Windows.Forms.GroupBox();
@@ -83,10 +84,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.tabControl_general = new System.Windows.Forms.TabControl();
             this.tabPage_BasicOptions = new System.Windows.Forms.TabPage();
             this.tabPage_AdvancedOptions = new System.Windows.Forms.TabPage();
-            this.lbl_configurationPrefix = new System.Windows.Forms.Label();
+            this.gbox_advanced_other = new System.Windows.Forms.GroupBox();
             this.chk_MergePlaylists = new System.Windows.Forms.CheckBox();
             this.gbox_advanced_enginebehaviour = new System.Windows.Forms.GroupBox();
-            this.gbox_advanced_other = new System.Windows.Forms.GroupBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnl_convert.SuspendLayout();
@@ -101,8 +101,8 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.tabControl_general.SuspendLayout();
             this.tabPage_BasicOptions.SuspendLayout();
             this.tabPage_AdvancedOptions.SuspendLayout();
-            this.gbox_advanced_enginebehaviour.SuspendLayout();
             this.gbox_advanced_other.SuspendLayout();
+            this.gbox_advanced_enginebehaviour.SuspendLayout();
             this.SuspendLayout();
             // 
             // syncButton
@@ -333,7 +333,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.chk_includeArtistinFilename.AutoSize = true;
             this.chk_includeArtistinFilename.Checked = true;
             this.chk_includeArtistinFilename.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_includeArtistinFilename.Location = new System.Drawing.Point(184, 42);
+            this.chk_includeArtistinFilename.Location = new System.Drawing.Point(185, 40);
             this.chk_includeArtistinFilename.Name = "chk_includeArtistinFilename";
             this.chk_includeArtistinFilename.Size = new System.Drawing.Size(168, 17);
             this.chk_includeArtistinFilename.TabIndex = 20;
@@ -376,7 +376,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.pnl_convert.Controls.Add(this.chk_exl_aac);
             this.pnl_convert.Controls.Add(this.lbl_exclude);
             this.pnl_convert.Controls.Add(this.chk_excl_m4a);
-            this.pnl_convert.Location = new System.Drawing.Point(20, 40);
+            this.pnl_convert.Location = new System.Drawing.Point(20, 42);
             this.pnl_convert.Name = "pnl_convert";
             this.pnl_convert.Size = new System.Drawing.Size(199, 68);
             this.pnl_convert.TabIndex = 26;
@@ -469,6 +469,15 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Config State";
             // 
+            // lbl_configurationPrefix
+            // 
+            this.lbl_configurationPrefix.AutoSize = true;
+            this.lbl_configurationPrefix.Location = new System.Drawing.Point(6, 23);
+            this.lbl_configurationPrefix.Name = "lbl_configurationPrefix";
+            this.lbl_configurationPrefix.Size = new System.Drawing.Size(69, 13);
+            this.lbl_configurationPrefix.TabIndex = 40;
+            this.lbl_configurationPrefix.Text = "Configuration";
+            // 
             // lbl_currentConfig
             // 
             this.lbl_currentConfig.AutoSize = true;
@@ -505,11 +514,11 @@ namespace Soundcloud_Playlist_Downloader.Views
             // chk_IncludeCreationDate
             // 
             this.chk_IncludeCreationDate.AutoSize = true;
-            this.chk_IncludeCreationDate.Location = new System.Drawing.Point(136, 19);
+            this.chk_IncludeCreationDate.Location = new System.Drawing.Point(185, 17);
             this.chk_IncludeCreationDate.Name = "chk_IncludeCreationDate";
-            this.chk_IncludeCreationDate.Size = new System.Drawing.Size(143, 17);
+            this.chk_IncludeCreationDate.Size = new System.Drawing.Size(187, 17);
             this.chk_IncludeCreationDate.TabIndex = 32;
-            this.chk_IncludeCreationDate.Text = "Include SC creation date";
+            this.chk_IncludeCreationDate.Text = "Include SoundCloud creation date";
             this.chk_IncludeCreationDate.UseVisualStyleBackColor = true;
             // 
             // chk_CreatePlaylists
@@ -519,14 +528,14 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.chk_CreatePlaylists.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_CreatePlaylists.Location = new System.Drawing.Point(6, 17);
             this.chk_CreatePlaylists.Name = "chk_CreatePlaylists";
-            this.chk_CreatePlaylists.Size = new System.Drawing.Size(109, 17);
+            this.chk_CreatePlaylists.Size = new System.Drawing.Size(154, 17);
             this.chk_CreatePlaylists.TabIndex = 31;
-            this.chk_CreatePlaylists.Text = "Generate playlists";
+            this.chk_CreatePlaylists.Text = "Generate m3u8 playlist files";
             this.chk_CreatePlaylists.UseVisualStyleBackColor = true;
             // 
             // nudConcurrency
             // 
-            this.nudConcurrency.Location = new System.Drawing.Point(136, 48);
+            this.nudConcurrency.Location = new System.Drawing.Point(126, 45);
             this.nudConcurrency.Maximum = new decimal(new int[] {
             50,
             0,
@@ -550,11 +559,11 @@ namespace Soundcloud_Playlist_Downloader.Views
             // concurrency
             // 
             this.concurrency.AutoSize = true;
-            this.concurrency.Location = new System.Drawing.Point(8, 50);
+            this.concurrency.Location = new System.Drawing.Point(3, 52);
             this.concurrency.Name = "concurrency";
-            this.concurrency.Size = new System.Drawing.Size(117, 13);
+            this.concurrency.Size = new System.Drawing.Size(120, 13);
             this.concurrency.TabIndex = 29;
-            this.concurrency.Text = "Amount of concurrency";
+            this.concurrency.Text = "Amount of concurrency:";
             // 
             // gbox_localdir
             // 
@@ -633,25 +642,30 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.tabPage_AdvancedOptions.Text = "Advanced Options";
             this.tabPage_AdvancedOptions.UseVisualStyleBackColor = true;
             // 
-            // lbl_configurationPrefix
+            // gbox_advanced_other
             // 
-            this.lbl_configurationPrefix.AutoSize = true;
-            this.lbl_configurationPrefix.Location = new System.Drawing.Point(6, 23);
-            this.lbl_configurationPrefix.Name = "lbl_configurationPrefix";
-            this.lbl_configurationPrefix.Size = new System.Drawing.Size(69, 13);
-            this.lbl_configurationPrefix.TabIndex = 40;
-            this.lbl_configurationPrefix.Text = "Configuration";
+            this.gbox_advanced_other.Controls.Add(this.chk_includeArtistinFilename);
+            this.gbox_advanced_other.Controls.Add(this.chk_folderByArtist);
+            this.gbox_advanced_other.Controls.Add(this.chk_IncludeCreationDate);
+            this.gbox_advanced_other.Controls.Add(this.chk_MergePlaylists);
+            this.gbox_advanced_other.Controls.Add(this.chk_CreatePlaylists);
+            this.gbox_advanced_other.Location = new System.Drawing.Point(21, 225);
+            this.gbox_advanced_other.Name = "gbox_advanced_other";
+            this.gbox_advanced_other.Size = new System.Drawing.Size(391, 83);
+            this.gbox_advanced_other.TabIndex = 35;
+            this.gbox_advanced_other.TabStop = false;
+            this.gbox_advanced_other.Text = "Other";
             // 
             // chk_MergePlaylists
             // 
             this.chk_MergePlaylists.AutoSize = true;
             this.chk_MergePlaylists.Checked = true;
             this.chk_MergePlaylists.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_MergePlaylists.Location = new System.Drawing.Point(285, 19);
+            this.chk_MergePlaylists.Location = new System.Drawing.Point(6, 63);
             this.chk_MergePlaylists.Name = "chk_MergePlaylists";
-            this.chk_MergePlaylists.Size = new System.Drawing.Size(95, 17);
+            this.chk_MergePlaylists.Size = new System.Drawing.Size(156, 17);
             this.chk_MergePlaylists.TabIndex = 33;
-            this.chk_MergePlaylists.Text = "Merge playlists";
+            this.chk_MergePlaylists.Text = "Merge SoundCloud playlists";
             this.chk_MergePlaylists.UseVisualStyleBackColor = true;
             // 
             // gbox_advanced_enginebehaviour
@@ -665,20 +679,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_advanced_enginebehaviour.TabIndex = 34;
             this.gbox_advanced_enginebehaviour.TabStop = false;
             this.gbox_advanced_enginebehaviour.Text = "Download Behaviour";
-            // 
-            // gbox_advanced_other
-            // 
-            this.gbox_advanced_other.Controls.Add(this.chk_includeArtistinFilename);
-            this.gbox_advanced_other.Controls.Add(this.chk_folderByArtist);
-            this.gbox_advanced_other.Controls.Add(this.chk_IncludeCreationDate);
-            this.gbox_advanced_other.Controls.Add(this.chk_MergePlaylists);
-            this.gbox_advanced_other.Controls.Add(this.chk_CreatePlaylists);
-            this.gbox_advanced_other.Location = new System.Drawing.Point(21, 225);
-            this.gbox_advanced_other.Name = "gbox_advanced_other";
-            this.gbox_advanced_other.Size = new System.Drawing.Size(391, 75);
-            this.gbox_advanced_other.TabIndex = 35;
-            this.gbox_advanced_other.TabStop = false;
-            this.gbox_advanced_other.Text = "Other";
             // 
             // SoundcloudSyncMainForm
             // 
@@ -719,10 +719,10 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.tabControl_general.ResumeLayout(false);
             this.tabPage_BasicOptions.ResumeLayout(false);
             this.tabPage_AdvancedOptions.ResumeLayout(false);
-            this.gbox_advanced_enginebehaviour.ResumeLayout(false);
-            this.gbox_advanced_enginebehaviour.PerformLayout();
             this.gbox_advanced_other.ResumeLayout(false);
             this.gbox_advanced_other.PerformLayout();
+            this.gbox_advanced_enginebehaviour.ResumeLayout(false);
+            this.gbox_advanced_enginebehaviour.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
