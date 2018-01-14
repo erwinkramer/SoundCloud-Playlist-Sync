@@ -274,5 +274,17 @@ namespace Soundcloud_Playlist_Downloader.Properties {
                 this["LocalPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool chk_MergePlaylists {
+            get {
+                return ((bool)(this["chk_MergePlaylists"]));
+            }
+            set {
+                this["chk_MergePlaylists"] = value;
+            }
+        }
     }
 }

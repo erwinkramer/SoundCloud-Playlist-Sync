@@ -24,6 +24,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private static bool ExcludeM4A;
         private static bool ExcludeAac;
         private static bool CreatePlaylists;
+        private static bool MergePlaylists;
         private static int ConcurrentDownloads;
         private static bool ConfigStateActive;
         private static int ConfigStateCurrentIndex = 1;
@@ -207,6 +208,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 ExcludeM4A = chk_excl_m4a.Checked;
                 CreatePlaylists = chk_CreatePlaylists.Checked;
                 ConcurrentDownloads = (int)nudConcurrency.Value;
+                MergePlaylists = chk_MergePlaylists.Checked;
 
                 Uri soundCloudUri;
                 try
@@ -263,7 +265,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 {
                     try
                     {
-                        var sync = new SoundcloudSync(syncUtil);
+                        var sync = new SoundcloudSync(syncUtil, MergePlaylists);
                         sync.Synchronize(url?.Text?.ToLower());
                     }
                     catch (Exception ex)
@@ -338,6 +340,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             SaveSettingToConfig(chk_replaceIllegalCharacters.Name, chk_replaceIllegalCharacters.Checked.ToString(), typeof(Boolean));
             SaveSettingToConfig(rbttn_oneWay.Name, rbttn_oneWay.Checked.ToString(), typeof(Boolean));
             SaveSettingToConfig(rbttn_twoWay.Name, rbttn_twoWay.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_MergePlaylists.Name, chk_MergePlaylists.Checked.ToString(), typeof(Boolean));
             SaveSettingToConfig(chk_CreatePlaylists.Name, chk_CreatePlaylists.Checked.ToString(), typeof(Boolean));
             Settings.Default.Save();
         }
@@ -385,6 +388,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             chk_includeArtistinFilename.Checked = (bool)LoadSettingFromConfig(accessString, chk_includeArtistinFilename.Name, typeof(Boolean));
             chk_replaceIllegalCharacters.Checked = (bool)LoadSettingFromConfig(accessString, chk_replaceIllegalCharacters.Name, typeof(Boolean));
             chk_CreatePlaylists.Checked = (bool)LoadSettingFromConfig(accessString, chk_CreatePlaylists.Name, typeof(Boolean));
+            chk_MergePlaylists.Checked = (bool)LoadSettingFromConfig(accessString, chk_MergePlaylists.Name, typeof(Boolean));
             rbttn_oneWay.Checked = (bool)LoadSettingFromConfig(accessString, rbttn_oneWay.Name, typeof(Boolean));
             rbttn_twoWay.Checked = (bool)LoadSettingFromConfig(accessString, rbttn_twoWay.Name, typeof(Boolean));
         }

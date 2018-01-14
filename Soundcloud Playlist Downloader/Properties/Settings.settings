@@ -60,12 +60,13 @@
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="PlaylistUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">
-        </Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LocalPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">
-        </Value>
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="chk_MergePlaylists" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

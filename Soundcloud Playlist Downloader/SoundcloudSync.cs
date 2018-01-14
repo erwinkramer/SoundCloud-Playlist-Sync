@@ -9,8 +9,11 @@ namespace Soundcloud_Playlist_Downloader
     {
         public SyncUtils _syncUtil;
         public JsonUtils JsonUtil;
-        public SoundcloudSync(SyncUtils syncUtil)
+        public bool MergePlaylists;
+
+        public SoundcloudSync(SyncUtils syncUtil, bool mergePlaylists)
         {
+            MergePlaylists = mergePlaylists;
             _syncUtil = syncUtil;
             JsonUtil = new JsonUtils(_syncUtil.ManifestUtil, _syncUtil.DownloadUtil.ClientIDsUtil.ClientIdCurrentValue);
             _syncUtil.ManifestUtil.ProgressUtil.ResetProgress();
@@ -144,11 +147,8 @@ namespace Soundcloud_Playlist_Downloader
             //no bug?
             //_syncUtil.ManifestUtil.FileSystemUtil.ChangeDirectoryInfo("folder");
 
-            foreach (var playlist in playlists)
-            {
-                _syncUtil.ManifestUtil.FileSystemUtil.ChangeDirectoryInfo(playlist.permalink);
-                SynchronizeFromPlaylistApiUrl(playlist.uri);
-            }
+            SynchronizeFromPlaylistApiUrls(playlists);
+
             _syncUtil.ManifestUtil.FileSystemUtil.ResetDirectoryInfo();
         }
 
@@ -165,11 +165,35 @@ namespace Soundcloud_Playlist_Downloader
             _syncUtil.FinalizeTrackProperties(track);
             _syncUtil.DownloadUtil.DownloadTrackAndTag(ref track);
         }
+
         internal void SynchronizeFromPlaylistApiUrl(string playlistApiUrl)
         {
             var tracks = JsonUtil.RetrieveTracksFromUrl(playlistApiUrl, false, true);
             _syncUtil.Synchronize(tracks);
         }
+
+        internal void SynchronizeFromPlaylistApiUrls(IList<PlaylistItem> playlists)
+        {
+            if(MergePlaylists)
+            {
+                var tracks = new List<Track>();
+                foreach (var playlist in playlists)
+                {
+                    tracks.AddRange(JsonUtil.RetrieveTracksFromUrl(playlist.uri, false, true));
+                }
+                _syncUtil.Synchronize(tracks);
+            }
+            else
+            {
+                foreach (var playlist in playlists)
+                {
+                    var tracks = (JsonUtil.RetrieveTracksFromUrl(playlist.uri, false, true));
+                    _syncUtil.ManifestUtil.FileSystemUtil.ChangeDirectoryInfo(playlist.permalink);
+                    _syncUtil.Synchronize(tracks);
+                }
+            }
+        }
+
         internal void SynchronizeFromArtistUrl(string artistUrl)
         {
             var tracks = JsonUtil.RetrieveTracksFromUrl(artistUrl, true, true);
