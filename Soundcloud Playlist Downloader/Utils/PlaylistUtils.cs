@@ -80,7 +80,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static IList<string> SortOnMostLiked(List<Track> manifest)
         {
             IList<string> newM3U = (
-                from m in manifest
+                from m in manifest.AsParallel()
                 orderby m.favoritings_count ascending
                 select m.LocalPathRelative).ToList();
             newM3U.Insert(0, $"# {Definition} Sorted on most liked (on SoundCloud). {GeneratedBy}");
@@ -89,7 +89,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static IList<string> SortOnMostPlayed(List<Track> manifest)
         {
             IList<string> newM3U = (
-                from m in manifest
+                from m in manifest.AsParallel()
                 orderby m.playback_count descending 
                 select m.LocalPathRelative).ToList();
             newM3U.Insert(0, $"# {Definition} Sorted on most played (on SoundCloud). {GeneratedBy}");
@@ -99,7 +99,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static IList<string> SortOnSoundcloudIndexes(List<Track> manifest)
         {
             IList<string> newM3U = (
-                from m in manifest
+                from m in manifest.AsParallel()
                 orderby m.IndexFromSoundcloud ascending
                 select m.LocalPathRelative).ToList();
             newM3U.Insert(0, $"# {Definition} Sorted SoundCloud order (on SoundCloud). {GeneratedBy}");
@@ -108,7 +108,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static IList<string> RecentlyAdded(List<Track> manifest)
         {
             IList<string> newM3U = (
-                from m in manifest
+                from m in manifest.AsParallel()
                 orderby m.DownloadDateTimeUtc descending
                 select m.LocalPathRelative).ToList();
             newM3U.Insert(0, $"# {Definition} Sorted on recently downloaded. {GeneratedBy}");
@@ -117,7 +117,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static IList<string> RecentlyChanged(List<Track> manifest)
         {
             IList<string> newM3U = (
-                from m in manifest
+                from m in manifest.AsParallel()
                 orderby m.ModifiedDateTimeUtc descending
                 select m.LocalPathRelative).ToList();
             newM3U.Insert(0, $"# {Definition} Sorted on recently changed. {GeneratedBy}");
