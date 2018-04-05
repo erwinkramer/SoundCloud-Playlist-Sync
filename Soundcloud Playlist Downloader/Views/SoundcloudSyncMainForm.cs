@@ -235,7 +235,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                     {
                         if (differentmanifest)
                         {
-                            status.Text = @"Change settings or directoy.";
+                            status.Text = @"Change settings or directory.";
                             progressUtil.Completed = true;
                             InvokeSyncComplete();
                             return;
