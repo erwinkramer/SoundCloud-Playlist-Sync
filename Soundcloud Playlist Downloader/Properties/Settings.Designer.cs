@@ -286,5 +286,35 @@ namespace Soundcloud_Playlist_Downloader.Properties {
                 this["chk_MergePlaylists"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%title%.%ext%")]
+        public string FormatForName
+        {
+            get
+            {
+                return ((string)(this["FormatForName"]));
+            }
+            set
+            {
+                this["FormatForName"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("%artist%-%title%")]
+        public string FormatForTag
+        {
+            get
+            {
+                return ((string)(this["FormatForTag"]));
+            }
+            set
+            {
+                this["FormatForTag"] = value;
+            }
+        }
     }
 }

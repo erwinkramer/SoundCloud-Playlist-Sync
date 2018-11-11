@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -109,9 +112,22 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MainIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SampleTrack1" xml:space="preserve">
+    <value>{"kind":"track","id":166300320,"created_at":"2014/09/05 03:05:46 +0000","user_id":1377057,"duration":61027,"commentable":true,"state":"finished","original_content_size":1467998,"last_modified":"2018/10/30 12:06:55 +0000","sharing":"public","tag_list":"\"Maroon 5\" \"Adam Levine\"","permalink":"maroon-5-sugar","streamable":false,"embeddable_by":"all","purchase_url":"http://smarturl.it/M5V?IQid=sc","purchase_title":"Buy this Song","label_id":null,"genre":"Pop","title":"Maroon 5 - Sugar","description":"Buy on iTunes: http://smarturl.it/M5V?IQid=sc\r\nBuy Album Bundles: http://smarturl.it/M5Vbundles?IQid=sc\r\nBuy on Google Play: http://smarturl.it/M5Vgp?IQid=sc\r\nBuy on Amazon: http://smarturl.it/M5Vamz?IQid=sc\r\nBuy at Walmart: http://smarturl.it/M5Vwalmart?IQid=sc\r\n\r\nhttp://Maroon5.com\r\nhttp://facebook.com/Maroon5\r\nhttp://twitter.com/Maroon5\r\nhttp://instagram.com/Maroon5","label_name":"222/Interscope Records","release":"","track_type":"original","key_signature":"","isrc":"USUM71410340","video_url":null,"bpm":null,"release_year":2014,"release_month":9,"release_day":2,"original_format":"mp3","license":"all-rights-reserved","uri":"https://api.soundcloud.com/tracks/166300320","user":{"id":1377057,"kind":"user","permalink":"interscope","username":"Interscope Records","last_modified":"2018/07/30 17:11:40 +0000","uri":"https://api.soundcloud.com/users/1377057","permalink_url":"http://soundcloud.com/interscope","avatar_url":"https://i1.sndcdn.com/avatars-000001660373-fnvv9k-large.jpg"},"permalink_url":"https://soundcloud.com/interscope/maroon-5-sugar","artwork_url":"https://i1.sndcdn.com/artworks-000090106806-gx3a8g-large.jpg","stream_url":"https://api.soundcloud.com/tracks/166300320/stream","download_url":"https://api.soundcloud.com/tracks/166300320/download","playback_count":13516406,"download_count":0,"favoritings_count":203299,"reposts_count":17304,"comment_count":1578,"downloadable":false,"waveform_url":"https://w1.sndcdn.com/tjyc1FKDItED_m.png","attachments_uri":"https://api.soundcloud.com/tracks/166300320/attachments","policy":"ALLOW","monetization_model":"NOT_APPLICABLE"}</value>
+  </data>
+  <data name="SampleTrack2" xml:space="preserve">
+    <value>{"kind":"track","id":524711901,"created_at":"2018/11/04 18:28:16 +0000","user_id":20172471,"duration":191208,"commentable":true,"state":"finished","original_content_size":7645518,"last_modified":"2018/11/09 03:38:31 +0000","sharing":"public","tag_list":"\"KDA \" K/DA POPSTARS Leagueoflegends Kpop","permalink":"kda-popstars-ft-madison-beer-gi-dle-jaira-burns","streamable":true,"embeddable_by":"all","purchase_url":null,"purchase_title":null,"label_id":null,"genre":"Pop","title":"K/DA - POP/STARS (ft Madison Beer, (G)I-DLE, Jaira Burns)","description":"K/DA Ahri, K/DA Evelynn, K/DA Kai’Sa, and K/DA Akali take the world stage with their debut single.","label_name":"Riot Games","release":null,"track_type":null,"key_signature":null,"isrc":"NLRD51859885","video_url":null,"bpm":null,"release_year":null,"release_month":null,"release_day":null,"original_format":"mp3","license":"all-rights-reserved","uri":"https://api.soundcloud.com/tracks/524711901","user":{"id":20172471,"kind":"user","permalink":"leagueoflegends","username":"LeagueofLegends","last_modified":"2018/11/06 20:00:58 +0000","uri":"https://api.soundcloud.com/users/20172471","permalink_url":"http://soundcloud.com/leagueoflegends","avatar_url":"https://i1.sndcdn.com/avatars-000050521043-1hy6i1-large.jpg"},"permalink_url":"https://soundcloud.com/leagueoflegends/kda-popstars-ft-madison-beer-gi-dle-jaira-burns","artwork_url":"https://i1.sndcdn.com/artworks-000433844391-x8eijd-large.jpg","stream_url":"https://api.soundcloud.com/tracks/524711901/stream","download_url":"https://api.soundcloud.com/tracks/524711901/download","playback_count":279972,"download_count":5801,"favoritings_count":9317,"reposts_count":761,"comment_count":146,"downloadable":true,"waveform_url":"https://w1.sndcdn.com/i8iyxFb7dsWi_m.png","attachments_uri":"https://api.soundcloud.com/tracks/524711901/attachments","policy":"ALLOW","monetization_model":"NOT_APPLICABLE"}</value>
+  </data>
+  <data name="scdownloader" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\scdownloader.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
