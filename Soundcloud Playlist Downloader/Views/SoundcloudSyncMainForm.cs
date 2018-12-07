@@ -15,10 +15,12 @@ namespace Soundcloud_Playlist_Downloader.Views
     {
         private static bool Highqualitysong;
         private static bool ConvertToMp3;
+        private static bool IncludeArtistInFilename;
         private static int SyncMethod = 1;
         private static EnumUtil.DownloadMode _dlMode;
         private static bool FoldersPerArtist;
         private static bool ReplaceIllegalCharacters;
+        private static bool IncludeDateInFilename;
         private static bool ExcludeM4A;
         private static bool ExcludeAac;
         private static bool CreatePlaylists;
@@ -197,7 +199,8 @@ namespace Soundcloud_Playlist_Downloader.Views
 
                 Highqualitysong = chk_highquality.Checked;
                 ConvertToMp3 = chk_convertToMp3.Checked;
-
+                IncludeArtistInFilename = chk_includeArtistinFilename.Checked;
+                IncludeDateInFilename = chk_IncludeCreationDate.Checked;
                 SyncMethod = rbttn_oneWay.Checked ? 1 : 2;
                 FoldersPerArtist = chk_folderByArtist.Checked;
                 ReplaceIllegalCharacters = chk_replaceIllegalCharacters.Checked;
@@ -220,7 +223,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                     return;
                 }
 
-                var filesystemUtil = new FilesystemUtils(new DirectoryInfo(directoryPath?.Text?.ToLower()), trackRadio.Checked ? FormatForTag : FormatForName, FoldersPerArtist, ReplaceIllegalCharacters);
+                var filesystemUtil = new FilesystemUtils(new DirectoryInfo(directoryPath?.Text?.ToLower()), IncludeArtistInFilename, FoldersPerArtist, ReplaceIllegalCharacters, IncludeDateInFilename);
                 var manifestUtil = new ManifestUtils(progressUtil, filesystemUtil, soundCloudUri, _dlMode, SyncMethod);
                 var playlistUtil = new PlaylistUtils(manifestUtil);
                 DownloadUtils downloadUtil = new DownloadUtils(clientIdUtil, ExcludeM4A, ExcludeAac, ConvertToMp3, manifestUtil, Highqualitysong, ConcurrentDownloads);
@@ -312,7 +315,6 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Icon = Resources.MainIcon;
             LoadSettingsFromCurrentConfig(Settings.Default.ConfigStateCurrentIndex);
         }
 
@@ -333,13 +335,13 @@ namespace Soundcloud_Playlist_Downloader.Views
             SaveSettingToConfig(chk_exl_aac.Name, chk_exl_aac.Checked.ToString(), typeof(Boolean));
             SaveSettingToConfig(chk_folderByArtist.Name, chk_folderByArtist.Checked.ToString(), typeof(Boolean));
             SaveSettingToConfig(chk_highquality.Name, chk_highquality.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_includeArtistinFilename.Name, chk_includeArtistinFilename.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig(chk_IncludeCreationDate.Name, chk_IncludeCreationDate.Checked.ToString(), typeof(Boolean));
             SaveSettingToConfig(chk_replaceIllegalCharacters.Name, chk_replaceIllegalCharacters.Checked.ToString(), typeof(Boolean));
             SaveSettingToConfig(rbttn_oneWay.Name, rbttn_oneWay.Checked.ToString(), typeof(Boolean));
             SaveSettingToConfig(rbttn_twoWay.Name, rbttn_twoWay.Checked.ToString(), typeof(Boolean));
             SaveSettingToConfig(chk_MergePlaylists.Name, chk_MergePlaylists.Checked.ToString(), typeof(Boolean));
             SaveSettingToConfig(chk_CreatePlaylists.Name, chk_CreatePlaylists.Checked.ToString(), typeof(Boolean));
-            SaveSettingToConfig(nameof(FormatForName), FormatForName, typeof(String));
-            SaveSettingToConfig(nameof(FormatForTag), FormatForTag, typeof(String));
             Settings.Default.Save();
         }
 
@@ -380,15 +382,15 @@ namespace Soundcloud_Playlist_Downloader.Views
             chk_convertToMp3.Checked = (bool)LoadSettingFromConfig(accessString, chk_convertToMp3.Name, typeof(Boolean));
             chk_excl_m4a.Checked = (bool)LoadSettingFromConfig(accessString, chk_excl_m4a.Name, typeof(Boolean));
             chk_exl_aac.Checked = (bool)LoadSettingFromConfig(accessString, chk_exl_aac.Name, typeof(Boolean));
+            chk_IncludeCreationDate.Checked = (bool)LoadSettingFromConfig(accessString, chk_IncludeCreationDate.Name, typeof(Boolean));
             chk_folderByArtist.Checked = (bool)LoadSettingFromConfig(accessString, chk_folderByArtist.Name, typeof(Boolean));
             chk_highquality.Checked = (bool)LoadSettingFromConfig(accessString, chk_highquality.Name, typeof(Boolean));
+            chk_includeArtistinFilename.Checked = (bool)LoadSettingFromConfig(accessString, chk_includeArtistinFilename.Name, typeof(Boolean));
             chk_replaceIllegalCharacters.Checked = (bool)LoadSettingFromConfig(accessString, chk_replaceIllegalCharacters.Name, typeof(Boolean));
             chk_CreatePlaylists.Checked = (bool)LoadSettingFromConfig(accessString, chk_CreatePlaylists.Name, typeof(Boolean));
             chk_MergePlaylists.Checked = (bool)LoadSettingFromConfig(accessString, chk_MergePlaylists.Name, typeof(Boolean));
             rbttn_oneWay.Checked = (bool)LoadSettingFromConfig(accessString, rbttn_oneWay.Name, typeof(Boolean));
             rbttn_twoWay.Checked = (bool)LoadSettingFromConfig(accessString, rbttn_twoWay.Name, typeof(Boolean));
-            FormatForName = (string)LoadSettingFromConfig(accessString, nameof(FormatForName), typeof(String));
-            FormatForTag = (string)LoadSettingFromConfig(accessString, nameof(FormatForTag), typeof(String));
         }
 
         public object LoadSettingFromConfig(string accessString, string propertyName, Type propertyType)
@@ -545,23 +547,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             lbl_currentConfig.Text = "5";
             ConfigStateCurrentIndex = 5;
             LoadSettingsFromCurrentConfig(ConfigStateCurrentIndex);
-        }
-
-        string FormatForName = "%title%.%ext%", FormatForTag = "%artist%-%title%";
-        private void btn_FormatForName_Click(object sender, EventArgs e)
-        {
-            NameFormater nf_alls = new NameFormater(FormatForName) { Text = "Format for Name" };
-            if(nf_alls.ShowDialog() == DialogResult.OK)
-                FormatForName = string.IsNullOrWhiteSpace(nf_alls.Format) ? "%title%" : nf_alls.Format;
-            SaveSettingsToConfig(ConfigStateCurrentIndex);
-        }
-
-        private void btn_FormatForTag_Click(object sender, EventArgs e)
-        {
-            NameFormater nf_single = new NameFormater(FormatForTag) { Text = "Format for Tag (ID3)" };
-            if (nf_single.ShowDialog() == DialogResult.OK)
-                FormatForTag = string.IsNullOrWhiteSpace(nf_single.Format) ? "%title%" : nf_single.Format;
-            SaveSettingsToConfig(ConfigStateCurrentIndex);
         }
     }
 }

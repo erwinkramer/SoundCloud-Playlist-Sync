@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.IO;
-
-namespace Soundcloud_Playlist_Downloader.JsonObjects
+﻿namespace Soundcloud_Playlist_Downloader.JsonObjects
 {
     public class SoundcloudBaseTrack
     {
@@ -58,20 +55,6 @@ namespace Soundcloud_Playlist_Downloader.JsonObjects
             set
             {
                 user.username = value;
-            }
-        }
-
-        public override string ToString()
-        {
-            using (var sw = new StringWriter())
-            {
-                using (JsonWriter jw = new JsonTextWriter(sw))
-                {
-                    jw.Formatting = Formatting.Indented;
-                    var serializer = new JsonSerializer();
-                    serializer.Serialize(jw, this);
-                }
-                return sw.ToString();
             }
         }
     }

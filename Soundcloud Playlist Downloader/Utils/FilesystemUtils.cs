@@ -10,17 +10,19 @@ namespace Soundcloud_Playlist_Downloader.Utils
     {
         public DirectoryInfo Directory;
         public DirectoryInfo OriginalDirectory;
-        public string Format;
+        public bool IncludeArtistInFilename;
+        public bool IncludeDateInFilename;
         public bool FoldersPerArtist;
         public bool ReplaceIllegalCharacters;
         public string LogPath;
         public bool ErrorsLogged;
 
-        public FilesystemUtils(DirectoryInfo targetDirectory, string format, bool foldersPerArtist, bool replaceIllegalCharacters)
+        public FilesystemUtils(DirectoryInfo targetDirectory, bool includeArtistInFilename, bool foldersPerArtist, bool replaceIllegalCharacters, bool includeDateInFilename)
         {
-            Format = format;
+            IncludeDateInFilename = includeDateInFilename;
             ReplaceIllegalCharacters = replaceIllegalCharacters;
             FoldersPerArtist = foldersPerArtist;
+            IncludeArtistInFilename = includeArtistInFilename;
             Directory = targetDirectory;
             OriginalDirectory = new DirectoryInfo(targetDirectory.FullName);
             ErrorsLogged = false;
@@ -90,31 +92,28 @@ namespace Soundcloud_Playlist_Downloader.Utils
             const int maxPathLength = 255;
             return fullPathAndFilename.Length <= maxPathLength;
         }
-        public static string BuildName(string Format, Track track, bool ReplaceIllegalCharacters)
-        {
-            var filename = Format.
-                Replace("%title%", track.Title).
-                Replace("%user%", track.Artist).
-                Replace("%index%", (track.IndexFromSoundcloud + 1).ToString()).
-                Replace("%genre%", track.genre).
-                Replace("%ext%", track.original_format).
-                Replace("%quality%", track.IsHD ? "(HQ)" : null).
-                Replace("%label_name%", track.label_name).
-                Replace("%desc%", track.description);
-            filename = filename.Replace("%date%", DateTime.Parse(track.created_at).ToString("yyyy-MM-dd"));
-            filename = filename.Replace("%time%", DateTime.Parse(track.created_at).ToString("HH.mm.ss"));
-
-            return CoerceValidFileName(filename, ReplaceIllegalCharacters);
-        }
-
         public string BuildTrackLocalPath(Track track)
         {
-            string path = null;
-            var validArtist = CoerceValidFileName(track.Artist, ReplaceIllegalCharacters); // true && ReplaceIllegalCharacters
+            string path;
+            var validArtist = CoerceValidFileName(track.Artist, true);
             var validArtistFolderName = TrimDotsAndSpacesForFolderName(validArtist);
-            var filename = BuildName(Format, track, ReplaceIllegalCharacters);
+            var validTitle = CoerceValidFileName(track.Title, true);
+            var filename = string.Empty;
 
-            Console.WriteLine(validArtistFolderName);
+            if (IncludeDateInFilename)
+            {
+                var dateTimeCreatedAt = DateTime.Parse(track.created_at);
+                filename += dateTimeCreatedAt.ToString("yyyy-MM-dd HH.mm.ss ");
+            }
+
+            if (IncludeArtistInFilename)
+                filename += validArtist + " - ";
+
+            if (track.IsHD)
+                validTitle += " (HQ)";
+
+            filename += validTitle;
+
             if (FoldersPerArtist)
             {
                 while (!IsPathWithinLimits(path = Path.Combine(Directory.FullName, validArtistFolderName,
@@ -135,9 +134,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return path;
         }
 
-        public static string CoerceValidFileName(string filename, bool checkForReplaceCharacters)
+        public string CoerceValidFileName(string filename, bool checkForReplaceCharacters)
         {
-            if (checkForReplaceCharacters)
+            if (checkForReplaceCharacters && ReplaceIllegalCharacters)
             {
                 filename = AlterChars(filename);
             }

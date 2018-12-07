@@ -90,7 +90,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public Track RetrieveTrackFromUrl(string url)
         {
             var trackJson = RetrieveJson("https://api.soundcloud.com/resolve.json?url=" + url);
-            Console.WriteLine(trackJson);
             JObject track = JObject.Parse(trackJson);
             if (track?.GetValue("id") != null)
                 return JsonConvert.DeserializeObject<Track>(track.ToString());
