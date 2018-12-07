@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using Newtonsoft.Json;
 using Soundcloud_Playlist_Downloader.Utils;
 
 namespace Soundcloud_Playlist_Downloader.JsonObjects
@@ -20,19 +18,5 @@ namespace Soundcloud_Playlist_Downloader.JsonObjects
         public int comment_count { get; set; }
         public bool IsDownloaded { get; set; } = false;
         public int IndexFromSoundcloud { get; set; }
-
-        public override string ToString()
-        {
-            using (var sw = new StringWriter())
-            {
-                using (JsonWriter jw = new JsonTextWriter(sw))
-                {
-                    jw.Formatting = Formatting.Indented;
-                    var serializer = new JsonSerializer();
-                    serializer.Serialize(jw, this);
-                }
-                return sw.ToString();
-            }
-        }
     }
 }
