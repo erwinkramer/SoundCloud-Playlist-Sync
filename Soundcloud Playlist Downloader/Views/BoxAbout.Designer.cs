@@ -54,6 +54,7 @@
             this.link_naudioLame = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.link_nAudio = new System.Windows.Forms.LinkLabel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.License.SuspendLayout();
             this.Projectwebsites.SuspendLayout();
@@ -112,7 +113,7 @@
             this.lbl_copy.Name = "lbl_copy";
             this.lbl_copy.Size = new System.Drawing.Size(299, 13);
             this.lbl_copy.TabIndex = 29;
-            this.lbl_copy.Text = "copyright © 2013-2017. The SoundCloud-Playlist-Sync project";
+            this.lbl_copy.Text = "copyright © 2013-2019. The SoundCloud-Playlist-Sync project";
             // 
             // lbl_info1
             // 
@@ -207,6 +208,7 @@
             // 
             // Projectwebsites
             // 
+            this.Projectwebsites.Controls.Add(this.linkLabel1);
             this.Projectwebsites.Controls.Add(this.link_github_contributor_1);
             this.Projectwebsites.Controls.Add(this.label6);
             this.Projectwebsites.Controls.Add(this.label4);
@@ -340,6 +342,17 @@
             this.link_nAudio.Text = "NAudio";
             this.link_nAudio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(105, 86);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(48, 13);
+            this.linkLabel1.TabIndex = 31;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "HongSic";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_2);
+            // 
             // BoxAbout
             // 
             this.AcceptButton = this.okButton;
@@ -399,5 +412,6 @@
         private System.Windows.Forms.LinkLabel link_HtmlAgilityPack;
         private System.Windows.Forms.LinkLabel link_github_contributor_1;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

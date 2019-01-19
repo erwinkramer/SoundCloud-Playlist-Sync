@@ -22,6 +22,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             var link7 = new LinkLabel.Link();
             var link8 = new LinkLabel.Link();
             var link9 = new LinkLabel.Link();
+            var link10 = new LinkLabel.Link();
 
             link.LinkData = "https://github.com/StephenCasella/SoundCloud-Playlist-Sync/releases";
             link_github2.Links.Add(link);
@@ -41,6 +42,8 @@ namespace Soundcloud_Playlist_Downloader.Views
             link_naudioLame.Links.Add(link7);
             link8.LinkData = "https://htmlagilitypack.codeplex.com";
             link_HtmlAgilityPack.Links.Add(link8);
+            link10.LinkData = "https://github.com/HongSic";
+            linkLabel1.Links.Add(link10);
         }
 
         public sealed override string Text
@@ -131,6 +134,11 @@ namespace Soundcloud_Playlist_Downloader.Views
         }
 
         private void link_github_contributor_1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+        }
+
+        private void linkLabel1_LinkClicked_2(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
         }
