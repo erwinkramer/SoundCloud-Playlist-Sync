@@ -24,8 +24,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             DownloadMode = downloadMode;
             SoundCloudUri = soundCloudUri;
             ManifestName = MakeManifestString(
-                    fileSystemUtil.CoerceValidFileName(soundCloudUri.Host + soundCloudUri.PathAndQuery, false), fileSystemUtil.FoldersPerArtist,
-                    fileSystemUtil.IncludeArtistInFilename, downloadMode, syncMethod); ;
+                    FilesystemUtils.CoerceValidFileName(soundCloudUri.Host + soundCloudUri.PathAndQuery, !fileSystemUtil.ReplaceIllegalCharacters), fileSystemUtil.FoldersPerArtist, downloadMode, syncMethod);
             FileSystemUtil = fileSystemUtil;
         }
         static readonly ReaderWriterLock ReadWriteManifestLock = new ReaderWriterLock();
@@ -120,10 +119,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
             manifests[index] = trackChanged;
         }
 
-        public static string MakeManifestString(string validManifestFilename, bool foldersPerArtist, bool includeArtistInFilename, EnumUtil.DownloadMode dlMode, int syncMethod)
+        public static string MakeManifestString(string validManifestFilename, bool foldersPerArtist, EnumUtil.DownloadMode dlMode, int syncMethod)
         {
-            return ".MNFST=" + validManifestFilename + ",FPA=" + foldersPerArtist + ",IAIF=" +
-                   includeArtistInFilename + ",DM=" + dlMode + ",SM=" + syncMethod + ".json";
+            return ".MNFST=" + validManifestFilename + ",FPA=" + foldersPerArtist + ",DM=" + dlMode + ",SM=" + syncMethod + ".json";
         }
 
         public static void BackupManifest(string directoryPath, string manifestName)
