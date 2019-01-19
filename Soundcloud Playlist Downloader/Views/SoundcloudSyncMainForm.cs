@@ -26,6 +26,8 @@ namespace Soundcloud_Playlist_Downloader.Views
         private static int ConcurrentDownloads;
         private static bool ConfigStateActive;
         private static int ConfigStateCurrentIndex = 1;
+        private static string FormatForName = "%user% - %title% %quality%";
+        private static string FormatForTag = "%user% - %title% %quality%";
 
         private readonly string AbortActionText = "Abort";
         private readonly BoxAbout _aboutWindow = new BoxAbout();
@@ -547,21 +549,35 @@ namespace Soundcloud_Playlist_Downloader.Views
             LoadSettingsFromCurrentConfig(ConfigStateCurrentIndex);
         }
 
-        string FormatForName = "%title%.%ext%", FormatForTag = "%artist%-%title%";
+        /// <summary>
+        /// Format filenames.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_FormatForName_Click(object sender, EventArgs e)
         {
-            NameFormater nf_alls = new NameFormater(FormatForName) { Text = "Format for Name" };
-            if(nf_alls.ShowDialog() == DialogResult.OK)
-                FormatForName = string.IsNullOrWhiteSpace(nf_alls.Format) ? "%title%" : nf_alls.Format;
+            NameFormater filenameFormatter = new NameFormater(FormatForName) { Text = "Filename Formatter" };
+            if(filenameFormatter.ShowDialog() == DialogResult.OK)
+                FormatForName = string.IsNullOrWhiteSpace(filenameFormatter.Format) ? "%title%" : filenameFormatter.Format;
             SaveSettingsToConfig(ConfigStateCurrentIndex);
         }
 
+        /// <summary>
+        /// Format metedata tags. Not yet implemented
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_FormatForTag_Click(object sender, EventArgs e)
         {
-            NameFormater nf_single = new NameFormater(FormatForTag) { Text = "Format for Tag (ID3)" };
-            if (nf_single.ShowDialog() == DialogResult.OK)
-                FormatForTag = string.IsNullOrWhiteSpace(nf_single.Format) ? "%title%" : nf_single.Format;
+            NameFormater metadataformatter = new NameFormater(FormatForTag) { Text = "Metadata Formatter (ID3)" };
+            if (metadataformatter.ShowDialog() == DialogResult.OK)
+                FormatForTag = string.IsNullOrWhiteSpace(metadataformatter.Format) ? "%title%" : metadataformatter.Format;
             SaveSettingsToConfig(ConfigStateCurrentIndex);
+        }
+
+        private void chk_replaceIllegalCharacters_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

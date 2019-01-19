@@ -289,7 +289,7 @@ namespace Soundcloud_Playlist_Downloader.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("%title%.%ext%")]
+        [global::System.Configuration.DefaultSettingValueAttribute("%user% - %title% %quality%")]
         public string FormatForName
         {
             get
@@ -304,7 +304,7 @@ namespace Soundcloud_Playlist_Downloader.Properties {
 
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("%artist%-%title%")]
+        [global::System.Configuration.DefaultSettingValueAttribute("%user% - %title% %quality%")]
         public string FormatForTag
         {
             get

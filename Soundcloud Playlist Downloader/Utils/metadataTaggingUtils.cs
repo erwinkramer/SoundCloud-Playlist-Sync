@@ -19,7 +19,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             Tag.DefaultVersion = 3;
             Tag.ForceDefaultVersion = true;
             // Possible values for DefaultVersion are 2(id3v2.2), 3(id3v2.3) or 4(id3v2.4)
-            // it seems that id3v2.4 is more prone to misinterpret utf-8. id3v2.2 seems most stable. 
+            // it seems that id3v2.4 is more prone to misinterpret utf-8. id3v2.3 seems most stable. 
             var tagFile = File.Create(song.LocalPath);
 
             var creationDate = DateTime.Today; //If somehow the datetime string can't be parsed it will just use today

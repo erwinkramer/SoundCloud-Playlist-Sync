@@ -159,7 +159,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
             foreach (string ManifestFileName in files)
             {
-                if (ManifestFileName.StartsWith(Path.Combine(FileSystemUtil.Directory.FullName, manifestProperties[0] + ",")))
+                string updatedManifestFilename = UpdateToNewManifestStructure(ManifestFileName);
+                if (updatedManifestFilename.StartsWith(Path.Combine(FileSystemUtil.Directory.FullName, manifestProperties[0] + ",")))
                 {
                     if(File.Exists(Path.Combine(FileSystemUtil.Directory.FullName, ManifestName)))
                     {
@@ -173,6 +174,18 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 }
             }       
             return false;
+        }
+
+        /// <summary>
+        /// Replace old structure of filename
+        /// </summary>
+        /// <param name="manifestfile"></param>
+        private string UpdateToNewManifestStructure(string manifestfile)
+        {
+            string updatedManifestFileStructure = manifestfile.Replace("IAIF=True,", "").Replace("IAIF=False,", "");
+            if(manifestfile != updatedManifestFileStructure)
+                File.Move(manifestfile, updatedManifestFileStructure);
+            return updatedManifestFileStructure;
         }
     }
 }

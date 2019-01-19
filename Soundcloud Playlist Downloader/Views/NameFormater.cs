@@ -11,17 +11,18 @@ namespace Soundcloud_Playlist_Downloader.Views
     public partial class NameFormater : Form
     {
         Track track_sample;
-        public NameFormater()
+
+        public NameFormater(FilesystemUtils filesystemUtils)
         {
             InitializeComponent();
-            FormatBefore = Format = textBox1.Text = "%title%.%ext%";
+            FormatBefore = Format = textBox1.Text = "%user% - %title% %quality%";
             Init();
         }
         [Obsolete]
         public NameFormater(params int[] DisableTagIndex)
         {
             InitializeComponent();
-            FormatBefore = Format = textBox1.Text = "%title%.%ext%";
+            FormatBefore = Format = textBox1.Text = "%user% - %title% %quality%";
             Init();
 
             for (int i = 0; DisableTagIndex != null && i < DisableTagIndex.Length; i++)
@@ -102,9 +103,14 @@ namespace Soundcloud_Playlist_Downloader.Views
             
         }
 
+        /// <summary>
+        /// Assume Replace illegal characters to make it a nice preview. No need to make it based on the current option
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            textBox2.Text = FilesystemUtils.BuildName(textBox1.Text, track_sample, checkBox1.Checked);
+            textBox2.Text = FilesystemUtils.BuildName(textBox1.Text, track_sample, true);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -206,16 +212,6 @@ namespace Soundcloud_Playlist_Downloader.Views
                 Invalidate();
             }
         }
-
-        /*
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            Graphics g = e.Graphics;
-            g.DrawString(Item.ToString(), Font, new SolidBrush(ForeColor), new Point(0, 0));
-            //g.DrawString("김세훈", Font, new SolidBrush(ForeColor), new Point(0, 0));
-        }
-        */
 
         public override bool Equals(object obj)
         {

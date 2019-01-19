@@ -78,12 +78,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     {
                         if (ManifestUtil.SyncMethod == 1) return;
                         manifest.Remove(track);
+                        index--;
                         DeleteFile(track.LocalPath);
                         continue;
                     }
                     if (!File.Exists(track.LocalPath))
                     {
                         manifest.Remove(track);
+                        index--;
                         tracksToDownload.Add(compareTrack);
                         continue;
                     }
@@ -94,6 +96,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     if (compareTrack.IsHD && !track.IsHD) //track changed to HD
                     {
                         manifest.Remove(track);
+                        index--;
                         DeleteFile(track.LocalPath);
                         tracksToDownload.Add(compareTrack);
                         continue;
