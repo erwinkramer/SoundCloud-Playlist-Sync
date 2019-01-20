@@ -126,6 +126,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 {
                     string extension = DetermineExtension(song);
 
+                    //1MB 씩 다운로드 하고 Taglib 로 분석하기. 
                     if (ConvertToMp3 && Highqualitysong &&
                         DetermineAllowedFormats().Contains(extension))
                     {

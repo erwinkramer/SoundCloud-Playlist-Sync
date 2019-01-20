@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using Soundcloud_Playlist_Downloader.Language;
 using Soundcloud_Playlist_Downloader.Properties;
 using Soundcloud_Playlist_Downloader.Utils;
 
@@ -48,17 +49,17 @@ namespace Soundcloud_Playlist_Downloader.Views
             InitializeComponent();
 
             updateUtil = new UpdateUtils();
-            updateToolStripMenuItem.Text = updateUtil.LabelTextForCurrentStatus();
+            updateToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_UPDATE"] + updateUtil.LabelTextForCurrentStatus();
 
             clientIdUtil = new ClientIDsUtils();
             _apiConfigSettings = new API_Config(clientIdUtil);
             progressUtil = new ProgressUtils();
 
-            Text = $"SoundCloud Playlist Sync {Version()} Stable";
+            Text = string.Format(LanguageManager.Language["STR_MAIN_TITLE_STABLE"], Version());
             _performSyncCompleteImplementation = SyncCompleteButton;
             _progressBarUpdateImplementation = UpdateProgressBar;
             _performStatusUpdateImplementation = UpdateStatus;
-            status.Text = @"Ready";
+            status.Text = LanguageManager.Language["STR_MAIN_STATUS_READY"];
             MinimumSize = new Size(Width, Height);
             MaximumSize = new Size(Width, Height);
         }
@@ -95,11 +96,11 @@ namespace Soundcloud_Playlist_Downloader.Views
                 if (progressUtil.IsActive && progressBar.Value == progressBar.Maximum &&
                 progressBar.Value != progressBar.Minimum)
                 {
-                    status.Text = @"Completed";
+                    status.Text = LanguageManager.Language["STR_MAIN_STATUS_COMPLETE"];
                 }
                 else if (progressUtil.IsActive && progressBar.Value >= progressBar.Minimum && progressBar.Maximum > 0)
                 {
-                    status.Text = $"Synchronizing... {progressBar.Value} of {progressBar.Maximum} songs downloaded.";
+                    status.Text = string.Format(LanguageManager.Language["STR_MAIN_STATUS_READY"], progressBar.Value, progressBar.Maximum);
                 }
                 else if (progressUtil.IsActive && progressUtil.Completed && !progressUtil.IsError)
                 {
@@ -316,6 +317,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             Icon = Resources.MainIcon;
             LoadSettingsFromCurrentConfig(Settings.Default.ConfigStateCurrentIndex);
+            toolStripComboBox1.SelectedIndex = 0;
         }
 
         private void SaveSettingsToConfig(int currentIndex)
@@ -479,7 +481,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             updateUtil.InstallUpdateSyncWithInfo();
-            updateToolStripMenuItem.Text = updateUtil.LabelTextForCurrentStatus();
+            updateToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_UPDATE"] + updateUtil.LabelTextForCurrentStatus();
         } 
 
         private void rbttn_twoWay_CheckedChanged(object sender, EventArgs e)
@@ -578,6 +580,38 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void chk_replaceIllegalCharacters_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        int LastSelectLannguage = 0;
+        private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(LastSelectLannguage != toolStripComboBox1.SelectedIndex)
+            {
+                LastSelectLannguage = toolStripComboBox1.SelectedIndex;
+                switch(LastSelectLannguage)
+                {
+                    case 1: LanguageManager.Language = new LanguageManager(Resources.Language_Korean.Split(new char[] { '\n', '\r' }, StringSplitOptions.None)); break;
+                    default: LanguageManager.Language = LanguageManager.GetDefault(); break;
+                }
+                LoadLanguage();
+                _apiConfigSettings.LoadLanguage();
+            }
+        }
+
+        private void LoadLanguage()
+        {
+            Text = string.Format(LanguageManager.Language["STR_MAIN_TITLE_STABLE"], Version());
+            configurationsToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_TITLE"];
+            configurationsToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIGS"];
+            config1ToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIG"] + " 1";
+            config2ToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIG"] + " 2";
+            config3ToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIG"] + " 3";
+            config4ToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIG"] + " 4";
+            config5ToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIG"] + " 5";
+            clientIDToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CLIENT"];
+            updateToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_UPDATE"] + updateUtil.LabelTextForCurrentStatus();
+            aboutToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_ABOUT"];
+            languageToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_LANG"];
         }
     }
 }

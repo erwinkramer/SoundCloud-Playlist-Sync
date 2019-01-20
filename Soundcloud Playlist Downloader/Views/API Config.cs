@@ -1,5 +1,7 @@
-﻿using Soundcloud_Playlist_Downloader.Utils;
+﻿using Soundcloud_Playlist_Downloader.Language;
+using Soundcloud_Playlist_Downloader.Utils;
 using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Soundcloud_Playlist_Downloader.Views
@@ -15,9 +17,9 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void bttn_save_Click(object sender, EventArgs e)
         {
-            if(!string.IsNullOrWhiteSpace(txt_alteredClientID.Text))
+            if(!string.IsNullOrWhiteSpace(txt_CustomClientID.Text))
             {
-                ClientIDsUtil.ClientIdCustom = txt_alteredClientID.Text.Trim();
+                ClientIDsUtil.ClientIdCustom = txt_CustomClientID.Text.Trim();
                 txt_CustomClientID.Text = ClientIDsUtil.ClientIdCustom;
             }
             Hide();
@@ -28,7 +30,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             txt_stockClientID.Text = ClientIDsUtil.ClientId1;
             txt_stockClientID2.Text = ClientIDsUtil.ClientId2;         
             txt_CustomClientID.Text = ClientIDsUtil.ClientIdCustom;
-            txt_alteredClientID.Text = ClientIDsUtil.ClientIdCustom;
             switch (ClientIDsUtil.ClientIdCurrentName)
             {
                 case "clientID1":
@@ -51,19 +52,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             e.Cancel = true;
         }
 
-        private void lbl_ClientID_Click(object sender, EventArgs e)
-        {
-
-        }
-
       
 
         private void txt_stockClientID_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txt_CustomClientID_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -87,6 +78,23 @@ namespace Soundcloud_Playlist_Downloader.Views
             if (!((RadioButton)sender).Checked)
                 return;
             ClientIDsUtil.ClientIdCurrentName = "clientID1";
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try { Process.Start("http://soundcloud.com/you/apps/new"); } catch { }
+        }
+
+        internal void LoadLanguage()
+        {
+            this.Text = LanguageManager.Language["STR_APICONFIG_TITLE"];
+            this.label1.Text = LanguageManager.Language["STR_APICONFIG_DESC"];
+            this.label5.Text = LanguageManager.Language["STR_APICONFIG_ACTIVE"];
+            this.rbutton_clientid1.Text = LanguageManager.Language["STR_APICONFIG_CLIENTID"] + " 1:";
+            this.rbutton_clientid2.Text = LanguageManager.Language["STR_APICONFIG_CLIENTID"] + " 2:";
+            this.rbutton_clientidcustom.Text = LanguageManager.Language["STR_APICONFIG_CUSTOMID"];
+            this.bttn_save.Text = LanguageManager.Language["STR_APICONFIG_SAVE"];
+            this.linkLabel1.Text = LanguageManager.Language["STR_APICONFIG_LINK"];
         }
     }
 }

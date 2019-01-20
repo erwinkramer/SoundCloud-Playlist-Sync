@@ -1,0 +1,21 @@
+﻿//Language: 한국어 (Korean)
+//Author: HongSic (HSKernel)
+
+//메인창 영역
+STR_MAIN_TITLE_STABLE=SoundCloud 재생목록 동기화 {0} 안정화 버전
+STR_MAIN_MENU_CONFIGS=구성 설정
+STR_MAIN_MENU_CONFIG=구성 설정
+STR_MAIN_MENU_CLIENT=API 설정
+STR_MAIN_MENU_UPDATE=업데이트
+STR_MAIN_MENU_ABOUT=이 프로그램은
+STR_MAIN_MENU_LANG=언어
+
+
+//API Config 영역
+STR_APICONFIG_TITLE=API 설정
+STR_APICONFIG_DESC=이 설정은 클라이언트 ID를 변경합니다.\n만약 API가 인증을 거부한다고 뜨면 클라이언트 ID가 더 이상 작동하지 않는 것입니다.\n버튼 밑의 링크를 눌러 새 ID를 만드세요.
+STR_APICONFIG_ACTIVE=활성화
+STR_APICONFIG_CLIENTID=클라이언트 ID
+STR_APICONFIG_CUSTOMID=사용자 ID
+STR_APICONFIG_SAVE=설정 저장
+STR_APICONFIG_LINK=클릭하여 새 ID 만들기

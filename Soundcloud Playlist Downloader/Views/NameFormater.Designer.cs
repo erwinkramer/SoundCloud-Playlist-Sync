@@ -39,6 +39,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -47,9 +48,9 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(12, 41);
+            this.textBox1.Location = new System.Drawing.Point(14, 38);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(400, 20);
+            this.textBox1.Size = new System.Drawing.Size(466, 21);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "%user% - %title% %quality%";
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -57,9 +58,9 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(136, 12);
+            this.button1.Location = new System.Drawing.Point(159, 11);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(102, 23);
+            this.button1.Size = new System.Drawing.Size(119, 21);
             this.button1.TabIndex = 3;
             this.button1.Text = "Format options ▼";
             this.button1.UseVisualStyleBackColor = true;
@@ -69,9 +70,9 @@
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(12, 196);
+            this.button2.Location = new System.Drawing.Point(14, 181);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(400, 21);
+            this.button2.Size = new System.Drawing.Size(467, 23);
             this.button2.TabIndex = 4;
             this.button2.Text = "Save settings";
             this.button2.UseVisualStyleBackColor = true;
@@ -89,19 +90,19 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.BackColor = System.Drawing.SystemColors.Control;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Location = new System.Drawing.Point(6, 24);
+            this.textBox2.Location = new System.Drawing.Point(7, 22);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(388, 70);
+            this.textBox2.Size = new System.Drawing.Size(453, 65);
             this.textBox2.TabIndex = 6;
             this.textBox2.Text = "Maroon 5 - Sugar.mp3";
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 12);
+            this.button3.Location = new System.Drawing.Point(14, 11);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(118, 22);
+            this.button3.Size = new System.Drawing.Size(138, 20);
             this.button3.TabIndex = 7;
             this.button3.Text = "Sample tracks  ▼";
             this.button3.UseVisualStyleBackColor = true;
@@ -132,18 +133,29 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 67);
+            this.groupBox1.Location = new System.Drawing.Point(14, 62);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(400, 123);
+            this.groupBox1.Size = new System.Drawing.Size(467, 114);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Preview";
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(284, 14);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(100, 16);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.Text = "From ID3 Tag";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // NameFormater
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 224);
+            this.ClientSize = new System.Drawing.Size(495, 207);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -176,5 +188,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

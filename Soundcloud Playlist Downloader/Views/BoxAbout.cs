@@ -43,7 +43,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             link8.LinkData = "https://htmlagilitypack.codeplex.com";
             link_HtmlAgilityPack.Links.Add(link8);
             link10.LinkData = "https://github.com/HongSic";
-            linkLabel1.Links.Add(link10);
+            linkLabel1.Links.Add(link10); linkLabel2.Links.Add(link10); linkLabel3.Links.Add(link10);
         }
 
         public sealed override string Text

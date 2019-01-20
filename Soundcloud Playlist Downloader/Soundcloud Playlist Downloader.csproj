@@ -92,7 +92,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>E2FD8D122B221F7A4EAFBDE0C06403FBD6D84668</ManifestCertificateThumbprint>
@@ -165,6 +165,7 @@
   <ItemGroup>
     <Compile Include="JsonObjects\SoundcloudBaseTrack.cs" />
     <Compile Include="JsonObjects\Track.cs" />
+    <Compile Include="Language\LanguageManager.cs" />
     <Compile Include="SilentFailure.cs" />
     <Compile Include="Utils\ClientIDsUtils.cs" />
     <Compile Include="Utils\CompareUtils.cs" />
@@ -273,6 +274,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Language\ko-kr.txt" />
     <Content Include="SoundCloudSync_200yr.txt" />
     <None Include="Resources\Icon1.ico" />
     <Content Include="libmp3lame.32.dll">
