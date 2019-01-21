@@ -7,7 +7,8 @@ A utility to synchronize local directories with SoundCloud playlists and favorit
 ![alt text](https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Program%20GUI.PNG)
 
 Korean (한국어)
-![alt text](https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Program%20GUI%20(Korean).PNG)
+
+![alt text](https://raw.githubusercontent.com/HongSic/SoundCloud-Playlist-Sync/fix/Program%20GUI%20(Korean).PNG)
 
 [![Join the chat at https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync](https://badges.gitter.im/erwinkramer/SoundCloud-Playlist-Sync.svg)](https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
