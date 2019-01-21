@@ -24,6 +24,9 @@ This is a fork of the original utility from @StephenCasella. Besides numerous bu
 로컬 디렉토리와 사운드 클라우드의 재생 목록 및 즐겨 찾기 목록을 동기화하는 유틸리티입니다.
 
 ![alt text](https://raw.githubusercontent.com/HongSic/SoundCloud-Playlist-Sync/fix/Program%20GUI%20(Korean).PNG)
+[![Join the chat at https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync](https://badges.gitter.im/erwinkramer/SoundCloud-Playlist-Sync.svg)](https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[gitter 에서 의견을 제시하거나(영문) https://github.com/HongSic/SoundCloud-Playlist-Sync 에 의견을 달아주세요 (한국어 가능)]
 
 @tepenCaseella 가 프로젝트 원작자이며 이 프로젝트는 포크된 프로젝트입니다. 다양한 버그 수정 외에도 유틸리티의 작업 개선을 위한 몇 가지 새로운 기능도 포함했습니다. 기능은 다음과 같습니다.
 
