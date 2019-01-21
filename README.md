@@ -4,7 +4,7 @@ Available language: English(Default), Korean(한국어)
 
 A utility to synchronize local directories with SoundCloud playlists and favorited lists.
 
-![alt text](https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Program%20GUI.PNG)
+![alt text](https://raw.githubusercontent.com/HongSic/SoundCloud-Playlist-Sync/fix/Program%20GUI.PNG)
 
 Korean (한국어)
 
