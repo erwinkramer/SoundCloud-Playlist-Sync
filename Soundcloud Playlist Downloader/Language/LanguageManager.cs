@@ -77,6 +77,7 @@ namespace Soundcloud_Playlist_Downloader.Language
             m.lng.Add("STR_MAIN_ADVANCE_HQ_EXCL", "Exclude");
             m.lng.Add("STR_MAIN_ADVANCE_DOWNB", "Download Behaviour");
             m.lng.Add("STR_MAIN_ADVANCE_ILLIGCHAR", "Replace illegal characters in filename with equivalent instead of _");
+            m.lng.Add("STR_MAIN_ADVANCE_ILLIGCHAR_DESC", "Characters to be replaced: / ? < > \\ : * | \nWill be replaced with Halfwidth and Fullwidth Forms");
             m.lng.Add("STR_MAIN_ADVANCE_CONCURRENCY", "Amount of concurrency");
             m.lng.Add("STR_MAIN_ADVANCE_OTHER", "Other");
             m.lng.Add("STR_MAIN_ADVANCE_FILEFORMAT", "Filename Formatter");

@@ -682,7 +682,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             trackRadio.Text = LanguageManager.Language["STR_MAIN_BASIC_DM5"];
             gbox_syncMethod.Text = LanguageManager.Language["STR_MAIN_BASIC_SM"];
             rbttn_oneWay.Text = LanguageManager.Language["STR_MAIN_BASIC_SM1"];
-            rbttn_twoWay.Text = LanguageManager.Language["STR_MAIN_BASIC_SM1"];
+            rbttn_twoWay.Text = LanguageManager.Language["STR_MAIN_BASIC_SM2"];
 
             if (status.Tag == null) status.Text = LanguageManager.Language["STR_MAIN_STATUS_READY"];
             else if (status.Tag is string[])
@@ -707,6 +707,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             lbl_exclude.Text = LanguageManager.Language["STR_MAIN_ADVANCE_HQ_EXCL"] + ":";
             gbox_advanced_enginebehaviour.Text = LanguageManager.Language["STR_MAIN_ADVANCE_DOWNB"];
             chk_replaceIllegalCharacters.Text = LanguageManager.Language["STR_MAIN_ADVANCE_ILLIGCHAR"];
+            tt_qualityExplanation.SetToolTip(chk_replaceIllegalCharacters, LanguageManager.Language["STR_MAIN_ADVANCE_ILLIGCHAR_DESC"].Replace("\\n", "\n"));
             concurrency.Text = LanguageManager.Language["STR_MAIN_ADVANCE_CONCURRENCY"] + ":";
             gbox_advanced_other.Text = LanguageManager.Language["STR_MAIN_ADVANCE_OTHER"];
             btn_FormatForName.Text = LanguageManager.Language["STR_MAIN_ADVANCE_FILEFORMAT"];
