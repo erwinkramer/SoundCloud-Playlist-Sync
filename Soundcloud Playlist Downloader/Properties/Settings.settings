@@ -2,6 +2,9 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Soundcloud_Playlist_Downloader.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
+    <Setting Name="Language" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
     <Setting Name="ConcurrentDownloads" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>

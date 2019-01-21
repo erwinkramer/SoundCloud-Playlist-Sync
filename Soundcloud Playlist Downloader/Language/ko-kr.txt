@@ -1,0 +1,150 @@
+﻿//Language: 한국어 (Korean)
+//Author: HongSic (HSKernel)
+
+//공통영역
+LANGUAGE=한국어
+STR_ERR=오류
+STR_ABORT=중단
+STR_SYNCHRONIZE=동기화
+
+//메인창 영역
+STR_MAIN_TITLE_STABLE=사운드 클라우드 재생목록 동기화 {0} 안정화 버전
+STR_MAIN_MENU_CONFIGS=구성 설정
+STR_MAIN_MENU_CONFIG=구성 설정
+STR_MAIN_MENU_CLIENT=API 설정
+STR_MAIN_MENU_UPDATE=업데이트(판올림)
+STR_MAIN_MENU_ABOUT=이 프로그램은
+STR_MAIN_MENU_LNG=언어
+
+STR_MAIN_BASIC=기본 설정
+STR_MAIN_BASIC_URL=사운드 클라우드 URL (주소)
+STR_MAIN_BASIC_DIR=로컬 디렉터리
+STR_MAIN_BASIC_BROWSE=찾아보기
+STR_MAIN_BASIC_DM=다운로드 방법
+STR_MAIN_BASIC_DM1=사용자 URL로부터 모든 재생목록 다운로드
+STR_MAIN_BASIC_DM2=재생목록 URL로부터 모든 음악 다운로드
+STR_MAIN_BASIC_DM3=프로파일 URL로부터 즐겨찾기된 모든 음악 다운로드
+STR_MAIN_BASIC_DM4=아티스트 URL로부터 모든 음악 다운로드
+STR_MAIN_BASIC_DM5=싱글 트랙 URL (동기화를 무시합니다)
+STR_MAIN_BASIC_SM=동기화 방법
+STR_MAIN_BASIC_SM1=단방향 동기화: 로컬에서 삭제 된 노래를 다시 다운로드 합니다
+STR_MAIN_BASIC_SM2=양방향 동기화: 사운드 클라우드 에서 없어진 노래도 로컬에서 지웁니다
+STR_MAIN_CONFSTAT=현재 구성 설정 상태
+STR_MAIN_CONF=구성 설정
+STR_MAIN_CONFACTIVE=활성화
+STR_MAIN_DOWMPROG=다운로드 진행상황
+
+STR_MAIN_ADVANCE=고급 설정
+STR_MAIN_ADVANCE_CONVERSE=변환
+STR_MAIN_ADVANCE_HQ=만약 고음질이면 변환ㄱㄱ
+STR_MAIN_ADVANCE_HQ_MP3=고음질을 MP3 로 변환
+STR_MAIN_ADVANCE_HQ_EXCL=제외
+STR_MAIN_ADVANCE_DOWNB=다운로드 동작
+STR_MAIN_ADVANCE_ILLIGCHAR=파일 이름에 잘못된 문자를 밑줄(_) 대신 동등한 문자로 바꿉니다.
+STR_MAIN_ADVANCE_ILLIGCHAR_DESC=파일 이름에 사용 불가능한 문자들 ( / ? < > \ : * " | ) 을\n반(半)각에서 전(全)각문자로 바꿉니다.
+STR_MAIN_ADVANCE_CONCURRENCY=한번에 다운로드 할 갯수
+STR_MAIN_ADVANCE_OTHER=기타
+STR_MAIN_ADVANCE_FILEFORMAT=파일 이름 형식 지정
+STR_MAIN_ADVANCE_METAFORMAT=메타데이터 형식 지정
+STR_MAIN_ADVANCE_FBA=아티스트별로 노래 정렬
+STR_MAIN_ADVANCE_MSP=사운드클라우드 재생목록 병합
+STR_MAIN_ADVANCE_GMPL=m3u8 재생목록 파일 생성
+STR_MAIN_ADVANCE_MSTT=태그에 메니페스트 저장 (ID3 [JSON])
+
+//메인창 상태
+STR_MAIN_STATUS_READY=준비
+STR_MAIN_STATUS_COMPLETE=완료
+STR_MAIN_STATUS_DOWNLOAD=동기화 중 입니다... {1} 개 중 {0} 개 완료
+STR_MAIN_STATUS_SYNCEDERROR=동기화 중 오류가 발생하였습니다
+STR_MAIN_STATUS_SYNCED=이미 동기화가 되어있습니다.
+STR_MAIN_STATUS_ABORTING=동기화를 중단중입니다. 잠시만 기다려 주십시오...
+STR_MAIN_STATUS_ABORTED=중단되었습니다.
+STR_MAIN_STATUS_FETCH_S=들
+STR_MAIN_STATUS_FETCH=트랙{0}을 가져오는 중입니다. 
+STR_MAIN_STATUS_CHECK=트랙 변경사항 검사중...
+STR_MAIN_STATUS_INVALIDURL=잘못된 URL(주소) 입니다.
+STR_MAIN_STATUS_DIFFMANY=설정 또는 디렉토리를 변경합니다.
+STR_MAIN_STATUS_NULLURL=다운로드 할 URL(주소)을 입력해 주세요.
+STR_MAIN_STATUS_NULLDIR=로컬 디렉터리를 지정해 주세요.
+STR_MAIN_STATUS_EXIT=끝내는 중 입니다. 잠시만 기다려 주십시오...
+STR_MAIN_STATUS_SYNCING=동기화가 진행중입니다. 정말 끝내시겠습니까?
+
+//업데이트 상태
+STR_UPDATE_AVAILABLE_TITLE=업데이트(판올림) 가능
+STR_UPDATE_AVAILABLE_TEXT=업데이트가 있습니다. 지금 업데이트를 하시겠습니까?
+STR_UPDATE_AVAILABLE_TITLE=업데이트(판올림) 오류
+STR_UPDATE_ERROR_TEXT=업데이트를 설치할 수 없습니다.\n\n인터넷 연결을 확인해주시거나 다시 시도해 주세요. 오류
+STR_UPDATE_NO_TITLE=업데이트(판올림) 상태
+STR_UPDATE_NO_TEXT=업데이트가 없습니다.
+STR_UPDATE_ERROR1_TITLE=업데이트(판올림) 확인 오류
+STR_UPDATE_ERROR1_TEXT=업데이트를 확인하는 중 오류가 발생하였습니다. 오류 원인
+
+//API Config 영역
+STR_APICONFIG_TITLE=API 설정
+STR_APICONFIG_DESC=이 설정은 클라이언트 ID를 변경합니다.\n만약 API가 인증을 거부한다고 뜨면 클라이언트 ID가 더 이상 작동하지 않는 것입니다.\n버튼 밑의 링크를 눌러 새 ID를 만드세요.
+STR_APICONFIG_ACTIVE=활성화
+STR_APICONFIG_CLIENTID=클라이언트 ID
+STR_APICONFIG_CUSTOMID=사용자 ID
+STR_APICONFIG_SAVE=설정 저장
+STR_APICONFIG_LINK=클릭하여 새 ID 만들기
+
+//About 영역
+STR_ABOUT_TITLE=사운드 클라우드 재생목록 동기화는...
+STR_ABOUT_INFO=사운드 클라우드의 재색목록과 즐겨찾기 목록을 로컬 디렉터리(폴더)와 동기화하는 툴 입니다.
+STR_ABOUT_COPYRIGHT=Copyright © 2013-2019. SoundCloud-Playlist-Sync 프로젝트 모든저작권 보유.
+STR_ABOUT_LICENSE=GNU 약소(弱小) 일반 공중 라이선스\n\n                       버전 3, 2007년 6월 29일\n\nCopyright (C) 2007 자유 소프트웨어 제단, Inc. http://fsf.org/\n누구든지 본 라이선스를 원문 그대로 복제하고 배포할 수 있다. 그러나 본문에 대한 수정은 허용되지 않는다.\n\n제0조. 추가적 정의\n\n본문 중에서 “본 라이선스”는 GNU 약소 일반 공중 라이선스의 버전 3, GNU GPL은 GNU 일반 공중 라이선스의 버전3을 의미한다.\n\n“라이브러리”란 아래에 정의된 응용 프로그램이나 결합 저작물을 제외하고 본 라이선스의 적용을 받는 GPL 적용 저작물을 지칭한다.  \n\n“응용프로그램”이란 라이브러리에 의해 제공되는 인터페이스를 사용하지만, 라이브러리에 기반하지는 않는 모든 저작물을 의미한다. 라이브러리에 의해 정의된 클래스의 서브클래스를 정의하는 것은 라이브러리에 의해 제공된 인터페이스를 사용하는 형식으로 간주된다.\n\n“결합 저작물”이란 라이브러리에 응용프로그램을 결합하거나 링크로 연결하여 생성된 저작물을 의미한다. 결합 저작물을 만들 때 사용된 라이브러리의 특정 버전은 “연결 버전”이라고 지칭한다.\n\n결합 저작물의 “최소 해당 소스”란 결합 저작물의 해당 소스 중에서, 독립적으로 간주될 때 연결 버전이 아닌 응용프로그램에 기반한 결합 저작물의 일부를 위한 소스 코드를 제외한 것을 의미한다.\n\n결합 저작물의 “해당 응용프로그램 코드”는 응용프로그램으로부터 결합 저작물을 재생성 시키는데 요구되는 모든 데이터와 유틸리티 프로그램을 포함하며, 결합저작물의 시스템 라이브러리를 제외한, 응용프로그램을 위한 오브젝트 코드 및 소스코드를 의미한다.\n제1조. GNU GPL 3조의 예외\n\nGNU GPL의 제3조의 조건과 관계없이 본 라이선스의 제3조와 제4조의 조항에 따라 GPL 적용 저작물을 컨베이할 수 있다.\n\n제2조. 수정된 버전에 대한 컨베이\n\n라이브러리의 복제본을 수정하는데 있어, 어떤 기능이 그 기능을 사용하는 응용프로그램에 의해 제공되는 어떤 함수나 데이터를 언급할 경우 (기능이 호출될 때 전달되는 인수는 제외함), 다음과 같은 조건 하에 수정된 버전의 복제본을 컨베이할 수 있다.\n\na) 본 라이선스에 따라서 컨베이 한다. 단, 응용프로그램이 함수나 데이터를 제공하지 않는 경우에도 기능이 작동하고 본래의 목적을 정상적으로 수행하도록 최선을 다해 노력해야 한다. 또는,\n\n \n\nb) GNU GPL에 따라서 컨베이 한다. 이 경우, 본 라이선스의 추가적 허용사항을 적용하지 않는다.\n\n \n\n제3조. 라이브러리 헤더 파일의 자료를 결합하는 오브젝트 코드\n\n응용프로그램의 오브젝트 코드는 라이브러리의 일부를 구성하는 헤더 파일의 자료를 결합한 형태로 작성될 수 있다. 만약 이러한 오브젝트 코드와 결합된 자료가 숫자 매개변수, 데이터 구조의 설계형태, 접근도구, 작은 매크로, (10행 이하의) 인라인 함수, 그리고 템플릿으로 제한되는 것이 아니라면, 그 오브젝트 코드는 다음과 같은 두 가지 조건을 충족시킨다는 조건 하에 당신이 임의로 정한 규정에 따라 컨베이 될 수 있다.\n\na) 오브젝트 코드 내에 라이브러리가 사용되고 있다는 사실과 라이브러리 및 라이브러리의 사용에 대해 본 라이선스가 적용된다는 내용의 안내 문구를 각 복제본에 명확하게 고지해야 한다.\n\nb) GNU GPL의 사본 및 본 라이선스 문서를 오브젝트 코드에 첨부해야 한다.\n\n제4조. 결합 저작물\n\n당신은 임의로 정한 조건에 따라 결합 저작물을 컨베이할 수 있다. 단, 당신이 정한 조건들은 결합 저작물 내에 포함된 라이브러리의 일부에 대한 수정 및 그 수정 부분을 디버깅하기 위한 역공학에 대해 제한을 두어서는 안 되며, 다음의 조건들을 충족시켜야 한다.\n\na) 결합 저작물 내에 라이브러리가 사용되고 있다는 사실과 라이브러리 및 라이브러리의 사용에 대해 본 라이선스가 적용된다는 내용의 안내 문구를 각 복제본에 명확하게 고지해야 한다.\n\nb) GNU GPL의 사본 및 본 라이선스 문서를 결합 저작물과 함께 제공해야 한다.\n\nc) 결합 저작물이 실행되는 도중에 저작권 사항이 표시되는 경우에는, 라이브러리에 대한 저작권 사항도 함께 포함시켜야 하며, GNU GPL 및 본 라이선스의 사본을 참고할 수 있는 방법을 명시해야 한다.\n\nd) 다음 중 하나의 방법을 사용해야 한다:\n\n0) 해당 소스의 컨베이 행위에 관한 GNU GPL의 제6조에 상술된 방식에 기반하여, 최소 해당 소스는 본 라이선스의 규정에 따라 컨베이하고, 해당 응용프로그램 코드는 사용자가 응용프로그램과 연결 버전의 수정된 버전을 재결합 혹은 재연결하여 수정된 결합 저작물을 생성하는 것이 가능하도록, 그리고 이에 적합한 형태로 컨베이 해야 한다.\n\n1) 라이브러리와 연결시키기에 적절한 공유 라이브러리 방식을 사용해야 한다. 적절한 방식이란, (a) 실행 시점에서 볼 때 이미 사용자의 컴퓨터 시스템 상에 존재하고 있는 라이브러리의 복제물을 사용하는 방식, 그리고 (b) 연결 버전과 인터페이스 상으로 호환되는, 라이브러리의 수정된 버전으로도 적절하게 작동할 수 있는 방식을 의미한다.\n\n \n\ne) GNU GPL의 제6조에 따라 설치 정보 제공에 대한 요구를 받게 될 경우에 한해 설치 정보를 제공해야 한다. 이 설치 정보는 응용프로그램과 연결 버전의 수정 버전을 재결합하거나 재연결한 결과로 생성된, 수정된 버전의 결합 저작물을 설치하고 실행하는데 필요한 정보에 한한다. (제4조 d항의 0번 옵션을 사용하는 경우에는 최소 해당 소스와 해당 응용프로그램 소스와 함께 설치 정보가 동반되어야 한다. 4조d항의 1번 옵션을 사용하는 경우에는 해당 소스의 컨베이 행위에 대한 GNU GPL의 제6조에 상술된 방식으로 설치 정보를 제공해야 한다.)\n\n \n\n제5조. 결합 라이브러리\n\n라이브러리에 기반한 저작물인 라이브러리의 기능을 본 라이선스가 적용되지 않는 다른 라이브러리의 기능들과 하나의 라이브러리 내에 병존시키고, 이러한 결합 라이브러리를 다음과 같은 두 가지 조건을 모두 충족시킨다는 조건 하에, 당신이 임의로 정한 규정에 따라 컨베이할 수 있다.\n\na) 라이브러리에 기반한 저작물의 복제물을 다른 어떤 라이브러리와도 결합되지 않은 독립된 상태로 결합 라이브러리와 함께 제공해야 하며, 이는 본 라이선스의 규정에 따라 컨베이 되어야 한다.\n\nb) 결합 라이브러리의 일부가 라이브러리에 기반한 저작물이라는 사실을 명확하게 고지해야 하며, 그 저작물의 결합되지 않은 형태를 어디에서 구할 수 있는지를 명시해야 한다.\n\n \n\n제6조. GNU 약소 일반 공중 라이선스의 개정판\n\n자유 소프트웨어 재단은 때때로 GNU 약소 일반 공중 라이선스의 개정판이나 신규 버전을 공표할 수 있다. 새롭게 공표될 신규 버전은 기본적인 취지에 있어 원판과 변함이 없을 것이지만, 새로운 문제나 현안에 대처하기 위해 세부적인 내용에 차이가 발생할 수 있다.\n\n각각의 판들은 버전 넘버를 사용해서 구별된다. GNU 약소 일반 공중 라이선스의 어떤 특정한 버전 넘버와 “그 이후에 출시된 버전”을 따른다는 사항이 명시된 프로그램에는 해당 버전이나 그 이후에 자유 소프트웨어 재단에서 발행된 어떤 버전을 선택해서 적용해도 무방하다. 버전 넘버를 명시하고 있지 않은 라이브러리의 경우에는 자유 소프트웨어 재단이 공표한 어떠한 버전의 판을 적용해도 무방하다.\n\n당신이 양도받은 라이브러리가 GNU 약소 일반 공중 라이선스의 버전 선택을 대리인에게 위임한다고 명시하는 경우, 그 대리인이 특정 버전의 수용을 공표함으로써 당신이 그 라이브러리에 어떤 버전을 사용할지 영구적으로 결정된다. 
+STR_ABOUT_OK=확인
+STR_ABOUT_TAB1=라이선스
+STR_ABOUT_TAB2=프로젝트 웹사이트(누리집)
+STR_ABOUT_TAB3=번역
+STR_ABOUT_TAB4=라이브러리
+STR_ABOUT_PW_CM=현재 관리자
+STR_ABOUT_PW_OD=원(原) 개발자
+STR_ABOUT_PW_CON=기여자들
+STR_ABOUT_TRANSIMPL=기능 구현
+
+//파일 형식 지정
+STR_FORMAT_FILE_TITLE=파일 이름 형식 지정
+STR_FORMAT_FILE_SAMTR=샘플 트랙
+STR_FORMAT_FILE_FOROP=형식 옵션
+STR_FORMAT_FILE_FROMID3=ID3 태그에서 가져오기
+STR_FORMAT_FILE_PREV=미리보기
+STR_FORMAT_FILE_SAVE=설정 저장
+STR_FORMAT_FILE_FTITLE=음악 제목
+STR_FORMAT_FILE_FGENRE=음악 장르
+STR_FORMAT_FILE_FINDEX=음악 인덱스(색인)
+STR_FORMAT_FILE_FUNAME=사용자 이름
+STR_FORMAT_FILE_FCDATE=생성 날짜
+STR_FORMAT_FILE_FCTIME=생성 시간
+STR_FORMAT_FILE_FEXT=음악 확장자
+STR_FORMAT_FILE_FHD=음악이 고음질인가
+STR_FORMAT_FILE_FNAME=제목 (이름)
+STR_FORMAT_FILE_FDESC=음악 설명
+
+//내부 영역
+STR_DOWNLOAD_SONG_EX=동시 다운로드는 한개 이상이어야 합니다.
+STR_EXCEPTION_WEB1=주소(URL) {0} 를 찾을 수 없습니다. \n\n서버 HTTP 반환 코드: {1}\n\n자세한 정보: {2}
+STR_EXCEPTION_WEB2=사운드 클라우드 API를 사용할 수 없습니다.  http://status.soundcloud.com/ 와 https://developers.soundcloud.com/docs#errors 를 참조하십시오.\n\n자세한 오류: \n{0}
+STR_EXCEPTION_WEB3=오류가 발생하였습니다: {0}
+STR_EXCEPTION_GET1=내부 오류가 비어있습니다.
+STR_EXCEPTION_GET2=내부 오류
+STR_EXCEPTION_GET3=집계된 내부 오류.
+STR_EXCEPTION_GET4=내부 오류를 찾을 수 없습니다.
+STR_EXCEPTION_UPDATELOG=업데이트 로그를 사용할 수 없습니다.
+STR_EXCEPTION_JSONUTIL1=일치하는 재생목록을 찾을 수 없습니다.
+STR_EXCEPTION_JSONUTIL2=재생 목록 정보를 검색하는 동안 오류가 발생했습니다. URL을 다시 확인하세요.
+STR_EXCEPTION_JSONUTIL3=트랙 목록 정보를 검색하는 동안 오류가 발생했습니다. URL을 다시 확인하세요
+STR_EXCEPTION_SYNC=메니페스트를 읽을 수 없거나 기존 트랙을 수정할 수 없습니다. EffectiveDownloadUrl 트랙에서 발생: {0}, 로컬 경로: {1}; 예외: {2}
+STR_PLISTUTIL_GENBY=사운드 클라우드 재생목록 동기화 툴에 의해 생성됨.
+STR_PLISTUTIL_DEF=간단한 M3U8 재생목록
+STR_PLISTUTIL_M3U_ML=많은 좋아요순 (SC 다운로더)
+STR_PLISTUTIL_M3U_MP=많이 재생된순 (SC 다운로더)
+STR_PLISTUTIL_M3U_RC=최근 변경순 (SC 다운로더)
+STR_PLISTUTIL_M3U_RD=최근 다운로드순 (SC 다운로더)
+STR_PLISTUTIL_M3U_OBS=사운드 클라우드에 의해 정렬된순 (SC 다운로더)
+STR_PLISTUTIL_M3U_ERROR=재생목록 파일(.m3u)을 생성할 수 없습니다.
+STR_PLISTUTIL_SORTML=많은 좋아요 순으로 정렬됨 (사운드 클라우드)
+STR_PLISTUTIL_SORTMP=많이 재생된 순으로 정렬됨 (사운드 클라우드)
+STR_PLISTUTIL_SORTSO=사운드 클라우드 순으로 정렬됨 (사운드 클라우드)
+STR_PLISTUTIL_SORTRD=최근 다운로드 순으로 정렬됨 (사운드 클라우드)
+STR_PLISTUTIL_SORTRC=최근 변경목록으로 정렬됨 (사운드 클라우드)

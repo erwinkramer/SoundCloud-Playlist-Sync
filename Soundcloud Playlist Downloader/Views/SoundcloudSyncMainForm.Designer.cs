@@ -48,9 +48,11 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.config3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.config4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.config5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.chk_highquality = new System.Windows.Forms.CheckBox();
             this.tt_qualityExplanation = new System.Windows.Forms.ToolTip(this.components);
             this.chk_convertToMp3 = new System.Windows.Forms.CheckBox();
@@ -107,19 +109,20 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             // syncButton
             // 
-            this.syncButton.Location = new System.Drawing.Point(6, 254);
+            this.syncButton.Location = new System.Drawing.Point(7, 234);
             this.syncButton.Name = "syncButton";
-            this.syncButton.Size = new System.Drawing.Size(201, 23);
+            this.syncButton.Size = new System.Drawing.Size(234, 21);
             this.syncButton.TabIndex = 4;
+            this.syncButton.Tag = "STR_SYNCHRONIZE";
             this.syncButton.Text = "Synchronize";
             this.syncButton.UseVisualStyleBackColor = true;
             this.syncButton.Click += new System.EventHandler(this.syncButton_Click);
             // 
             // browseButton
             // 
-            this.browseButton.Location = new System.Drawing.Point(327, 20);
+            this.browseButton.Location = new System.Drawing.Point(381, 18);
             this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(62, 20);
+            this.browseButton.Size = new System.Drawing.Size(72, 21);
             this.browseButton.TabIndex = 6;
             this.browseButton.Text = "Browse";
             this.browseButton.UseVisualStyleBackColor = true;
@@ -129,9 +132,10 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.status});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 406);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 373);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(668, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(779, 22);
             this.statusStrip1.TabIndex = 9;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -142,17 +146,17 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(6, 224);
+            this.progressBar.Location = new System.Drawing.Point(7, 207);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(201, 23);
+            this.progressBar.Size = new System.Drawing.Size(234, 21);
             this.progressBar.TabIndex = 10;
             // 
             // favoritesRadio
             // 
             this.favoritesRadio.AutoSize = true;
-            this.favoritesRadio.Location = new System.Drawing.Point(6, 62);
+            this.favoritesRadio.Location = new System.Drawing.Point(7, 57);
             this.favoritesRadio.Name = "favoritesRadio";
-            this.favoritesRadio.Size = new System.Drawing.Size(253, 17);
+            this.favoritesRadio.Size = new System.Drawing.Size(298, 16);
             this.favoritesRadio.TabIndex = 12;
             this.favoritesRadio.Text = "All songs favorited by the user at this profile URL";
             this.favoritesRadio.UseVisualStyleBackColor = true;
@@ -162,9 +166,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.userPlaylists.AutoSize = true;
             this.userPlaylists.Checked = true;
             this.userPlaylists.ForeColor = System.Drawing.Color.Black;
-            this.userPlaylists.Location = new System.Drawing.Point(6, 16);
+            this.userPlaylists.Location = new System.Drawing.Point(7, 15);
             this.userPlaylists.Name = "userPlaylists";
-            this.userPlaylists.Size = new System.Drawing.Size(165, 17);
+            this.userPlaylists.Size = new System.Drawing.Size(197, 16);
             this.userPlaylists.TabIndex = 15;
             this.userPlaylists.TabStop = true;
             this.userPlaylists.Text = "All playlists from this user URL";
@@ -173,9 +177,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             // playlistRadio
             // 
             this.playlistRadio.AutoSize = true;
-            this.playlistRadio.Location = new System.Drawing.Point(6, 39);
+            this.playlistRadio.Location = new System.Drawing.Point(7, 36);
             this.playlistRadio.Name = "playlistRadio";
-            this.playlistRadio.Size = new System.Drawing.Size(168, 17);
+            this.playlistRadio.Size = new System.Drawing.Size(200, 16);
             this.playlistRadio.TabIndex = 11;
             this.playlistRadio.Text = "All songs from this playlist URL";
             this.playlistRadio.UseVisualStyleBackColor = true;
@@ -183,9 +187,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             // artistRadio
             // 
             this.artistRadio.AutoSize = true;
-            this.artistRadio.Location = new System.Drawing.Point(6, 85);
+            this.artistRadio.Location = new System.Drawing.Point(7, 78);
             this.artistRadio.Name = "artistRadio";
-            this.artistRadio.Size = new System.Drawing.Size(155, 17);
+            this.artistRadio.Size = new System.Drawing.Size(183, 16);
             this.artistRadio.TabIndex = 13;
             this.artistRadio.Text = "All songs by this artists URL";
             this.artistRadio.UseVisualStyleBackColor = true;
@@ -195,9 +199,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.chk_folderByArtist.AutoSize = true;
             this.chk_folderByArtist.Checked = true;
             this.chk_folderByArtist.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_folderByArtist.Location = new System.Drawing.Point(182, 10);
+            this.chk_folderByArtist.Location = new System.Drawing.Point(212, 9);
             this.chk_folderByArtist.Name = "chk_folderByArtist";
-            this.chk_folderByArtist.Size = new System.Drawing.Size(172, 17);
+            this.chk_folderByArtist.Size = new System.Drawing.Size(204, 16);
             this.chk_folderByArtist.TabIndex = 15;
             this.chk_folderByArtist.Text = "Sort songs into folders by artist ";
             this.chk_folderByArtist.UseVisualStyleBackColor = true;
@@ -207,12 +211,14 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.configurationsToolStripMenuItem,
-            this.updateToolStripMenuItem,
             this.clientIDToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.updateToolStripMenuItem,
+            this.aboutToolStripMenuItem,
+            this.languageToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(668, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(779, 24);
             this.menuStrip1.TabIndex = 16;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -263,19 +269,19 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.config5ToolStripMenuItem.Text = "Config 5";
             this.config5ToolStripMenuItem.Click += new System.EventHandler(this.config5ToolStripMenuItem_Click);
             // 
+            // clientIDToolStripMenuItem
+            // 
+            this.clientIDToolStripMenuItem.Name = "clientIDToolStripMenuItem";
+            this.clientIDToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
+            this.clientIDToolStripMenuItem.Text = "API Config";
+            this.clientIDToolStripMenuItem.Click += new System.EventHandler(this.clientIDToolStripMenuItem_Click);
+            // 
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
             this.updateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.updateToolStripMenuItem.Text = "Update";
             this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
-            // 
-            // clientIDToolStripMenuItem
-            // 
-            this.clientIDToolStripMenuItem.Name = "clientIDToolStripMenuItem";
-            this.clientIDToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
-            this.clientIDToolStripMenuItem.Text = "Client ID";
-            this.clientIDToolStripMenuItem.Click += new System.EventHandler(this.clientIDToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -284,14 +290,32 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click_1);
             // 
+            // languageToolStripMenuItem
+            // 
+            this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox1});
+            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.languageToolStripMenuItem.Text = "Language";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBox1.Items.AddRange(new object[] {
+            "English (Default)",
+            "한국어 (Korean)"});
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+            this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
+            // 
             // chk_highquality
             // 
             this.chk_highquality.AutoSize = true;
             this.chk_highquality.Checked = true;
             this.chk_highquality.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_highquality.Location = new System.Drawing.Point(6, 20);
+            this.chk_highquality.Location = new System.Drawing.Point(7, 18);
             this.chk_highquality.Name = "chk_highquality";
-            this.chk_highquality.Size = new System.Drawing.Size(213, 17);
+            this.chk_highquality.Size = new System.Drawing.Size(253, 16);
             this.chk_highquality.TabIndex = 17;
             this.chk_highquality.Text = "Choose high quality versions if available";
             this.tt_qualityExplanation.SetToolTip(this.chk_highquality, "Some songs (not all) can be downloaded in high quality. These files are usually m" +
@@ -306,7 +330,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.chk_convertToMp3.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chk_convertToMp3.Location = new System.Drawing.Point(3, 3);
             this.chk_convertToMp3.Name = "chk_convertToMp3";
-            this.chk_convertToMp3.Size = new System.Drawing.Size(156, 17);
+            this.chk_convertToMp3.Size = new System.Drawing.Size(179, 16);
             this.chk_convertToMp3.TabIndex = 18;
             this.chk_convertToMp3.Text = "Convert high quality to MP3";
             this.tt_qualityExplanation.SetToolTip(this.chk_convertToMp3, "Writing metadata to high quality files in a lossless format is problematic for so" +
@@ -319,9 +343,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.chk_replaceIllegalCharacters.AutoSize = true;
             this.chk_replaceIllegalCharacters.Checked = true;
             this.chk_replaceIllegalCharacters.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_replaceIllegalCharacters.Location = new System.Drawing.Point(6, 20);
+            this.chk_replaceIllegalCharacters.Location = new System.Drawing.Point(7, 18);
             this.chk_replaceIllegalCharacters.Name = "chk_replaceIllegalCharacters";
-            this.chk_replaceIllegalCharacters.Size = new System.Drawing.Size(333, 17);
+            this.chk_replaceIllegalCharacters.Size = new System.Drawing.Size(394, 16);
             this.chk_replaceIllegalCharacters.TabIndex = 22;
             this.chk_replaceIllegalCharacters.Text = "Replace illegal characters in filename with equivalent instead of _";
             this.tt_qualityExplanation.SetToolTip(this.chk_replaceIllegalCharacters, "Characters to be replaced: / ? < > \\ : * | \"\r\nWill be replaced with Halfwidth and" +
@@ -332,18 +356,18 @@ namespace Soundcloud_Playlist_Downloader.Views
             // lbl_exclude
             // 
             this.lbl_exclude.AutoSize = true;
-            this.lbl_exclude.Location = new System.Drawing.Point(51, 25);
+            this.lbl_exclude.Location = new System.Drawing.Point(46, 23);
             this.lbl_exclude.Name = "lbl_exclude";
-            this.lbl_exclude.Size = new System.Drawing.Size(48, 13);
+            this.lbl_exclude.Size = new System.Drawing.Size(55, 12);
             this.lbl_exclude.TabIndex = 23;
             this.lbl_exclude.Text = "Exclude:";
             // 
             // chk_excl_m4a
             // 
             this.chk_excl_m4a.AutoSize = true;
-            this.chk_excl_m4a.Location = new System.Drawing.Point(105, 25);
+            this.chk_excl_m4a.Location = new System.Drawing.Point(122, 23);
             this.chk_excl_m4a.Name = "chk_excl_m4a";
-            this.chk_excl_m4a.Size = new System.Drawing.Size(49, 17);
+            this.chk_excl_m4a.Size = new System.Drawing.Size(52, 16);
             this.chk_excl_m4a.TabIndex = 24;
             this.chk_excl_m4a.Text = ".m4a";
             this.chk_excl_m4a.UseVisualStyleBackColor = true;
@@ -351,9 +375,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             // chk_exl_aac
             // 
             this.chk_exl_aac.AutoSize = true;
-            this.chk_exl_aac.Location = new System.Drawing.Point(105, 44);
+            this.chk_exl_aac.Location = new System.Drawing.Point(122, 41);
             this.chk_exl_aac.Name = "chk_exl_aac";
-            this.chk_exl_aac.Size = new System.Drawing.Size(47, 17);
+            this.chk_exl_aac.Size = new System.Drawing.Size(49, 16);
             this.chk_exl_aac.TabIndex = 25;
             this.chk_exl_aac.Text = ".aac";
             this.chk_exl_aac.UseVisualStyleBackColor = true;
@@ -365,17 +389,17 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.pnl_convert.Controls.Add(this.chk_exl_aac);
             this.pnl_convert.Controls.Add(this.lbl_exclude);
             this.pnl_convert.Controls.Add(this.chk_excl_m4a);
-            this.pnl_convert.Location = new System.Drawing.Point(20, 42);
+            this.pnl_convert.Location = new System.Drawing.Point(23, 39);
             this.pnl_convert.Name = "pnl_convert";
-            this.pnl_convert.Size = new System.Drawing.Size(199, 68);
+            this.pnl_convert.Size = new System.Drawing.Size(231, 63);
             this.pnl_convert.TabIndex = 26;
             // 
             // rbttn_twoWay
             // 
             this.rbttn_twoWay.AutoSize = true;
-            this.rbttn_twoWay.Location = new System.Drawing.Point(6, 39);
+            this.rbttn_twoWay.Location = new System.Drawing.Point(7, 36);
             this.rbttn_twoWay.Name = "rbttn_twoWay";
-            this.rbttn_twoWay.Size = new System.Drawing.Size(279, 17);
+            this.rbttn_twoWay.Size = new System.Drawing.Size(339, 16);
             this.rbttn_twoWay.TabIndex = 28;
             this.rbttn_twoWay.Text = "Two-way sync: Locally delete songs removed from SC";
             this.rbttn_twoWay.UseVisualStyleBackColor = true;
@@ -385,9 +409,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             this.rbttn_oneWay.AutoSize = true;
             this.rbttn_oneWay.Checked = true;
-            this.rbttn_oneWay.Location = new System.Drawing.Point(6, 17);
+            this.rbttn_oneWay.Location = new System.Drawing.Point(7, 16);
             this.rbttn_oneWay.Name = "rbttn_oneWay";
-            this.rbttn_oneWay.Size = new System.Drawing.Size(268, 17);
+            this.rbttn_oneWay.Size = new System.Drawing.Size(325, 16);
             this.rbttn_oneWay.TabIndex = 29;
             this.rbttn_oneWay.TabStop = true;
             this.rbttn_oneWay.Text = "One-way sync: Re-download locally removed songs";
@@ -397,9 +421,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             this.gbox_syncMethod.Controls.Add(this.rbttn_oneWay);
             this.gbox_syncMethod.Controls.Add(this.rbttn_twoWay);
-            this.gbox_syncMethod.Location = new System.Drawing.Point(20, 264);
+            this.gbox_syncMethod.Location = new System.Drawing.Point(23, 244);
             this.gbox_syncMethod.Name = "gbox_syncMethod";
-            this.gbox_syncMethod.Size = new System.Drawing.Size(393, 62);
+            this.gbox_syncMethod.Size = new System.Drawing.Size(458, 57);
             this.gbox_syncMethod.TabIndex = 30;
             this.gbox_syncMethod.TabStop = false;
             this.gbox_syncMethod.Text = "Sync Method";
@@ -411,9 +435,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_downMethod.Controls.Add(this.playlistRadio);
             this.gbox_downMethod.Controls.Add(this.artistRadio);
             this.gbox_downMethod.Controls.Add(this.favoritesRadio);
-            this.gbox_downMethod.Location = new System.Drawing.Point(20, 126);
+            this.gbox_downMethod.Location = new System.Drawing.Point(23, 116);
             this.gbox_downMethod.Name = "gbox_downMethod";
-            this.gbox_downMethod.Size = new System.Drawing.Size(393, 132);
+            this.gbox_downMethod.Size = new System.Drawing.Size(458, 122);
             this.gbox_downMethod.TabIndex = 31;
             this.gbox_downMethod.TabStop = false;
             this.gbox_downMethod.Text = "Download Method";
@@ -422,9 +446,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             // trackRadio
             // 
             this.trackRadio.AutoSize = true;
-            this.trackRadio.Location = new System.Drawing.Point(6, 107);
+            this.trackRadio.Location = new System.Drawing.Point(7, 99);
             this.trackRadio.Name = "trackRadio";
-            this.trackRadio.Size = new System.Drawing.Size(212, 17);
+            this.trackRadio.Size = new System.Drawing.Size(250, 16);
             this.trackRadio.TabIndex = 14;
             this.trackRadio.Text = "Single track URL (ignores sync method)";
             this.trackRadio.UseVisualStyleBackColor = true;
@@ -432,18 +456,18 @@ namespace Soundcloud_Playlist_Downloader.Views
             // gbox_url
             // 
             this.gbox_url.Controls.Add(this.url);
-            this.gbox_url.Location = new System.Drawing.Point(20, 13);
+            this.gbox_url.Location = new System.Drawing.Point(23, 12);
             this.gbox_url.Name = "gbox_url";
-            this.gbox_url.Size = new System.Drawing.Size(393, 48);
+            this.gbox_url.Size = new System.Drawing.Size(458, 44);
             this.gbox_url.TabIndex = 32;
             this.gbox_url.TabStop = false;
             this.gbox_url.Text = "SoundCloud URL";
             // 
             // url
             // 
-            this.url.Location = new System.Drawing.Point(6, 20);
+            this.url.Location = new System.Drawing.Point(7, 18);
             this.url.Name = "url";
-            this.url.Size = new System.Drawing.Size(382, 20);
+            this.url.Size = new System.Drawing.Size(445, 21);
             this.url.TabIndex = 0;
             // 
             // groupBox2
@@ -451,9 +475,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.groupBox2.Controls.Add(this.lbl_configurationPrefix);
             this.groupBox2.Controls.Add(this.lbl_currentConfig);
             this.groupBox2.Controls.Add(this.chk_configActive);
-            this.groupBox2.Location = new System.Drawing.Point(445, 52);
+            this.groupBox2.Location = new System.Drawing.Point(519, 48);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(213, 47);
+            this.groupBox2.Size = new System.Drawing.Size(248, 43);
             this.groupBox2.TabIndex = 39;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Config State";
@@ -461,18 +485,18 @@ namespace Soundcloud_Playlist_Downloader.Views
             // lbl_configurationPrefix
             // 
             this.lbl_configurationPrefix.AutoSize = true;
-            this.lbl_configurationPrefix.Location = new System.Drawing.Point(6, 23);
+            this.lbl_configurationPrefix.Location = new System.Drawing.Point(7, 21);
             this.lbl_configurationPrefix.Name = "lbl_configurationPrefix";
-            this.lbl_configurationPrefix.Size = new System.Drawing.Size(69, 13);
+            this.lbl_configurationPrefix.Size = new System.Drawing.Size(79, 12);
             this.lbl_configurationPrefix.TabIndex = 40;
             this.lbl_configurationPrefix.Text = "Configuration";
             // 
             // lbl_currentConfig
             // 
             this.lbl_currentConfig.AutoSize = true;
-            this.lbl_currentConfig.Location = new System.Drawing.Point(73, 23);
+            this.lbl_currentConfig.Location = new System.Drawing.Point(85, 21);
             this.lbl_currentConfig.Name = "lbl_currentConfig";
-            this.lbl_currentConfig.Size = new System.Drawing.Size(13, 13);
+            this.lbl_currentConfig.Size = new System.Drawing.Size(11, 12);
             this.lbl_currentConfig.TabIndex = 39;
             this.lbl_currentConfig.Text = "1";
             // 
@@ -481,9 +505,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.chk_configActive.AutoSize = true;
             this.chk_configActive.Checked = true;
             this.chk_configActive.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_configActive.Location = new System.Drawing.Point(92, 22);
+            this.chk_configActive.Location = new System.Drawing.Point(107, 20);
             this.chk_configActive.Name = "chk_configActive";
-            this.chk_configActive.Size = new System.Drawing.Size(56, 17);
+            this.chk_configActive.Size = new System.Drawing.Size(58, 16);
             this.chk_configActive.TabIndex = 38;
             this.chk_configActive.Text = "Active";
             this.chk_configActive.UseVisualStyleBackColor = true;
@@ -493,9 +517,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             this.gbox_advanced_conversion.Controls.Add(this.chk_highquality);
             this.gbox_advanced_conversion.Controls.Add(this.pnl_convert);
-            this.gbox_advanced_conversion.Location = new System.Drawing.Point(21, 15);
+            this.gbox_advanced_conversion.Location = new System.Drawing.Point(24, 14);
             this.gbox_advanced_conversion.Name = "gbox_advanced_conversion";
-            this.gbox_advanced_conversion.Size = new System.Drawing.Size(391, 118);
+            this.gbox_advanced_conversion.Size = new System.Drawing.Size(456, 109);
             this.gbox_advanced_conversion.TabIndex = 33;
             this.gbox_advanced_conversion.TabStop = false;
             this.gbox_advanced_conversion.Text = "Conversion";
@@ -505,16 +529,16 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.chk_CreatePlaylists.AutoSize = true;
             this.chk_CreatePlaylists.Checked = true;
             this.chk_CreatePlaylists.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_CreatePlaylists.Location = new System.Drawing.Point(182, 56);
+            this.chk_CreatePlaylists.Location = new System.Drawing.Point(212, 52);
             this.chk_CreatePlaylists.Name = "chk_CreatePlaylists";
-            this.chk_CreatePlaylists.Size = new System.Drawing.Size(154, 17);
+            this.chk_CreatePlaylists.Size = new System.Drawing.Size(180, 16);
             this.chk_CreatePlaylists.TabIndex = 31;
             this.chk_CreatePlaylists.Text = "Generate m3u8 playlist files";
             this.chk_CreatePlaylists.UseVisualStyleBackColor = true;
             // 
             // nudConcurrency
             // 
-            this.nudConcurrency.Location = new System.Drawing.Point(126, 46);
+            this.nudConcurrency.Location = new System.Drawing.Point(147, 42);
             this.nudConcurrency.Maximum = new decimal(new int[] {
             50,
             0,
@@ -527,7 +551,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             0});
             this.nudConcurrency.Name = "nudConcurrency";
             this.nudConcurrency.ReadOnly = true;
-            this.nudConcurrency.Size = new System.Drawing.Size(45, 20);
+            this.nudConcurrency.Size = new System.Drawing.Size(52, 21);
             this.nudConcurrency.TabIndex = 30;
             this.nudConcurrency.Value = new decimal(new int[] {
             1,
@@ -538,9 +562,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             // concurrency
             // 
             this.concurrency.AutoSize = true;
-            this.concurrency.Location = new System.Drawing.Point(3, 52);
+            this.concurrency.Location = new System.Drawing.Point(3, 48);
             this.concurrency.Name = "concurrency";
-            this.concurrency.Size = new System.Drawing.Size(120, 13);
+            this.concurrency.Size = new System.Drawing.Size(141, 12);
             this.concurrency.TabIndex = 29;
             this.concurrency.Text = "Amount of concurrency:";
             // 
@@ -548,18 +572,18 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             this.gbox_localdir.Controls.Add(this.directoryPath);
             this.gbox_localdir.Controls.Add(this.browseButton);
-            this.gbox_localdir.Location = new System.Drawing.Point(20, 67);
+            this.gbox_localdir.Location = new System.Drawing.Point(23, 62);
             this.gbox_localdir.Name = "gbox_localdir";
-            this.gbox_localdir.Size = new System.Drawing.Size(393, 51);
+            this.gbox_localdir.Size = new System.Drawing.Size(458, 47);
             this.gbox_localdir.TabIndex = 34;
             this.gbox_localdir.TabStop = false;
             this.gbox_localdir.Text = "Local Directory";
             // 
             // directoryPath
             // 
-            this.directoryPath.Location = new System.Drawing.Point(6, 20);
+            this.directoryPath.Location = new System.Drawing.Point(7, 18);
             this.directoryPath.Name = "directoryPath";
-            this.directoryPath.Size = new System.Drawing.Size(315, 20);
+            this.directoryPath.Size = new System.Drawing.Size(367, 21);
             this.directoryPath.TabIndex = 5;
             // 
             // lb_progressOfTracks
@@ -567,9 +591,10 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.lb_progressOfTracks.BackColor = System.Drawing.SystemColors.Menu;
             this.lb_progressOfTracks.FormattingEnabled = true;
             this.lb_progressOfTracks.HorizontalScrollbar = true;
-            this.lb_progressOfTracks.Location = new System.Drawing.Point(6, 20);
+            this.lb_progressOfTracks.ItemHeight = 12;
+            this.lb_progressOfTracks.Location = new System.Drawing.Point(7, 18);
             this.lb_progressOfTracks.Name = "lb_progressOfTracks";
-            this.lb_progressOfTracks.Size = new System.Drawing.Size(199, 199);
+            this.lb_progressOfTracks.Size = new System.Drawing.Size(231, 184);
             this.lb_progressOfTracks.TabIndex = 36;
             // 
             // groupBox1
@@ -577,9 +602,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.groupBox1.Controls.Add(this.lb_progressOfTracks);
             this.groupBox1.Controls.Add(this.syncButton);
             this.groupBox1.Controls.Add(this.progressBar);
-            this.groupBox1.Location = new System.Drawing.Point(445, 111);
+            this.groupBox1.Location = new System.Drawing.Point(519, 102);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(213, 285);
+            this.groupBox1.Size = new System.Drawing.Size(248, 263);
             this.groupBox1.TabIndex = 37;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Download Progress";
@@ -588,10 +613,10 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             this.tabControl_general.Controls.Add(this.tabPage_BasicOptions);
             this.tabControl_general.Controls.Add(this.tabPage_AdvancedOptions);
-            this.tabControl_general.Location = new System.Drawing.Point(12, 38);
+            this.tabControl_general.Location = new System.Drawing.Point(14, 35);
             this.tabControl_general.Name = "tabControl_general";
             this.tabControl_general.SelectedIndex = 0;
-            this.tabControl_general.Size = new System.Drawing.Size(427, 358);
+            this.tabControl_general.Size = new System.Drawing.Size(498, 330);
             this.tabControl_general.TabIndex = 40;
             // 
             // tabPage_BasicOptions
@@ -603,7 +628,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.tabPage_BasicOptions.Location = new System.Drawing.Point(4, 22);
             this.tabPage_BasicOptions.Name = "tabPage_BasicOptions";
             this.tabPage_BasicOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_BasicOptions.Size = new System.Drawing.Size(419, 332);
+            this.tabPage_BasicOptions.Size = new System.Drawing.Size(490, 304);
             this.tabPage_BasicOptions.TabIndex = 0;
             this.tabPage_BasicOptions.Text = "Basic Options";
             this.tabPage_BasicOptions.UseVisualStyleBackColor = true;
@@ -616,7 +641,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.tabPage_AdvancedOptions.Location = new System.Drawing.Point(4, 22);
             this.tabPage_AdvancedOptions.Name = "tabPage_AdvancedOptions";
             this.tabPage_AdvancedOptions.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_AdvancedOptions.Size = new System.Drawing.Size(419, 332);
+            this.tabPage_AdvancedOptions.Size = new System.Drawing.Size(490, 304);
             this.tabPage_AdvancedOptions.TabIndex = 1;
             this.tabPage_AdvancedOptions.Text = "Advanced Options";
             this.tabPage_AdvancedOptions.UseVisualStyleBackColor = true;
@@ -629,9 +654,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_advanced_other.Controls.Add(this.chk_folderByArtist);
             this.gbox_advanced_other.Controls.Add(this.chk_MergePlaylists);
             this.gbox_advanced_other.Controls.Add(this.chk_CreatePlaylists);
-            this.gbox_advanced_other.Location = new System.Drawing.Point(21, 225);
+            this.gbox_advanced_other.Location = new System.Drawing.Point(24, 208);
             this.gbox_advanced_other.Name = "gbox_advanced_other";
-            this.gbox_advanced_other.Size = new System.Drawing.Size(391, 101);
+            this.gbox_advanced_other.Size = new System.Drawing.Size(456, 93);
             this.gbox_advanced_other.TabIndex = 35;
             this.gbox_advanced_other.TabStop = false;
             this.gbox_advanced_other.Text = "Other";
@@ -640,9 +665,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Enabled = false;
-            this.checkBox1.Location = new System.Drawing.Point(182, 78);
+            this.checkBox1.Location = new System.Drawing.Point(212, 72);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(189, 17);
+            this.checkBox1.Size = new System.Drawing.Size(222, 16);
             this.checkBox1.TabIndex = 36;
             this.checkBox1.Text = "Manifest save to Tag (ID3 [JSON])";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -650,23 +675,22 @@ namespace Soundcloud_Playlist_Downloader.Views
             // btn_FormatForTag
             // 
             this.btn_FormatForTag.Enabled = false;
-            this.btn_FormatForTag.Location = new System.Drawing.Point(6, 56);
+            this.btn_FormatForTag.Location = new System.Drawing.Point(7, 52);
             this.btn_FormatForTag.Name = "btn_FormatForTag";
-            this.btn_FormatForTag.Size = new System.Drawing.Size(140, 22);
+            this.btn_FormatForTag.Size = new System.Drawing.Size(163, 20);
             this.btn_FormatForTag.TabIndex = 35;
             this.btn_FormatForTag.Text = "Metadata Formatter (ID3)";
-            this.btn_FormatForTag.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_FormatForTag.UseVisualStyleBackColor = true;
+            this.btn_FormatForTag.Visible = false;
             this.btn_FormatForTag.Click += new System.EventHandler(this.btn_FormatForTag_Click);
             // 
             // btn_FormatForName
             // 
-            this.btn_FormatForName.Location = new System.Drawing.Point(6, 29);
+            this.btn_FormatForName.Location = new System.Drawing.Point(7, 27);
             this.btn_FormatForName.Name = "btn_FormatForName";
-            this.btn_FormatForName.Size = new System.Drawing.Size(140, 22);
+            this.btn_FormatForName.Size = new System.Drawing.Size(163, 20);
             this.btn_FormatForName.TabIndex = 34;
             this.btn_FormatForName.Text = "Filename Formatter";
-            this.btn_FormatForName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_FormatForName.UseVisualStyleBackColor = true;
             this.btn_FormatForName.Click += new System.EventHandler(this.btn_FormatForName_Click);
             // 
@@ -675,9 +699,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.chk_MergePlaylists.AutoSize = true;
             this.chk_MergePlaylists.Checked = true;
             this.chk_MergePlaylists.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_MergePlaylists.Location = new System.Drawing.Point(182, 33);
+            this.chk_MergePlaylists.Location = new System.Drawing.Point(212, 30);
             this.chk_MergePlaylists.Name = "chk_MergePlaylists";
-            this.chk_MergePlaylists.Size = new System.Drawing.Size(156, 17);
+            this.chk_MergePlaylists.Size = new System.Drawing.Size(184, 16);
             this.chk_MergePlaylists.TabIndex = 33;
             this.chk_MergePlaylists.Text = "Merge SoundCloud playlists";
             this.chk_MergePlaylists.UseVisualStyleBackColor = true;
@@ -687,18 +711,18 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.gbox_advanced_enginebehaviour.Controls.Add(this.chk_replaceIllegalCharacters);
             this.gbox_advanced_enginebehaviour.Controls.Add(this.nudConcurrency);
             this.gbox_advanced_enginebehaviour.Controls.Add(this.concurrency);
-            this.gbox_advanced_enginebehaviour.Location = new System.Drawing.Point(21, 139);
+            this.gbox_advanced_enginebehaviour.Location = new System.Drawing.Point(24, 128);
             this.gbox_advanced_enginebehaviour.Name = "gbox_advanced_enginebehaviour";
-            this.gbox_advanced_enginebehaviour.Size = new System.Drawing.Size(391, 80);
+            this.gbox_advanced_enginebehaviour.Size = new System.Drawing.Size(456, 74);
             this.gbox_advanced_enginebehaviour.TabIndex = 34;
             this.gbox_advanced_enginebehaviour.TabStop = false;
             this.gbox_advanced_enginebehaviour.Text = "Download Behaviour";
             // 
             // SoundcloudSyncMainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(668, 428);
+            this.ClientSize = new System.Drawing.Size(779, 395);
             this.Controls.Add(this.tabControl_general);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -799,5 +823,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private System.Windows.Forms.Button btn_FormatForTag;
         private System.Windows.Forms.Button btn_FormatForName;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
     }
 }

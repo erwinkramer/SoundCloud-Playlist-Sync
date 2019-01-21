@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using Soundcloud_Playlist_Downloader.Properties;
 using System.Linq;
+using Soundcloud_Playlist_Downloader.Language;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -38,7 +39,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             if (ManifestUtil.ProgressUtil.SongsToDownload == 0) return;
             var cts = new CancellationTokenSource();
             if (ConcurrentDownloads == 0)
-                throw new Exception("Number for concurrent downloads must be at least 1");
+                throw new Exception(LanguageManager.Language["STR_DOWNLOAD_SONG_EX"]);
             var po = new ParallelOptions
             {
                 CancellationToken = cts.Token,
@@ -126,6 +127,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 {
                     string extension = DetermineExtension(song);
 
+                    //1MB 씩 다운로드 하고 Taglib 로 분석하기. 
                     if (ConvertToMp3 && Highqualitysong &&
                         DetermineAllowedFormats().Contains(extension))
                     {

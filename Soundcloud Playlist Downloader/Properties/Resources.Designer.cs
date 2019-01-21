@@ -61,6 +61,25 @@ namespace Soundcloud_Playlist_Downloader.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language=한국어 (Korean)
+        ///Author=HongSic (HSKernel)
+        ///
+        /////API Config 영역
+        ///STR_APICONFIG_TITLE=API 설정
+        ///STR_APICONFIG_DESC=이 설정은 클라이언트 ID를 변경합니다.\n만약 API가 인증을 거부한다고 뜨면 클라이언트 ID가 더 이상 작동하지 않는 것입니다.\n버튼 밑의 링크를 눌러 새 ID를 만드세요.\nhttp://soundcloud.com/you/apps/new
+        ///STR_APICONFIG_ACTIVE=활성화
+        ///STR_APICONFIG_CLIENTID=클라이언트 ID
+        ///STR_APICONFIG_CUSTOMID=사용자 ID
+        ///STR_APICONFIG_SAVE=설정 저장
+        ///STR_APICONFIG_LINK=클릭하여 새 ID 만들기.
+        /// </summary>
+        internal static string Language_Korean {
+            get {
+                return ResourceManager.GetString("Language_Korean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon MainIcon {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Soundcloud_Playlist_Downloader.JsonObjects;
+using Soundcloud_Playlist_Downloader.Language;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -119,7 +120,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             catch (Exception e)
             {
                 ManifestUtil.ProgressUtil.IsError = true;
-                throw new Exception($"Unable to read manifest or to modify existing tracks. Occurred at track with EffectiveDownloadUrl: {track?.EffectiveDownloadUrl} and local path: {track?.LocalPath}; exception: " + e);
+                throw new Exception(string.Format(LanguageManager.Language["STR_EXCEPTION_SYNC"], track?.EffectiveDownloadUrl, track?.LocalPath, e));
             }
         }
         private void DeleteFile(string fullPathSong)
