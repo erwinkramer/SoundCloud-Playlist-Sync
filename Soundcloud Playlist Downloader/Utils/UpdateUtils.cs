@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Soundcloud_Playlist_Downloader.Language;
+using System;
 using System.Deployment.Application;
 using System.Windows.Forms;
 
@@ -80,7 +81,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 case UpdateCheckStatus.OptionalUpdateAvailable:
                 case UpdateCheckStatus.MandatoryUpdateAvailable:
                     {
-                        DialogResult dr = MessageBox.Show("An update is available. Would you like to update the application now?", "Update Available", MessageBoxButtons.OKCancel);
+                        DialogResult dr = MessageBox.Show(LanguageManager.Language["STR_UPDATE_AVAILABLE_TEXT"], LanguageManager.Language["STR_UPDATE_AVAILABLE_TITLE"], MessageBoxButtons.OKCancel);
                         if ((DialogResult.OK == dr))
                         {
                             try
@@ -89,7 +90,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                             }
                             catch (Exception dde)
                             {
-                                MessageBox.Show("Cannot install the latest version of the application. \n\nPlease check your network connection, or try again later. Error: " + dde);
+                                MessageBox.Show(LanguageManager.Language["STR_UPDATE_ERROR_TEXT"].Replace("\\n", "\n") + ": " + dde, LanguageManager.Language["STR_UPDATE_ERROR_TITLE"]);
                                 return;
                             }
                         }
@@ -98,12 +99,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 case UpdateCheckStatus.NoUpdateAvailable:
                 case UpdateCheckStatus.IsNotNetworkDeployed:
                     {
-                        MessageBox.Show("No update available");
+                        MessageBox.Show(LanguageManager.Language["STR_UPDATE_NO_TEXT"], LanguageManager.Language["STR_UPDATE_NO_TITLE"]);
                         break;
                     }
                 case UpdateCheckStatus.InError:
                     {
-                        MessageBox.Show("Exception while checking for updates available. Exception thrown:" + InErrorException.Message);
+                        MessageBox.Show(LanguageManager.Language["STR_UPDATE_ERROR1_TEXT"] + ":" + InErrorException.Message, LanguageManager.Language["STR_UPDATE_ERROR1_TITLE"]);
                         break;
                     }
                 default:

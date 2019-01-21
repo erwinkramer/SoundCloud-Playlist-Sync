@@ -166,6 +166,7 @@
     <Compile Include="JsonObjects\SoundcloudBaseTrack.cs" />
     <Compile Include="JsonObjects\Track.cs" />
     <Compile Include="Language\LanguageManager.cs" />
+    <Compile Include="Properties\Settings.cs" />
     <Compile Include="SilentFailure.cs" />
     <Compile Include="Utils\ClientIDsUtils.cs" />
     <Compile Include="Utils\CompareUtils.cs" />

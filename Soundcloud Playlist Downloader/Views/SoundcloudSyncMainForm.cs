@@ -29,12 +29,9 @@ namespace Soundcloud_Playlist_Downloader.Views
         private static int ConfigStateCurrentIndex = 1;
         private static string FormatForName = "%user% - %title% %quality%";
         private static string FormatForTag = "%user% - %title% %quality%";
-
-        private readonly string AbortActionText = "Abort";
+        
         private readonly BoxAbout _aboutWindow = new BoxAbout();
         private readonly API_Config _apiConfigSettings;
-
-        private readonly string DefaultActionText = "Synchronize";
 
         private readonly PerformStatusUpdate _performStatusUpdateImplementation;
 
@@ -59,7 +56,8 @@ namespace Soundcloud_Playlist_Downloader.Views
             _performSyncCompleteImplementation = SyncCompleteButton;
             _progressBarUpdateImplementation = UpdateProgressBar;
             _performStatusUpdateImplementation = UpdateStatus;
-            status.Text = LanguageManager.Language["STR_MAIN_STATUS_READY"];
+            status.Tag = "STR_MAIN_STATUS_READY";
+            status.Text = LanguageManager.Language[status.Tag.ToString()];
             MinimumSize = new Size(Width, Height);
             MaximumSize = new Size(Width, Height);
         }
@@ -96,34 +94,48 @@ namespace Soundcloud_Playlist_Downloader.Views
                 if (progressUtil.IsActive && progressBar.Value == progressBar.Maximum &&
                 progressBar.Value != progressBar.Minimum)
                 {
-                    status.Text = LanguageManager.Language["STR_MAIN_STATUS_COMPLETE"];
+                    IsSyncButtonClicked = false;
+                    status.Tag = "STR_MAIN_STATUS_COMPLETE";
+                    status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
                 else if (progressUtil.IsActive && progressBar.Value >= progressBar.Minimum && progressBar.Maximum > 0)
                 {
-                    status.Text = string.Format(LanguageManager.Language["STR_MAIN_STATUS_READY"], progressBar.Value, progressBar.Maximum);
+                    IsSyncButtonClicked = false;
+                    status.Tag = "STR_MAIN_STATUS_READY";
+                    status.Text = string.Format(LanguageManager.Language[status.Tag.ToString()], progressBar.Value, progressBar.Maximum);
                 }
                 else if (progressUtil.IsActive && progressUtil.Completed && !progressUtil.IsError)
                 {
-                    status.Text = @"Tracks are already synchronized";
+                    IsSyncButtonClicked = false;
+                    status.Tag = "STR_MAIN_STATUS_SYNCED";
+                    status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
                 else if (progressUtil.IsActive && progressUtil.Completed && progressUtil.IsError)
                 {
-                    status.Text = @"An error prevented synchronization from starting";
+                    IsSyncButtonClicked = false;
+                    status.Tag = "STR_MAIN_STATUS_SYNCEDERROR";
+                    status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
-                else if (!progressUtil.IsActive && syncButton.Text == AbortActionText)
+                else if (!progressUtil.IsActive && IsSyncButtonClicked)
                 {
-                    status.Text = @"Aborting downloads... Please Wait.";
+                    IsSyncButtonClicked = false;
+                    status.Tag = "STR_MAIN_STATUS_ABORTING";
+                    status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
                 else if (progressUtil.IsActive)
                 {
+                    IsSyncButtonClicked = false;
                     var plural = "";
                     if (_dlMode != EnumUtil.DownloadMode.Track)
-                        plural = "s";
-                    status.Text = $"Fetching track{plural} to download...";
+                        plural = "STR_MAIN_STATUS_FETCH_S";
+                    status.Tag = new string[] { "STR_MAIN_STATUS_FETCH", plural };
+                    status.Text = string.Format(LanguageManager.Language["STR_MAIN_STATUS_FETCH"], LanguageManager.Language[plural]);
                 }
                 else if (!progressUtil.IsActive)
                 {
-                    status.Text = @"Aborted";
+                    IsSyncButtonClicked = false;
+                    status.Tag ="STR_MAIN_STATUS_ABORTED";
+                    status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
             }
             else if (progressUtil.Completed)
@@ -165,10 +177,12 @@ namespace Soundcloud_Playlist_Downloader.Views
             syncButton.Invoke(_performSyncCompleteImplementation);
         }
 
+        bool IsSyncButtonClicked;
         [SilentFailure]
         private void SyncCompleteButton()
         {
-            syncButton.Text = DefaultActionText;
+            syncButton.Tag = "STR_SYNCHRONIZE";
+            syncButton.Text = LanguageManager.Language[syncButton.Tag.ToString()];
             syncButton.Enabled = true;
             if (progressUtil.Exiting)
             {
@@ -187,10 +201,13 @@ namespace Soundcloud_Playlist_Downloader.Views
             : artistRadio.Checked ? EnumUtil.DownloadMode.Artist : EnumUtil.DownloadMode.Track;
             if (!string.IsNullOrWhiteSpace(url.Text?.ToLower()) &&
             !string.IsNullOrWhiteSpace(directoryPath.Text?.ToLower()) &&
-            syncButton.Text == DefaultActionText)
+            !IsSyncButtonClicked)
             {
-                syncButton.Text = AbortActionText;
-                status.Text = @"Checking for track changes...";
+                IsSyncButtonClicked = true;
+                syncButton.Tag = "STR_ABORT";
+                syncButton.Text = LanguageManager.Language[syncButton.Tag.ToString()];
+                status.Tag ="STR_MAIN_STATUS_CHECK";
+                status.Text = LanguageManager.Language[status.Tag.ToString()];
                 progressUtil.Completed = false;
 
                 progressBar.Value = 0;
@@ -217,7 +234,8 @@ namespace Soundcloud_Playlist_Downloader.Views
                 }
                 catch (Exception)
                 {
-                    status.Text = @"Invalid URL";
+                    status.Tag = "STR_MAIN_STATUS_INVALIDURL";
+                    status.Text = LanguageManager.Language[status.Tag.ToString()];
                     progressUtil.Completed = true;
                     InvokeSyncComplete();
                     return;
@@ -235,7 +253,8 @@ namespace Soundcloud_Playlist_Downloader.Views
                     {
                         if (differentmanifest)
                         {
-                            status.Text = @"Change settings or directory.";
+                            status.Tag = "STR_MAIN_STATUS_DIFFMANY";
+                            status.Text = LanguageManager.Language[status.Tag.ToString()];
                             progressUtil.Completed = true;
                             InvokeSyncComplete();
                             return;
@@ -244,8 +263,8 @@ namespace Soundcloud_Playlist_Downloader.Views
                 }
                 new Thread(() =>
                 {
-    // perform progress updates
-    while (!progressUtil.Completed && !progressUtil.Exiting)
+                    // perform progress updates
+                    while (!progressUtil.Completed && !progressUtil.Exiting)
                     {
                         Thread.Sleep(500);
                         InvokeUpdateStatus();
@@ -270,7 +289,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"{ex.Message} { ExceptionHandlerUtils.GetInnerExceptionMessages(ex)}", @"Error");
+                        MessageBox.Show($"{ex.Message} { ExceptionHandlerUtils.GetInnerExceptionMessages(ex)}", LanguageManager.Language["STR_ERR"]);
                     }
                     finally
                     {
@@ -279,20 +298,20 @@ namespace Soundcloud_Playlist_Downloader.Views
                     }
                 }).Start();
             }
-            else if (progressUtil.IsActive && syncButton.Text == AbortActionText)
+            else if (progressUtil.IsActive && IsSyncButtonClicked)
             {
                 progressUtil.IsActive = false;
                 syncButton.Enabled = false;
             }
-            else if (syncButton.Text == DefaultActionText &&
-            string.IsNullOrWhiteSpace(url.Text))
+            else if (!IsSyncButtonClicked && string.IsNullOrWhiteSpace(url.Text))
             {
-                status.Text = @"Enter the download url";
+                status.Tag = "STR_MAIN_STATUS_NULLURL";
+                status.Text = LanguageManager.Language[status.Tag.ToString()];
             }
-            else if (syncButton.Text == DefaultActionText &&
-            string.IsNullOrWhiteSpace(directoryPath.Text))
+            else if (!IsSyncButtonClicked && string.IsNullOrWhiteSpace(directoryPath.Text))
             {
-                status.Text = @"Enter local directory path";
+                status.Tag = "STR_MAIN_STATUS_NULLDIR";
+                status.Text = LanguageManager.Language[status.Tag.ToString()];
             }
         }
 
@@ -301,15 +320,19 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             progressUtil.Exiting = true;
             progressUtil.IsActive = false;
-            status.Text = @"Preparing for exit... Please Wait.";
+            status.Tag = "STR_MAIN_STATUS_EXIT";
+            status.Text = LanguageManager.Language[status.Tag.ToString()];
             syncButton.Enabled = false;
-            if (syncButton.Text != DefaultActionText)
+            if (IsSyncButtonClicked)
             {
-                e.Cancel = true;
+                if(MessageBox.Show(LanguageManager.Language["STR_MAIN_STATUS_SYNCING"], this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                    e.Cancel = true;
             }
             else
             {
-                syncButton.Text = AbortActionText;
+                IsSyncButtonClicked = true;
+                syncButton.Tag = "STR_ABORT";
+                syncButton.Text = LanguageManager.Language[syncButton.Tag.ToString()];
             }
         }
 
@@ -317,13 +340,15 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             Icon = Resources.MainIcon;
             LoadSettingsFromCurrentConfig(Settings.Default.ConfigStateCurrentIndex);
-            toolStripComboBox1.SelectedIndex = 0;
+            LoadSetting();
+            if (toolStripComboBox1.SelectedIndex == -1) toolStripComboBox1.SelectedIndex = 0;
         }
 
         private void SaveSettingsToConfig(int currentIndex)
         {
             Settings.Default.ConfigStateCurrentIndex = currentIndex;
             SaveSettingToConfig(chk_configActive.Name, chk_configActive.Checked.ToString(), typeof(Boolean));
+            SaveSettingToConfig("Language", toolStripComboBox1.SelectedIndex.ToString(), typeof(int));
             SaveSettingToConfig("LocalPath", directoryPath?.Text, directoryPath?.Text?.GetType());
             SaveSettingToConfig("PlaylistUrl", url?.Text, url?.Text?.GetType());
             SaveSettingToConfig(nameof(ConcurrentDownloads), nudConcurrency.Value.ToString(), nudConcurrency.Value.GetType());
@@ -372,6 +397,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             string accessString = GetAccessString(currentIndex);
             lbl_currentConfig.Text = Settings.Default.ConfigStateCurrentIndex.ToString();
 
+            //toolStripComboBox1.SelectedIndex = (int)LoadSettingFromConfig(accessString, "Language", typeof(int));
             chk_configActive.Checked = (bool) LoadSettingFromConfig(accessString, chk_configActive.Name, typeof(Boolean));
             url.Text = (string)LoadSettingFromConfig(accessString, "PlaylistUrl", typeof(String));
             directoryPath.Text = (string)LoadSettingFromConfig(accessString, "LocalPath", typeof(String));
@@ -400,7 +426,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             try
             {
                 return Settings.Default[accessString + propertyName];
-
             }
             catch (SettingsPropertyNotFoundException)
             {
@@ -414,9 +439,38 @@ namespace Soundcloud_Playlist_Downloader.Views
                 property.Attributes.Add(typeof(System.Configuration.UserScopedSettingAttribute), new System.Configuration.UserScopedSettingAttribute());
                 Settings.Default.Properties.Add(property);
                 Settings.Default.Save();
-                return Settings.Default[accessString + propertyName];
+                return property.DefaultValue;
             }
         }
+
+
+        private void SaveSetting()
+        {
+            string[] s = new string[1];
+            s[0] = "Language=" + toolStripComboBox1.SelectedIndex;
+
+            try { File.WriteAllLines("Settings.ini", s); } catch { }
+        }
+        private void LoadSetting()
+        {
+            try
+            {
+                string[] s = File.ReadAllLines("Settings.ini");
+                for(int i = 0; i < s.Length; i++)
+                {
+                    int index = s[i].IndexOf("=");
+                    if (index > 0)
+                    {
+                        string key = s[i].Remove(index);
+                        string value = s[i].Substring(index + 1);
+
+                        if ("Language".Equals(key)) try { toolStripComboBox1.SelectedIndex = int.Parse(value); } catch { }
+                    }
+                }
+            }
+            catch { }
+        }
+
 
         private string GetAccessString(int currentIndex)
         {
@@ -558,7 +612,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         /// <param name="e"></param>
         private void btn_FormatForName_Click(object sender, EventArgs e)
         {
-            NameFormater filenameFormatter = new NameFormater(FormatForName) { Text = "Filename Formatter" };
+            NameFormater filenameFormatter = new NameFormater(FormatForName);
             if(filenameFormatter.ShowDialog() == DialogResult.OK)
                 FormatForName = string.IsNullOrWhiteSpace(filenameFormatter.Format) ? "%title%" : filenameFormatter.Format;
             SaveSettingsToConfig(ConfigStateCurrentIndex);
@@ -595,6 +649,9 @@ namespace Soundcloud_Playlist_Downloader.Views
                 }
                 LoadLanguage();
                 _apiConfigSettings.LoadLanguage();
+                _aboutWindow.LoadLanguage();
+
+                SaveSetting();
             }
         }
 
@@ -611,7 +668,53 @@ namespace Soundcloud_Playlist_Downloader.Views
             clientIDToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CLIENT"];
             updateToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_UPDATE"] + updateUtil.LabelTextForCurrentStatus();
             aboutToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_ABOUT"];
-            languageToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_LANG"];
+            languageToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_LNG"];
+
+            tabPage_BasicOptions.Text = LanguageManager.Language["STR_MAIN_BASIC"];
+            gbox_url.Text = LanguageManager.Language["STR_MAIN_BASIC_URL"];
+            gbox_localdir.Text = LanguageManager.Language["STR_MAIN_BASIC_DIR"];
+            browseButton.Text = LanguageManager.Language["STR_MAIN_BASIC_BROWSE"];
+            gbox_downMethod.Text = LanguageManager.Language["STR_MAIN_BASIC_DM"];
+            userPlaylists.Text = LanguageManager.Language["STR_MAIN_BASIC_DM1"];
+            playlistRadio.Text = LanguageManager.Language["STR_MAIN_BASIC_DM2"];
+            favoritesRadio.Text = LanguageManager.Language["STR_MAIN_BASIC_DM3"];
+            artistRadio.Text = LanguageManager.Language["STR_MAIN_BASIC_DM4"];
+            trackRadio.Text = LanguageManager.Language["STR_MAIN_BASIC_DM5"];
+            gbox_syncMethod.Text = LanguageManager.Language["STR_MAIN_BASIC_SM"];
+            rbttn_oneWay.Text = LanguageManager.Language["STR_MAIN_BASIC_SM1"];
+            rbttn_twoWay.Text = LanguageManager.Language["STR_MAIN_BASIC_SM1"];
+
+            if (status.Tag == null) status.Text = LanguageManager.Language["STR_MAIN_STATUS_READY"];
+            else if (status.Tag is string[])
+            {
+                string[] s = (string[])status.Tag;
+                status.Text = string.Format(LanguageManager.Language[s[0]], LanguageManager.Language[s[1]]);
+            }
+            else status.Text = LanguageManager.Language[status.Tag.ToString()];
+
+            groupBox2.Text = LanguageManager.Language["STR_MAIN_CONFSTAT"];
+            lbl_configurationPrefix.Text = LanguageManager.Language["STR_MAIN_CONF"];
+            chk_configActive.Text = LanguageManager.Language["STR_MAIN_CONFACTIVE"];
+            lbl_currentConfig.Location = new Point(lbl_configurationPrefix.Width + 5, lbl_currentConfig.Location.Y);
+            chk_configActive.Location = new Point(lbl_currentConfig.Location.X + lbl_currentConfig.Width + 10, lbl_currentConfig.Location.Y);
+            groupBox1.Text = LanguageManager.Language["STR_MAIN_DOWMPROG"];
+            syncButton.Text = LanguageManager.Language[syncButton.Tag.ToString()];
+
+            tabPage_AdvancedOptions.Text = LanguageManager.Language["STR_MAIN_ADVANCE"];
+            gbox_advanced_conversion.Text = LanguageManager.Language["STR_MAIN_ADVANCE_CONVERSE"];
+            chk_highquality.Text = LanguageManager.Language["STR_MAIN_ADVANCE_HQ"];
+            chk_convertToMp3.Text = LanguageManager.Language["STR_MAIN_ADVANCE_HQ_MP3"];
+            lbl_exclude.Text = LanguageManager.Language["STR_MAIN_ADVANCE_HQ_EXCL"] + ":";
+            gbox_advanced_enginebehaviour.Text = LanguageManager.Language["STR_MAIN_ADVANCE_DOWNB"];
+            chk_replaceIllegalCharacters.Text = LanguageManager.Language["STR_MAIN_ADVANCE_ILLIGCHAR"];
+            concurrency.Text = LanguageManager.Language["STR_MAIN_ADVANCE_CONCURRENCY"] + ":";
+            gbox_advanced_other.Text = LanguageManager.Language["STR_MAIN_ADVANCE_OTHER"];
+            btn_FormatForName.Text = LanguageManager.Language["STR_MAIN_ADVANCE_FILEFORMAT"];
+            btn_FormatForTag.Text = LanguageManager.Language["STR_MAIN_ADVANCE_METAFORMAT"];
+            chk_folderByArtist.Text = LanguageManager.Language["STR_MAIN_ADVANCE_FBA"];
+            chk_MergePlaylists.Text = LanguageManager.Language["STR_MAIN_ADVANCE_MSP"];
+            chk_CreatePlaylists.Text = LanguageManager.Language["STR_MAIN_ADVANCE_GMPL"];
+            checkBox1.Text = LanguageManager.Language["STR_MAIN_ADVANCE_MSTT"];
         }
     }
 }

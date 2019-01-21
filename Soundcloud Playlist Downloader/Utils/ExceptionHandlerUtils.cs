@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Soundcloud_Playlist_Downloader.Language;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,21 +18,18 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 using (var response = webException.Response as HttpWebResponse)
                 {
                     var responseUri = response.ResponseUri.AbsoluteUri;
-                    text = $"Could not get url {responseUri}. Server returned http status code: {response.StatusCode} with description {response.StatusDescription}.";
+                    text = string.Format(LanguageManager.Language["STR_EXCEPTION_WEB1"], responseUri, response.StatusCode, response.StatusDescription);
 
                 }
 
-                throw new Exception("Soundcloud API seems to be down, please check: http://status.soundcloud.com/ or https://developers.soundcloud.com/docs#errors for more information."
-                                    + Environment.NewLine + Environment.NewLine + "The following error was thrown: "
-                                    + Environment.NewLine + text);
+                throw new Exception(string.Format(LanguageManager.Language["STR_EXCEPTION_WEB2"].Replace("\\n", "\n"), text));
             }
-            throw new Exception("The following error was thrown: "
-                                + Environment.NewLine + e);
+            throw new Exception(string.Format(LanguageManager.Language["STR_EXCEPTION_WEB3"].Replace("\\n", "\n"), e));
         }
 
         public static string GetInnerExceptionMessages(Exception e)
         {
-            if (e == null) return "(exception is null)";
+            if (e == null) return string.Format("({0})", LanguageManager.Language["STR_EXCEPTION_GET1"]);
             string message = "";
             IEnumerable<Exception> aggregateInnerExceptions = Enumerable.Empty<Exception>();
             if (e is AggregateException && (e as AggregateException).InnerExceptions.Any())
@@ -40,15 +38,15 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             else if (e.InnerException != null)
             {
-                message += "\r\nInnerException: " + e.InnerException.Message;
+                message += string.Format("\r\n{0}: {1}", LanguageManager.Language["STR_EXCEPTION_GET2"], e.InnerException.Message);
             }
             foreach (var aggInnerEx in aggregateInnerExceptions)
             {
                 if (aggInnerEx == null) continue;
-                message += "\r\nAggregateInnerException: " + aggInnerEx.Message;
+                message += string.Format("\r\n{0}: {1}", LanguageManager.Language["STR_EXCEPTION_GET3"], aggInnerEx.Message);
             }
             if (message == "")
-                return "(no inner exceptions found)";
+                return string.Format("({0})", LanguageManager.Language["STR_EXCEPTION_GET4"]);
             return message;
         }
 

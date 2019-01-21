@@ -48,6 +48,11 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.Translators = new System.Windows.Forms.TabPage();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.label7 = new System.Windows.Forms.Label();
             this.Libraries = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.link_HtmlAgilityPack = new System.Windows.Forms.LinkLabel();
@@ -55,16 +60,11 @@
             this.link_naudioLame = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.link_nAudio = new System.Windows.Forms.LinkLabel();
-            this.Translators = new System.Windows.Forms.TabPage();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
-            this.label8 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.License.SuspendLayout();
             this.Projectwebsites.SuspendLayout();
-            this.Libraries.SuspendLayout();
             this.Translators.SuspendLayout();
+            this.Libraries.SuspendLayout();
             this.SuspendLayout();
             // 
             // link_github
@@ -82,9 +82,9 @@
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.okButton.Location = new System.Drawing.Point(427, 192);
+            this.okButton.Location = new System.Drawing.Point(491, 192);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(47, 18);
+            this.okButton.Size = new System.Drawing.Size(47, 20);
             this.okButton.TabIndex = 24;
             this.okButton.Text = "&OK";
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
@@ -115,16 +115,16 @@
             // lbl_copy
             // 
             this.lbl_copy.AutoSize = true;
-            this.lbl_copy.Location = new System.Drawing.Point(14, 195);
+            this.lbl_copy.Location = new System.Drawing.Point(5, 195);
             this.lbl_copy.Name = "lbl_copy";
-            this.lbl_copy.Size = new System.Drawing.Size(356, 12);
+            this.lbl_copy.Size = new System.Drawing.Size(358, 12);
             this.lbl_copy.TabIndex = 29;
-            this.lbl_copy.Text = "copyright © 2013-2019. The SoundCloud-Playlist-Sync project";
+            this.lbl_copy.Text = "Copyright © 2013-2019. The SoundCloud-Playlist-Sync project";
             // 
             // lbl_info1
             // 
             this.lbl_info1.AutoSize = true;
-            this.lbl_info1.Location = new System.Drawing.Point(10, 8);
+            this.lbl_info1.Location = new System.Drawing.Point(5, 8);
             this.lbl_info1.Name = "lbl_info1";
             this.lbl_info1.Size = new System.Drawing.Size(486, 12);
             this.lbl_info1.TabIndex = 30;
@@ -185,7 +185,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(3, 2);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(446, 136);
+            this.richTextBox1.Size = new System.Drawing.Size(520, 136);
             this.richTextBox1.TabIndex = 36;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
@@ -195,10 +195,10 @@
             this.tabControl1.Controls.Add(this.Projectwebsites);
             this.tabControl1.Controls.Add(this.Translators);
             this.tabControl1.Controls.Add(this.Libraries);
-            this.tabControl1.Location = new System.Drawing.Point(14, 23);
+            this.tabControl1.Location = new System.Drawing.Point(7, 23);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(463, 161);
+            this.tabControl1.Size = new System.Drawing.Size(531, 161);
             this.tabControl1.TabIndex = 31;
             // 
             // License
@@ -207,7 +207,7 @@
             this.License.Location = new System.Drawing.Point(4, 22);
             this.License.Name = "License";
             this.License.Padding = new System.Windows.Forms.Padding(3);
-            this.License.Size = new System.Drawing.Size(455, 135);
+            this.License.Size = new System.Drawing.Size(523, 135);
             this.License.TabIndex = 0;
             this.License.Text = "License";
             this.License.UseVisualStyleBackColor = true;
@@ -225,7 +225,7 @@
             this.Projectwebsites.Location = new System.Drawing.Point(4, 22);
             this.Projectwebsites.Name = "Projectwebsites";
             this.Projectwebsites.Padding = new System.Windows.Forms.Padding(3);
-            this.Projectwebsites.Size = new System.Drawing.Size(455, 135);
+            this.Projectwebsites.Size = new System.Drawing.Size(523, 135);
             this.Projectwebsites.TabIndex = 1;
             this.Projectwebsites.Text = "Project website(s)";
             this.Projectwebsites.UseVisualStyleBackColor = true;
@@ -279,6 +279,59 @@
             this.label3.TabIndex = 27;
             this.label3.Text = "Original developer:";
             // 
+            // Translators
+            // 
+            this.Translators.Controls.Add(this.linkLabel3);
+            this.Translators.Controls.Add(this.label8);
+            this.Translators.Controls.Add(this.linkLabel2);
+            this.Translators.Controls.Add(this.label7);
+            this.Translators.Location = new System.Drawing.Point(4, 22);
+            this.Translators.Name = "Translators";
+            this.Translators.Size = new System.Drawing.Size(523, 135);
+            this.Translators.TabIndex = 3;
+            this.Translators.Text = "Translators";
+            this.Translators.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(122, 37);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(52, 12);
+            this.linkLabel3.TabIndex = 37;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "HongSic";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_2);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(7, 37);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(99, 12);
+            this.label8.TabIndex = 36;
+            this.label8.Text = "Korean (한국어):";
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(122, 15);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(52, 12);
+            this.linkLabel2.TabIndex = 35;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "HongSic";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_2);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 15);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(116, 12);
+            this.label7.TabIndex = 34;
+            this.label7.Text = "Implement function:";
+            // 
             // Libraries
             // 
             this.Libraries.Controls.Add(this.label5);
@@ -295,7 +348,7 @@
             this.Libraries.Controls.Add(this.lbl_taglib);
             this.Libraries.Location = new System.Drawing.Point(4, 22);
             this.Libraries.Name = "Libraries";
-            this.Libraries.Size = new System.Drawing.Size(455, 135);
+            this.Libraries.Size = new System.Drawing.Size(523, 135);
             this.Libraries.TabIndex = 2;
             this.Libraries.Text = "Libraries";
             this.Libraries.UseVisualStyleBackColor = true;
@@ -360,65 +413,12 @@
             this.link_nAudio.Text = "NAudio";
             this.link_nAudio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // Translators
-            // 
-            this.Translators.Controls.Add(this.linkLabel3);
-            this.Translators.Controls.Add(this.label8);
-            this.Translators.Controls.Add(this.linkLabel2);
-            this.Translators.Controls.Add(this.label7);
-            this.Translators.Location = new System.Drawing.Point(4, 22);
-            this.Translators.Name = "Translators";
-            this.Translators.Size = new System.Drawing.Size(455, 135);
-            this.Translators.TabIndex = 3;
-            this.Translators.Text = "Translators";
-            this.Translators.UseVisualStyleBackColor = true;
-            // 
-            // linkLabel2
-            // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(112, 15);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(52, 12);
-            this.linkLabel2.TabIndex = 35;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "HongSic";
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_2);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 15);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(68, 12);
-            this.label7.TabIndex = 34;
-            this.label7.Text = "Implement:";
-            // 
-            // linkLabel3
-            // 
-            this.linkLabel3.AutoSize = true;
-            this.linkLabel3.Location = new System.Drawing.Point(112, 37);
-            this.linkLabel3.Name = "linkLabel3";
-            this.linkLabel3.Size = new System.Drawing.Size(52, 12);
-            this.linkLabel3.TabIndex = 37;
-            this.linkLabel3.TabStop = true;
-            this.linkLabel3.Text = "HongSic";
-            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_2);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 37);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(99, 12);
-            this.label8.TabIndex = 36;
-            this.label8.Text = "Korean (한국어):";
-            // 
             // BoxAbout
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 217);
+            this.ClientSize = new System.Drawing.Size(540, 217);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lbl_info1);
@@ -431,17 +431,17 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Soundcloud Playlist Sync";
+            this.Text = "About Soundcloud Playlist Sync";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AboutBox1_FormClosing);
             this.Load += new System.EventHandler(this.AboutBox1_Load);
             this.tabControl1.ResumeLayout(false);
             this.License.ResumeLayout(false);
             this.Projectwebsites.ResumeLayout(false);
             this.Projectwebsites.PerformLayout();
-            this.Libraries.ResumeLayout(false);
-            this.Libraries.PerformLayout();
             this.Translators.ResumeLayout(false);
             this.Translators.PerformLayout();
+            this.Libraries.ResumeLayout(false);
+            this.Libraries.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

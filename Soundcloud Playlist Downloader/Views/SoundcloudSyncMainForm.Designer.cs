@@ -48,8 +48,8 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.config3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.config4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.config5ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clientIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
@@ -113,6 +113,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.syncButton.Name = "syncButton";
             this.syncButton.Size = new System.Drawing.Size(234, 21);
             this.syncButton.TabIndex = 4;
+            this.syncButton.Tag = "STR_SYNCHRONIZE";
             this.syncButton.Text = "Synchronize";
             this.syncButton.UseVisualStyleBackColor = true;
             this.syncButton.Click += new System.EventHandler(this.syncButton_Click);
@@ -121,7 +122,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             this.browseButton.Location = new System.Drawing.Point(381, 18);
             this.browseButton.Name = "browseButton";
-            this.browseButton.Size = new System.Drawing.Size(72, 18);
+            this.browseButton.Size = new System.Drawing.Size(72, 21);
             this.browseButton.TabIndex = 6;
             this.browseButton.Text = "Browse";
             this.browseButton.UseVisualStyleBackColor = true;
@@ -268,19 +269,19 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.config5ToolStripMenuItem.Text = "Config 5";
             this.config5ToolStripMenuItem.Click += new System.EventHandler(this.config5ToolStripMenuItem_Click);
             // 
-            // updateToolStripMenuItem
-            // 
-            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
-            this.updateToolStripMenuItem.Text = "Update";
-            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
-            // 
             // clientIDToolStripMenuItem
             // 
             this.clientIDToolStripMenuItem.Name = "clientIDToolStripMenuItem";
             this.clientIDToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.clientIDToolStripMenuItem.Text = "API Config";
             this.clientIDToolStripMenuItem.Click += new System.EventHandler(this.clientIDToolStripMenuItem_Click);
+            // 
+            // updateToolStripMenuItem
+            // 
+            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.updateToolStripMenuItem.Text = "Update";
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -355,7 +356,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             // lbl_exclude
             // 
             this.lbl_exclude.AutoSize = true;
-            this.lbl_exclude.Location = new System.Drawing.Point(59, 23);
+            this.lbl_exclude.Location = new System.Drawing.Point(46, 23);
             this.lbl_exclude.Name = "lbl_exclude";
             this.lbl_exclude.Size = new System.Drawing.Size(55, 12);
             this.lbl_exclude.TabIndex = 23;
@@ -679,8 +680,8 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.btn_FormatForTag.Size = new System.Drawing.Size(163, 20);
             this.btn_FormatForTag.TabIndex = 35;
             this.btn_FormatForTag.Text = "Metadata Formatter (ID3)";
-            this.btn_FormatForTag.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_FormatForTag.UseVisualStyleBackColor = true;
+            this.btn_FormatForTag.Visible = false;
             this.btn_FormatForTag.Click += new System.EventHandler(this.btn_FormatForTag_Click);
             // 
             // btn_FormatForName
@@ -690,7 +691,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.btn_FormatForName.Size = new System.Drawing.Size(163, 20);
             this.btn_FormatForName.TabIndex = 34;
             this.btn_FormatForName.Text = "Filename Formatter";
-            this.btn_FormatForName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btn_FormatForName.UseVisualStyleBackColor = true;
             this.btn_FormatForName.Click += new System.EventHandler(this.btn_FormatForName_Click);
             // 

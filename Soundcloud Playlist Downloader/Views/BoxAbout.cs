@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Soundcloud_Playlist_Downloader.Language;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -141,6 +142,23 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void linkLabel1_LinkClicked_2(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
+        }
+
+        internal void LoadLanguage()
+        {
+            Text = LanguageManager.Language["STR_ABOUT_TITLE"];
+            lbl_info1.Text = LanguageManager.Language["STR_ABOUT_INFO"];
+            lbl_copy.Text = LanguageManager.Language["STR_ABOUT_COPYRIGHT"];
+            richTextBox1.Text = LanguageManager.Language["STR_ABOUT_LICENSE"].Replace("\\n", "\r\n");
+            okButton.Text = LanguageManager.Language["STR_ABOUT_OK"];
+            License.Text = LanguageManager.Language["STR_ABOUT_TAB1"];
+            Projectwebsites.Text = LanguageManager.Language["STR_ABOUT_TAB2"];
+            Translators.Text = LanguageManager.Language["STR_ABOUT_TAB3"];
+            Libraries.Text = LanguageManager.Language["STR_ABOUT_TAB4"];
+            label4.Text = LanguageManager.Language["STR_ABOUT_PW_CM"] + ":";
+            label3.Text = LanguageManager.Language["STR_ABOUT_PW_OD"] + ":";
+            label6.Text = LanguageManager.Language["STR_ABOUT_PW_CON"] + ":";
+            label7.Text = LanguageManager.Language["STR_ABOUT_TRANSIMPL"] + ":";
         }
     }
 }

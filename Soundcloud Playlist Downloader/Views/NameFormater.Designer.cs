@@ -149,6 +149,7 @@
             this.checkBox1.TabIndex = 9;
             this.checkBox1.Text = "From ID3 Tag";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
             // 
             // NameFormater
             // 
@@ -166,7 +167,7 @@
             this.MinimizeBox = false;
             this.Name = "NameFormater";
             this.ShowIcon = false;
-            this.Text = "NameFormater";
+            this.Text = "Name formater";
             this.Load += new System.EventHandler(this.NameFormater_Load);
             this.contextMenuStrip2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
