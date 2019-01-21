@@ -101,7 +101,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 else if (progressUtil.IsActive && progressBar.Value >= progressBar.Minimum && progressBar.Maximum > 0)
                 {
                     IsSyncButtonClicked = false;
-                    status.Tag = "STR_MAIN_STATUS_READY";
+                    status.Tag = "STR_MAIN_STATUS_DOWNLOAD";
                     status.Text = string.Format(LanguageManager.Language[status.Tag.ToString()], progressBar.Value, progressBar.Maximum);
                 }
                 else if (progressUtil.IsActive && progressUtil.Completed && !progressUtil.IsError)
