@@ -1,6 +1,6 @@
 # SoundCloud Playlist Sync
 
-Available language: English(Default), Korean(한국어)
+Available language: English(Default), Korean(한국어) [Behind↓]
 
 A utility to synchronize local directories with SoundCloud playlists and favorited lists.
 
