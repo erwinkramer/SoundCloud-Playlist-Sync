@@ -22,14 +22,14 @@
     <PublishUrl>C:\Users\Erwin\Source\Repos\SoundCloud-Playlist-Sync\Deployment\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync/raw/fix/Deployment/</UpdateUrl>
+    <UpdateUrl>https://github.com/HongSic/SoundCloud-Playlist-Sync/raw/fix/Deployment/</UpdateUrl>
     <SupportUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync</SupportUrl>
     <ErrorReportUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
@@ -37,8 +37,8 @@
     <PublisherName>SoundCloud-Playlist-Sync team</PublisherName>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>70</ApplicationRevision>
-    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>12</ApplicationRevision>
+    <ApplicationVersion>3.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
