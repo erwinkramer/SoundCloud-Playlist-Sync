@@ -1,3 +1,0 @@
-﻿New-SelfSignedCertificate -CertStoreLocation cert:\localMachine\my\ -DnsName "github.com/erwinkramer/SoundCloud-Playlist-Sync" -FriendlyName "SoundCloudSync_200yr" -NotAfter (Get-Date).AddYears(200) -Type CodeSigningCert
-$pwd = ConvertTo-SecureString -String PASSWORD -Force -AsPlainText 
-Export-PfxCertificate -cert "cert:\localMachine\my\E2FD8D122B221F7A4EAFBDE0C06403FBD6D84668" -FilePath C:\Users\erwin\Downloads\SoundCloudSync_200yr.pfx -Password $pwd
