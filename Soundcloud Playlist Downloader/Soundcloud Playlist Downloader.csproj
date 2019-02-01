@@ -29,7 +29,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>https://github.com/HongSic/SoundCloud-Playlist-Sync/raw/fix/Deployment/</UpdateUrl>
+    <UpdateUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync/raw/fix/Deployment/</UpdateUrl>
     <SupportUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync</SupportUrl>
     <ErrorReportUrl>https://github.com/erwinkramer/SoundCloud-Playlist-Sync</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
@@ -37,7 +37,7 @@
     <PublisherName>SoundCloud-Playlist-Sync team</PublisherName>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>3.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
