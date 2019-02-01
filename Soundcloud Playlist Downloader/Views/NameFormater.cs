@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Soundcloud_Playlist_Downloader.JsonObjects;
+using Soundcloud_Playlist_Downloader.Language;
 using Soundcloud_Playlist_Downloader.Utils;
 using System;
 using System.Drawing;
@@ -53,6 +54,13 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         void Init()
         {
+            base.Text = LanguageManager.Language["STR_FORMAT_FILE_TITLE"];
+            button3.Text = LanguageManager.Language["STR_FORMAT_FILE_SAMTR"] + " ▼";
+            button1.Text = LanguageManager.Language["STR_FORMAT_FILE_FOROP"] + " ▼";
+            checkBox1.Text = LanguageManager.Language["STR_FORMAT_FILE_FROMID3"];
+            groupBox1.Text = LanguageManager.Language["STR_FORMAT_FILE_PREV"];
+            button2.Text = LanguageManager.Language["STR_FORMAT_FILE_SAVE"];
+
             track_sample = JsonConvert.DeserializeObject<Track>(Properties.Resources.SampleTrack1);
             RefreshTaglist();
         }
@@ -141,16 +149,16 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             Description[] desc = new Description[]
             {
-                    new Description("%title%", "Song Title"),
-                    new Description("%genre%", "Song Genre"),
-                    new Description("%index%", "Song Index"),
-                    new Description("%user%", "User Name"),
-                    new Description("%date%", "Creation date (YY-MM-DD)"),
-                    new Description("%time%", "Creation time (HH.mm.ss)"),
-                    new Description("%ext%", "Song Extension (Format)"),
-                    new Description("%quality%", "Song is HD quality"),
-                    new Description("%label_name%", "Title (Name)"),
-                    new Description("%desc%", "Song Description"),
+                    new Description("%title%", LanguageManager.Language["STR_FORMAT_FILE_FTITLE"]),
+                    new Description("%genre%", LanguageManager.Language["STR_FORMAT_FILE_FGENRE"]),
+                    new Description("%index%", LanguageManager.Language["STR_FORMAT_FILE_FINDEX"]),
+                    new Description("%user%", LanguageManager.Language["STR_FORMAT_FILE_FUNAME"]),
+                    new Description("%date%", LanguageManager.Language["STR_FORMAT_FILE_FCDATE"]+" (YY-MM-DD)"),
+                    new Description("%time%", LanguageManager.Language["STR_FORMAT_FILE_FCTIME"]+" (HH.mm.ss)"),
+                    new Description("%ext%", LanguageManager.Language["STR_FORMAT_FILE_FEXT"]),
+                    new Description("%quality%", LanguageManager.Language["STR_FORMAT_FILE_FHD"]),
+                    new Description("%label_name%", LanguageManager.Language["STR_FORMAT_FILE_FNAME"]),
+                    new Description("%desc%",LanguageManager.Language["STR_FORMAT_FILE_FDESC"]),
             };
             return desc;
         }
@@ -161,16 +169,16 @@ namespace Soundcloud_Playlist_Downloader.Views
             try { time = DateTime.Parse(track.created_at).ToString("HH.mm.ss"); } catch { }
             Description[] desc = new Description[]
             {
-                    new Description("%title%", "Song Title", track.Title),
-                    new Description("%user%", "User Name", track.Artist),
-                    new Description("%index%", "Song Index", (track.IndexFromSoundcloud + 1).ToString()),
-                    new Description("%genre%", "Song Genre", track.genre),
-                    new Description("%date%", "Creation date (YY-MM-DD)", date),
-                    new Description("%time%", "Creation time (HH.mm.ss)", time),
-                    new Description("%ext%", "Song Extension (Format)", track.original_format),
-                    new Description("%quality%", "Song is HD quality", track.IsHD ? "(HQ)" : null),
-                    new Description("%label_name%", "Title (Name)", track.label_name),
-                    new Description("%desc%", "Song Description", track.description),
+                    new Description("%title%", LanguageManager.Language["STR_FORMAT_FILE_FTITLE"], track.Title),
+                    new Description("%genre%", LanguageManager.Language["STR_FORMAT_FILE_FGENRE"], track.Artist),
+                    new Description("%index%", LanguageManager.Language["STR_FORMAT_FILE_FINDEX"], (track.IndexFromSoundcloud + 1).ToString()),
+                    new Description("%user%", LanguageManager.Language["STR_FORMAT_FILE_FUNAME"], track.genre),
+                    new Description("%date%", LanguageManager.Language["STR_FORMAT_FILE_FCDATE"]+" (YY-MM-DD)", date),
+                    new Description("%time%", LanguageManager.Language["STR_FORMAT_FILE_FCTIME"]+" (HH.mm.ss)", time),
+                    new Description("%ext%", LanguageManager.Language["STR_FORMAT_FILE_FEXT"], track.original_format),
+                    new Description("%quality%", LanguageManager.Language["STR_FORMAT_FILE_FHD"], track.IsHD ? "(HQ)" : null),
+                    new Description("%label_name%", LanguageManager.Language["STR_FORMAT_FILE_FNAME"], track.label_name),
+                    new Description("%desc%", LanguageManager.Language["STR_FORMAT_FILE_FDESC"], track.description),
             };
             return desc;
         }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Soundcloud_Playlist_Downloader.JsonObjects;
+using Soundcloud_Playlist_Downloader.Language;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -56,7 +57,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 Thread.Sleep(50); // Pause 50ms before new attempt
             }
             if (updateSuccesful) return;
-            throw new Exception("Unable to update log");
+            throw new Exception(LanguageManager.Language["STR_EXCEPTION_UPDATELOG"]);
         }
 
         public string GetAllErrorsFromLog()

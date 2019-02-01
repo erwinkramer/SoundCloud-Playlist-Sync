@@ -43,10 +43,16 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.License = new System.Windows.Forms.TabPage();
             this.Projectwebsites = new System.Windows.Forms.TabPage();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.link_github_contributor_1 = new System.Windows.Forms.LinkLabel();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.Translators = new System.Windows.Forms.TabPage();
+            this.linkLabel3 = new System.Windows.Forms.LinkLabel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.label7 = new System.Windows.Forms.Label();
             this.Libraries = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.link_HtmlAgilityPack = new System.Windows.Forms.LinkLabel();
@@ -54,19 +60,19 @@
             this.link_naudioLame = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
             this.link_nAudio = new System.Windows.Forms.LinkLabel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.License.SuspendLayout();
             this.Projectwebsites.SuspendLayout();
+            this.Translators.SuspendLayout();
             this.Libraries.SuspendLayout();
             this.SuspendLayout();
             // 
             // link_github
             // 
             this.link_github.AutoSize = true;
-            this.link_github.Location = new System.Drawing.Point(105, 16);
+            this.link_github.Location = new System.Drawing.Point(122, 15);
             this.link_github.Name = "link_github";
-            this.link_github.Size = new System.Drawing.Size(189, 13);
+            this.link_github.Size = new System.Drawing.Size(232, 12);
             this.link_github.TabIndex = 2;
             this.link_github.TabStop = true;
             this.link_github.Text = "erwinkramer/SoundCloud-Playlist-Sync";
@@ -76,9 +82,9 @@
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.okButton.Location = new System.Drawing.Point(366, 208);
+            this.okButton.Location = new System.Drawing.Point(491, 192);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(40, 19);
+            this.okButton.Size = new System.Drawing.Size(47, 20);
             this.okButton.TabIndex = 24;
             this.okButton.Text = "&OK";
             this.okButton.Click += new System.EventHandler(this.okButton_Click);
@@ -86,9 +92,9 @@
             // link_github2
             // 
             this.link_github2.AutoSize = true;
-            this.link_github2.Location = new System.Drawing.Point(105, 39);
+            this.link_github2.Location = new System.Drawing.Point(122, 36);
             this.link_github2.Name = "link_github2";
-            this.link_github2.Size = new System.Drawing.Size(206, 13);
+            this.link_github2.Size = new System.Drawing.Size(251, 12);
             this.link_github2.TabIndex = 26;
             this.link_github2.TabStop = true;
             this.link_github2.Text = "StephenCasella/SoundCloud-Playlist-Sync";
@@ -98,9 +104,9 @@
             // 
             this.link_taglib.AccessibleName = "Taglib";
             this.link_taglib.AutoSize = true;
-            this.link_taglib.Location = new System.Drawing.Point(3, 12);
+            this.link_taglib.Location = new System.Drawing.Point(3, 11);
             this.link_taglib.Name = "link_taglib";
-            this.link_taglib.Size = new System.Drawing.Size(71, 13);
+            this.link_taglib.Size = new System.Drawing.Size(83, 12);
             this.link_taglib.TabIndex = 28;
             this.link_taglib.TabStop = true;
             this.link_taglib.Text = "TagLib-Sharp";
@@ -109,18 +115,18 @@
             // lbl_copy
             // 
             this.lbl_copy.AutoSize = true;
-            this.lbl_copy.Location = new System.Drawing.Point(12, 211);
+            this.lbl_copy.Location = new System.Drawing.Point(5, 195);
             this.lbl_copy.Name = "lbl_copy";
-            this.lbl_copy.Size = new System.Drawing.Size(299, 13);
+            this.lbl_copy.Size = new System.Drawing.Size(358, 12);
             this.lbl_copy.TabIndex = 29;
-            this.lbl_copy.Text = "copyright © 2013-2019. The SoundCloud-Playlist-Sync project";
+            this.lbl_copy.Text = "Copyright © 2013-2019. The SoundCloud-Playlist-Sync project";
             // 
             // lbl_info1
             // 
             this.lbl_info1.AutoSize = true;
-            this.lbl_info1.Location = new System.Drawing.Point(9, 9);
+            this.lbl_info1.Location = new System.Drawing.Point(5, 8);
             this.lbl_info1.Name = "lbl_info1";
-            this.lbl_info1.Size = new System.Drawing.Size(397, 13);
+            this.lbl_info1.Size = new System.Drawing.Size(486, 12);
             this.lbl_info1.TabIndex = 30;
             this.lbl_info1.Text = "A utility to synchronize local directories with SoundCloud playlists and favorite" +
     "d lists.";
@@ -128,18 +134,18 @@
             // lbl_taglib
             // 
             this.lbl_taglib.AutoSize = true;
-            this.lbl_taglib.Location = new System.Drawing.Point(156, 12);
+            this.lbl_taglib.Location = new System.Drawing.Point(182, 11);
             this.lbl_taglib.Name = "lbl_taglib";
-            this.lbl_taglib.Size = new System.Drawing.Size(36, 13);
+            this.lbl_taglib.Size = new System.Drawing.Size(38, 12);
             this.lbl_taglib.TabIndex = 31;
             this.lbl_taglib.Text = "v2.1.x";
             // 
             // link_JSON
             // 
             this.link_JSON.AutoSize = true;
-            this.link_JSON.Location = new System.Drawing.Point(3, 25);
+            this.link_JSON.Location = new System.Drawing.Point(3, 23);
             this.link_JSON.Name = "link_JSON";
-            this.link_JSON.Size = new System.Drawing.Size(54, 13);
+            this.link_JSON.Size = new System.Drawing.Size(61, 12);
             this.link_JSON.TabIndex = 32;
             this.link_JSON.TabStop = true;
             this.link_JSON.Text = "Json.NET";
@@ -148,18 +154,18 @@
             // lbl_JSON
             // 
             this.lbl_JSON.AutoSize = true;
-            this.lbl_JSON.Location = new System.Drawing.Point(156, 25);
+            this.lbl_JSON.Location = new System.Drawing.Point(182, 23);
             this.lbl_JSON.Name = "lbl_JSON";
-            this.lbl_JSON.Size = new System.Drawing.Size(42, 13);
+            this.lbl_JSON.Size = new System.Drawing.Size(44, 12);
             this.lbl_JSON.TabIndex = 33;
             this.lbl_JSON.Text = "v10.0.x";
             // 
             // link_postsharp
             // 
             this.link_postsharp.AutoSize = true;
-            this.link_postsharp.Location = new System.Drawing.Point(3, 38);
+            this.link_postsharp.Location = new System.Drawing.Point(3, 35);
             this.link_postsharp.Name = "link_postsharp";
-            this.link_postsharp.Size = new System.Drawing.Size(56, 13);
+            this.link_postsharp.Size = new System.Drawing.Size(63, 12);
             this.link_postsharp.TabIndex = 34;
             this.link_postsharp.TabStop = true;
             this.link_postsharp.Text = "PostSharp";
@@ -168,9 +174,9 @@
             // lbl_postSharp
             // 
             this.lbl_postSharp.AutoSize = true;
-            this.lbl_postSharp.Location = new System.Drawing.Point(156, 38);
+            this.lbl_postSharp.Location = new System.Drawing.Point(182, 35);
             this.lbl_postSharp.Name = "lbl_postSharp";
-            this.lbl_postSharp.Size = new System.Drawing.Size(36, 13);
+            this.lbl_postSharp.Size = new System.Drawing.Size(38, 12);
             this.lbl_postSharp.TabIndex = 35;
             this.lbl_postSharp.Text = "v5.0.x";
             // 
@@ -179,7 +185,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(3, 2);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(383, 147);
+            this.richTextBox1.Size = new System.Drawing.Size(520, 136);
             this.richTextBox1.TabIndex = 36;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
@@ -187,11 +193,12 @@
             // 
             this.tabControl1.Controls.Add(this.License);
             this.tabControl1.Controls.Add(this.Projectwebsites);
+            this.tabControl1.Controls.Add(this.Translators);
             this.tabControl1.Controls.Add(this.Libraries);
-            this.tabControl1.Location = new System.Drawing.Point(12, 25);
+            this.tabControl1.Location = new System.Drawing.Point(7, 23);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(397, 174);
+            this.tabControl1.Size = new System.Drawing.Size(531, 161);
             this.tabControl1.TabIndex = 31;
             // 
             // License
@@ -200,7 +207,7 @@
             this.License.Location = new System.Drawing.Point(4, 22);
             this.License.Name = "License";
             this.License.Padding = new System.Windows.Forms.Padding(3);
-            this.License.Size = new System.Drawing.Size(389, 148);
+            this.License.Size = new System.Drawing.Size(523, 135);
             this.License.TabIndex = 0;
             this.License.Text = "License";
             this.License.UseVisualStyleBackColor = true;
@@ -218,17 +225,28 @@
             this.Projectwebsites.Location = new System.Drawing.Point(4, 22);
             this.Projectwebsites.Name = "Projectwebsites";
             this.Projectwebsites.Padding = new System.Windows.Forms.Padding(3);
-            this.Projectwebsites.Size = new System.Drawing.Size(389, 148);
+            this.Projectwebsites.Size = new System.Drawing.Size(523, 135);
             this.Projectwebsites.TabIndex = 1;
             this.Projectwebsites.Text = "Project website(s)";
             this.Projectwebsites.UseVisualStyleBackColor = true;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(122, 77);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(52, 12);
+            this.linkLabel1.TabIndex = 31;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "HongSic";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_2);
+            // 
             // link_github_contributor_1
             // 
             this.link_github_contributor_1.AutoSize = true;
-            this.link_github_contributor_1.Location = new System.Drawing.Point(105, 61);
+            this.link_github_contributor_1.Location = new System.Drawing.Point(122, 56);
             this.link_github_contributor_1.Name = "link_github_contributor_1";
-            this.link_github_contributor_1.Size = new System.Drawing.Size(73, 13);
+            this.link_github_contributor_1.Size = new System.Drawing.Size(83, 12);
             this.link_github_contributor_1.TabIndex = 30;
             this.link_github_contributor_1.TabStop = true;
             this.link_github_contributor_1.Text = "valentingiraud";
@@ -237,29 +255,82 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 61);
+            this.label6.Location = new System.Drawing.Point(7, 56);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.Size = new System.Drawing.Size(77, 12);
             this.label6.TabIndex = 29;
             this.label6.Text = "Contributors:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 16);
+            this.label4.Location = new System.Drawing.Point(7, 15);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(95, 13);
+            this.label4.Size = new System.Drawing.Size(113, 12);
             this.label4.TabIndex = 28;
             this.label4.Text = "Current maintainer:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 39);
+            this.label3.Location = new System.Drawing.Point(7, 36);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(95, 13);
+            this.label3.Size = new System.Drawing.Size(111, 12);
             this.label3.TabIndex = 27;
             this.label3.Text = "Original developer:";
+            // 
+            // Translators
+            // 
+            this.Translators.Controls.Add(this.linkLabel3);
+            this.Translators.Controls.Add(this.label8);
+            this.Translators.Controls.Add(this.linkLabel2);
+            this.Translators.Controls.Add(this.label7);
+            this.Translators.Location = new System.Drawing.Point(4, 22);
+            this.Translators.Name = "Translators";
+            this.Translators.Size = new System.Drawing.Size(523, 135);
+            this.Translators.TabIndex = 3;
+            this.Translators.Text = "Translators";
+            this.Translators.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel3
+            // 
+            this.linkLabel3.AutoSize = true;
+            this.linkLabel3.Location = new System.Drawing.Point(122, 37);
+            this.linkLabel3.Name = "linkLabel3";
+            this.linkLabel3.Size = new System.Drawing.Size(52, 12);
+            this.linkLabel3.TabIndex = 37;
+            this.linkLabel3.TabStop = true;
+            this.linkLabel3.Text = "HongSic";
+            this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_2);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(7, 37);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(99, 12);
+            this.label8.TabIndex = 36;
+            this.label8.Text = "Korean (한국어):";
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(122, 15);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(52, 12);
+            this.linkLabel2.TabIndex = 35;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "HongSic";
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_2);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 15);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(116, 12);
+            this.label7.TabIndex = 34;
+            this.label7.Text = "Implement function:";
             // 
             // Libraries
             // 
@@ -277,7 +348,7 @@
             this.Libraries.Controls.Add(this.lbl_taglib);
             this.Libraries.Location = new System.Drawing.Point(4, 22);
             this.Libraries.Name = "Libraries";
-            this.Libraries.Size = new System.Drawing.Size(389, 148);
+            this.Libraries.Size = new System.Drawing.Size(523, 135);
             this.Libraries.TabIndex = 2;
             this.Libraries.Text = "Libraries";
             this.Libraries.UseVisualStyleBackColor = true;
@@ -285,18 +356,18 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(156, 77);
+            this.label5.Location = new System.Drawing.Point(182, 71);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 13);
+            this.label5.Size = new System.Drawing.Size(38, 12);
             this.label5.TabIndex = 41;
             this.label5.Text = "v1.6.x";
             // 
             // link_HtmlAgilityPack
             // 
             this.link_HtmlAgilityPack.AutoSize = true;
-            this.link_HtmlAgilityPack.Location = new System.Drawing.Point(3, 77);
+            this.link_HtmlAgilityPack.Location = new System.Drawing.Point(3, 71);
             this.link_HtmlAgilityPack.Name = "link_HtmlAgilityPack";
-            this.link_HtmlAgilityPack.Size = new System.Drawing.Size(80, 13);
+            this.link_HtmlAgilityPack.Size = new System.Drawing.Size(92, 12);
             this.link_HtmlAgilityPack.TabIndex = 40;
             this.link_HtmlAgilityPack.TabStop = true;
             this.link_HtmlAgilityPack.Text = "HtmlAgilityPack";
@@ -305,18 +376,18 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(156, 64);
+            this.label2.Location = new System.Drawing.Point(182, 59);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
+            this.label2.Size = new System.Drawing.Size(38, 12);
             this.label2.TabIndex = 39;
             this.label2.Text = "v1.0.x";
             // 
             // link_naudioLame
             // 
             this.link_naudioLame.AutoSize = true;
-            this.link_naudioLame.Location = new System.Drawing.Point(3, 64);
+            this.link_naudioLame.Location = new System.Drawing.Point(3, 59);
             this.link_naudioLame.Name = "link_naudioLame";
-            this.link_naudioLame.Size = new System.Drawing.Size(71, 13);
+            this.link_naudioLame.Size = new System.Drawing.Size(82, 12);
             this.link_naudioLame.TabIndex = 38;
             this.link_naudioLame.TabStop = true;
             this.link_naudioLame.Text = "NAudio.Lame";
@@ -325,40 +396,29 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(156, 51);
+            this.label1.Location = new System.Drawing.Point(182, 47);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.Size = new System.Drawing.Size(38, 12);
             this.label1.TabIndex = 37;
             this.label1.Text = "v1.8.x";
             // 
             // link_nAudio
             // 
             this.link_nAudio.AutoSize = true;
-            this.link_nAudio.Location = new System.Drawing.Point(3, 51);
+            this.link_nAudio.Location = new System.Drawing.Point(3, 47);
             this.link_nAudio.Name = "link_nAudio";
-            this.link_nAudio.Size = new System.Drawing.Size(42, 13);
+            this.link_nAudio.Size = new System.Drawing.Size(46, 12);
             this.link_nAudio.TabIndex = 36;
             this.link_nAudio.TabStop = true;
             this.link_nAudio.Text = "NAudio";
             this.link_nAudio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(105, 86);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(48, 13);
-            this.linkLabel1.TabIndex = 31;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "HongSic";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_2);
-            // 
             // BoxAbout
             // 
             this.AcceptButton = this.okButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 235);
+            this.ClientSize = new System.Drawing.Size(540, 217);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lbl_info1);
@@ -367,17 +427,19 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BoxAbout";
-            this.Padding = new System.Windows.Forms.Padding(9);
+            this.Padding = new System.Windows.Forms.Padding(10, 8, 10, 8);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Soundcloud Playlist Sync";
+            this.Text = "About Soundcloud Playlist Sync";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AboutBox1_FormClosing);
             this.Load += new System.EventHandler(this.AboutBox1_Load);
             this.tabControl1.ResumeLayout(false);
             this.License.ResumeLayout(false);
             this.Projectwebsites.ResumeLayout(false);
             this.Projectwebsites.PerformLayout();
+            this.Translators.ResumeLayout(false);
+            this.Translators.PerformLayout();
             this.Libraries.ResumeLayout(false);
             this.Libraries.PerformLayout();
             this.ResumeLayout(false);
@@ -413,5 +475,10 @@
         private System.Windows.Forms.LinkLabel link_github_contributor_1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.TabPage Translators;
+        private System.Windows.Forms.LinkLabel linkLabel3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.Label label7;
     }
 }

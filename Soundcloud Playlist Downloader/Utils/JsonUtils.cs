@@ -6,6 +6,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Soundcloud_Playlist_Downloader.JsonObjects;
+using Soundcloud_Playlist_Downloader.Language;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -84,7 +85,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 return matchingPlaylistItem.id.ToString();
             }
             _manifestUtil.ProgressUtil.IsError = true;
-            throw new Exception("Unable to find a matching playlist");
+            throw new Exception(LanguageManager.Language["STR_EXCEPTION_JSONUTIL1"]);
         }
 
         public Track RetrieveTrackFromUrl(string url)
@@ -133,7 +134,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             catch (Exception e)
             {
                 _manifestUtil.ProgressUtil.IsError = true;
-                throw new Exception("Errors occurred retrieving the playlist list information. Double check your url.", e);
+                throw new Exception(LanguageManager.Language["STR_EXCEPTION_JSONUTIL2"], e);
             }
             return playlistsitems;
         }
@@ -173,7 +174,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             catch (Exception e)
             {
                 _manifestUtil.ProgressUtil.IsError = true;
-                throw new Exception("Errors occurred retrieving the tracks list information. Double check your url.", e);
+                throw new Exception(LanguageManager.Language["STR_EXCEPTION_JSONUTIL3"], e);
             }
             return tracks;
         }
