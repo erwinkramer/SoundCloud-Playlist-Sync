@@ -70,7 +70,7 @@ namespace Soundcloud_Playlist_Downloader.Language
             m.lng.Add("STR_MAIN_CONFACTIVE", "Active");
             m.lng.Add("STR_MAIN_DOWMPROG", "Download Progress");
             
-            m.lng.Add("STR_MAIN_ADVANCE", "Advance Option");
+            m.lng.Add("STR_MAIN_ADVANCE", "Advanced Option");
             m.lng.Add("STR_MAIN_ADVANCE_CONVERSE", "Conversion");
             m.lng.Add("STR_MAIN_ADVANCE_HQ", "Choose high quality versions if available");
             m.lng.Add("STR_MAIN_ADVANCE_HQ_MP3", "Convert high quality to MP3");
@@ -131,15 +131,15 @@ namespace Soundcloud_Playlist_Downloader.Language
             m.lng.Add("STR_ABOUT_OK", "OK");
             m.lng.Add("STR_ABOUT_TAB1", "License");
             m.lng.Add("STR_ABOUT_TAB2", "Project website(s)");
-            m.lng.Add("STR_ABOUT_TAB3", "Translators");
+            m.lng.Add("STR_ABOUT_TAB3", "Translations");
             m.lng.Add("STR_ABOUT_TAB4", "Libraries");
             m.lng.Add("STR_ABOUT_PW_CM", "Current maintainer");
             m.lng.Add("STR_ABOUT_PW_OD", "Original developer");
             m.lng.Add("STR_ABOUT_PW_CON", "Contributors");
-            m.lng.Add("STR_ABOUT_TRANSIMPL", "Implement function");
+            m.lng.Add("STR_ABOUT_TRANSIMPL", "Translator created by");
 
             //FileName Formatter
-            m.lng.Add("STR_FORMAT_FILE_TITLE", "Implement");
+            m.lng.Add("STR_FORMAT_FILE_TITLE", "Format");
             m.lng.Add("STR_FORMAT_FILE_SAMTR", "Sample tracks");
             m.lng.Add("STR_FORMAT_FILE_FOROP", "Format options");
             m.lng.Add("STR_FORMAT_FILE_FROMID3", "From ID3 Tag");
