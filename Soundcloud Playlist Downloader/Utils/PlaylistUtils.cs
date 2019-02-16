@@ -84,7 +84,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 from m in manifest.AsParallel()
                 orderby m.favoritings_count ascending
                 select m.LocalPathRelative).ToList();
-            newM3U.Insert(0, string.Format("{0} {1}. {2}", Definition, LanguageManager.Language["STR_PLISTUTIL_SORTML"], GeneratedBy));
+            newM3U.Insert(0, string.Format("#{0} {1}. {2}", Definition, LanguageManager.Language["STR_PLISTUTIL_SORTML"], GeneratedBy));
             return newM3U;
         }
         public static IList<string> SortOnMostPlayed(List<Track> manifest)
@@ -93,7 +93,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 from m in manifest.AsParallel()
                 orderby m.playback_count descending 
                 select m.LocalPathRelative).ToList();
-            newM3U.Insert(0, string.Format("{0} {1}. {2}", Definition, LanguageManager.Language["STR_PLISTUTIL_SORTMP"], GeneratedBy));
+            newM3U.Insert(0, string.Format("#{0} {1}. {2}", Definition, LanguageManager.Language["STR_PLISTUTIL_SORTMP"], GeneratedBy));
             return newM3U;
         }
 
@@ -103,7 +103,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 from m in manifest.AsParallel()
                 orderby m.IndexFromSoundcloud ascending
                 select m.LocalPathRelative).ToList();
-            newM3U.Insert(0, string.Format("{0} {1}. {2}", Definition, LanguageManager.Language["STR_PLISTUTIL_SORTSO"], GeneratedBy));
+            newM3U.Insert(0, string.Format("#{0} {1}. {2}", Definition, LanguageManager.Language["STR_PLISTUTIL_SORTSO"], GeneratedBy));
             return newM3U;
         }
         public static IList<string> RecentlyAdded(List<Track> manifest)
@@ -112,7 +112,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 from m in manifest.AsParallel()
                 orderby m.DownloadDateTimeUtc descending
                 select m.LocalPathRelative).ToList();
-            newM3U.Insert(0, string.Format("{0} {1}. {2}", Definition, LanguageManager.Language["STR_PLISTUTIL_SORTRD"], GeneratedBy));
+            newM3U.Insert(0, string.Format("#{0} {1}. {2}", Definition, LanguageManager.Language["STR_PLISTUTIL_SORTRD"], GeneratedBy));
             return newM3U;
         }
         public static IList<string> RecentlyChanged(List<Track> manifest)
@@ -121,7 +121,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 from m in manifest.AsParallel()
                 orderby m.ModifiedDateTimeUtc descending
                 select m.LocalPathRelative).ToList();
-            newM3U.Insert(0, string.Format("{0} {1}. {2}", Definition, LanguageManager.Language["STR_PLISTUTIL_SORTRC"], GeneratedBy));
+            newM3U.Insert(0, string.Format("#{0} {1}. {2}", Definition, LanguageManager.Language["STR_PLISTUTIL_SORTRC"], GeneratedBy));
             return newM3U;          
         }
     }
