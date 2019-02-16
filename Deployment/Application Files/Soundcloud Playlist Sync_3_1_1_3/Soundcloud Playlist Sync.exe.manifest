@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Soundcloud Playlist Sync.exe" version="3.1.1.3" publicKeyToken="77fe0a7810e9e24d" language="en" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="Resources\MainIcon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Soundcloud Playlist Sync" version="3.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Soundcloud Playlist Sync.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet class="System.Security.PermissionSet" version="1" ID="Custom" SameSite="site" Unrestricted="true" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!-- UAC Manifest Options
+            If you want to change the Windows User Account Control level replace the 
+            requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+            Specifying requestedExecutionLevel node will disable file and registry virtualization.
+            If you want to utilize File and Registry Virtualization for backward 
+            compatibility then delete the requestedExecutionLevel node.
+        -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="HtmlAgilityPack.dll" size="127488">
+      <assemblyIdentity name="HtmlAgilityPack" version="1.8.14.0" publicKeyToken="BD319B19EAF3B43A" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>gfW+hpxsyEW/28xCkm7WTdmcoYUVGElnN+ldxMiSGTs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.WindowsAPICodePack.dll" size="114176">
+      <assemblyIdentity name="Microsoft.WindowsAPICodePack" version="1.1.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>JkGA5uxMlMJGecOSq8hDghbN59/bGwvv6L8iFuiVJm8=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.WindowsAPICodePack.Shell.dll" size="587776">
+      <assemblyIdentity name="Microsoft.WindowsAPICodePack.Shell" version="1.1.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>bqJb5JpOlsQ8ILwp6xztB49OC87EZzznIiccd7wvoSE=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.WindowsAPICodePack.ShellExtensions.dll" size="38400">
+      <assemblyIdentity name="Microsoft.WindowsAPICodePack.ShellExtensions" version="1.1.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>whvEhHrDx122S196/rD8sOIrpDa324BpJSO0gQsEbSI=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NAudio.dll" size="507904">
+      <assemblyIdentity name="NAudio" version="1.8.5.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>kiVMtUu92HX2lQwq+/4XwAG799zNQ9Q+r9t9m/7DWv4=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="NAudio.Lame.dll" size="84480">
+      <assemblyIdentity name="NAudio.Lame" version="1.0.9.26885" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>uu1SBJ0sXLfaTWjft+dIDb2fdaXc93tE7w+FRXJ/t3c=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="675240">
+      <assemblyIdentity name="Newtonsoft.Json" version="12.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>tmdJuB4UifzY11SyrTnr4NtoE0TjkqP0nckjVkO9vQY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="PostSharp.dll" size="240688">
+      <assemblyIdentity name="PostSharp" version="6.0.34.0" publicKeyToken="B13FD38B8F9C99D7" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>wNecbnJOA8qk4CymTSgCsagzL78OXmH/eOXOZI2tffc=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Soundcloud Playlist Sync.exe" size="229056">
+      <assemblyIdentity name="Soundcloud Playlist Sync" version="3.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>zOFw5PVYc53ig4N/pROCRcEXYrwf0h/zzVgVa1C672Y=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="taglib-sharp.dll" size="443392">
+      <assemblyIdentity name="taglib-sharp" version="2.1.0.0" publicKeyToken="DB62EBA44689B5B0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>iuCVedAthcrHWIW2RUfcEpQOm58u5B0cRh9ZkIRQcYg=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Language\ko-kr.txt" size="17125">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>mOwgVVOJS8arJPZmpv1Lr2+JAdtPEuF+MC7d1IN8E/s=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\MainIcon.ico" size="1150">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>0bUymdhqgYdKtYjk8iBDLF2R0WC3uokZug/xAcbz0YY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="scdownloader.ico" size="28958">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>ohvWFmxBcR7lsVsOmQG9/mvTIKH7b41bJ/TxiFcIhME=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Soundcloud Playlist Sync.exe.config" size="4789">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>pPDV1uQfulzQpvBZo49A7uHnV4Jsko1V4C66rk5zSdI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="SoundCloudSync_200yr.txt" size="463">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>y0OlBNQ95xe12u5vwJz9uRCee22ixHW/PWz1H0D2otk=</dsig:DigestValue>
+    </hash>
+  </file>
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- A list of all Windows versions that this application is designed to work with. 
+      Windows will automatically select the most compatible environment.-->
+      <!-- If your application is designed to work with Windows Vista, uncomment the following supportedOS node-->
+      <!--<supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f0}"></supportedOS>-->
+      <!-- If your application is designed to work with Windows 7, uncomment the following supportedOS node-->
+      <!--<supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>-->
+      <!-- If your application is designed to work with Windows 8, uncomment the following supportedOS node-->
+      <!--<supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}"></supportedOS>-->
+    </application>
+  </compatibility>
+<publisherIdentity name="CN=github.com/erwinkramer/SoundCloud-Playlist-Sync" issuerKeyHash="6ec63ae77a0e46a3cfdc6d642375af17751652d3" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>jn/DaFfZ33Zlji3fuPqjqfccsH5H7nB5ikqjsRP8mtg=</DigestValue></Reference></SignedInfo><SignatureValue>ny2Ysx2lJFhVUZCTPU4MVpY4H+Imz7dSlHDmAHPkt8zH+lp5sfPH2zcVD+8DMmrwsaBum5W6p0oTtiT42dQ7WB2TM8z8+5Ewpk2t9gAaeTl0lJ7qX0vtvI0WvksuY3zH+hIR1Io4liSWiu6buHQ6Y4vJ/17Dfff06RoWgoe4EHjicjLjfCNzj3FkmPQhdT3XTvL4IGOjiprhmws+1PoSdCJ/1Wt8RN1m4sUp5SvEpqjnzoh1v4v7x82As5g+RKG9KY2QHa2ZSLENUGVogFbFegr77z6aC+tQ3QRES2J55NhZdFDMCR/7eDA5JQ+T6JYPQ+lvIrBKyRuDxZ5rTsyBSg==</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>+REoq0Dpf/zsgdwJBtPgPNgHWDf+BNLCP7snyhoToI+6O9pbcYfpCab+TQUgdJQaqXipqWMwSF7Za0XAIPeefZlT7bwWMXCVCjQlqp/p/WvoUoR/faRIIzpfrTbDpwYhz/qzqdLuMI+JhuY5ndRVu5zjtO1QKbj3Jwp9gXdoo0zVxA3qMtwfkAmN+/yBqgwax+pHhemjRLki4T5FgHLDdNpJnV1Qyalsmo2ScuXbVorL4HKDOppUNEBsisWXPr4BFiuxZpc7GEo5qm4Pv1u4ZcSGoZXpt3tCNfXNE7A8B+wK0GtVsLEDOBGjWNW+Ln0eJqvm6AfYSVidx6krNTK7YQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="d89afc13b1a34a8a7970ee477eb01cf7a9a3fab8df2d8e6576dfd95768c37f8e" Description="" Url=""><as:assemblyIdentity name="Soundcloud Playlist Sync.exe" version="3.1.1.3" publicKeyToken="77fe0a7810e9e24d" language="en" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=github.com/erwinkramer/SoundCloud-Playlist-Sync</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>G8Zpcti7nrjq+6zb1ZHFnZ2KblQly9CasAr8XdFNSBk=</DigestValue></Reference></SignedInfo><SignatureValue>x1lZ/Mujf/lFEDajW4DeS7sS2PlqRTgtbcHLL7ATgztFi6fya0LQ6LmUOt7NgRjTwS0jhp5lZU6nQZJb0cyTMijvc/KUW/31uq7VvkmDs08TP5nC9vCxAd4PW8XiuZ49LpVgYVnKe7ogvUMkx0Alypaw0FL0nsVrxvhGkw4hti0p3BCvaKlrZQkFBTBBtlF6aHvOsj1Z0SjzIWLRdmI/qI/Sg1EwXymcywpu5jzWc9O+MFd1PxeV/2WlwBLSZTq6RfJsSiI7Pdib08Gjnj1hHgohs0uLp/Px58+2rW2kCS0Hv+bGz5DFgZBFcTS778zc6REW+7SBarsid7KQW/zsKg==</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>+REoq0Dpf/zsgdwJBtPgPNgHWDf+BNLCP7snyhoToI+6O9pbcYfpCab+TQUgdJQaqXipqWMwSF7Za0XAIPeefZlT7bwWMXCVCjQlqp/p/WvoUoR/faRIIzpfrTbDpwYhz/qzqdLuMI+JhuY5ndRVu5zjtO1QKbj3Jwp9gXdoo0zVxA3qMtwfkAmN+/yBqgwax+pHhemjRLki4T5FgHLDdNpJnV1Qyalsmo2ScuXbVorL4HKDOppUNEBsisWXPr4BFiuxZpc7GEo5qm4Pv1u4ZcSGoZXpt3tCNfXNE7A8B+wK0GtVsLEDOBGjWNW+Ln0eJqvm6AfYSVidx6krNTK7YQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIDhDCCAmygAwIBAgIQE6nB+9T8YJxE505ped7UjzANBgkqhkiG9w0BAQsFADA6MTgwNgYDVQQDDC9naXRodWIuY29tL2Vyd2lua3JhbWVyL1NvdW5kQ2xvdWQtUGxheWxpc3QtU3luYzAgFw0xODEyMTgxMDQxMDRaGA8yMjE4MTIxODEwNTEwNFowOjE4MDYGA1UEAwwvZ2l0aHViLmNvbS9lcndpbmtyYW1lci9Tb3VuZENsb3VkLVBsYXlsaXN0LVN5bmMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQD5ESirQOl//OyB3AkG0+A82AdYN/4E0sI/uyfKGhOgj7o72ltxh+kJpv5NBSB0lBqpeKmpYzBIXtlrRcAg9559mVPtvBYxcJUKNCWqn+n9a+hShH99pEgjOl+tNsOnBiHP+rOp0u4wj4mG5jmd1FW7nOO07VApuPcnCn2Bd2ijTNXEDeoy3B+QCY37/IGqDBrH6keF6aNEuSLhPkWAcsN02kmdXVDJqWyajZJy5dtWisvgcoM6mlQ0QGyKxZc+vgEWK7FmlzsYSjmqbg+/W7hlxIahlem3e0I19c0TsDwH7ArQa1WwsQM4EaNY1b4ufR4mq+boB9hJWJ3HqSs1MrthAgMBAAGjgYMwgYAwDgYDVR0PAQH/BAQDAgeAMBMGA1UdJQQMMAoGCCsGAQUFBwMDMDoGA1UdEQQzMDGCL2dpdGh1Yi5jb20vZXJ3aW5rcmFtZXIvU291bmRDbG91ZC1QbGF5bGlzdC1TeW5jMB0GA1UdDgQWBBRuxjrneg5Go8/cbWQjda8XdRZS0zANBgkqhkiG9w0BAQsFAAOCAQEA4+JyM/KVw/HNZ+68nDsrIHEOyoLqD9CBibWZjWrxhO3b1ewRtt2g+DyMRk21alWPsJo/mpoXwLfvoQrPw9OD887NRD4qjome2rSrF6o+tqw21VXbj1IaXvBzot4Iplyyb/CtbyjwW9oB0zn1ynKShxqUXe0i+PrPTSg6CW2c/qGQmLB8Eq7/QZBmksP/+vnU/X2A6/RVTgc2a4TdAdX6Aslm4UNKpuwJjVcJDJm8Fzjw4X7eJFb7/o6m+is9RScktkn+zM3TYgw1ma65g5iD6HIKZc/zEx/c/3vx+sTcAS8Nigob8/OLhZgUc1/jqsMzZD5L/kguGpMRLfmyWuZv3w==</X509Certificate></X509Data></KeyInfo><Object><as:Timestamp>MIIL0wYJKoZIhvcNAQcCoIILxDCCC8ACAQExCzAJBgUrDgMCGgUAMIIBEwYJKoZI
+hvcNAQcBoIIBBASCAQDHWVn8y6N/+UUQNqNbgN5LuxLY+WpFOC1twcsvsBODO0WL
+p/JrQtDouZQ63s2BGNPBLSOGnmVlTqdBklvRzJMyKO9z8pRb/fW6rtW+SYOzTxM/
+mcL28LEB3g9bxeK5nj0ulWBhWcp7uiC9QyTHQCXKlrDQUvSexWvG+EaTDiG2LSnc
+EK9oqWtlCQUFMEG2UXpoe86yPVnRKPMhYtF2Yj+oj9KDUTBfKZzLCm7mPNZz074w
+V3U/F5X/ZaXAEtJlOrpF8mxKIjs92JvTwaOePWEeCiGzS4un8/Hnz7atbaQJLQe/
+5sbPkMWBkEVxNLvvzNzpERb7tIFquyJ3spBb/OwqoIIImTCCA+4wggNXoAMCAQIC
+EH6T6/t8xk5Z6kuad9QG/DswDQYJKoZIhvcNAQEFBQAwgYsxCzAJBgNVBAYTAlpB
+MRUwEwYDVQQIEwxXZXN0ZXJuIENhcGUxFDASBgNVBAcTC0R1cmJhbnZpbGxlMQ8w
+DQYDVQQKEwZUaGF3dGUxHTAbBgNVBAsTFFRoYXd0ZSBDZXJ0aWZpY2F0aW9uMR8w
+HQYDVQQDExZUaGF3dGUgVGltZXN0YW1waW5nIENBMB4XDTEyMTIyMTAwMDAwMFoX
+DTIwMTIzMDIzNTk1OVowXjELMAkGA1UEBhMCVVMxHTAbBgNVBAoTFFN5bWFudGVj
+IENvcnBvcmF0aW9uMTAwLgYDVQQDEydTeW1hbnRlYyBUaW1lIFN0YW1waW5nIFNl
+cnZpY2VzIENBIC0gRzIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCx
+rLNJVEuXHBIK2CV5kSJXKm/cuCbEQ3Nrwr8uUFr7FMJ2jkMBJUO0oeJF9Oi3e8N0
+zCLXtJQAAvdN7b+0t0Qka81fRTvRRM5DEnMXgotptCvLmR6schsmTXEfsTHd+1Fh
+AlOmqvVJLAV4RaUvic7nmef+jOJXPz3GktxK+Hsz5HkK+/B1iEGc/8UDUZmq12yf
+k2mHZSmDhcJgFMTIyTsU2sCB8B8NdN6SIqvK9/t0fCfm90obf6fDni2uiuqm5qon
+Fn1h95hxEbziUKFL5V365Q6nLJ+qZSDT2JboyHylTkhE/xniRAeSC9dohIBdanhk
+Rc1gRn5UwRN8xXnxycFxAgMBAAGjgfowgfcwHQYDVR0OBBYEFF+a9W5czMx0mtTd
+fe8/2+xMgC7dMDIGCCsGAQUFBwEBBCYwJDAiBggrBgEFBQcwAYYWaHR0cDovL29j
+c3AudGhhd3RlLmNvbTASBgNVHRMBAf8ECDAGAQH/AgEAMD8GA1UdHwQ4MDYwNKAy
+oDCGLmh0dHA6Ly9jcmwudGhhd3RlLmNvbS9UaGF3dGVUaW1lc3RhbXBpbmdDQS5j
+cmwwEwYDVR0lBAwwCgYIKwYBBQUHAwgwDgYDVR0PAQH/BAQDAgEGMCgGA1UdEQQh
+MB+kHTAbMRkwFwYDVQQDExBUaW1lU3RhbXAtMjA0OC0xMA0GCSqGSIb3DQEBBQUA
+A4GBAAMJm495739ZMKrvaLX64wkdu0+CBl03X6ZSnxaN6hySCURu9W3rWHww6Plp
+jSNzCxJvR6muORH4KrGbsBrDjutZlgCtzgxNstAxpghcKnr84nodV0yoZRjpeUBi
+JZZux8c3aoMhCI5B6t3ZVz8dd0mHKhYGXqY4aiISo1EZg362MIIEozCCA4ugAwIB
+AgIQDs/0OMj+vzVuBNhqmBsaUDANBgkqhkiG9w0BAQUFADBeMQswCQYDVQQGEwJV
+UzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMTJ1N5bWFu
+dGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMjAeFw0xMjEwMTgwMDAw
+MDBaFw0yMDEyMjkyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMR0wGwYDVQQKExRTeW1h
+bnRlYyBDb3Jwb3JhdGlvbjE0MDIGA1UEAxMrU3ltYW50ZWMgVGltZSBTdGFtcGlu
+ZyBTZXJ2aWNlcyBTaWduZXIgLSBHNDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAKJjCzlEuLsjp0RJuw7/ofBhClOTsJjbrSwPSsVu/4Y8U1UPFc4EPyv9
+qZaW2b5heQtbyUyGduXgQ0sile7CK0PBn9hotI5AT+6FOLkRxSPyZFjwFTJvTleh
+roikAtcqHs1L4d1j1ReJMluwXplaqJ0oUA4X7pbbYTtFUR3PElYLkkf8q672Zj1H
+rHBy55LnX80QucSDZJQZvSWA4ejSIqXQugJ6oXeTW2XD7hd0vEGGKtwITIySjJEt
+nndEH2jWqHR32w5bMotWizO92WPISZ06xcXqMwvS8aMb9Iu+2bNXizveBKd6IrIk
+ri7HcMW+ToMmCPsLvalPmQjhEChyqs0CAwEAAaOCAVcwggFTMAwGA1UdEwEB/wQC
+MAAwFgYDVR0lAQH/BAwwCgYIKwYBBQUHAwgwDgYDVR0PAQH/BAQDAgeAMHMGCCsG
+AQUFBwEBBGcwZTAqBggrBgEFBQcwAYYeaHR0cDovL3RzLW9jc3Aud3Muc3ltYW50
+ZWMuY29tMDcGCCsGAQUFBzAChitodHRwOi8vdHMtYWlhLndzLnN5bWFudGVjLmNv
+bS90c3MtY2EtZzIuY2VyMDwGA1UdHwQ1MDMwMaAvoC2GK2h0dHA6Ly90cy1jcmwu
+d3Muc3ltYW50ZWMuY29tL3Rzcy1jYS1nMi5jcmwwKAYDVR0RBCEwH6QdMBsxGTAX
+BgNVBAMTEFRpbWVTdGFtcC0yMDQ4LTIwHQYDVR0OBBYEFEbGaaMOShQe1UzaUmMX
+P142vA3mMB8GA1UdIwQYMBaAFF+a9W5czMx0mtTdfe8/2+xMgC7dMA0GCSqGSIb3
+DQEBBQUAA4IBAQB4O7SRKgBM8I9iMDd4o4QnB28Yst4l3KDUlAOqhk4ln5pAAxzd
+zuN5yyFoBtq2MrRtv/QsJmMz5ElkbQ3mw2cO9wWkNWx8iRbG6bLfsundIMZxD82V
+dNy2XN69Nx9DeOZ4tc0oBCCjqvFLxIgpkQ6A0RH83Vx2bk9eDkVGQW4NsOo4mrE6
+2glxEPwcebSAe6xp9P2ctgwWK/F/Wwk9m1viFsoTgW0ALjgNqCmPLOGy9FqpAa8V
+nCwvSRvbIrvD/niUUcOGsYKIXfA9tFGheTMrLnu53CAJE3Hrahlbz+ilMFcsiUk/
+uc9/yb8+ImhjU5q9aXSsxR08f5Lgw7wc2AR1MYIB+DCCAfQCAQEwcjBeMQswCQYD
+VQQGEwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xMDAuBgNVBAMT
+J1N5bWFudGVjIFRpbWUgU3RhbXBpbmcgU2VydmljZXMgQ0EgLSBHMgIQDs/0OMj+
+vzVuBNhqmBsaUDAJBgUrDgMCGgUAoF0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEH
+ATAcBgkqhkiG9w0BCQUxDxcNMTkwMjE2MTE1MTAwWjAjBgkqhkiG9w0BCQQxFgQU
+UacZ4su1Gt/BFT31gQKvlfQpYIswDQYJKoZIhvcNAQEBBQAEggEATF9Qfmtki+Cr
+oHnBPhyV37NtrVKqgx2pqATatfrTbcmC6BOF9CZ/u0QsgPraKy3T4D6cDQyHr28d
+4K8V6j+KshaR4thtEzq2nHJCHs6egI3CA0pZsaVYIRrgmfgvTnx6Cd4iNrhiP9r6
+aKBJI1phVHC9/dvodPhmVrMgEKQ7Hpl1+596Zw9w3ZQMXcgAsXF26CuFhHHe0nTn
+SNINhMYTsTFNh0mRcq+CPIXw3lC10KST9PkNQVRj1AvmzbmWITQOj2qmvI/tIw9c
+twgHP7Kw040F6BWN1SC1v3l3SVmsa2Qav04MHVeEfWUKZoqWwKPhYpuSdbTkJVkt
+hbju0LmMqw==
+</as:Timestamp></Object></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
