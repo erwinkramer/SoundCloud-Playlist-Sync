@@ -37,7 +37,7 @@
     <PublisherName>SoundCloud-Playlist-Sync team</PublisherName>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationRevision>6</ApplicationRevision>
     <ApplicationVersion>3.1.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -85,7 +85,7 @@
   <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationIcon>Resources\MainIcon.ico</ApplicationIcon>
+    <ApplicationIcon>MainIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -277,6 +277,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Language\ko-kr.txt" />
+    <Content Include="MainIcon.ico" />
     <Content Include="SoundCloudSync_200yr.txt" />
     <None Include="Resources\Icon1.ico" />
     <None Include="Resources\MainIcon.ico" />
