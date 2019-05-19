@@ -12,7 +12,7 @@ namespace Soundcloud_Playlist_Downloader.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -22,7 +22,7 @@ namespace Soundcloud_Playlist_Downloader.Properties {
                 return defaultInstance;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -34,7 +34,7 @@ namespace Soundcloud_Playlist_Downloader.Properties {
                 this["Language"] = value;
             }
         }
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
@@ -296,36 +296,6 @@ namespace Soundcloud_Playlist_Downloader.Properties {
             }
             set {
                 this["chk_MergePlaylists"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("%user% - %title% %quality%")]
-        public string FormatForName
-        {
-            get
-            {
-                return ((string)(this["FormatForName"]));
-            }
-            set
-            {
-                this["FormatForName"] = value;
-            }
-        }
-
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("%user% - %title% %quality%")]
-        public string FormatForTag
-        {
-            get
-            {
-                return ((string)(this["FormatForTag"]));
-            }
-            set
-            {
-                this["FormatForTag"] = value;
             }
         }
     }

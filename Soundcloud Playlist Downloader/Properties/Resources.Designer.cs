@@ -19,7 +19,7 @@ namespace Soundcloud_Playlist_Downloader.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,17 +61,30 @@ namespace Soundcloud_Playlist_Downloader.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Language=한국어 (Korean)
-        ///Author=HongSic (HSKernel)
+        ///   Looks up a localized string similar to //Language: 한국어 (Korean)
+        /////Author: HongSic (HSKernel)
         ///
-        /////API Config 영역
-        ///STR_APICONFIG_TITLE=API 설정
-        ///STR_APICONFIG_DESC=이 설정은 클라이언트 ID를 변경합니다.\n만약 API가 인증을 거부한다고 뜨면 클라이언트 ID가 더 이상 작동하지 않는 것입니다.\n버튼 밑의 링크를 눌러 새 ID를 만드세요.\nhttp://soundcloud.com/you/apps/new
-        ///STR_APICONFIG_ACTIVE=활성화
-        ///STR_APICONFIG_CLIENTID=클라이언트 ID
-        ///STR_APICONFIG_CUSTOMID=사용자 ID
-        ///STR_APICONFIG_SAVE=설정 저장
-        ///STR_APICONFIG_LINK=클릭하여 새 ID 만들기.
+        /////공통영역
+        ///LANGUAGE=한국어
+        ///STR_ERR=오류
+        ///STR_ABORT=중단
+        ///STR_SYNCHRONIZE=동기화
+        ///
+        /////메인창 영역
+        ///STR_MAIN_TITLE_STABLE=사운드 클라우드 재생목록 동기화 {0} 안정화 버전
+        ///STR_MAIN_MENU_CONFIGS=구성 설정
+        ///STR_MAIN_MENU_CONFIG=구성 설정
+        ///STR_MAIN_MENU_CLIENT=API 설정
+        ///STR_MAIN_MENU_UPDATE=업데이트(판올림)
+        ///STR_MAIN_MENU_ABOUT=이 프로그램은
+        ///STR_MAIN_MENU_LNG=언어
+        ///
+        ///STR_MAIN_BASIC=기본 설정
+        ///STR_MAIN_BASIC_URL=사운드 클라우드 URL (주소)
+        ///STR_MAIN_BASIC_DIR=로컬 디렉터리
+        ///STR_MAIN_BASIC_BROWSE=찾아보기
+        ///STR_MAIN_BASIC_DM=다운로드 방법
+        ///STR_MAI [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Language_Korean {
             get {
