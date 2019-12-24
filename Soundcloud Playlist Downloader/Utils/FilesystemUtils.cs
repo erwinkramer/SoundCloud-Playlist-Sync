@@ -96,6 +96,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             var filename = Format.
                 Replace("%title%", track.Title).
                 Replace("%user%", track.Artist).
+                Replace("%artist%", track.Artist).
                 Replace("%index%", (track.IndexFromSoundcloud + 1).ToString()).
                 Replace("%genre%", track.genre).
                 Replace("%ext%", track.original_format).
