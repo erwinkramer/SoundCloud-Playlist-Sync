@@ -151,15 +151,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
             if (track.downloadable == true && track.purchase_url == null)
             {                         
                 //really make sure it's downloadable           
-                track.downloadable = DownloadUtil.IsDownloadable(track.download_url);             
+                track.downloadable = DownloadUtil.IsDownloadable(track.download_url);
+                track.IsHD = true;
             }
             else
             {
                 track.downloadable = false;
+                track.IsHD = false;
             }
-            track.EffectiveDownloadUrl = DownloadUtil.GetEffectiveDownloadUrl(track.stream_url, track.download_url, track.id, track.downloadable);
-            if (track.download_url == track.EffectiveDownloadUrl) track.IsHD = true;
-            else track.IsHD = false;
             track.LocalPath = ManifestUtil.FileSystemUtil.BuildTrackLocalPath(track);
         }
     }

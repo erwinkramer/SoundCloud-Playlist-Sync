@@ -22,6 +22,29 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         }
 
+        public JsonObjectsV2.Track RetrieveJsonTrackFromV2Url(int trackId)
+        {
+            List<JsonObjectsV2.Track> tracks = new List<JsonObjectsV2.Track>();
+            string json = string.Empty;
+            using (var client = new WebClient())
+            {
+                json = client.DownloadString("https://" + $"api-v2.soundcloud.com/tracks/{trackId}" + $"?client_id={_clientID}");
+            }
+            return JsonConvert.DeserializeObject<JsonObjectsV2.Track>(json);
+        }
+
+        public string GetDownloadUrlFromProgressiveUrl(string progressiveUrl)
+        {
+            string json = string.Empty;
+            using (var client = new WebClient())
+            {
+                json = client.DownloadString(progressiveUrl + $"?client_id={_clientID}");
+            }
+            JObject jobject = JObject.Parse(json);
+            return jobject["url"].Value<string>();
+        }
+
+
         public string RetrieveJson(string url, int? limit = null, int? offset = null)
         {
             string json = null;
