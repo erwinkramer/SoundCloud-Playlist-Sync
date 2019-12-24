@@ -26,8 +26,6 @@ This is a fork of the original utility from @StephenCasella. Besides numerous bu
 
 ![alt text](https://raw.githubusercontent.com/HongSic/SoundCloud-Playlist-Sync/fix/Program%20GUI%20(Korean).PNG)
 
-[![Join the chat at https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync](https://badges.gitter.im/erwinkramer/SoundCloud-Playlist-Sync.svg)](https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 @StephenCasella 가 프로젝트 원작자이며 이 프로젝트는 포크된 프로젝트입니다. 다양한 버그 수정 외에도 프로그램 개선을 위한 몇 가지 새로운 기능을 포함했습니다. 기능은 다음과 같습니다.
 
 - 고음질의 음악을 고품질 MP3로 자동으로 변환합니다.
