@@ -24,7 +24,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public JsonObjectsV2.Track RetrieveJsonTrackFromV2Url(int trackId)
         {
             string json = string.Empty;
-            using (var client = new WebClient())
+            using (var client = new WebClient() { Encoding = Encoding.UTF8 })
             {
                 json = client.DownloadString("https://" + $"api-v2.soundcloud.com/tracks/{trackId}?client_id={_clientID}");
             }
@@ -34,7 +34,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public string GetDownloadUrlFromProgressiveUrl(string progressiveUrl)
         {
             string json = string.Empty;
-            using (var client = new WebClient())
+            using (var client = new WebClient() { Encoding = Encoding.UTF8 })
             {
                 json = client.DownloadString($"{progressiveUrl}?client_id={_clientID}");
             }
@@ -51,9 +51,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 return null;
             try
             {
-                using (var client = new WebClient())
+                using (var client = new WebClient() {  Encoding = Encoding.UTF8 })
                 {
-                    client.Encoding = Encoding.UTF8;
                     if (!url.Contains("client_id="))
                     {
                         url += (url.Contains("?") ? "&" : "?") + "client_id=" + _clientID;
