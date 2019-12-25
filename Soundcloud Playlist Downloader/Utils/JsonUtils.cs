@@ -19,16 +19,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             _manifestUtil = manifestUtil;
             _clientID = clientID;
-
         }
 
         public JsonObjectsV2.Track RetrieveJsonTrackFromV2Url(int trackId)
         {
-            List<JsonObjectsV2.Track> tracks = new List<JsonObjectsV2.Track>();
             string json = string.Empty;
             using (var client = new WebClient())
             {
-                json = client.DownloadString("https://" + $"api-v2.soundcloud.com/tracks/{trackId}" + $"?client_id={_clientID}");
+                json = client.DownloadString("https://" + $"api-v2.soundcloud.com/tracks/{trackId}?client_id={_clientID}");
             }
             return JsonConvert.DeserializeObject<JsonObjectsV2.Track>(json);
         }
@@ -38,12 +36,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
             string json = string.Empty;
             using (var client = new WebClient())
             {
-                json = client.DownloadString(progressiveUrl + $"?client_id={_clientID}");
+                json = client.DownloadString($"{progressiveUrl}?client_id={_clientID}");
             }
-            JObject jobject = JObject.Parse(json);
-            return jobject["url"].Value<string>();
+            return JObject.Parse(json)["url"].Value<string>();
         }
-
 
         public string RetrieveJson(string url, int? limit = null, int? offset = null)
         {
