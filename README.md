@@ -1,14 +1,16 @@
 # SoundCloud Playlist Sync
 
-Available language: English(Default), Korean(한국어) [Behind↓]
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=9M5KFV88LSJ7A&currency_code=EUR&source=url)
+
+[![Join the chat at https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync](https://badges.gitter.im/erwinkramer/SoundCloud-Playlist-Sync.svg)](https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
+Available languages are English(Default) and Korean(한국어) [Behind↓]
 
 A utility to synchronize local directories with SoundCloud playlists and favorited lists.
 
 ![alt text](https://raw.githubusercontent.com/HongSic/SoundCloud-Playlist-Sync/fix/Program%20GUI.PNG)
-
-[![Join the chat at https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync](https://badges.gitter.im/erwinkramer/SoundCloud-Playlist-Sync.svg)](https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-Support the utility by donating XLM, address: GBELZ6EXI4PYXURLDQ2BPV3XFC7Q7W6FHUVSW7SIL7QS5YLGAQB5LA4F
 
 This is a fork of the original utility from @StephenCasella. Besides numerous bug fixes, i've also included a few new features to improve the workings of the utility, for example:
 
@@ -25,11 +27,7 @@ This is a fork of the original utility from @StephenCasella. Besides numerous bu
 
 ![alt text](https://raw.githubusercontent.com/HongSic/SoundCloud-Playlist-Sync/fix/Program%20GUI%20(Korean).PNG)
 
-[![Join the chat at https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync](https://badges.gitter.im/erwinkramer/SoundCloud-Playlist-Sync.svg)](https://gitter.im/erwinkramer/SoundCloud-Playlist-Sync?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-[gitter 에서 의견을 제시하거나(영문) https://github.com/HongSic/SoundCloud-Playlist-Sync 에 의견을 달아주세요 (한국어 가능)]
-
-@tepenCaseella 가 프로젝트 원작자이며 이 프로젝트는 포크된 프로젝트입니다. 다양한 버그 수정 외에도 프로그램 개선을 위한 몇 가지 새로운 기능을 포함했습니다. 기능은 다음과 같습니다.
+@StephenCasella 가 프로젝트 원작자이며 이 프로젝트는 포크된 프로젝트입니다. 다양한 버그 수정 외에도 프로그램 개선을 위한 몇 가지 새로운 기능을 포함했습니다. 기능은 다음과 같습니다.
 
 - 고음질의 음악을 고품질 MP3로 자동으로 변환합니다.
 - 재생 목록 파일을 자동으로 만듭니다. (예: 최근에 추가되었거나 가장 좋아하는 파일순으로)
