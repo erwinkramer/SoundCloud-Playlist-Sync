@@ -34,11 +34,8 @@
             this.link_taglib = new System.Windows.Forms.LinkLabel();
             this.lbl_copy = new System.Windows.Forms.Label();
             this.lbl_info1 = new System.Windows.Forms.Label();
-            this.lbl_taglib = new System.Windows.Forms.Label();
             this.link_JSON = new System.Windows.Forms.LinkLabel();
-            this.lbl_JSON = new System.Windows.Forms.Label();
             this.link_postsharp = new System.Windows.Forms.LinkLabel();
-            this.lbl_postSharp = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.License = new System.Windows.Forms.TabPage();
@@ -54,11 +51,8 @@
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
             this.Libraries = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
             this.link_HtmlAgilityPack = new System.Windows.Forms.LinkLabel();
-            this.label2 = new System.Windows.Forms.Label();
             this.link_naudioLame = new System.Windows.Forms.LinkLabel();
-            this.label1 = new System.Windows.Forms.Label();
             this.link_nAudio = new System.Windows.Forms.LinkLabel();
             this.tabControl1.SuspendLayout();
             this.License.SuspendLayout();
@@ -131,15 +125,6 @@
             this.lbl_info1.Text = "A utility to synchronize local directories with SoundCloud playlists and favorite" +
     "d lists.";
             // 
-            // lbl_taglib
-            // 
-            this.lbl_taglib.AutoSize = true;
-            this.lbl_taglib.Location = new System.Drawing.Point(156, 12);
-            this.lbl_taglib.Name = "lbl_taglib";
-            this.lbl_taglib.Size = new System.Drawing.Size(36, 13);
-            this.lbl_taglib.TabIndex = 31;
-            this.lbl_taglib.Text = "v2.1.x";
-            // 
             // link_JSON
             // 
             this.link_JSON.AutoSize = true;
@@ -151,15 +136,6 @@
             this.link_JSON.Text = "Json.NET";
             this.link_JSON.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_JSON_LinkClicked);
             // 
-            // lbl_JSON
-            // 
-            this.lbl_JSON.AutoSize = true;
-            this.lbl_JSON.Location = new System.Drawing.Point(156, 25);
-            this.lbl_JSON.Name = "lbl_JSON";
-            this.lbl_JSON.Size = new System.Drawing.Size(42, 13);
-            this.lbl_JSON.TabIndex = 33;
-            this.lbl_JSON.Text = "v10.0.x";
-            // 
             // link_postsharp
             // 
             this.link_postsharp.AutoSize = true;
@@ -170,15 +146,6 @@
             this.link_postsharp.TabStop = true;
             this.link_postsharp.Text = "PostSharp";
             this.link_postsharp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_postsharp_LinkClicked);
-            // 
-            // lbl_postSharp
-            // 
-            this.lbl_postSharp.AutoSize = true;
-            this.lbl_postSharp.Location = new System.Drawing.Point(156, 38);
-            this.lbl_postSharp.Name = "lbl_postSharp";
-            this.lbl_postSharp.Size = new System.Drawing.Size(36, 13);
-            this.lbl_postSharp.TabIndex = 35;
-            this.lbl_postSharp.Text = "v5.0.x";
             // 
             // richTextBox1
             // 
@@ -286,7 +253,7 @@
             this.Translators.Controls.Add(this.linkLabel2);
             this.Translators.Controls.Add(this.label7);
             this.Translators.Location = new System.Drawing.Point(4, 22);
-            this.Translators.Name = "Translations";
+            this.Translators.Name = "Translators";
             this.Translators.Size = new System.Drawing.Size(447, 148);
             this.Translators.TabIndex = 3;
             this.Translators.Text = "Translations";
@@ -334,33 +301,18 @@
             // 
             // Libraries
             // 
-            this.Libraries.Controls.Add(this.label5);
             this.Libraries.Controls.Add(this.link_HtmlAgilityPack);
-            this.Libraries.Controls.Add(this.label2);
             this.Libraries.Controls.Add(this.link_naudioLame);
-            this.Libraries.Controls.Add(this.label1);
             this.Libraries.Controls.Add(this.link_nAudio);
             this.Libraries.Controls.Add(this.link_taglib);
             this.Libraries.Controls.Add(this.link_JSON);
             this.Libraries.Controls.Add(this.link_postsharp);
-            this.Libraries.Controls.Add(this.lbl_JSON);
-            this.Libraries.Controls.Add(this.lbl_postSharp);
-            this.Libraries.Controls.Add(this.lbl_taglib);
             this.Libraries.Location = new System.Drawing.Point(4, 22);
             this.Libraries.Name = "Libraries";
             this.Libraries.Size = new System.Drawing.Size(447, 148);
             this.Libraries.TabIndex = 2;
             this.Libraries.Text = "Libraries";
             this.Libraries.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(156, 77);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(36, 13);
-            this.label5.TabIndex = 41;
-            this.label5.Text = "v1.6.x";
             // 
             // link_HtmlAgilityPack
             // 
@@ -373,15 +325,6 @@
             this.link_HtmlAgilityPack.Text = "HtmlAgilityPack";
             this.link_HtmlAgilityPack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_HtmlAgilityPack_LinkClicked);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(156, 64);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 39;
-            this.label2.Text = "v1.0.x";
-            // 
             // link_naudioLame
             // 
             this.link_naudioLame.AutoSize = true;
@@ -392,15 +335,6 @@
             this.link_naudioLame.TabStop = true;
             this.link_naudioLame.Text = "NAudio.Lame";
             this.link_naudioLame.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked_1);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(156, 51);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 37;
-            this.label1.Text = "v1.8.x";
             // 
             // link_nAudio
             // 
@@ -427,7 +361,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BoxAbout";
-            this.Padding = new System.Windows.Forms.Padding(9, 9, 9, 9);
+            this.Padding = new System.Windows.Forms.Padding(9);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -454,23 +388,17 @@
         private System.Windows.Forms.LinkLabel link_taglib;
         private System.Windows.Forms.Label lbl_copy;
         private System.Windows.Forms.Label lbl_info1;
-        private System.Windows.Forms.Label lbl_taglib;
         private System.Windows.Forms.LinkLabel link_JSON;
-        private System.Windows.Forms.Label lbl_JSON;
         private System.Windows.Forms.LinkLabel link_postsharp;
-        private System.Windows.Forms.Label lbl_postSharp;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage License;
         private System.Windows.Forms.TabPage Projectwebsites;
         private System.Windows.Forms.TabPage Libraries;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel link_nAudio;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel link_naudioLame;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.LinkLabel link_HtmlAgilityPack;
         private System.Windows.Forms.LinkLabel link_github_contributor_1;
         private System.Windows.Forms.Label label6;
