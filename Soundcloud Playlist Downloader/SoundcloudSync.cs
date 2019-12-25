@@ -41,8 +41,7 @@ namespace Soundcloud_Playlist_Downloader
                 );
             _syncUtil.ManifestUtil.ProgressUtil.ResetProgress();
 
-            string apiUrl = null;
-
+            string apiUrl;
             switch (_syncUtil.ManifestUtil.DownloadMode)
             {
                 case EnumUtil.DownloadMode.Playlist:
@@ -90,7 +89,7 @@ namespace Soundcloud_Playlist_Downloader
 
         private string GetPlaylistId(string url)
         {
-            string playlistName = null;
+            string playlistName;
             try
             {
                 playlistName = PlaylistNameFromUrl(url);
@@ -140,23 +139,16 @@ namespace Soundcloud_Playlist_Downloader
 
         internal void SynchronizeFromUserPlaylists(string username)
         {
-            // hit the /username/playlists endpoint for the username in the url, then get playlists..
+            // hit the /username/playlists endpoint for the username in the url, then get playlists.
             var playlists = JsonUtil.RetrievePlaylistsFromUrl("https://api.soundcloud.com/users/" + username + "/playlists");
-            var originalFolderName = _syncUtil.ManifestUtil.FileSystemUtil.Directory.FullName;
-
-            //no bug?
-            //_syncUtil.ManifestUtil.FileSystemUtil.ChangeDirectoryInfo("folder");
-
             SynchronizeFromPlaylistApiUrls(playlists);
-
             _syncUtil.ManifestUtil.FileSystemUtil.ResetDirectoryInfo();
         }
 
         internal void SynchronizeFromProfile(string username)
         {
             // hit the /username/favorites endpoint for the username in the url, then download all the tracks
-            var tracks = JsonUtil.RetrieveTracksFromUrl("https://api.soundcloud.com/users/" + username + "/favorites",
-                true, true);
+            var tracks = JsonUtil.RetrieveTracksFromUrl("https://api.soundcloud.com/users/" + username + "/favorites", true);
             _syncUtil.Synchronize(tracks);
         }
         internal void SynchronizeSingleTrack(Track track)
@@ -168,7 +160,7 @@ namespace Soundcloud_Playlist_Downloader
 
         internal void SynchronizeFromPlaylistApiUrl(string playlistApiUrl)
         {
-            var tracks = JsonUtil.RetrieveTracksFromUrl(playlistApiUrl, false, true);
+            var tracks = JsonUtil.RetrieveTracksFromUrl(playlistApiUrl, false);
             _syncUtil.Synchronize(tracks);
         }
 
@@ -179,7 +171,7 @@ namespace Soundcloud_Playlist_Downloader
                 var tracks = new List<Track>();
                 foreach (var playlist in playlists)
                 {
-                    tracks.AddRange(JsonUtil.RetrieveTracksFromUrl(playlist.uri, false, true));
+                    tracks.AddRange(JsonUtil.RetrieveTracksFromUrl(playlist.uri, false));
                 }
                 _syncUtil.Synchronize(tracks);
             }
@@ -187,7 +179,7 @@ namespace Soundcloud_Playlist_Downloader
             {
                 foreach (var playlist in playlists)
                 {
-                    var tracks = (JsonUtil.RetrieveTracksFromUrl(playlist.uri, false, true));
+                    var tracks = (JsonUtil.RetrieveTracksFromUrl(playlist.uri, false));
                     _syncUtil.ManifestUtil.FileSystemUtil.ChangeDirectoryInfo(playlist.permalink);
                     _syncUtil.Synchronize(tracks);
                 }
@@ -196,7 +188,7 @@ namespace Soundcloud_Playlist_Downloader
 
         internal void SynchronizeFromArtistUrl(string artistUrl)
         {
-            var tracks = JsonUtil.RetrieveTracksFromUrl(artistUrl, true, true);
+            var tracks = JsonUtil.RetrieveTracksFromUrl(artistUrl, true);
             _syncUtil.Synchronize(tracks);
         }
     }

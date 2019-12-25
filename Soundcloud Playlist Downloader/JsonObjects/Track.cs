@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json;
-using Soundcloud_Playlist_Downloader.Utils;
 
 namespace Soundcloud_Playlist_Downloader.JsonObjects
 {

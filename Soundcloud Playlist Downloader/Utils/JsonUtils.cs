@@ -158,7 +158,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         }
 
 
-        public IList<Track> RetrieveTracksFromUrl(string url, bool isRawTracksUrl, bool ignoreSampleSongs)
+        public IList<Track> RetrieveTracksFromUrl(string url, bool isRawTracksUrl)
         {
             var limit = isRawTracksUrl ? 200 : 0; //200 is the limit set by SoundCloud itself. Remember; limits are only with 'collection' types in JSON 
             IList<Track> tracks = new List<Track>();

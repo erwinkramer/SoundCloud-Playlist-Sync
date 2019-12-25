@@ -111,10 +111,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public string BuildTrackLocalPath(Track track)
         {
-            string path = null;
             var validArtist = CoerceValidFileName(track.Artist, ReplaceIllegalCharacters); // true && ReplaceIllegalCharacters
             var validArtistFolderName = TrimDotsAndSpacesForFolderName(validArtist);
             var filename = BuildName(Format, track, ReplaceIllegalCharacters);
+            string path;
 
             Console.WriteLine(validArtistFolderName);
             if (FoldersPerArtist)

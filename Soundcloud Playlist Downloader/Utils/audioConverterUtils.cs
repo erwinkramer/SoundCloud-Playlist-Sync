@@ -44,7 +44,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 }
                 return false;
             }
-            if ((extension == ".m4a" || extension == ".aac") && isWindows8_OrHigher())
+            if ((extension == ".m4a" || extension == ".aac") && IsWindows8_OrHigher())
             {
                 return ConvertM4AToMp3(strangefile, directory, ref song);
             }
@@ -184,7 +184,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
 
-        private static bool isWindows8_OrHigher()
+        private static bool IsWindows8_OrHigher()
         {
             var win8Version = new Version(6, 2, 9200, 0);
 
