@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using NAudio.Lame;
 using NAudio.MediaFoundation;
@@ -16,8 +15,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
         //      download the low quality stream (128 bit) and forget about converting
         private const int BitRate = 320;
         private const int SampleRate = 44100; //44100 Hz Sample rate 
-        private const int BitDepth = 16;
-        private const int Channels = 2;
         private static int _uniqueTempFileCounter;
 
         public static bool ConvertAllTheThings(byte[] strangefile, ref Track song, string extension)

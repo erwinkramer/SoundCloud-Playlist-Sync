@@ -6,7 +6,6 @@ using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 using Soundcloud_Playlist_Downloader.JsonObjects;
-using Soundcloud_Playlist_Downloader.Properties;
 using System.Linq;
 using Soundcloud_Playlist_Downloader.Language;
 
