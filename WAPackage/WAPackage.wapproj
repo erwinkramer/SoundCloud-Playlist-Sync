@@ -62,7 +62,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <AppxBundlePlatforms>x86</AppxBundlePlatforms>
-    <AppInstallerUri>https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/WAPackage/</AppInstallerUri>
+    <AppInstallerUri>https://github.com/erwinkramer/SoundCloud-Playlist-Sync/raw/fix/WAPackage/</AppInstallerUri>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <AppxPackageDir>C:\Users\erwin\source\repos\SoundCloud-Playlist-Sync\WAPackage\</AppxPackageDir>
