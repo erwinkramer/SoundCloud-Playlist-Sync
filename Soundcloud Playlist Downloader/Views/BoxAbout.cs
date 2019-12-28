@@ -96,52 +96,102 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void link_github2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void link_github_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void link_taglib_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void link_JSON_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void link_postsharp_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void linkLabel1_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void link_HtmlAgilityPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void link_github_contributor_1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         private void linkLabel1_LinkClicked_2(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = e.Link.LinkData as string,
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         internal void LoadLanguage()
