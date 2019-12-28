@@ -1,5 +1,4 @@
-﻿using Soundcloud_Playlist_Downloader.Properties;
-
+﻿
 namespace Soundcloud_Playlist_Downloader.Views
 {
     partial class SoundcloudSyncMainForm

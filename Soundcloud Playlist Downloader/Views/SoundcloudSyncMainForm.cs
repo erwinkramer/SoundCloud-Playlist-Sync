@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows.Forms;
 using SC_SYNC_Base.JsonObjects;
 using Soundcloud_Playlist_Downloader.Language;
-using Soundcloud_Playlist_Downloader.Properties;
 using Soundcloud_Playlist_Downloader.Utils;
 
 namespace Soundcloud_Playlist_Downloader.Views
@@ -23,7 +22,6 @@ namespace Soundcloud_Playlist_Downloader.Views
         private static bool CreatePlaylists;
         private static bool MergePlaylists;
         private static int ConcurrentDownloads;
-        private static bool ConfigStateActive;
         private static string ConfigStateCurrentIndex = "1";
         private static string FormatForName = "%user% - %title% %quality%";
         private static string FormatForTag = "%user% - %title% %quality%";
@@ -242,6 +240,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                             status.Tag = "STR_MAIN_STATUS_DIFFMANY";
                             status.Text = LanguageManager.Language[status.Tag.ToString()];
                             progressUtil.Completed = true;
+                            IsSyncButtonClicked = false;
                             InvokeSyncComplete();
                             return;
                         }
@@ -469,7 +468,7 @@ namespace Soundcloud_Playlist_Downloader.Views
       
         private void chk_configActive_CheckedChanged(object sender, EventArgs e)
         {
-            ConfigStateActive = chk_configActive.Checked;
+            //do something
         }
 
         private void config1ToolStripMenuItem_Click(object sender, EventArgs e)
