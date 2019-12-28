@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using SC_SYNC_Base.JsonObjects;
@@ -78,7 +79,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             }
         }
 
-        [SilentFailure]
         private void UpdateStatus()
         {
             if (!progressUtil.Exiting)
@@ -138,13 +138,11 @@ namespace Soundcloud_Playlist_Downloader.Views
             }
         }
 
-        [SilentFailure]
         private void InvokeUpdateStatus()
         {
             statusStrip1.Invoke(_performStatusUpdateImplementation);
         }
 
-        [SilentFailure]
         private void UpdateProgressBar()
         {
             progressBar.Minimum = 0;
@@ -163,7 +161,6 @@ namespace Soundcloud_Playlist_Downloader.Views
         }
 
         bool IsSyncButtonClicked;
-        [SilentFailure]
         private void SyncCompleteButton()
         {
             syncButton.Tag = "STR_SYNCHRONIZE";
@@ -300,7 +297,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             }
         }
 
-        [SilentFailure]
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             progressUtil.Exiting = true;
@@ -550,7 +546,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 LastSelectLannguage = toolStripComboBox1.SelectedIndex;
                 switch(LastSelectLannguage)
                 {
-                    case 1: LanguageManager.Language = new LanguageManager(File.ReadAllLines(Path.Combine("Language", SyncSetting.LoadSettingFromConfig("Language_Korean") + ".txt"))); break;
+                    case 1: LanguageManager.Language = new LanguageManager(File.ReadAllLines(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Language", SyncSetting.LoadSettingFromConfig("Language_Korean") + ".txt"))); break;
                     default: LanguageManager.Language = LanguageManager.GetDefault(); break;
                 }
                 LoadLanguage();

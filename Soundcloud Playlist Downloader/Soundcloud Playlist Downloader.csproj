@@ -6,6 +6,16 @@
     <RootNamespace>SoundCloud_Playlist_Sync_4</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<ApplicationIcon />
+	<Win32Resource />
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,9 +41,6 @@
 		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json">
 			<Version>12.0.3</Version>
-		</PackageReference>
-		<PackageReference Include="PostSharp">
-			<Version>6.4.5</Version>
 		</PackageReference>
 		<PackageReference Include="TagLibSharp">
 			<Version>2.2.0</Version>

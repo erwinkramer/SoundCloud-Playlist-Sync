@@ -1,10 +1,22 @@
 ﻿using Config.Net;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace SC_SYNC_Base.JsonObjects
 {
     public static class SyncSetting
     {
-        public static ISyncSetting settings = new ConfigurationBuilder<ISyncSetting>().UseJsonFile("appsettings.json").Build();
+        public static ISyncSetting settings = InitializeSettingsFile();
+
+        public static ISyncSetting InitializeSettingsFile()
+        {
+            var settingsfileInDocumentStore = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SoundCloud Playlist Sync", "appsettings.json");
+            var settingsfileInSource = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "appsettings.json");
+            if (!File.Exists(settingsfileInDocumentStore))
+                File.Copy(settingsfileInSource, settingsfileInDocumentStore);
+            return new ConfigurationBuilder<ISyncSetting>().UseJsonFile(settingsfileInDocumentStore).Build();
+        }
 
         public static string LoadSettingFromConfig(string propertyName, string accessString = "")
         {
