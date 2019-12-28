@@ -1,6 +1,5 @@
 ﻿using Soundcloud_Playlist_Downloader.Language;
 using System;
-using System.Deployment.Application;
 using System.Windows.Forms;
 
 namespace Soundcloud_Playlist_Downloader.Utils
@@ -18,35 +17,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
             CheckForUpdates();
         }
         public void CheckForUpdates()
-        {
-            InErrorException = null;
-            if (!ApplicationDeployment.IsNetworkDeployed)
-            {
-                CurrentStatus = UpdateCheckStatus.IsNotNetworkDeployed;
-                return;
-            }
-            try
-            {
-                UpdateCheckInfo info = ApplicationDeployment.CurrentDeployment.CheckForDetailedUpdate();
-                if (!info.UpdateAvailable)
-                {
-                    CurrentStatus = UpdateCheckStatus.NoUpdateAvailable;
-                    return;
-                }
-
-                if (info.IsUpdateRequired)
-                {
-                    CurrentStatus = UpdateCheckStatus.MandatoryUpdateAvailable;
-                    return;
-                }
-
-                CurrentStatus = UpdateCheckStatus.OptionalUpdateAvailable;
-            }
-            catch(Exception e)
-            {
-                CurrentStatus = UpdateCheckStatus.InError;
-                InErrorException = e;
-            }
+        {        
+            CurrentStatus = UpdateCheckStatus.IsNotNetworkDeployed;
         }
 
         public string LabelTextForCurrentStatus()
@@ -69,7 +41,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         internal void Update()
         {
-            ApplicationDeployment.CurrentDeployment.Update();
             Application.Restart();       
         }
 

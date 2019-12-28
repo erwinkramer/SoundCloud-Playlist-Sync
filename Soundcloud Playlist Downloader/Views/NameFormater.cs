@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SC_SYNC_Base.JsonObjects;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using Soundcloud_Playlist_Downloader.Language;
 using Soundcloud_Playlist_Downloader.Utils;
@@ -61,7 +62,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             groupBox1.Text = LanguageManager.Language["STR_FORMAT_FILE_PREV"];
             button2.Text = LanguageManager.Language["STR_FORMAT_FILE_SAVE"];
 
-            track_sample = JsonConvert.DeserializeObject<Track>(Properties.Resources.SampleTrack1);
+            track_sample = JsonConvert.DeserializeObject<Track>(SyncSetting.LoadSettingFromConfig("SampleTrack1"));
             RefreshTaglist();
         }
         void RefreshTaglist()
@@ -136,8 +137,8 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void contextMenuStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            if(e.ClickedItem.Name == "toolStripMenuItem1") track_sample = JsonConvert.DeserializeObject<Track>(Properties.Resources.SampleTrack1);
-            else if (e.ClickedItem.Name == "toolStripMenuItem2") track_sample = JsonConvert.DeserializeObject<Track>(Properties.Resources.SampleTrack2);
+            if(e.ClickedItem.Name == "toolStripMenuItem1") track_sample = JsonConvert.DeserializeObject<Track>(SyncSetting.settings.Get("SampleTrack1"));
+            else if (e.ClickedItem.Name == "toolStripMenuItem2") track_sample = JsonConvert.DeserializeObject<Track>(SyncSetting.settings.Get("SampleTrack2"));
             textBox1_TextChanged(sender, e);
             RefreshTaglist();
         }

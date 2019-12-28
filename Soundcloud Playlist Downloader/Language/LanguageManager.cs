@@ -1,9 +1,5 @@
 ﻿//Language Manager class ⓒ Author by HongSic
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Soundcloud_Playlist_Downloader.Language
 {
@@ -13,18 +9,18 @@ namespace Soundcloud_Playlist_Downloader.Language
 
         Dictionary<string, string> lng = new Dictionary<string, string>();
         public LanguageManager() {}
-        public LanguageManager(string[] Language)
+        public LanguageManager(string[] wordsInForeignLanguage)
         {
-            for (int i = 0; i < Language.Length; i++)
+            for (int i = 0; i < wordsInForeignLanguage.Length; i++)
             {
-                if (!string.IsNullOrEmpty(Language[i]) &&
-                    (Language[i][0] >= 'A' && Language[i][0] <= 'Z'))
+                if (!string.IsNullOrEmpty(wordsInForeignLanguage[i]) &&
+                    (wordsInForeignLanguage[i][0] >= 'A' && wordsInForeignLanguage[i][0] <= 'Z'))
                 {
-                    int index = Language[i].IndexOf('=');
+                    int index = wordsInForeignLanguage[i].IndexOf('=');
                     if (index > 0)
                     {
-                        string key = Language[i].Remove(index);
-                        if (!Exist(key)) lng.Add(key, Language[i].Substring(index + 1).Replace("\\n", "\n"));
+                        string key = wordsInForeignLanguage[i].Remove(index);
+                        if (!Exist(key)) lng.Add(key, wordsInForeignLanguage[i].Substring(index + 1).Replace("\\n", "\n"));
                     }
                 }
             }

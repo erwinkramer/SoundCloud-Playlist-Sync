@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SC_SYNC_Base.JsonObjects;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -20,33 +21,33 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             get
             {
-                return ReadSetting("clientID1");
+                return SyncSetting.settings.Get("clientID1");
             }
             set
             {
-                AddUpdateAppSettings("clientID1", value);
+                SyncSetting.settings.Set("clientID1", value);
             }
         }
         public string ClientId2
         {
             get
             {
-                return ReadSetting("clientID2");
+                return SyncSetting.settings.Get("clientID2");
             }
             set
             {
-                AddUpdateAppSettings("clientID2", value);
+                SyncSetting.settings.Set("clientID2", value);
             }
         }
         public string ClientIdCustom
         {
             get
             {
-                return ReadSetting("clientIDcustom");
+                return SyncSetting.settings.Get("clientIDcustom");
             }
             set
             {
-                AddUpdateAppSettings("clientIDcustom", value);
+                SyncSetting.settings.Set("clientIDcustom", value);
             }
         }
 
@@ -54,11 +55,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             get
             {
-                return ReadSetting("clientIDcurrentSelected");
+                return SyncSetting.settings.Get("clientIDcurrentSelected");
             }
             set
             {
-                AddUpdateAppSettings("clientIDcurrentSelected", value);
+                SyncSetting.settings.Set("clientIDcurrentSelected", value);
             }
         }
 
@@ -66,30 +67,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             get
             {
-                return ReadSetting(ReadSetting("clientIDcurrentSelected"));
+                return SyncSetting.settings.Get(SyncSetting.settings.Get("clientIDcurrentSelected"));
             }
-        }
-
-        static string ReadSetting(string key)
-        {
-            var appSettings = ConfigurationManager.AppSettings;
-            return appSettings[key] ?? "Not Found";
-        }
-
-        static void AddUpdateAppSettings(string key, string value)
-        {
-            var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            var settings = configFile.AppSettings.Settings;
-            if (settings[key] == null)
-            {
-                settings.Add(key, value);
-            }
-            else
-            {
-                settings[key].Value = value;
-            }
-            configFile.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
         }
     }
 }
