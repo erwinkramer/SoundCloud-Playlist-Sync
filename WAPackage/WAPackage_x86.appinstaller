@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <AppInstaller
-	Uri="https://cdn.jsdelivr.net/gh/erwinkramer/SoundCloud-Playlist-Sync@fix/WAPackage/WAPackage_x86.appinstaller"
-	Version="1.0.36.0" xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2">
+	Uri="https://gitcdn.link/repo/erwinkramer/SoundCloud-Playlist-Sync/fix/WAPackage/WAPackage_x86.appinstaller"
+	Version="1.0.37.0" xmlns="http://schemas.microsoft.com/appx/appinstaller/2017/2">
 	<MainPackage
 		Name="SoundClound-Playlist-Sync-4"
-		Version="1.0.36.0"
+		Version="1.0.37.0"
 		Publisher="CN=Erwin"
-		Uri="https://cdn.jsdelivr.net/gh/erwinkramer/SoundCloud-Playlist-Sync@fix/WAPackage/WAPackage_1.0.36.0_x86_Debug_Test/WAPackage_1.0.36.0_x86_Debug.appx"
+		Uri="https://gitcdn.link/repo/erwinkramer/SoundCloud-Playlist-Sync/fix/WAPackage/WAPackage_1.0.37.0_x86_Debug_Test/WAPackage_1.0.37.0_x86_Debug.appx"
 		ProcessorArchitecture="x86" />
 	<Dependencies>
 		<Package
@@ -14,7 +14,7 @@
 			Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
 			Version="14.0.27323.0"
 			ProcessorArchitecture="x86"
-			Uri="https://cdn.jsdelivr.net/gh/erwinkramer/SoundCloud-Playlist-Sync@fix/WAPackage/WAPackage_1.0.36.0_x86_Debug_Test/Dependencies/x86/Microsoft.VCLibs.x86.Debug.14.00.appx" />
+			Uri="https://gitcdn.link/repo/erwinkramer/SoundCloud-Playlist-Sync/fix/WAPackage/WAPackage_1.0.37.0_x86_Debug_Test/Dependencies/x86/Microsoft.VCLibs.x86.Debug.14.00.appx" />
 	</Dependencies>
 	<UpdateSettings>
 		<OnLaunch
