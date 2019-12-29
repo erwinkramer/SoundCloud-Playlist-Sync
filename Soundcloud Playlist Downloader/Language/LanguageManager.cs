@@ -1,11 +1,25 @@
 ﻿//Language Manager class ⓒ Author by HongSic
+using SC_SYNC_Base.JsonObjects;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace Soundcloud_Playlist_Downloader.Language
 {
     public class LanguageManager
     {
         public static LanguageManager Language = GetDefault();
+
+        public static void SetLanguage(int indexFromDropDown)
+        {
+            SyncSetting.settings.Set("Language", indexFromDropDown.ToString());
+            switch (indexFromDropDown)
+            {
+                case 1: Language = new LanguageManager(File.ReadAllLines(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Language", SyncSetting.LoadSettingFromConfig("Language_Korean") + ".txt"))); break;
+                default: Language = GetDefault(); break;
+            }
+        }
+
 
         Dictionary<string, string> lng = new Dictionary<string, string>();
         public LanguageManager() {}

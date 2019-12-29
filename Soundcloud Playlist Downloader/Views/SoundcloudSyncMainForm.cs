@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using SC_SYNC_Base.JsonObjects;
@@ -320,8 +319,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadSettingsFromCurrentConfig(SyncSetting.settings.Get("ConfigStateCurrentIndex"));
-            toolStripComboBox1.SelectedIndex = int.Parse(SyncSetting.settings.Get("Language"));
-            if (toolStripComboBox1.SelectedIndex == -1) toolStripComboBox1.SelectedIndex = 0;
+            LoadLanguagesInAllForms(int.Parse(SyncSetting.settings.Get("Language")));
         }
 
         private void SaveSettingsToConfig(string currentIndex)
@@ -538,23 +536,25 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         }
 
-        int LastSelectLannguage = 0;
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(LastSelectLannguage != toolStripComboBox1.SelectedIndex)
+            if(int.Parse(SyncSetting.settings.Get("Language")) != toolStripComboBox1.SelectedIndex)
             {
-                LastSelectLannguage = toolStripComboBox1.SelectedIndex;
-                switch(LastSelectLannguage)
-                {
-                    case 1: LanguageManager.Language = new LanguageManager(File.ReadAllLines(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Language", SyncSetting.LoadSettingFromConfig("Language_Korean") + ".txt"))); break;
-                    default: LanguageManager.Language = LanguageManager.GetDefault(); break;
-                }
-                LoadLanguage();
-                _apiConfigSettings.LoadLanguage();
-                _aboutWindow.LoadLanguage();
-
-                SyncSetting.settings.Set("Language", toolStripComboBox1.SelectedIndex.ToString());
+                LoadLanguagesInAllForms(toolStripComboBox1.SelectedIndex);
             }
+        }
+
+        private void languageToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            toolStripComboBox1.SelectedIndex = int.Parse(SyncSetting.settings.Get("Language"));
+        }
+
+        private void LoadLanguagesInAllForms(int indexFromDropDown)
+        {
+            LanguageManager.SetLanguage(indexFromDropDown);
+            this.LoadLanguage();
+            _apiConfigSettings.LoadLanguage();
+            _aboutWindow.LoadLanguage();
         }
 
         private void LoadLanguage()

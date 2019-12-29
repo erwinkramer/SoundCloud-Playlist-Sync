@@ -8,7 +8,12 @@
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<ApplicationIcon />
 	<Win32Resource />
+	<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
+
+	<PropertyGroup>
+		<Win32Manifest>Properties\app.manifest</Win32Manifest>
+	</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <PlatformTarget>x64</PlatformTarget>
