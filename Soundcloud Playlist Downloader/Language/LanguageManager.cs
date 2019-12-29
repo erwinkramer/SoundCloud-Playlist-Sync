@@ -8,8 +8,9 @@ namespace Soundcloud_Playlist_Downloader.Language
 {
     public class LanguageManager
     {
-        public static Dictionary<string, string> Language;
+        public LanguageManager() { }
 
+        public static Dictionary<string, string> Language;
         public static void SetLanguage(int indexFromDropDown)
         {
             SyncSetting.settings.Set("Language", indexFromDropDown.ToString());
@@ -20,7 +21,6 @@ namespace Soundcloud_Playlist_Downloader.Language
             }
         }
 
-        public LanguageManager() {}
         public static void SetLanguageDictionary(string[] wordsInForeignLanguage)
         {
             Language = new Dictionary<string, string>();
@@ -33,15 +33,11 @@ namespace Soundcloud_Playlist_Downloader.Language
                     if (index > 0)
                     {
                         string key = wordsInForeignLanguage[i].Remove(index);
-                        if (!Exist(key)) Language.Add(key, wordsInForeignLanguage[i].Substring(index + 1).Replace("\\n", "\n"));
+                        Language.TryAdd(key, wordsInForeignLanguage[i].Substring(index + 1).Replace("\\n", "\n"));
                     }
                 }
             }
         }
-
-        public string this[string Key] { get { return Language.ContainsKey(Key) ? Language[Key] : Key; }}
-        public static bool Exist(string Key) { return Language.ContainsKey(Key); }
-        public int Count { get { return Language.Count; } }
 
         //Language: English (Defalut)
         //Author: HongSic(HSKernel)
