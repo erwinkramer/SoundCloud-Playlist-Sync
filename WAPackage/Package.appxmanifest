@@ -9,7 +9,7 @@
   <Identity
     Name="SoundClound-Playlist-Sync-4"
     Publisher="CN=Erwin"
-    Version="1.0.34.0" />
+    Version="1.0.35.0" />
 
   <Properties>
     <DisplayName>SoundClound Playlist Sync</DisplayName>
