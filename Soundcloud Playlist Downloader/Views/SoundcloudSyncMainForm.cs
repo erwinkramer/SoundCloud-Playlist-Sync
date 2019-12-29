@@ -42,11 +42,11 @@ namespace Soundcloud_Playlist_Downloader.Views
             InitializeComponent();
 
             updateUtil = new UpdateUtils();
-            updateToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_UPDATE"] + updateUtil.LabelTextForCurrentStatus();
-
             clientIdUtil = new ClientIDsUtils();
             _apiConfigSettings = new API_Config(clientIdUtil);
             progressUtil = new ProgressUtils();
+
+            LoadLanguagesInAllForms(int.Parse(SyncSetting.settings.Get("Language")));
 
             Text = string.Format(LanguageManager.Language["STR_MAIN_TITLE_STABLE"], ApplicationVersion());
             _performSyncCompleteImplementation = SyncCompleteButton;
@@ -319,7 +319,6 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadSettingsFromCurrentConfig(SyncSetting.settings.Get("ConfigStateCurrentIndex"));
-            LoadLanguagesInAllForms(int.Parse(SyncSetting.settings.Get("Language")));
         }
 
         private void SaveSettingsToConfig(string currentIndex)
@@ -539,9 +538,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(int.Parse(SyncSetting.settings.Get("Language")) != toolStripComboBox1.SelectedIndex)
-            {
                 LoadLanguagesInAllForms(toolStripComboBox1.SelectedIndex);
-            }
         }
 
         private void languageToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -560,7 +557,6 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void LoadLanguage()
         {
             Text = string.Format(LanguageManager.Language["STR_MAIN_TITLE_STABLE"], ApplicationVersion());
-            configurationsToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_TITLE"];
             configurationsToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIGS"];
             config1ToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIG"] + " 1";
             config2ToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIG"] + " 2";
@@ -568,10 +564,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             config4ToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIG"] + " 4";
             config5ToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIG"] + " 5";
             clientIDToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CLIENT"];
-            updateToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_UPDATE"] + updateUtil.LabelTextForCurrentStatus();
             aboutToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_ABOUT"];
             languageToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_LNG"];
-
+            updateToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_UPDATE"] + updateUtil.LabelTextForCurrentStatus();
             tabPage_BasicOptions.Text = LanguageManager.Language["STR_MAIN_BASIC"];
             gbox_url.Text = LanguageManager.Language["STR_MAIN_BASIC_URL"];
             gbox_localdir.Text = LanguageManager.Language["STR_MAIN_BASIC_DIR"];
