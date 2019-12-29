@@ -325,7 +325,6 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             SyncSetting.settings.Set("ConfigStateCurrentIndex", currentIndex);
             SyncSetting.SaveSettingToConfig(chk_configActive.Name, chk_configActive.Checked.ToString(), ConfigStateCurrentIndex);
-            SyncSetting.SaveSettingToConfig("Language", toolStripComboBox1.SelectedIndex.ToString(), ConfigStateCurrentIndex);
             SyncSetting.SaveSettingToConfig("LocalPath", directoryPath?.Text, ConfigStateCurrentIndex);
             SyncSetting.SaveSettingToConfig("PlaylistUrl", url?.Text, ConfigStateCurrentIndex);
             SyncSetting.SaveSettingToConfig(nameof(ConcurrentDownloads), nudConcurrency.Value.ToString(), ConfigStateCurrentIndex);
