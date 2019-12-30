@@ -17,8 +17,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public Exception InErrorException;
         public UpdateCheckStatus CurrentStatus;
-        public string rootReleaseUrl = "https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Soundcloud%20Playlist%20Downloader/Releases/";
+        public string RootReleaseUrl = "https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Soundcloud%20Playlist%20Downloader/Releases/";
         public string ReleaseUrlBlob = "https://github.com/erwinkramer/SoundCloud-Playlist-Sync/blob/fix/Soundcloud%20Playlist%20Downloader/Releases/Soundcloud%20Playlist%20Downloader.exe?raw=true";
+        public static string ExecutableName = "Soundcloud Playlist Downloader.exe";
+
+
         public UpdateUtils()
         {
             CheckForUpdates();
@@ -47,7 +50,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             string json = string.Empty;
             using (var client = new WebClient() { Encoding = Encoding.UTF8 })
             {
-                json = client.DownloadString($"{rootReleaseUrl}ReleaseInfo.json");
+                json = client.DownloadString($"{RootReleaseUrl}ReleaseInfo.json");
             }
             return JObject.Parse(json)["AssemblyMajorVersion"].Value<int>();
         }
@@ -75,30 +78,30 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
 
-        internal void Update()
+        internal void DownloadUpdate()
         {
             using (var client = new WebClient() { Encoding = Encoding.UTF8 })
             {
-                client.DownloadFile(ReleaseUrlBlob, "Soundcloud Playlist Downloader.exe.new");
+                client.DownloadFile(ReleaseUrlBlob, $"{ExecutableName}.new");
             }
-            CompleteUpdate_part1();
         }
 
+        /// <summary>
+        /// Restart as .old so we can rename .new as current version 
+        /// </summary>
         public void CompleteUpdate_part1()
         {
             SyncSetting.settings.Set("Updating", "True");
-            System.IO.File.Copy("Soundcloud Playlist Downloader.exe", "Soundcloud Playlist Downloader.exe.old", true);
-            Process.Start("Soundcloud Playlist Downloader.exe.new");
+            System.IO.File.Copy(ExecutableName, $"{ExecutableName}.old", true);
+            Process.Start($"{ExecutableName}.old");
             Application.Exit();
         }
 
         public static void CompleteUpdate_part2()
         {
-            if (SyncSetting.settings.Get("Updating") ==  "False")
-                return;
-            System.IO.File.Copy("Soundcloud Playlist Downloader.exe.new", "Soundcloud Playlist Downloader.exe", true);
             SyncSetting.settings.Set("Updating", "False");
-            Process.Start("Soundcloud Playlist Downloader.exe");
+            System.IO.File.Copy($"{ExecutableName}.new", ExecutableName, true);
+            Process.Start(ExecutableName);
             Application.Exit();
         }
 
@@ -115,7 +118,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         {
                             try
                             {
-                                Update();
+                                DownloadUpdate();
+                                CompleteUpdate_part1();
                             }
                             catch (Exception dde)
                             {
