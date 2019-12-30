@@ -1,5 +1,8 @@
-﻿using Soundcloud_Playlist_Downloader.Language;
+﻿using Newtonsoft.Json.Linq;
+using Soundcloud_Playlist_Downloader.Language;
 using System;
+using System.Net;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Soundcloud_Playlist_Downloader.Utils
@@ -17,8 +20,27 @@ namespace Soundcloud_Playlist_Downloader.Utils
             CheckForUpdates();
         }
         public void CheckForUpdates()
-        {        
+        {       
+            if(GetOnlineVersion() > GetCurrentVersion())
+            {
+                //update
+            }
             CurrentStatus = UpdateCheckStatus.IsNotNetworkDeployed;
+        }
+
+        public int GetOnlineVersion()
+        {
+            string json = string.Empty;
+            using (var client = new WebClient() { Encoding = Encoding.UTF8 })
+            {
+                json = client.DownloadString($"");
+            }
+            return JObject.Parse(json)["AssemblyMajorVersion"].Value<int>();
+        }
+
+        public static int GetCurrentVersion()
+        {
+            return typeof(UpdateUtils).Assembly.GetName().Version.Major;
         }
 
         public string LabelTextForCurrentStatus()

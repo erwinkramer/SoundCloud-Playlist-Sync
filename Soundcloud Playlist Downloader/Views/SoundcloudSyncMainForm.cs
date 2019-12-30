@@ -48,7 +48,7 @@ namespace Soundcloud_Playlist_Downloader.Views
 
             LoadLanguagesInAllForms(int.Parse(SyncSetting.settings.Get("Language")));
 
-            Text = string.Format(LanguageManager.Language["STR_MAIN_TITLE_STABLE"], ApplicationVersion());
+            Text = string.Format(LanguageManager.Language["STR_MAIN_TITLE_STABLE"], UpdateUtils.GetCurrentVersion());
             _performSyncCompleteImplementation = SyncCompleteButton;
             _progressBarUpdateImplementation = UpdateProgressBar;
             _performStatusUpdateImplementation = UpdateStatus;
@@ -56,11 +56,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             status.Text = LanguageManager.Language[status.Tag.ToString()];
             MinimumSize = new Size(Width, Height);
             MaximumSize = new Size(Width, Height);
-        }
-
-        private static string ApplicationVersion()
-        {
-            return "-";
         }
 
         public sealed override string Text
@@ -555,7 +550,7 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void LoadLanguage()
         {
-            Text = string.Format(LanguageManager.Language["STR_MAIN_TITLE_STABLE"], ApplicationVersion());
+            Text = string.Format(LanguageManager.Language["STR_MAIN_TITLE_STABLE"], UpdateUtils.GetCurrentVersion());
             configurationsToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIGS"];
             config1ToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIG"] + " 1";
             config2ToolStripMenuItem.Text = LanguageManager.Language["STR_MAIN_MENU_CONFIG"] + " 2";
