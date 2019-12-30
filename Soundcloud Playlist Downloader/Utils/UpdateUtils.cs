@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using Soundcloud_Playlist_Downloader.Language;
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
@@ -14,18 +15,29 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public Exception InErrorException;
         public UpdateCheckStatus CurrentStatus;
-
+        public string rootReleaseUrl = "https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Soundcloud%20Playlist%20Downloader/Releases/";
+        public string ReleaseUrlBlob = "https://github.com/erwinkramer/SoundCloud-Playlist-Sync/blob/fix/Soundcloud%20Playlist%20Downloader/Releases/Soundcloud%20Playlist%20Downloader.exe?raw=true";
         public UpdateUtils()
         {
             CheckForUpdates();
         }
         public void CheckForUpdates()
         {       
-            if(GetOnlineVersion() > GetCurrentVersion())
+            try
             {
-                //update
+                if (GetOnlineVersion() > GetCurrentVersion())
+                {
+                    CurrentStatus = UpdateCheckStatus.MandatoryUpdateAvailable;
+                }
+                else
+                {
+                    CurrentStatus = UpdateCheckStatus.NoUpdateAvailable;
+                }
             }
-            CurrentStatus = UpdateCheckStatus.IsNotNetworkDeployed;
+            catch
+            {
+                CurrentStatus = UpdateCheckStatus.InError;
+            }
         }
 
         public int GetOnlineVersion()
@@ -33,7 +45,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             string json = string.Empty;
             using (var client = new WebClient() { Encoding = Encoding.UTF8 })
             {
-                json = client.DownloadString($"");
+                json = client.DownloadString($"{rootReleaseUrl}ReleaseInfo.json");
             }
             return JObject.Parse(json)["AssemblyMajorVersion"].Value<int>();
         }
@@ -63,7 +75,17 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         internal void Update()
         {
-            Application.Restart();       
+            using (var client = new WebClient() { Encoding = Encoding.UTF8 })
+            {
+                client.DownloadFile(ReleaseUrlBlob, "Soundcloud Playlist Downloader.exe.new");
+            }
+            //rename current assembly to *.old
+            System.IO.File.Move("Soundcloud Playlist Downloader.exe", "Soundcloud Playlist Downloader.exe.old", true);
+            //replace *.new assmebly to new version
+            System.IO.File.Move("Soundcloud Playlist Downloader.exe.new", "Soundcloud Playlist Downloader.exe", true);
+
+            Process.Start("Soundcloud Playlist Downloader.exe");
+            Application.Exit();
         }
 
         public void InstallUpdateSyncWithInfo()
