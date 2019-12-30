@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Soundcloud_Playlist_Downloader.Utils
@@ -11,7 +12,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
     public class UpdateUtils
     {
         public enum UpdateCheckStatus {
-            NoUpdateAvailable,  OptionalUpdateAvailable, MandatoryUpdateAvailable, IsNotNetworkDeployed, InError };
+            NoUpdateAvailable,  OptionalUpdateAvailable, MandatoryUpdateAvailable, IsNotNetworkDeployed, InError , Updating };
 
         public Exception InErrorException;
         public UpdateCheckStatus CurrentStatus;
@@ -64,6 +65,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     return " [!]";
                 case UpdateCheckStatus.NoUpdateAvailable:
                     return " [✓]";
+                case UpdateCheckStatus.Updating:
+                    return " [..]";
                 case UpdateCheckStatus.IsNotNetworkDeployed:
                     return " [~]";
                 case UpdateCheckStatus.InError:
@@ -75,17 +78,25 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         internal void Update()
         {
+            CurrentStatus = UpdateCheckStatus.Updating;
+
             using (var client = new WebClient() { Encoding = Encoding.UTF8 })
             {
                 client.DownloadFile(ReleaseUrlBlob, "Soundcloud Playlist Downloader.exe.new");
             }
-            //rename current assembly to *.old
+   
+            Application.Exit();
+        }
+
+        public void CompleteUpdate()
+        {
+            //copy current assembly to *.old
             System.IO.File.Move("Soundcloud Playlist Downloader.exe", "Soundcloud Playlist Downloader.exe.old", true);
+
             //replace *.new assmebly to new version
             System.IO.File.Move("Soundcloud Playlist Downloader.exe.new", "Soundcloud Playlist Downloader.exe", true);
 
             Process.Start("Soundcloud Playlist Downloader.exe");
-            Application.Exit();
         }
 
         public void InstallUpdateSyncWithInfo()

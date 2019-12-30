@@ -309,6 +309,9 @@ namespace Soundcloud_Playlist_Downloader.Views
                 syncButton.Tag = "STR_ABORT";
                 syncButton.Text = LanguageManager.Language[syncButton.Tag.ToString()];
             }
+
+            if(updateUtil.CurrentStatus == UpdateUtils.UpdateCheckStatus.Updating)
+                updateUtil.CompleteUpdate();
         }
 
         private void Form1_Load(object sender, EventArgs e)
