@@ -6,7 +6,7 @@
     <RootNamespace>SoundCloud_Playlist_Sync_4</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	<ApplicationIcon />
+	<ApplicationIcon>Resources\MainIcon.ico</ApplicationIcon>
 	<Win32Resource />
 	<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -27,10 +27,14 @@
 
   <ItemGroup>
     <None Remove="Resources\MainIcon.ico" />
+    <None Remove="Resources\MainIconLarge.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\MainIcon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MainIconLarge.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -59,9 +63,6 @@
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="Language\ko-kr.txt">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\Icon1.ico">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
