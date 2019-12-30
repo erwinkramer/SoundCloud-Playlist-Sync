@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using SC_SYNC_Base.JsonObjects;
 using Soundcloud_Playlist_Downloader.Language;
 using System;
 using System.Diagnostics;
@@ -12,7 +13,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
     public class UpdateUtils
     {
         public enum UpdateCheckStatus {
-            NoUpdateAvailable,  OptionalUpdateAvailable, MandatoryUpdateAvailable, IsNotNetworkDeployed, InError , Updating };
+            NoUpdateAvailable,  OptionalUpdateAvailable, MandatoryUpdateAvailable, IsNotNetworkDeployed, InError };
 
         public Exception InErrorException;
         public UpdateCheckStatus CurrentStatus;
@@ -65,8 +66,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     return " [!]";
                 case UpdateCheckStatus.NoUpdateAvailable:
                     return " [✓]";
-                case UpdateCheckStatus.Updating:
-                    return " [..]";
                 case UpdateCheckStatus.IsNotNetworkDeployed:
                     return " [~]";
                 case UpdateCheckStatus.InError:
@@ -78,25 +77,29 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         internal void Update()
         {
-            CurrentStatus = UpdateCheckStatus.Updating;
-
             using (var client = new WebClient() { Encoding = Encoding.UTF8 })
             {
                 client.DownloadFile(ReleaseUrlBlob, "Soundcloud Playlist Downloader.exe.new");
             }
-   
+            CompleteUpdate_part1();
+        }
+
+        public void CompleteUpdate_part1()
+        {
+            SyncSetting.settings.Set("Updating", "True");
+            System.IO.File.Copy("Soundcloud Playlist Downloader.exe", "Soundcloud Playlist Downloader.exe.old", true);
+            Process.Start("Soundcloud Playlist Downloader.exe.new");
             Application.Exit();
         }
 
-        public void CompleteUpdate()
+        public static void CompleteUpdate_part2()
         {
-            //copy current assembly to *.old
-            System.IO.File.Move("Soundcloud Playlist Downloader.exe", "Soundcloud Playlist Downloader.exe.old", true);
-
-            //replace *.new assmebly to new version
-            System.IO.File.Move("Soundcloud Playlist Downloader.exe.new", "Soundcloud Playlist Downloader.exe", true);
-
+            if (SyncSetting.settings.Get("Updating") ==  "False")
+                return;
+            System.IO.File.Copy("Soundcloud Playlist Downloader.exe.new", "Soundcloud Playlist Downloader.exe", true);
+            SyncSetting.settings.Set("Updating", "False");
             Process.Start("Soundcloud Playlist Downloader.exe");
+            Application.Exit();
         }
 
         public void InstallUpdateSyncWithInfo()
