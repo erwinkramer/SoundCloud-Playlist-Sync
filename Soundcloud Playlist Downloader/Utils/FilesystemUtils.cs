@@ -105,7 +105,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 Replace("%desc%", track.description);
             filename = filename.Replace("%date%", DateTime.Parse(track.created_at).ToString("yyyy-MM-dd"));
             filename = filename.Replace("%time%", DateTime.Parse(track.created_at).ToString("HH.mm.ss"));
-
+            filename = filename.TrimEnd();
             return CoerceValidFileName(filename, ReplaceIllegalCharacters);
         }
 
