@@ -105,7 +105,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     IEqualityComparer<SoundcloudBaseTrack> comparer = new CompareUtils();                
                     if (!comparer.Equals(track, compareTrack))
                     {
-
                         var oldPath = track.LocalPath;
                         ManifestUtil.ReplaceJsonManifestObject(ref manifest, compareTrack, track, index);
                         Directory.CreateDirectory(Path.GetDirectoryName(track.LocalPath));
