@@ -77,7 +77,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     var compareTrack = allTracks.FirstOrDefault(i => i.id == track.id);
                     if (compareTrack == null)
                     {
-                        if (ManifestUtil.SyncMethod == 1) return;
+                        if (ManifestUtil.SyncMethod == 1) continue;
                         manifest.Remove(track);
                         index--;
                         DeleteFile(track.LocalPath);
