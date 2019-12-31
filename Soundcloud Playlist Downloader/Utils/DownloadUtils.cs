@@ -53,10 +53,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         {
                             ManifestUtil.ProgressUtil.AddOrUpdateInProgressTrack(track);
 
-                            if (!DownloadTrackAndTag(ref track)) return;
+                            if (!DownloadTrackAndTag(ref track))
+                            {
+                                ManifestUtil.ProgressUtil.AddOrUpdateNotDownloadableTrack(track);
+                                Interlocked.Decrement(ref ManifestUtil.ProgressUtil.SongsToDownload);
+                                return;
+                            }
 
                             track.IsDownloaded = true;
-
                             ManifestUtil.ProgressUtil.AddOrUpdateSuccessFullTrack(track);
                             ProcessUpdateManifestDelegate pumd = ManifestUtil.UpdateManifest;
                             pumd(track);

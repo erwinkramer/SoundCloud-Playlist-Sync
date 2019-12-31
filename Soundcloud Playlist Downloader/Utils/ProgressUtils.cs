@@ -37,12 +37,17 @@ namespace Soundcloud_Playlist_Downloader.Utils
             var exc = new Exception($"Exception while downloading track '{track.Title}' from artist '{track.Artist}'", e);
             this.CurrentAmountOfExceptions++;
             this.Exceptions.Enqueue(exc);
-            this.TrackProgress.AddOrUpdate(track.id.ToString(), track.Title, (key, oldValue) => "[X] " + track.Title);
+            this.TrackProgress.AddOrUpdate(track.id.ToString(), track.Title, (key, oldValue) => "[x] " + track.Title);
         }
 
         public void AddOrUpdateInProgressTrack(Track track)
         {
             this.TrackProgress.AddOrUpdate(track.id.ToString(), "[~] " + track.Title, (key, oldValue) => track.Title);
+        }
+
+        public void AddOrUpdateNotDownloadableTrack(Track track)
+        {
+            this.TrackProgress.AddOrUpdate(track.id.ToString(), track.Title, (key, oldValue) => "[o] " + track.Title);
         }
 
         public void AddOrUpdateSuccessFullTrack(Track track)

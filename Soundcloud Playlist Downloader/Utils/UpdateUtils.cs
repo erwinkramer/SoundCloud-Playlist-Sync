@@ -72,7 +72,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 case UpdateCheckStatus.IsNotNetworkDeployed:
                     return " [~]";
                 case UpdateCheckStatus.InError:
-                    return " [X]";
+                    return " [x]";
                 default:
                     return "";
             }
