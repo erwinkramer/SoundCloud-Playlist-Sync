@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using Soundcloud_Playlist_Downloader.Language;
 
@@ -27,10 +28,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             var tracksToDownload = new List<Track>();
 
             // define all local paths by combining the sanitzed artist (if checked by user) with the santized title
-            foreach (var track in tracks)
-            {
-                FinalizeTrackProperties(track);
-            }
+            FinalizePropertiesForTracks(tracks);
 
             // determine which new tracks should be downloaded
             NewTracksToDownload(tracks, tracksToDownload);
@@ -43,6 +41,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
       
             if(_createPlaylists) PlaylistUtil.CreateSimpleM3U(); //Create playlist file       
         }
+
+
 
         private void NewTracksToDownload(IList<Track> allSongs, List<Track> tracksToDownload)
         {
@@ -144,7 +144,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
 
-        public void FinalizeTrackProperties(Track track)
+        public void FinalizePropertiesForTracks(IList<Track> tracks)
+        {
+            Parallel.ForEach(tracks, track => {
+                FinalizePropertiesForTrack(track);
+            });
+        }
+
+        public void FinalizePropertiesForTrack(Track track)
         {  
             //assume it's downloadable when a purchase link is not available
             if (track.downloadable == true && track.purchase_url == null)

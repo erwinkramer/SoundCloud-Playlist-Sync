@@ -154,7 +154,7 @@ namespace Soundcloud_Playlist_Downloader
         internal void SynchronizeSingleTrack(Track track)
         {
             _syncUtil.ManifestUtil.ProgressUtil.SongsToDownload = 1;
-            _syncUtil.FinalizeTrackProperties(track);
+            _syncUtil.FinalizePropertiesForTrack(track);
             _syncUtil.DownloadUtil.DownloadTrackAndTag(ref track);
         }
 

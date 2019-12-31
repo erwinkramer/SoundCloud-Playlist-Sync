@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
 using Soundcloud_Playlist_Downloader.JsonObjects;
@@ -24,7 +25,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             DownloadMode = downloadMode;
             SoundCloudUri = soundCloudUri;
             ManifestName = MakeManifestString(
-                    FilesystemUtils.CoerceValidFileName(soundCloudUri.Host + soundCloudUri.PathAndQuery, !fileSystemUtil.ReplaceIllegalCharacters), fileSystemUtil.FoldersPerArtist, downloadMode, syncMethod);
+                    FilesystemUtils.CoerceValidFileName(new StringBuilder(soundCloudUri.Host + soundCloudUri.PathAndQuery), false), fileSystemUtil.FoldersPerArtist, downloadMode, syncMethod);
             FileSystemUtil = fileSystemUtil;
         }
         static readonly ReaderWriterLock ReadWriteManifestLock = new ReaderWriterLock();

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Soundcloud_Playlist_Downloader.JsonObjects;
@@ -93,25 +95,27 @@ namespace Soundcloud_Playlist_Downloader.Utils
         }
         public static string BuildName(string Format, Track track, bool ReplaceIllegalCharacters)
         {
-            var filename = Format.
-                Replace("%title%", track.Title).
-                Replace("%user%", track.Artist).
-                Replace("%artist%", track.Artist).
-                Replace("%index%", (track.IndexFromSoundcloud + 1).ToString()).
-                Replace("%genre%", track.genre).
-                Replace("%ext%", track.original_format).
-                Replace("%quality%", track.IsHD ? "(HQ)" : null).
-                Replace("%label_name%", track.label_name).
-                Replace("%desc%", track.description);
-            filename = filename.Replace("%date%", DateTime.Parse(track.created_at).ToString("yyyy-MM-dd"));
-            filename = filename.Replace("%time%", DateTime.Parse(track.created_at).ToString("HH.mm.ss"));
-            filename = filename.TrimEnd();
-            return CoerceValidFileName(filename, ReplaceIllegalCharacters);
+            var valuesToReplace = new List<(string, string)>
+            {
+                ("%title%", track.Title),
+                ("%user%", track.Artist),
+                ("%artist%", track.Artist),
+                ("%index%", (track.IndexFromSoundcloud + 1).ToString()),
+                ("%genre%", track.genre),
+                ("%ext%", track.original_format),
+                ("%quality%", track.IsHD ? "(HQ)" : null),
+                ("%label_name%", track.label_name),
+                ("%desc%", track.description),
+                ("%date%", DateTime.Parse(track.created_at).ToString("yyyy-MM-dd")),
+                ("%time%", DateTime.Parse(track.created_at).ToString("HH.mm.ss"))
+            };
+            var filenameBuilder = ReplaceValues(new StringBuilder(Format), valuesToReplace);
+            return CoerceValidFileName(filenameBuilder, ReplaceIllegalCharacters).TrimEnd();
         }
 
         public string BuildTrackLocalPath(Track track)
         {
-            var validArtist = CoerceValidFileName(track.Artist, ReplaceIllegalCharacters); // true && ReplaceIllegalCharacters
+            var validArtist = CoerceValidFileName(new StringBuilder(track.Artist), ReplaceIllegalCharacters);
             var validArtistFolderName = TrimDotsAndSpacesForFolderName(validArtist);
             var filename = BuildName(Format, track, ReplaceIllegalCharacters);
             string path;
@@ -137,15 +141,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return path;
         }
 
-        public static string CoerceValidFileName(string filename, bool checkForReplaceCharacters)
+        public static string CoerceValidFileName(StringBuilder filename, bool checkForReplaceCharacters)
         {
             if (checkForReplaceCharacters)
             {
-                filename = AlterChars(filename);
+                filename = ReplaceSpecialCharactersWithEquivalent(filename);
             }
-
-            var invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
-            var invalidReStr = $@"[{invalidChars}]+";
 
             var reservedWords = new[]
             {
@@ -154,7 +155,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
             };
 
-            var sanitisedNamePart = Regex.Replace(filename, invalidReStr, "_");
+            var invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
+            var sanitisedNamePart = Regex.Replace(filename.ToString(), $@"[{invalidChars}]+", "_");
+            
             foreach (var reservedWord in reservedWords)
             {
                 var reservedWordPattern = $"^{reservedWord}\\.";
@@ -162,28 +165,43 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     RegexOptions.IgnoreCase);
             }
 
-            if (String.IsNullOrEmpty(sanitisedNamePart))
+            if (string.IsNullOrEmpty(sanitisedNamePart))
                 //if completely sanitized, make something that's not an empty string
                 sanitisedNamePart = "(blank)";
             return sanitisedNamePart;
         }
 
-        public static string AlterChars(string word)
+        /// <summary>
+        /// replace the following characters with characters from 'Halfwidth and Fullwidth Forms'
+        ///  / ? < > \ : * | "
+        /// the new characters are not visible in Visual Studio, but are perfectly visible in the file system
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
+        public static StringBuilder ReplaceSpecialCharactersWithEquivalent(StringBuilder word)
         {
-            //replace the following characters with characters from 'Halfwidth and Fullwidth Forms'
-            //  / ? < > \ : * | "
-            //the new characters are not visible in Visual Studio, but are perfectly visible in the file system
-            word = word.
-                Replace("/", "／").
-                Replace("?", "？").
-                Replace("<", "＜").
-                Replace(">", "＞").
-                Replace("\\", "＼").
-                Replace(":", "：").
-                Replace("*", "＊").
-                Replace("|", "｜").
-                Replace("\"", "＂");
-            return word;
+            var valuesToReplace = new List<(string, string)>
+            {
+                ("/", "／"),
+                ("?", "？"),
+                ("<", "＜"),
+                (">", "＞"),
+                ("\\", "＼"),
+                (":", "："),
+                ("*", "＊"),
+                ("|", "｜"),
+                ("\"", "＂")
+            };
+            return ReplaceValues(word, valuesToReplace);
+        }
+
+        private static StringBuilder ReplaceValues(StringBuilder stringToReplaceOn, List<(string, string)> valuesToReplace)
+        {
+            foreach (var valueToReplace in valuesToReplace)
+            {
+                stringToReplaceOn.Replace(valueToReplace.Item1, valueToReplace.Item2);
+            }
+            return stringToReplaceOn;
         }
 
         /// <summary>
