@@ -13,6 +13,7 @@
 
 	<PropertyGroup>
 		<Win32Manifest>Properties\app.manifest</Win32Manifest>
+		<AssemblyName>SoundcloudPlaylistDownloader</AssemblyName>
 	</PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

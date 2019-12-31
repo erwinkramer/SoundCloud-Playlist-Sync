@@ -18,8 +18,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public Exception InErrorException;
         public UpdateCheckStatus CurrentStatus;
         public string RootReleaseUrl = "https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Soundcloud%20Playlist%20Downloader/Releases/";
-        public string ReleaseUrlBlob = "https://github.com/erwinkramer/SoundCloud-Playlist-Sync/blob/fix/Soundcloud%20Playlist%20Downloader/Releases/Soundcloud%20Playlist%20Downloader.exe?raw=true";
-        public static string ExecutableName = "Soundcloud Playlist Downloader.exe";
+        public string ReleaseUrlBlob = "https://github.com/erwinkramer/SoundCloud-Playlist-Sync/blob/fix/Soundcloud%20Playlist%20Downloader/Releases/SoundcloudPlaylistDownloader.exe?raw=true";
+        public static string ExecutableName = "SoundcloudPlaylistDownloader.exe";
 
 
         public UpdateUtils()
