@@ -175,26 +175,24 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public bool IsDownloadable(string downloadUrl)
         {
-            var requestdownloadUrl = WebRequest.Create(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
-            return IsValidUrl(requestdownloadUrl);
+            return IsValidUrl(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
         }
 
-        public static bool IsValidUrl(WebRequest request)
+        public static bool IsValidUrl(string url)
         {
-            bool succeeded = true;
+            var request = WebRequest.Create(url);
             request.Method = "HEAD";
             try
             {
                 using (var response = request.GetResponse())
                 {
-                    succeeded = true;
+                    return true;
                 }
             }
             catch (WebException)
             {
-                succeeded = false;
             }
-            return succeeded;
+            return false;
         }
 
 
