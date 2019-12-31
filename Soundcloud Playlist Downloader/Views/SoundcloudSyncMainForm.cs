@@ -114,9 +114,10 @@ namespace Soundcloud_Playlist_Downloader.Views
                     IsSyncButtonClicked = false;
                     var plural = "";
                     if (_dlMode != EnumUtil.DownloadMode.Track)
-                        plural = "STR_MAIN_STATUS_FETCH_S";
+                        plural = LanguageManager.Language["STR_MAIN_STATUS_FETCH_S"];
+
                     status.Tag = new string[] { "STR_MAIN_STATUS_FETCH", plural };
-                    status.Text = string.Format(LanguageManager.Language["STR_MAIN_STATUS_FETCH"], LanguageManager.Language[plural]);
+                    status.Text = string.Format(LanguageManager.Language["STR_MAIN_STATUS_FETCH"], plural);
                 }
                 else if (!progressUtil.IsActive)
                 {
