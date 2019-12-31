@@ -301,9 +301,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.toolStripComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.toolStripComboBox1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Left;
             this.toolStripComboBox1.AutoSize = true;
-
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
-
 
             // 
             // languageToolStripMenuItem
@@ -314,7 +312,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.languageToolStripMenuItem.Size = new System.Drawing.Size(300, 50);
             this.languageToolStripMenuItem.Text = "Language";
             this.languageToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.languageToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click_1);
+            this.languageToolStripMenuItem.DropDownOpened += new System.EventHandler(this.languageToolStripMenuItem_DropDownOpened);
 
             // 
             // chk_highquality

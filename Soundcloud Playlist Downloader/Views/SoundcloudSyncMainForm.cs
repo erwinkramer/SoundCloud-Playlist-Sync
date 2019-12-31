@@ -537,7 +537,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 LoadLanguagesInAllForms(toolStripComboBox1.SelectedIndex);
         }
 
-        private void languageToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void languageToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
         {
             toolStripComboBox1.SelectedIndex = int.Parse(SyncSetting.settings.Get("Language"));
         }
