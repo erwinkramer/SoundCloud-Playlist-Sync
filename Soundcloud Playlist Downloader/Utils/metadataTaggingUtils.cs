@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Threading;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using TagLib;
@@ -149,9 +148,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 try
                 {
-                    using (var web = new WebClient())
+                    using (var download = DownloadUtils.httpClient.GetAsync(highResAvatarUrl).Result)
+                    using (var fs = new FileStream(avatarFilepath, FileMode.Create))
                     {
-                        web.DownloadFile(highResAvatarUrl, avatarFilepath);
+                        download.Content.CopyToAsync(fs).GetAwaiter().GetResult();
                     }
                     var artwork = new Picture(avatarFilepath) {
                         Type = PictureType.FrontCover,
@@ -183,9 +183,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 try
                 {
-                    using (var web = new WebClient())
+                    using (var download = DownloadUtils.httpClient.GetAsync(highResArtworkUrl).Result)
+                    using (var fs = new FileStream(artworkFilepath, FileMode.Create))
                     {
-                        web.DownloadFile(highResArtworkUrl, artworkFilepath);
+                        download.Content.CopyToAsync(fs).GetAwaiter().GetResult();
                     }
                     var artwork = new Picture(artworkFilepath)
                     {

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using System.Linq;
 using Soundcloud_Playlist_Downloader.Language;
+using System.Net.Http;
 
 namespace Soundcloud_Playlist_Downloader.Utils
 {
@@ -20,6 +20,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         ManifestUtils ManifestUtil;
         public int ConcurrentDownloads;
         public ClientIDsUtils ClientIDsUtil;
+        public static HttpClient httpClient = new HttpClient();
         public DownloadUtils(ClientIDsUtils clientIDsUtil, bool excludeM4A, bool excludeAac, bool convertToMp3, ManifestUtils manifestUtil, bool highqualitysong, int concurrentDownloads)
         {
             ExcludeM4A = excludeM4A;
@@ -90,13 +91,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
 
-        public string GetEffectiveDownloadUrl(string downloadUrl, int id, bool downloadable)
+        public string GetEffectiveDownloadUrlForStream( int id)
         {
-            if (Highqualitysong && !string.IsNullOrWhiteSpace(downloadUrl) && downloadable) //user has selected to download high quality songs if available
-            {
-                return RemoveCarriageReturnAndLineFeed(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
-            }
-
             var track = new JsonUtils(ManifestUtil, ClientIDsUtil.ClientIdCurrentValue).RetrieveJsonTrackFromV2Url(id);
             foreach(var transcoding in track.media.transcodings)
             {
@@ -104,6 +100,15 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 {
                     return new JsonUtils(ManifestUtil, ClientIDsUtil.ClientIdCurrentValue).GetDownloadUrlFromProgressiveUrl(transcoding.url);
                 }
+            }
+            return null;
+        }
+
+        public string GetEffectiveDownloadUrlForHQ(string downloadUrl, bool downloadable)
+        {
+            if (Highqualitysong && !string.IsNullOrWhiteSpace(downloadUrl) && downloadable) //user has selected to download high quality songs if available
+            {
+                return RemoveCarriageReturnAndLineFeed(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
             }
             return null;
         }
@@ -120,29 +125,33 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 return false;
             Directory.CreateDirectory(Path.GetDirectoryName(song.LocalPath));
 
-            song.EffectiveDownloadUrl = GetEffectiveDownloadUrl(song.download_url, song.id, song.downloadable);
-            if (string.IsNullOrWhiteSpace(song.EffectiveDownloadUrl))
-                return false;
+            song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForHQ(song.download_url, song.downloadable);
+            string extension = DetermineExtension(song);
+            var allowedExtension = DetermineAllowedFormats().Contains(extension);
 
-            using (var client = new WebClient())
-            {               
-                string extension = DetermineExtension(song);
-                bool succesfulConvert = false;
-                if (song.IsHD && ConvertToMp3 && Highqualitysong &&
-                    DetermineAllowedFormats().Contains(extension))
-                {
-                    //get the wav song as byte data, as we won't store it just yet
-                    var soundbytes = client.DownloadData(song.EffectiveDownloadUrl);
-                    //convert to mp3 & then write bytes to file
-                    succesfulConvert = AudioConverterUtils.ConvertAllTheThings(soundbytes, ref song, extension);
-                }
+            bool succesfulConvert = false;
+            if (!string.IsNullOrWhiteSpace(song.EffectiveDownloadUrl) && song.IsHD && ConvertToMp3 && allowedExtension)
+            {
+                //get the wav song as byte data, as we won't store it just yet
+                var soundbytes = httpClient.GetByteArrayAsync(song.EffectiveDownloadUrl).Result;
+                //convert to mp3 & then write bytes to file
+                succesfulConvert = AudioConverterUtils.ConvertAllTheThings(soundbytes, ref song, extension);
+            }
                 
-                if(!succesfulConvert) 
+            if(!succesfulConvert) 
+            {
+                song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForStream(song.id);
+                if (string.IsNullOrWhiteSpace(song.EffectiveDownloadUrl))
+                    return false;
+
+                song.LocalPath += ".mp3";
+                using (var download = httpClient.GetAsync(song.EffectiveDownloadUrl).Result)
+                using (var fs = new FileStream(song.LocalPath, FileMode.Create))
                 {
-                    song.LocalPath += ".mp3";
-                    client.DownloadFile(song.EffectiveDownloadUrl, song.LocalPath);
+                    download.Content.CopyToAsync(fs).GetAwaiter().GetResult();
                 }
             }
+
             MetadataTaggingUtils.TagIt(song);
             Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
             return true;
@@ -167,8 +176,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 return ".mp3";
             try
             {
-                WebRequest requestEffectiveDownloadUrl = WebRequest.Create(song.EffectiveDownloadUrl);
-                return GetExtensionFromWebRequest(requestEffectiveDownloadUrl);
+                return GetExtensionFromWebRequest(song.EffectiveDownloadUrl);
             }
             catch (Exception)
             {
@@ -184,14 +192,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public static bool IsValidUrl(string url)
         {
-            var request = WebRequest.Create(url);
-            request.Method = "HEAD";
             try
             {
-                using (var response = request.GetResponse())
-                {
+                if (httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead).Result.StatusCode == HttpStatusCode.OK)
                     return true;
-                }
             }
             catch (WebException)
             {
@@ -200,23 +204,20 @@ namespace Soundcloud_Playlist_Downloader.Utils
         }
 
 
-        public static string GetExtensionFromWebRequest(WebRequest request)
+        public static string GetExtensionFromWebRequest(string requestUrl)
         {
             string extension = "";
-            request.Method = "HEAD";      
-            using (var response = request.GetResponse())
+            var result = httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead).Result;
+            try
             {
-                try
-                {
-                    var disposition = new ContentDisposition(response.Headers["Content-Disposition"]);
-                    extension = Path.GetExtension(disposition.FileName);
-                }
-                catch (FormatException)
-                {
-                    //If it fails to get extention from disposition (if ContentDisposition works it gives more reliable results)
-                    extension = $".{response.Headers["x-amz-meta-file-type"]}";
-                }
-            }          
+                extension = Path.GetExtension(result.Content.Headers.ContentDisposition.FileName.Replace("\"", String.Empty));
+            }
+            catch (FormatException)
+            {
+                //If it fails to get extention from disposition (if ContentDisposition works it gives more reliable results)
+                extension = $".{result.Content.Headers.GetValues("x-amz-meta-file-type").First().Replace("\"", String.Empty)}";
+            }
+                   
             return extension;
         }
 
@@ -260,12 +261,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static HtmlAgilityPack.HtmlDocument DownloadPageFromUrl(string url)
         {
             var doc = new HtmlAgilityPack.HtmlDocument();
-            using (WebClient client = new WebClient())
+            using (HttpClient client = new HttpClient())
             {
-                client.Headers.Add("Accept-Language", " en-US");
-                client.Headers.Add("Accept", " text/html, application/xhtml+xml, */*");
-                client.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
-                doc.LoadHtml(client.DownloadString(url));
+                client.DefaultRequestHeaders.Add("Accept-Language", " en-US");
+                client.DefaultRequestHeaders.Add("Accept", " text/html, application/xhtml+xml, */*");
+                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
+                doc.LoadHtml(client.GetStringAsync(url).Result);
             }
             return doc;
         }

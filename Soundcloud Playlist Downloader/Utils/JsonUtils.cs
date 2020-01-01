@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Soundcloud_Playlist_Downloader.JsonObjects;
@@ -24,20 +22,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public JsonObjectsV2.Track RetrieveJsonTrackFromV2Url(int trackId)
         {
             string json = string.Empty;
-            using (var client = new WebClient() { Encoding = Encoding.UTF8 })
-            {
-                json = client.DownloadString("https://" + $"api-v2.soundcloud.com/tracks/{trackId}?client_id={_clientID}");
-            }
+            json = DownloadUtils.httpClient.GetStringAsync("https://" + $"api-v2.soundcloud.com/tracks/{trackId}?client_id={_clientID}").Result;
             return JsonConvert.DeserializeObject<JsonObjectsV2.Track>(json);
         }
 
         public string GetDownloadUrlFromProgressiveUrl(string progressiveUrl)
         {
             string json = string.Empty;
-            using (var client = new WebClient() { Encoding = Encoding.UTF8 })
-            {
-                json = client.DownloadString($"{progressiveUrl}?client_id={_clientID}");
-            }
+            json = DownloadUtils.httpClient.GetStringAsync($"{progressiveUrl}?client_id={_clientID}").Result;
             return JObject.Parse(json)["url"].Value<string>();
         }
 
@@ -51,25 +43,22 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 return null;
             try
             {
-                using (var client = new WebClient() {  Encoding = Encoding.UTF8 })
+                if (!url.Contains("client_id="))
                 {
-                    if (!url.Contains("client_id="))
-                    {
-                        url += (url.Contains("?") ? "&" : "?") + "client_id=" + _clientID;
-                    }
-                    if (limit != null)
-                    {
-                        url += "&limit=" + limit;
-                    }
-                    if (offset != null)
-                    {
-                        url += "&offset=" + offset;
-                    }
-                    if (limit != null)
-                        url += "&linked_partitioning=1"; //will add next_href to the response
-
-                    json = client.DownloadString(url);
+                    url += (url.Contains("?") ? "&" : "?") + "client_id=" + _clientID;
                 }
+                if (limit != null)
+                {
+                    url += "&limit=" + limit;
+                }
+                if (offset != null)
+                {
+                    url += "&offset=" + offset;
+                }
+                if (limit != null)
+                    url += "&linked_partitioning=1"; //will add next_href to the response
+
+                json = DownloadUtils.httpClient.GetStringAsync(url).Result;
             }
             catch (Exception e)
             {

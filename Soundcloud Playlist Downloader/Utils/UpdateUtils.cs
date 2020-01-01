@@ -3,9 +3,7 @@ using SC_SYNC_Base.JsonObjects;
 using Soundcloud_Playlist_Downloader.Language;
 using System;
 using System.Diagnostics;
-using System.Net;
-using System.Text;
-using System.Threading;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Soundcloud_Playlist_Downloader.Utils
@@ -48,10 +46,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public int GetOnlineVersion()
         {
             string json = string.Empty;
-            using (var client = new WebClient() { Encoding = Encoding.UTF8 })
-            {
-                json = client.DownloadString($"{RootReleaseUrl}ReleaseInfo.json");
-            }
+            json = DownloadUtils.httpClient.GetStringAsync($"{RootReleaseUrl}ReleaseInfo.json").Result;
             return JObject.Parse(json)["AssemblyMajorVersion"].Value<int>();
         }
 
@@ -80,9 +75,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         internal void DownloadUpdate()
         {
-            using (var client = new WebClient() { Encoding = Encoding.UTF8 })
+            using (var download = DownloadUtils.httpClient.GetAsync(ReleaseUrlBlob).Result) 
+            using (var fs = new FileStream($"{ExecutableName}.new", FileMode.Create))
             {
-                client.DownloadFile(ReleaseUrlBlob, $"{ExecutableName}.new");
+                download.Content.CopyToAsync(fs).GetAwaiter().GetResult();
             }
         }
 
