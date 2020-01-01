@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using Soundcloud_Playlist_Downloader.Language;
@@ -144,31 +143,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static string CoerceValidFileName(StringBuilder filename, bool checkForReplaceCharacters)
         {
             if (checkForReplaceCharacters)
-            {
                 filename = ReplaceSpecialCharactersWithEquivalent(filename);
-            }
 
-            var reservedWords = new[]
-            {
-                "CON", "PRN", "AUX", "CLOCK$", "NUL", "COM0", "COM1", "COM2", "COM3", "COM4",
-                "COM5", "COM6", "COM7", "COM8", "COM9", "LPT0", "LPT1", "LPT2", "LPT3", "LPT4",
-                "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
-            };
+            filename = ReplaceReservedWords(filename);
 
-            var invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
-            var sanitisedNamePart = Regex.Replace(filename.ToString(), $@"[{invalidChars}]+", "_");
-            
-            foreach (var reservedWord in reservedWords)
-            {
-                var reservedWordPattern = $"^{reservedWord}\\.";
-                sanitisedNamePart = Regex.Replace(sanitisedNamePart, reservedWordPattern, "_reservedWord_.",
-                    RegexOptions.IgnoreCase);
-            }
-
-            if (string.IsNullOrEmpty(sanitisedNamePart))
-                //if completely sanitized, make something that's not an empty string
-                sanitisedNamePart = "(blank)";
-            return sanitisedNamePart;
+            //if completely sanitized, make something that's not an empty string
+            if (filename.Length == 0)
+                filename.Append("(blank)");
+            return filename.ToString();
         }
 
         /// <summary>
@@ -193,6 +175,29 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 ("\"", "＂")
             };
             return ReplaceValues(word, valuesToReplace);
+        }
+
+        static readonly List<string> reservedWords = new List<string>
+        {
+            "CON", "PRN", "AUX", "CLOCK$", "NUL", "COM0", "COM1", "COM2", "COM3", "COM4",
+            "COM5", "COM6", "COM7", "COM8", "COM9", "LPT0", "LPT1", "LPT2", "LPT3", "LPT4",
+            "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"
+        };
+        static readonly char[] reservedFilenameChars = Path.GetInvalidFileNameChars();
+
+        public static StringBuilder ReplaceReservedWords(StringBuilder filename)
+        {
+            foreach (var filenameChar in reservedFilenameChars)
+            {
+                filename.Replace(filenameChar, '_');
+            }
+
+            foreach (var reservedWord in reservedWords)
+            {
+                if(string.Compare(filename.ToString(), reservedWord, true) == 0)
+                    filename.Replace(reservedWord, "reservedWord");
+            }
+            return filename;
         }
 
         private static StringBuilder ReplaceValues(StringBuilder stringToReplaceOn, List<(string, string)> valuesToReplace)
