@@ -21,6 +21,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public int ConcurrentDownloads;
         public ClientIDsUtils ClientIDsUtil;
         public static HttpClient httpClient = new HttpClient();
+        public static HttpClient httpClientWithBrowserheaders = CreateHttpClientWithBrowserheaders();
+       
         public DownloadUtils(ClientIDsUtils clientIDsUtil, bool excludeM4A, bool excludeAac, bool convertToMp3, ManifestUtils manifestUtil, bool highqualitysong, int concurrentDownloads)
         {
             ExcludeM4A = excludeM4A;
@@ -31,6 +33,15 @@ namespace Soundcloud_Playlist_Downloader.Utils
             ClientIDsUtil = clientIDsUtil;
             ConcurrentDownloads = concurrentDownloads;
         }   
+
+        public static HttpClient CreateHttpClientWithBrowserheaders()
+        {
+            var httpClientWithBrowserheaders = new HttpClient();
+            httpClientWithBrowserheaders.DefaultRequestHeaders.Add("Accept-Language", " en-US");
+            httpClientWithBrowserheaders.DefaultRequestHeaders.Add("Accept", " text/html, application/xhtml+xml, */*");
+            httpClientWithBrowserheaders.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
+            return httpClientWithBrowserheaders;
+        }
 
         public void DownloadSongs(IList<Track> tracksToDownload)
         {
@@ -260,14 +271,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public static HtmlAgilityPack.HtmlDocument DownloadPageFromUrl(string url)
         {
-            var doc = new HtmlAgilityPack.HtmlDocument();
-            using (HttpClient client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Add("Accept-Language", " en-US");
-                client.DefaultRequestHeaders.Add("Accept", " text/html, application/xhtml+xml, */*");
-                client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
-                doc.LoadHtml(client.GetStringAsync(url).Result);
-            }
+            var doc = new HtmlAgilityPack.HtmlDocument(); 
+            doc.LoadHtml(httpClientWithBrowserheaders.GetStringAsync(url).Result);
             return doc;
         }
     }
