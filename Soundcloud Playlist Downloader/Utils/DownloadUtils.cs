@@ -102,7 +102,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
         }
 
-        public string GetEffectiveDownloadUrlForStream( int id)
+        public string GetEffectiveDownloadUrlForStream(int id)
         {
             var track = new JsonUtils(ManifestUtil, ClientIDsUtil.ClientIdCurrentValue).RetrieveJsonTrackFromV2Url(id);
             foreach(var transcoding in track.media.transcodings)
@@ -181,7 +181,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return formats;
         }
 
-        public string DetermineExtension(Track song)
+        public static string DetermineExtension(Track song)
         {
             if (!song.downloadable)
                 return ".mp3";

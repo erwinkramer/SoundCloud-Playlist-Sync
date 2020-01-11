@@ -35,7 +35,6 @@
             this.lbl_copy = new System.Windows.Forms.Label();
             this.lbl_info1 = new System.Windows.Forms.Label();
             this.link_JSON = new System.Windows.Forms.LinkLabel();
-            this.link_postsharp = new System.Windows.Forms.LinkLabel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.License = new System.Windows.Forms.TabPage();
@@ -113,7 +112,7 @@
             this.lbl_copy.Name = "lbl_copy";
             this.lbl_copy.Size = new System.Drawing.Size(300, 13);
             this.lbl_copy.TabIndex = 29;
-            this.lbl_copy.Text = "Copyright © 2013-2019. The SoundCloud-Playlist-Sync project";
+            this.lbl_copy.Text = "Copyright © 2013-2020. The SoundCloud-Playlist-Sync project";
             // 
             // lbl_info1
             // 
@@ -135,17 +134,6 @@
             this.link_JSON.TabStop = true;
             this.link_JSON.Text = "Json.NET";
             this.link_JSON.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_JSON_LinkClicked);
-            // 
-            // link_postsharp
-            // 
-            this.link_postsharp.AutoSize = true;
-            this.link_postsharp.Location = new System.Drawing.Point(3, 38);
-            this.link_postsharp.Name = "link_postsharp";
-            this.link_postsharp.Size = new System.Drawing.Size(56, 13);
-            this.link_postsharp.TabIndex = 34;
-            this.link_postsharp.TabStop = true;
-            this.link_postsharp.Text = "PostSharp";
-            this.link_postsharp.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_postsharp_LinkClicked);
             // 
             // richTextBox1
             // 
@@ -306,7 +294,6 @@
             this.Libraries.Controls.Add(this.link_nAudio);
             this.Libraries.Controls.Add(this.link_taglib);
             this.Libraries.Controls.Add(this.link_JSON);
-            this.Libraries.Controls.Add(this.link_postsharp);
             this.Libraries.Location = new System.Drawing.Point(4, 22);
             this.Libraries.Name = "Libraries";
             this.Libraries.Size = new System.Drawing.Size(447, 148);
@@ -389,7 +376,6 @@
         private System.Windows.Forms.Label lbl_copy;
         private System.Windows.Forms.Label lbl_info1;
         private System.Windows.Forms.LinkLabel link_JSON;
-        private System.Windows.Forms.LinkLabel link_postsharp;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage License;

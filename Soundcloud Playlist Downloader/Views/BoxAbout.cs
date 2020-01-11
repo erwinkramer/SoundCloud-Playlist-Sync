@@ -18,7 +18,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             var link2 = new LinkLabel.Link();
             var link3 = new LinkLabel.Link();
             var link4 = new LinkLabel.Link();
-            var link5 = new LinkLabel.Link();
             var link6 = new LinkLabel.Link();
             var link7 = new LinkLabel.Link();
             var link8 = new LinkLabel.Link();
@@ -35,8 +34,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             link_taglib.Links.Add(link3);
             link4.LinkData = "https://github.com/JamesNK/Newtonsoft.Json/releases";
             link_JSON.Links.Add(link4);
-            link5.LinkData = "https://www.postsharp.net/downloads";
-            link_postsharp.Links.Add(link5);
             link6.LinkData = "https://github.com/naudio/NAudio";
             link_nAudio.Links.Add(link6);
             link7.LinkData = "https://github.com/Corey-M/NAudio.Lame";
