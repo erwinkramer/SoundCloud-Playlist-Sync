@@ -14,7 +14,6 @@ Available languages are English(Default) and Korean(한국어) [Behind↓]
 
 - The latest version number can always be checked from [Releases/ReleaseInfo.json](https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Soundcloud%20Playlist%20Downloader/Releases/ReleaseInfo.json).
 
-
 - Based on .NET Core 3.1 under the hood. You have to install the (64-bit) runtime from [dotnet.microsoft.com/download/dotnet-core](https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-desktop-3.1.0-windows-x64-installer).
 
 ## Info
