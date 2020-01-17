@@ -10,6 +10,17 @@ Available languages are English(Default) and Korean(한국어) [Behind↓]
 
 A utility to synchronize local directories with SoundCloud playlists and favorited lists.
 
+The latest version can always be downloaded from the following url or trough the app by clicking "Update [!]".
+
+https://github.com/erwinkramer/SoundCloud-Playlist-Sync/raw/fix/Soundcloud%20Playlist%20Downloader/Releases/SoundcloudPlaylistDownloader.exe
+
+The latest version number can always be checked here:
+
+https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Soundcloud%20Playlist%20Downloader/Releases/ReleaseInfo.json
+
+Based on .NET Core 3.1 under the hood. You have to install the (64-bit) runtime from the following url: https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-desktop-3.1.0-windows-x64-installer
+
+
 ![alt text](https://raw.githubusercontent.com/HongSic/SoundCloud-Playlist-Sync/fix/Program%20GUI.PNG)
 
 This is a fork of the original utility from @StephenCasella. Besides numerous bug fixes, i've also included a few new features to improve the workings of the utility, for example:
