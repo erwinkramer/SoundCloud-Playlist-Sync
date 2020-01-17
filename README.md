@@ -10,7 +10,7 @@ A utility to synchronize local directories with SoundCloud playlists and favorit
 Available languages are English(Default) and Korean(한국어) [Behind↓]
 
 ## Download
-- The latest version can always be downloaded from [Releases/SoundcloudPlaylistDownloader.exe](https://github.com/erwinkramer/SoundCloud-Playlist-Sync/raw/fix/Soundcloud%20Playlist%20Downloader/Releases/SoundcloudPlaylistDownloader.exe) or through the app by clicking "Update [!]".
+- The latest version can always be downloaded from [Releases/SoundcloudPlaylistDownloader.exe](https://github.com/erwinkramer/SoundCloud-Playlist-Sync/raw/fix/Soundcloud%20Playlist%20Downloader/Releases/SoundcloudPlaylistDownloader.exe) or updated automatically through the app by clicking "Update [!]".
 
 - The latest version number can always be checked from [Releases/ReleaseInfo.json](https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Soundcloud%20Playlist%20Downloader/Releases/ReleaseInfo.json).
 
