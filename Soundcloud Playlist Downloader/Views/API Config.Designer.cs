@@ -46,9 +46,10 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             // bttn_save
             // 
-            this.bttn_save.Location = new System.Drawing.Point(8, 174);
+            this.bttn_save.Location = new System.Drawing.Point(8, 218);
+            this.bttn_save.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bttn_save.Name = "bttn_save";
-            this.bttn_save.Size = new System.Drawing.Size(337, 21);
+            this.bttn_save.Size = new System.Drawing.Size(337, 26);
             this.bttn_save.TabIndex = 0;
             this.bttn_save.Text = "Save settings";
             this.bttn_save.UseVisualStyleBackColor = true;
@@ -56,42 +57,48 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             // txt_CustomClientID
             // 
-            this.txt_CustomClientID.Location = new System.Drawing.Point(128, 147);
+            this.txt_CustomClientID.Location = new System.Drawing.Point(128, 184);
+            this.txt_CustomClientID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_CustomClientID.Name = "txt_CustomClientID";
-            this.txt_CustomClientID.Size = new System.Drawing.Size(217, 21);
+            this.txt_CustomClientID.Size = new System.Drawing.Size(217, 23);
             this.txt_CustomClientID.TabIndex = 1;
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(10, 8);
+            this.label1.Location = new System.Drawing.Point(10, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(320, 75);
+            this.label1.Size = new System.Drawing.Size(320, 94);
             this.label1.TabIndex = 3;
-            this.label1.Text = "This setting changes your client ID.\nIf the API returns unauthorized it will be likely that the client ID is not working anymore.\nCreate a new ID by signing up for an application under the button.";
+            this.label1.Text = "This setting changes your client ID.\nIf the API returns unauthorized it will be l" +
+    "ikely that the client ID is not working anymore.\nCreate a new ID by signing up f" +
+    "or an application under the button.";
             // 
             // txt_stockClientID
             // 
-            this.txt_stockClientID.Location = new System.Drawing.Point(128, 101);
+            this.txt_stockClientID.Location = new System.Drawing.Point(128, 126);
+            this.txt_stockClientID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_stockClientID.Name = "txt_stockClientID";
             this.txt_stockClientID.ReadOnly = true;
-            this.txt_stockClientID.Size = new System.Drawing.Size(217, 21);
+            this.txt_stockClientID.Size = new System.Drawing.Size(217, 23);
             this.txt_stockClientID.TabIndex = 7;
             this.txt_stockClientID.TextChanged += new System.EventHandler(this.txt_stockClientID_TextChanged);
             // 
             // txt_stockClientID2
             // 
-            this.txt_stockClientID2.Location = new System.Drawing.Point(128, 124);
+            this.txt_stockClientID2.Location = new System.Drawing.Point(128, 155);
+            this.txt_stockClientID2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txt_stockClientID2.Name = "txt_stockClientID2";
             this.txt_stockClientID2.ReadOnly = true;
-            this.txt_stockClientID2.Size = new System.Drawing.Size(217, 21);
+            this.txt_stockClientID2.Size = new System.Drawing.Size(217, 23);
             this.txt_stockClientID2.TabIndex = 10;
             // 
             // rbutton_clientid1
             // 
             this.rbutton_clientid1.AutoSize = true;
-            this.rbutton_clientid1.Location = new System.Drawing.Point(10, 102);
+            this.rbutton_clientid1.Location = new System.Drawing.Point(10, 128);
+            this.rbutton_clientid1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rbutton_clientid1.Name = "rbutton_clientid1";
-            this.rbutton_clientid1.Size = new System.Drawing.Size(84, 16);
+            this.rbutton_clientid1.Size = new System.Drawing.Size(82, 19);
             this.rbutton_clientid1.TabIndex = 11;
             this.rbutton_clientid1.TabStop = true;
             this.rbutton_clientid1.Text = "Client ID 1:";
@@ -101,9 +108,10 @@ namespace Soundcloud_Playlist_Downloader.Views
             // rbutton_clientid2
             // 
             this.rbutton_clientid2.AutoSize = true;
-            this.rbutton_clientid2.Location = new System.Drawing.Point(10, 126);
+            this.rbutton_clientid2.Location = new System.Drawing.Point(10, 158);
+            this.rbutton_clientid2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rbutton_clientid2.Name = "rbutton_clientid2";
-            this.rbutton_clientid2.Size = new System.Drawing.Size(84, 16);
+            this.rbutton_clientid2.Size = new System.Drawing.Size(82, 19);
             this.rbutton_clientid2.TabIndex = 12;
             this.rbutton_clientid2.TabStop = true;
             this.rbutton_clientid2.Text = "Client ID 2:";
@@ -113,9 +121,10 @@ namespace Soundcloud_Playlist_Downloader.Views
             // rbutton_clientidcustom
             // 
             this.rbutton_clientidcustom.AutoSize = true;
-            this.rbutton_clientidcustom.Location = new System.Drawing.Point(10, 149);
+            this.rbutton_clientidcustom.Location = new System.Drawing.Point(10, 186);
+            this.rbutton_clientidcustom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.rbutton_clientidcustom.Name = "rbutton_clientidcustom";
-            this.rbutton_clientidcustom.Size = new System.Drawing.Size(86, 16);
+            this.rbutton_clientidcustom.Size = new System.Drawing.Size(84, 19);
             this.rbutton_clientidcustom.TabIndex = 13;
             this.rbutton_clientidcustom.TabStop = true;
             this.rbutton_clientidcustom.Text = "Custom ID:";
@@ -125,18 +134,18 @@ namespace Soundcloud_Playlist_Downloader.Views
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 85);
+            this.label5.Location = new System.Drawing.Point(6, 106);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 12);
+            this.label5.Size = new System.Drawing.Size(43, 15);
             this.label5.TabIndex = 14;
             this.label5.Text = "Active:";
             // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(6, 199);
+            this.linkLabel1.Location = new System.Drawing.Point(6, 249);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(158, 12);
+            this.linkLabel1.Size = new System.Drawing.Size(147, 15);
             this.linkLabel1.TabIndex = 15;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Click here to create new ID";
@@ -145,9 +154,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             // API_Config
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(348, 220);
+            this.ClientSize = new System.Drawing.Size(348, 275);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.rbutton_clientidcustom);
@@ -159,6 +168,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.Controls.Add(this.txt_CustomClientID);
             this.Controls.Add(this.bttn_save);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "API_Config";
             this.Text = "API Config";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.API_Config_FormClosing);
