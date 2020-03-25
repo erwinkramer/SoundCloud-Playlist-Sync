@@ -28,7 +28,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             get
             {
-                return "a3dd183a357fcff9a6943c0d65664087";
+                return "dfd268143d94dad03a4242c54646e4a4";
             }
         }
         public string ClientIdCustom
