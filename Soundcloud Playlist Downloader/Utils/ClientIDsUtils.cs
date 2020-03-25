@@ -21,22 +21,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             get
             {
-                return SyncSetting.settings.Get("clientID1");
-            }
-            set
-            {
-                SyncSetting.settings.Set("clientID1", value);
+                return "a3dd183a357fcff9a6943c0d65664087";
             }
         }
         public string ClientId2
         {
             get
             {
-                return SyncSetting.settings.Get("clientID2");
-            }
-            set
-            {
-                SyncSetting.settings.Set("clientID2", value);
+                return "a3dd183a357fcff9a6943c0d65664087";
             }
         }
         public string ClientIdCustom
