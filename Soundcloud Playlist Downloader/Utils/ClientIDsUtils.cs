@@ -59,7 +59,15 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             get
             {
-                return SyncSetting.settings.Get(SyncSetting.settings.Get("clientIDcurrentSelected"));
+                var currentSelected = SyncSetting.settings.Get("clientIDcurrentSelected");
+                if (string.Equals(currentSelected, "clientIDcustom", StringComparison.InvariantCultureIgnoreCase))
+                    return ClientIdCustom;
+                else if (string.Equals(currentSelected, "clientID1", StringComparison.InvariantCultureIgnoreCase))
+                    return ClientId1;
+                else if (string.Equals(currentSelected, "ClientId2", StringComparison.InvariantCultureIgnoreCase))
+                    return ClientId2;
+                else
+                    throw new Exception("Current selected client id does not match any of the existing cliend id values.");
             }
         }
     }
