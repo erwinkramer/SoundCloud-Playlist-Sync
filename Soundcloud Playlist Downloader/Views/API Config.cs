@@ -82,7 +82,12 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            try { Process.Start("http://soundcloud.com/you/apps/new"); } catch { }
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = "http://soundcloud.com/you/apps/new",
+                UseShellExecute = true
+            };
+            Process.Start(psi);
         }
 
         internal void LoadLanguage()
