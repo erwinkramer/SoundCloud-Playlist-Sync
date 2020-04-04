@@ -652,7 +652,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             // 
             this.tabControl_general.Controls.Add(this.tabPage_BasicOptions);
             this.tabControl_general.Controls.Add(this.tabPage_AdvancedOptions);
-            this.tabControl_general.Location = new System.Drawing.Point(14, 44);
+            this.tabControl_general.Location = new System.Drawing.Point(15, 45);
             this.tabControl_general.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl_general.Name = "tabControl_general";
             this.tabControl_general.SelectedIndex = 0;
@@ -785,7 +785,9 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.pnl_convert.ResumeLayout(false);
             this.pnl_convert.PerformLayout();
             this.gbox_syncMethod.ResumeLayout(false);

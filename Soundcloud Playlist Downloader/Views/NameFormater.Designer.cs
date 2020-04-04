@@ -48,9 +48,10 @@
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(14, 38);
+            this.textBox1.Location = new System.Drawing.Point(14, 48);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(466, 21);
+            this.textBox1.Size = new System.Drawing.Size(466, 23);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "%user% - %title% %quality%";
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -58,9 +59,10 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(159, 11);
+            this.button1.Location = new System.Drawing.Point(159, 14);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 21);
+            this.button1.Size = new System.Drawing.Size(119, 26);
             this.button1.TabIndex = 3;
             this.button1.Text = "Format options ▼";
             this.button1.UseVisualStyleBackColor = true;
@@ -70,9 +72,10 @@
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(14, 181);
+            this.button2.Location = new System.Drawing.Point(14, 226);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(467, 23);
+            this.button2.Size = new System.Drawing.Size(467, 29);
             this.button2.TabIndex = 4;
             this.button2.Text = "Save settings";
             this.button2.UseVisualStyleBackColor = true;
@@ -90,19 +93,21 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox2.BackColor = System.Drawing.SystemColors.Control;
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Location = new System.Drawing.Point(7, 22);
+            this.textBox2.Location = new System.Drawing.Point(7, 28);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(453, 65);
+            this.textBox2.Size = new System.Drawing.Size(453, 81);
             this.textBox2.TabIndex = 6;
             this.textBox2.Text = "Maroon 5 - Sugar.mp3";
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(14, 11);
+            this.button3.Location = new System.Drawing.Point(14, 14);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(138, 20);
+            this.button3.Size = new System.Drawing.Size(138, 25);
             this.button3.TabIndex = 7;
             this.button3.Text = "Sample tracks  ▼";
             this.button3.UseVisualStyleBackColor = true;
@@ -115,27 +120,29 @@
             this.toolStripMenuItem2});
             this.contextMenuStrip2.Name = "contextMenuStrip1";
             this.contextMenuStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.contextMenuStrip2.Size = new System.Drawing.Size(169, 48);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(168, 48);
             this.contextMenuStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip2_ItemClicked);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(168, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
             this.toolStripMenuItem1.Text = "Maroon 5 - Sugar";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(168, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(167, 22);
             this.toolStripMenuItem2.Text = "K/DA - POP/STAR";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Location = new System.Drawing.Point(14, 62);
+            this.groupBox1.Location = new System.Drawing.Point(14, 78);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(467, 114);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(467, 142);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Preview";
@@ -143,9 +150,10 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(284, 14);
+            this.checkBox1.Location = new System.Drawing.Point(284, 18);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(100, 16);
+            this.checkBox1.Size = new System.Drawing.Size(95, 19);
             this.checkBox1.TabIndex = 9;
             this.checkBox1.Text = "From ID3 Tag";
             this.checkBox1.UseVisualStyleBackColor = true;
@@ -153,9 +161,9 @@
             // 
             // NameFormater
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(495, 207);
+            this.ClientSize = new System.Drawing.Size(495, 259);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button3);
@@ -163,6 +171,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NameFormater";

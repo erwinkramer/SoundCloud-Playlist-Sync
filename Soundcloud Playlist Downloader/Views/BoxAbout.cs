@@ -207,5 +207,10 @@ namespace Soundcloud_Playlist_Downloader.Views
             label6.Text = LanguageManager.Language["STR_ABOUT_PW_CON"] + ":";
             label7.Text = LanguageManager.Language["STR_ABOUT_TRANSIMPL"] + ":";
         }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
