@@ -71,10 +71,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.1\build\libmp3lame.32.dll" />
+	  <Content Update="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.0\build\libmp3lame.64.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.1\build\libmp3lame.64.dll" />
+	  <Content Update="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.0\build\libmp3lame.32.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 </Project>
