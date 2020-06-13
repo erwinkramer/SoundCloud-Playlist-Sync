@@ -71,34 +71,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.2\build\libmp3lame.32.dll" />
+	  <None Update="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.1\build\libmp3lame.32.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.2\build\libmp3lame.64.dll" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.2\build\libmp3lame.32.dll" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.2\build\libmp3lame.64.dll" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.2\build\libmp3lame.32.dll" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.2\build\libmp3lame.64.dll" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.2\build\libmp3lame.32.dll" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.2\build\libmp3lame.64.dll" />
+	  <None Update="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.1\build\libmp3lame.64.dll">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 </Project>
