@@ -57,7 +57,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             try
             {
                 _uniqueTempFileCounter += 1;
-                var tempFile = Path.Combine(directory, "tempdata" + _uniqueTempFileCounter + ".wav");
+                var tempFile = Path.GetTempFileName();
 
                 using (var ms = new MemoryStream(wavFile))
                 using (var rdr = new WaveFileReader(ms))
@@ -82,9 +82,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // ignored
+                throw e;
             }
             return mp3Bytes;
         }
@@ -120,7 +120,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             try
             {
                 _uniqueTempFileCounter += 1;
-                var tempFile = Path.Combine(directory, "tempdata" + _uniqueTempFileCounter + ".wav");
+                var tempFile = Path.GetTempFileName();
 
                 using (var ms = new MemoryStream(aiffFile))
                 using (var rdr = new AiffFileReader(ms))
@@ -146,9 +146,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 }
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // ignored
+                throw e;
             }
             return false;
         }
