@@ -69,16 +69,4 @@
 	<ItemGroup>
 	  <Folder Include="Releases\" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.1\build\libmp3lame.32.dll">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.1\build\libmp3lame.64.dll">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
 </Project>
