@@ -104,10 +104,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public static void CompleteUpdate_part2()
         {
             SyncSetting.settings.Set("Updating", "False");
-            File.Copy($"{ExecutableName}.new", ExecutableName, true);
-
-            if (File.Exists($"{ExecutableName}.old"))
-                File.Delete($"{ExecutableName}.old");
+            File.Move($"{ExecutableName}.new", ExecutableName, true);
 
             Process.Start(ExecutableName);
             Application.Exit();
