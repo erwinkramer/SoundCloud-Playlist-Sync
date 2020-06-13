@@ -24,7 +24,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
             if (extension == ".wav")
             {
-                mp3Bytes = ConvertWavToMp3(strangefile, directory);
+                mp3Bytes = ConvertWavToMp3(strangefile);
                 if (mp3Bytes != null)
                 {
                     song.LocalPath += ".mp3"; //conversion wil result in an mp3
@@ -51,7 +51,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return false;
         }
 
-        public static byte[] ConvertWavToMp3(byte[] wavFile, string directory)
+        public static byte[] ConvertWavToMp3(byte[] wavFile)
         {
             byte[] mp3Bytes = null;
             try
@@ -69,7 +69,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate);
                             //sample to new sample rate
                         WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
-                        mp3Bytes = ConvertWavToMp3(tempFile, true); //file to mp3 bytes
+                        mp3Bytes = ConvertWavFileToMp3(tempFile, true); //file to mp3 bytes
                     }
                     else
                     {
@@ -89,8 +89,13 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return mp3Bytes;
         }
 
-        public static byte[] ConvertWavToMp3(string wavFile, bool deleteWavAfter)
-            //this method takes an actual wav file and converts it
+        /// <summary>
+        /// Takes an actual wav file and converts it
+        /// </summary>
+        /// <param name="wavFile"></param>
+        /// <param name="deleteWavAfter"></param>
+        /// <returns></returns>
+        public static byte[] ConvertWavFileToMp3(string wavFile, bool deleteWavAfter)
         {
             byte[] mp3Bytes = null;
             try
@@ -107,9 +112,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     File.Delete(wavFile);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // ignored
+                throw e;
             }
             return mp3Bytes;
         }
@@ -125,14 +130,13 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 using (var ms = new MemoryStream(aiffFile))
                 using (var rdr = new AiffFileReader(ms))
                 {
+                    //can't go from 24 bits aif to mp3 directly, create temporary 16 bit wav 
                     if (rdr.WaveFormat.BitsPerSample == 24)
-                        //can't go from 24 bits aif to mp3 directly, create temporary 16 bit wav 
                     {
                         ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr); //24 bit to sample
-                        var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate);
-                            //sample to new sample rate
+                        var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate); //sample to new sample rate
                         WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
-                        mp3Bytes = ConvertWavToMp3(tempFile, true); //file to mp3 bytes                       
+                        mp3Bytes = ConvertWavFileToMp3(tempFile, true); //file to mp3 bytes                       
                     }
                     else
                     {
@@ -150,7 +154,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 throw e;
             }
-            return false;
         }
 
         public static bool ConvertM4AToMp3(byte[] m4AFile, string directory, ref Track song)
