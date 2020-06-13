@@ -17,7 +17,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public Exception InErrorException;
         public UpdateCheckStatus CurrentStatus;
         public string RootReleaseUrl = "https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Soundcloud%20Playlist%20Downloader/Releases/";
-        public string ReleaseUrlBlob = "https://github.com/erwinkramer/SoundCloud-Playlist-Sync/blob/fix/Soundcloud%20Playlist%20Downloader/Releases/SoundcloudPlaylistDownloader.exe?raw=true";
+        public string ReleaseUrlBlob = "https://github.com/erwinkramer/SoundCloud-Playlist-Sync/blob/fix/Soundcloud%20Playlist%20Downloader/Releases/SoundcloudPlaylistDownloader.zip?raw=true";
         public static string ExecutableName = "SoundcloudPlaylistDownloader.exe";
         public static string ArchiveName = "SoundcloudPlaylistDownloader.zip";
 
@@ -83,9 +83,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 download.Content.CopyToAsync(fs).GetAwaiter().GetResult();
             }
 
-            ZipFile.ExtractToDirectory(ArchiveName, Directory.GetCurrentDirectory());
-            File.Move($"{ExecutableName}", $"{ExecutableName}.new");
+            var zipOutputFolder = Path.Combine(Directory.GetCurrentDirectory(), "new");
+            ZipFile.ExtractToDirectory(ArchiveName, zipOutputFolder, true);
+            File.Move(Path.Combine(zipOutputFolder, ExecutableName) , $"{ExecutableName}.new", true);
             File.Delete(ArchiveName);
+            Directory.Delete(zipOutputFolder);
         }
 
         /// <summary>
