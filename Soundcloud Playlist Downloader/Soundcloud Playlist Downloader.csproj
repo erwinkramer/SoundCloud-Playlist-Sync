@@ -69,4 +69,12 @@
 	<ItemGroup>
 	  <Folder Include="Releases\" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.1\build\libmp3lame.32.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.1\build\libmp3lame.64.dll" />
+	</ItemGroup>
 </Project>
