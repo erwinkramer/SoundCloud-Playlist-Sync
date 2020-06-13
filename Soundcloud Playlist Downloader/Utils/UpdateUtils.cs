@@ -4,6 +4,7 @@ using Soundcloud_Playlist_Downloader.Language;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Windows.Forms;
 
 namespace Soundcloud_Playlist_Downloader.Utils
@@ -18,6 +19,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public string RootReleaseUrl = "https://raw.githubusercontent.com/erwinkramer/SoundCloud-Playlist-Sync/fix/Soundcloud%20Playlist%20Downloader/Releases/";
         public string ReleaseUrlBlob = "https://github.com/erwinkramer/SoundCloud-Playlist-Sync/blob/fix/Soundcloud%20Playlist%20Downloader/Releases/SoundcloudPlaylistDownloader.exe?raw=true";
         public static string ExecutableName = "SoundcloudPlaylistDownloader.exe";
+        public static string ArchiveName = "SoundcloudPlaylistDownloader.zip";
 
 
         public UpdateUtils()
@@ -76,10 +78,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
         internal void DownloadUpdate()
         {
             using (var download = DownloadUtils.httpClient.GetAsync(ReleaseUrlBlob).Result) 
-            using (var fs = new FileStream($"{ExecutableName}.new", FileMode.Create))
+            using (var fs = new FileStream(ArchiveName, FileMode.Create))
             {
                 download.Content.CopyToAsync(fs).GetAwaiter().GetResult();
             }
+
+            ZipFile.ExtractToDirectory(ArchiveName, Directory.GetCurrentDirectory());
+            File.Move($"{ExecutableName}", $"{ExecutableName}.new");
+            File.Delete(ArchiveName);
         }
 
         /// <summary>
