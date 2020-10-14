@@ -63,7 +63,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
        
         private void AnalyseManifestTracks(IList<Track> allTracks, List<Track> tracksToDownload)
         {
-            Track track = null;
+            Track oldTrack = null;
             var manifestPath = ManifestUtil.DetermineManifestPath();
             try
             {
@@ -71,46 +71,46 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 var manifest = ManifestUtil.LoadManifestFromFile();
                 for (int index = 0; index < manifest.Count; index++)
                 {
-                    track = manifest[index];
+                    oldTrack = manifest[index];
 
-                    track.LocalPath = Path.Combine(ManifestUtil.FileSystemUtil.Directory.FullName, track.LocalPathRelative);
-                    var compareTrack = allTracks.FirstOrDefault(i => i.id == track.id);
-                    if (compareTrack == null)
+                    oldTrack.LocalPath = Path.Combine(ManifestUtil.FileSystemUtil.Directory.FullName, oldTrack.LocalPathRelative);
+                    var matchedTrack = allTracks.FirstOrDefault(i => i.id == oldTrack.id);
+                    if (matchedTrack == null)
                     {
                         if (ManifestUtil.SyncMethod == 1) continue;
-                        manifest.Remove(track);
+                        manifest.Remove(oldTrack);
                         index--;
-                        DeleteFile(track.LocalPath);
+                        DeleteFile(oldTrack.LocalPath);
                         continue;
                     }
-                    if (!File.Exists(track.LocalPath))
+                    if (!File.Exists(oldTrack.LocalPath))
                     {
-                        manifest.Remove(track);
+                        manifest.Remove(oldTrack);
                         index--;
-                        tracksToDownload.Add(compareTrack);
+                        tracksToDownload.Add(matchedTrack);
                         continue;
                     }
 
                     //If the duration is shorter than before; suspect a change from full song to sample song
-                    if (track.duration > compareTrack.duration) continue;
+                    if (matchedTrack.duration < oldTrack.duration) continue;
 
-                    if (compareTrack.IsHD && !track.IsHD) //track changed to HD
+                    if ((matchedTrack.IsHD == true) && (oldTrack.IsHD == false)) //track changed to HD
                     {
-                        manifest.Remove(track);
+                        manifest.Remove(oldTrack);
                         index--;
-                        DeleteFile(track.LocalPath);
-                        tracksToDownload.Add(compareTrack);
+                        DeleteFile(oldTrack.LocalPath);
+                        tracksToDownload.Add(matchedTrack);
                         continue;
                     }
                     IEqualityComparer<SoundcloudBaseTrack> comparer = new CompareUtils();                
-                    if (!comparer.Equals(track, compareTrack))
+                    if (!comparer.Equals(oldTrack, matchedTrack))
                     {
-                        var oldPath = track.LocalPath;
-                        ManifestUtil.ReplaceJsonManifestObject(ref manifest, compareTrack, track, index);
-                        Directory.CreateDirectory(Path.GetDirectoryName(track.LocalPath));
-                        File.Move(oldPath, track.LocalPath);
+                        var oldPath = oldTrack.LocalPath;
+                        ManifestUtil.ReplaceJsonManifestObject(ref manifest, matchedTrack, oldTrack, index);
+                        Directory.CreateDirectory(Path.GetDirectoryName(matchedTrack.LocalPath));
+                        File.Move(oldPath, matchedTrack.LocalPath);
                         DeleteEmptyDirectory(oldPath);
-                        MetadataTaggingUtils.TagIt(track);
+                        MetadataTaggingUtils.TagIt(matchedTrack);
                         continue;
                     }            
                 }
@@ -119,7 +119,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             catch (Exception e)
             {
                 ManifestUtil.ProgressUtil.IsError = true;
-                throw new Exception(string.Format(LanguageManager.Language["STR_EXCEPTION_SYNC"], track?.EffectiveDownloadUrl, track?.LocalPath, e));
+                throw new Exception(string.Format(LanguageManager.Language["STR_EXCEPTION_SYNC"], oldTrack?.EffectiveDownloadUrl, oldTrack?.LocalPath, e));
             }
         }
         private void DeleteFile(string fullPathSong)

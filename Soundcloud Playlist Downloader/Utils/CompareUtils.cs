@@ -15,9 +15,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             if (a.label != null && a.label.id != b.label.id)
                 return false;
 
-            if (a.last_modified == b.last_modified &&
-                a.commentable == b.commentable &&
-                a.downloadable == b.downloadable &&
+            if (a.commentable == b.commentable &&
                 a.id == b.id &&
                 a.Artist == b.Artist &&
                 a.Title == b.Title &&
