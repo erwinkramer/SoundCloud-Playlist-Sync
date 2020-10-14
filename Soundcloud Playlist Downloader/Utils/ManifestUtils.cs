@@ -29,6 +29,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
             FileSystemUtil = fileSystemUtil;
         }
         static readonly ReaderWriterLock ReadWriteManifestLock = new ReaderWriterLock();
+        static readonly ReaderWriterLock UpdateManifestLock = new ReaderWriterLock();
+
         const int ReadLockTimeoutMs = 500;
         const int WriteLockTimeoutMs = 1000;
 
@@ -38,26 +40,19 @@ namespace Soundcloud_Playlist_Downloader.Utils
         }
         public void UpdateManifest(Track trackDownloaded)
         {
-            var updateSuccesful = false;
-            for (var attempts = 0; attempts < 5; attempts++)
-            {
-                try
-                {                  
-                    List<Track> manifest = LoadManifestFromFile();                       
-                    AppendToJsonManifestObject(ref manifest, trackDownloaded);
-                    WriteManifestToFile(manifest);                       
-                    updateSuccesful = true;
-                    break;
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-                Thread.Sleep(50); // Pause 50ms before new attempt
+            //use UpdateManifestLock because nested methods use the ReadWriteManifestLock for reading and writing
+            UpdateManifestLock.AcquireWriterLock(WriteLockTimeoutMs); 
+            try
+            {    
+                List<Track> manifest = LoadManifestFromFile();                       
+                AppendToJsonManifestObject(ref manifest, trackDownloaded);
+                WriteManifestToFile(manifest);
+                return;
             }
-            if (updateSuccesful) return;
-            ProgressUtil.IsError = true;
-            throw new Exception("Unable to update manifest");
+            finally
+            {
+                UpdateManifestLock.ReleaseWriterLock();
+            }
         }
 
         public List<Track> LoadManifestFromFile()
