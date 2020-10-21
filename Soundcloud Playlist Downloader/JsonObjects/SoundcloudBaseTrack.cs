@@ -12,7 +12,7 @@ namespace Soundcloud_Playlist_Downloader.JsonObjects
         public int duration { get; set; }
         public bool commentable { get; set; }
         public string state { get; set; }
-        public int original_content_size { get; set; }
+        public int? original_content_size { get; set; }
         public string last_modified { get; set; }
         public string sharing { get; set; }
         public string tag_list { get; set; }
