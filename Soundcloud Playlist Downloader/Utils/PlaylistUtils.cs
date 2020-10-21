@@ -82,7 +82,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             IList<string> newM3U = (
                 from m in manifest.AsParallel()
-                orderby m.favoritings_count ascending
+                orderby m.favoritings_count descending
                 select m.LocalPathRelative).ToList();
             newM3U.Insert(0, string.Format("#{0} {1}. {2}", Definition, LanguageManager.Language["STR_PLISTUTIL_SORTML"], GeneratedBy));
             return newM3U;
