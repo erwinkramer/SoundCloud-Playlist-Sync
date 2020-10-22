@@ -106,10 +106,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     if (!comparer.Equals(oldTrack, matchedTrack))
                     {
                         ManifestUtil.ReplaceJsonManifestObject(ref manifest, matchedTrack, oldTrack, index);
-                        Directory.CreateDirectory(Path.GetDirectoryName(matchedTrack.LocalPath));
 
                         if(!string.Equals(oldTrack.LocalPath, matchedTrack.LocalPath, StringComparison.OrdinalIgnoreCase))
                         {
+                            Directory.CreateDirectory(Path.GetDirectoryName(matchedTrack.LocalPath));
                             File.Move(oldTrack.LocalPath, matchedTrack.LocalPath, true);
                             DeleteEmptyDirectory(oldTrack.LocalPath);
                         }
@@ -123,7 +123,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             catch (Exception e)
             {
                 ManifestUtil.ProgressUtil.IsError = true;
-                throw new Exception(string.Format(LanguageManager.Language["STR_EXCEPTION_SYNC"], oldTrack?.EffectiveDownloadUrl, oldTrack?.LocalPath, e));
+                throw new Exception(string.Format(LanguageManager.Language["STR_EXCEPTION_SYNC"], oldTrack?.uri, oldTrack?.LocalPath, e));
             }
         }
         private void DeleteFile(string fullPathSong)
