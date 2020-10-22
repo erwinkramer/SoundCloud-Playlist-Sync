@@ -26,7 +26,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             Directory = targetDirectory;
             OriginalDirectory = new DirectoryInfo(targetDirectory.FullName);
             ErrorsLogged = false;
-            LogPath = $"{OriginalDirectory.FullName}\\log{DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")}.txt";
+            LogPath = $"{OriginalDirectory.FullName}\\log.txt";
         }
 
         public void LogTrackWithError(Track trackWithErrors, Exception e)
@@ -47,7 +47,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 try
                 {
-                    File.AppendAllText(LogPath, logLine);
+                    File.AppendAllText(LogPath, $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}\t{logLine}");
                     updateSuccesful = true;
                     break;
                 }
