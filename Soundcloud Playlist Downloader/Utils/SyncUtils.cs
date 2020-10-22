@@ -110,7 +110,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         if(!string.Equals(oldTrack.LocalPath, matchedTrack.LocalPath, StringComparison.OrdinalIgnoreCase))
                         {
                             Directory.CreateDirectory(Path.GetDirectoryName(matchedTrack.LocalPath));
-                            File.Move(oldTrack.LocalPath, matchedTrack.LocalPath, true);
+                            if(File.Exists(oldTrack.LocalPath))
+                            {
+                                File.Move(oldTrack.LocalPath, matchedTrack.LocalPath, true);
+                            }
                             DeleteEmptyDirectory(oldTrack.LocalPath);
                         }
 
