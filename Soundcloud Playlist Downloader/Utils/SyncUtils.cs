@@ -105,11 +105,15 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     IEqualityComparer<SoundcloudBaseTrack> comparer = new CompareUtils();                
                     if (!comparer.Equals(oldTrack, matchedTrack))
                     {
-                        var oldPath = oldTrack.LocalPath;
                         ManifestUtil.ReplaceJsonManifestObject(ref manifest, matchedTrack, oldTrack, index);
                         Directory.CreateDirectory(Path.GetDirectoryName(matchedTrack.LocalPath));
-                        File.Move(oldPath, matchedTrack.LocalPath);
-                        DeleteEmptyDirectory(oldPath);
+
+                        if(!string.Equals(oldTrack.LocalPath, matchedTrack.LocalPath, StringComparison.OrdinalIgnoreCase))
+                        {
+                            File.Move(oldTrack.LocalPath, matchedTrack.LocalPath, true);
+                            DeleteEmptyDirectory(oldTrack.LocalPath);
+                        }
+
                         MetadataTaggingUtils.TagIt(matchedTrack);
                         continue;
                     }            
