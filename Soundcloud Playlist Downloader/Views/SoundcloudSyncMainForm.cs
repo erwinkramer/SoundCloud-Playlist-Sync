@@ -81,13 +81,11 @@ namespace Soundcloud_Playlist_Downloader.Views
             {
                 if (progressUtil.IsAborted)
                 {
-                    IsSyncButtonClicked = false;
                     status.Tag = "STR_MAIN_STATUS_ABORTED";
                     status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
                 else if (progressUtil.IsAborting)
                 {
-                    IsSyncButtonClicked = false;
                     status.Tag = "STR_MAIN_STATUS_ABORTING";
                     status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
@@ -98,25 +96,21 @@ namespace Soundcloud_Playlist_Downloader.Views
                 }
                 else if (progressUtil.Completed && !progressUtil.IsError && progressBar.Maximum == 0)
                 {
-                    IsSyncButtonClicked = false;
                     status.Tag = "STR_MAIN_STATUS_SYNCED";
                     status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
                 else if (progressUtil.Completed && !progressUtil.IsError && progressBar.Maximum > 0)
                 {
-                    IsSyncButtonClicked = false;
                     status.Tag = "STR_MAIN_STATUS_COMPLETE";
                     status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
                 else if (progressUtil.Completed && progressUtil.IsError && progressBar.Maximum > 0)
                 {
-                    IsSyncButtonClicked = false;
                     status.Tag = "STR_MAIN_STATUS_COMPLETE_WITH_ERROR";
                     status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
                 else if (progressUtil.Completed && progressUtil.IsError && progressBar.Maximum == 0)
                 {
-                    IsSyncButtonClicked = false;
                     status.Tag = "STR_MAIN_STATUS_NOT_STARTED";
                     status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
@@ -159,7 +153,6 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void InvokeSyncComplete()
         {
             progressUtil.Completed = true;
-            IsSyncButtonClicked = false;
             if (progressUtil.IsAborting)
             {
                 progressUtil.IsAborted = true;
@@ -170,7 +163,6 @@ namespace Soundcloud_Playlist_Downloader.Views
                 syncButton.Invoke(_performSyncCompleteImplementation);
         }
 
-        bool IsSyncButtonClicked;
         private void SyncCompleteButton()
         {
             syncButton.Tag = "STR_SYNCHRONIZE";
@@ -193,9 +185,8 @@ namespace Soundcloud_Playlist_Downloader.Views
             : artistRadio.Checked ? EnumUtil.DownloadMode.Artist : EnumUtil.DownloadMode.Track;
             if (!string.IsNullOrWhiteSpace(url.Text?.ToLower()) &&
             !string.IsNullOrWhiteSpace(directoryPath.Text?.ToLower()) &&
-            !IsSyncButtonClicked)
+            (string)syncButton.Tag != "STR_ABORT")
             {
-                IsSyncButtonClicked = true;
                 syncButton.Tag = "STR_ABORT";
                 syncButton.Text = LanguageManager.Language[syncButton.Tag.ToString()];
                 status.Tag = "STR_MAIN_STATUS_CHECK";
@@ -287,18 +278,18 @@ namespace Soundcloud_Playlist_Downloader.Views
                     }
                 }).Start();
             }
-            else if (IsSyncButtonClicked)
+            else if ((string)syncButton.Tag == "STR_ABORT")
             {
                 syncButton.Enabled = false;
                 progressUtil.IsAborting = true;
                 syncCancellationSource?.Cancel();
             }
-            else if (!IsSyncButtonClicked && string.IsNullOrWhiteSpace(url.Text))
+            else if (string.IsNullOrWhiteSpace(url.Text))
             {
                 status.Tag = "STR_MAIN_STATUS_NULLURL";
                 status.Text = LanguageManager.Language[status.Tag.ToString()];
             }
-            else if (!IsSyncButtonClicked && string.IsNullOrWhiteSpace(directoryPath.Text))
+            else if (string.IsNullOrWhiteSpace(directoryPath.Text))
             {
                 status.Tag = "STR_MAIN_STATUS_NULLDIR";
                 status.Text = LanguageManager.Language[status.Tag.ToString()];
