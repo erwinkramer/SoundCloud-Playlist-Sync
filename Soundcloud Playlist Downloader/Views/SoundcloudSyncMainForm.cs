@@ -253,20 +253,20 @@ namespace Soundcloud_Playlist_Downloader.Views
                 }
                 new Thread(() =>
                 {
-                    // perform progress updates
                     while (this.IsHandleCreated && !progressUtil.Exiting && !progressUtil.Completed)
                     {
                         InvokeUpdateStatus();
-
                         this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = progressUtil.GetTrackProgressValues()));
                         this.Invoke((MethodInvoker)(() => lb_progressOfTracks.Refresh()));
-
                         InvokeUpdateProgressBar();
                         Thread.Sleep(500);
                     }
-                    if (!progressUtil.Exiting)
+                    if (this.IsHandleCreated && !progressUtil.Exiting) // update just once more
                     {
                         InvokeUpdateStatus();
+                        this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = progressUtil.GetTrackProgressValues()));
+                        this.Invoke((MethodInvoker)(() => lb_progressOfTracks.Refresh()));
+                        InvokeUpdateProgressBar();
                     }
                 }).Start();
 
