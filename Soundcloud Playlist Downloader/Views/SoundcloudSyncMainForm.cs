@@ -36,6 +36,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private ProgressUtils progressUtil;
         private ClientIDsUtils clientIdUtil;
         private UpdateUtils updateUtil;
+        CancellationTokenSource syncCancellationSource;
 
         public SoundcloudSyncMainForm()
         {
@@ -78,40 +79,49 @@ namespace Soundcloud_Playlist_Downloader.Views
         {
             if (!progressUtil.Exiting)
             {
-                if (progressUtil.IsActive && progressBar.Value == progressBar.Maximum &&
-                progressBar.Value != progressBar.Minimum)
+                if (progressUtil.IsAborted)
                 {
                     IsSyncButtonClicked = false;
-                    status.Tag = "STR_MAIN_STATUS_COMPLETE";
+                    status.Tag = "STR_MAIN_STATUS_ABORTED";
                     status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
-                else if (progressUtil.IsActive && progressBar.Value >= progressBar.Minimum && progressBar.Maximum > 0)
-                {
-                    IsSyncButtonClicked = false;
-                    status.Tag = "STR_MAIN_STATUS_DOWNLOAD";
-                    status.Text = string.Format(LanguageManager.Language[status.Tag.ToString()], progressBar.Value, progressBar.Maximum);
-                }
-                else if (progressUtil.IsActive && progressUtil.Completed && !progressUtil.IsError)
-                {
-                    IsSyncButtonClicked = false;
-                    status.Tag = "STR_MAIN_STATUS_SYNCED";
-                    status.Text = LanguageManager.Language[status.Tag.ToString()];
-                }
-                else if (progressUtil.IsActive && progressUtil.Completed && progressUtil.IsError)
-                {
-                    IsSyncButtonClicked = false;
-                    status.Tag = "STR_MAIN_STATUS_SYNCEDERROR";
-                    status.Text = LanguageManager.Language[status.Tag.ToString()];
-                }
-                else if (!progressUtil.IsActive && IsSyncButtonClicked)
+                else if (progressUtil.IsAborting)
                 {
                     IsSyncButtonClicked = false;
                     status.Tag = "STR_MAIN_STATUS_ABORTING";
                     status.Text = LanguageManager.Language[status.Tag.ToString()];
                 }
-                else if (progressUtil.IsActive)
+                else if (!progressUtil.Completed && progressBar.Value >= progressBar.Minimum && progressBar.Maximum > 0)
+                {
+                    status.Tag = "STR_MAIN_STATUS_DOWNLOAD";
+                    status.Text = string.Format(LanguageManager.Language[status.Tag.ToString()], progressBar.Value, progressBar.Maximum);
+                }
+                else if (progressUtil.Completed && !progressUtil.IsError && progressBar.Maximum == 0)
                 {
                     IsSyncButtonClicked = false;
+                    status.Tag = "STR_MAIN_STATUS_SYNCED";
+                    status.Text = LanguageManager.Language[status.Tag.ToString()];
+                }
+                else if (progressUtil.Completed && !progressUtil.IsError && progressBar.Maximum > 0)
+                {
+                    IsSyncButtonClicked = false;
+                    status.Tag = "STR_MAIN_STATUS_COMPLETE";
+                    status.Text = LanguageManager.Language[status.Tag.ToString()];
+                }
+                else if (progressUtil.Completed && progressUtil.IsError && progressBar.Maximum > 0)
+                {
+                    IsSyncButtonClicked = false;
+                    status.Tag = "STR_MAIN_STATUS_COMPLETE_WITH_ERROR";
+                    status.Text = LanguageManager.Language[status.Tag.ToString()];
+                }
+                else if (progressUtil.Completed && progressUtil.IsError && progressBar.Maximum == 0)
+                {
+                    IsSyncButtonClicked = false;
+                    status.Tag = "STR_MAIN_STATUS_NOT_STARTED";
+                    status.Text = LanguageManager.Language[status.Tag.ToString()];
+                }
+                else
+                {
                     var plural = "";
                     if (_dlMode != EnumUtil.DownloadMode.Track)
                         plural = LanguageManager.Language["STR_MAIN_STATUS_FETCH_S"];
@@ -119,12 +129,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                     status.Tag = new string[] { "STR_MAIN_STATUS_FETCH", plural };
                     status.Text = string.Format(LanguageManager.Language["STR_MAIN_STATUS_FETCH"], plural);
                 }
-                else if (!progressUtil.IsActive)
-                {
-                    IsSyncButtonClicked = false;
-                    status.Tag ="STR_MAIN_STATUS_ABORTED";
-                    status.Text = LanguageManager.Language[status.Tag.ToString()];
-                }
+                
             }
             else if (progressUtil.Completed)
             {
@@ -153,6 +158,13 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void InvokeSyncComplete()
         {
+            progressUtil.Completed = true;
+            IsSyncButtonClicked = false;
+            if (progressUtil.IsAborting)
+            {
+                progressUtil.IsAborted = true;
+                progressUtil.IsAborting = false;
+            }
             syncButton.Invoke(_performSyncCompleteImplementation);
         }
 
@@ -213,16 +225,16 @@ namespace Soundcloud_Playlist_Downloader.Views
                 {
                     status.Tag = "STR_MAIN_STATUS_INVALIDURL";
                     status.Text = LanguageManager.Language[status.Tag.ToString()];
-                    progressUtil.Completed = true;
                     InvokeSyncComplete();
                     return;
                 }
 
+                syncCancellationSource = new CancellationTokenSource();
                 var filesystemUtil = new FilesystemUtils(new DirectoryInfo(directoryPath?.Text?.ToLower()), trackRadio.Checked ? FormatForTag : FormatForName, FoldersPerArtist, ReplaceIllegalCharacters);
                 var manifestUtil = new ManifestUtils(progressUtil, filesystemUtil, soundCloudUri, _dlMode, SyncMethod);
                 var playlistUtil = new PlaylistUtils(manifestUtil);
                 DownloadUtils downloadUtil = new DownloadUtils(clientIdUtil, ExcludeM4A, ExcludeAac, ConvertToMp3, manifestUtil, Highqualitysong, ConcurrentDownloads);
-                var syncUtil = new SyncUtils(CreatePlaylists, manifestUtil, downloadUtil, playlistUtil);
+                var syncUtil = new SyncUtils(CreatePlaylists, manifestUtil, downloadUtil, playlistUtil, syncCancellationSource);
                 if (_dlMode != EnumUtil.DownloadMode.Track)
                 {
                     bool differentmanifest;
@@ -232,8 +244,6 @@ namespace Soundcloud_Playlist_Downloader.Views
                         {
                             status.Tag = "STR_MAIN_STATUS_DIFFMANY";
                             status.Text = LanguageManager.Language[status.Tag.ToString()];
-                            progressUtil.Completed = true;
-                            IsSyncButtonClicked = false;
                             InvokeSyncComplete();
                             return;
                         }
@@ -242,7 +252,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 new Thread(() =>
                 {
                     // perform progress updates
-                    while (!progressUtil.Completed && !progressUtil.Exiting)
+                    while (!progressUtil.Exiting)
                     {
                         Thread.Sleep(500);
                         InvokeUpdateStatus();
@@ -271,15 +281,15 @@ namespace Soundcloud_Playlist_Downloader.Views
                     }
                     finally
                     {
-                        progressUtil.Completed = true;
                         InvokeSyncComplete();
                     }
                 }).Start();
             }
-            else if (progressUtil.IsActive && IsSyncButtonClicked)
+            else if (IsSyncButtonClicked)
             {
-                progressUtil.IsActive = false;
                 syncButton.Enabled = false;
+                progressUtil.IsAborting = true;
+                syncCancellationSource?.Cancel();
             }
             else if (!IsSyncButtonClicked && string.IsNullOrWhiteSpace(url.Text))
             {
@@ -296,7 +306,6 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             progressUtil.Exiting = true;
-            progressUtil.IsActive = false;
             status.Tag = "STR_MAIN_STATUS_EXIT";
             status.Text = LanguageManager.Language[status.Tag.ToString()];
             syncButton.Enabled = false;

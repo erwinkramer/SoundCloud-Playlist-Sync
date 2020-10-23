@@ -43,17 +43,16 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return httpClientWithBrowserheaders;
         }
 
-        public void DownloadSongs(IList<Track> tracksToDownload)
+        public void DownloadSongs(IList<Track> tracksToDownload, CancellationTokenSource SyncCancellationSource)
         {
             Interlocked.Add(ref ManifestUtil.ProgressUtil.SongsToDownload, tracksToDownload.Count);
 
             if (ManifestUtil.ProgressUtil.SongsToDownload == 0) return;
-            var cts = new CancellationTokenSource();
             if (ConcurrentDownloads == 0)
                 throw new Exception(LanguageManager.Language["STR_DOWNLOAD_SONG_EX"]);
             var po = new ParallelOptions
             {
-                CancellationToken = cts.Token,
+                CancellationToken = SyncCancellationSource.Token,
                 MaxDegreeOfParallelism = ConcurrentDownloads
             };
             try
@@ -63,6 +62,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     {
                         try
                         {
+                            po.CancellationToken.ThrowIfCancellationRequested();
                             ManifestUtil.ProgressUtil.AddOrUpdateInProgressTrack(track);
 
                             if (!DownloadTrackAndTag(ref track))
@@ -82,12 +82,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
                             ManifestUtil.ProgressUtil.AddOrUpdateFailedTrack(track, e);
                             ManifestUtil.FileSystemUtil.LogTrackWithError(track, e);
 
-                            //EventLog.WriteEntry(Application.ProductName, exc.ToString());
-                            if (ProgressUtils.MaximumExceptionsCount <= ManifestUtil.ProgressUtil.CurrentAmountOfExceptions)
+                            double exceptionPercentage = ((double)ManifestUtil.ProgressUtil.CurrentAmountOfExceptions / (double)ManifestUtil.ProgressUtil.SongsProcessing) * 100;
+                            if (exceptionPercentage  >= ProgressUtils.MaximumExceptionThreshHoldPercentage)
                             {
                                 ManifestUtil.ProgressUtil.IsError = true;
-                                cts.Cancel();
-                                po.CancellationToken.ThrowIfCancellationRequested();
+                                SyncCancellationSource.Cancel();
                             }
                         }
                     });
@@ -98,7 +97,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             finally
             {
-                cts.Dispose();
             }
         }
 
@@ -131,7 +129,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public bool DownloadTrackAndTag(ref Track song)
         {
-            if (!ManifestUtil.ProgressUtil.IsActive) return false;
             if (song?.LocalPath == null)
                 return false;
             Directory.CreateDirectory(Path.GetDirectoryName(song.LocalPath));

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using Soundcloud_Playlist_Downloader.Language;
@@ -14,32 +15,42 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public ManifestUtils ManifestUtil;
         public DownloadUtils DownloadUtil;
         public PlaylistUtils PlaylistUtil;
-
-        public SyncUtils(bool createPlaylists, ManifestUtils manifestUtil, DownloadUtils downloadUtil, PlaylistUtils playlistUtil)
+        public CancellationTokenSource SyncCancellationSource;
+        public SyncUtils(bool createPlaylists, ManifestUtils manifestUtil, DownloadUtils downloadUtil, PlaylistUtils playlistUtil, CancellationTokenSource syncCancellationSource)
         {
             PlaylistUtil = playlistUtil;
             DownloadUtil = downloadUtil;
             ManifestUtil = manifestUtil;
             _createPlaylists = createPlaylists;
+            SyncCancellationSource = syncCancellationSource;
         }
 
         public void Synchronize(IList<Track> tracks)
         {
+            Interlocked.Add(ref ManifestUtil.ProgressUtil.SongsProcessing, tracks.Count);
             var tracksToDownload = new List<Track>();
+
+            SyncCancellationSource.Token.ThrowIfCancellationRequested();
 
             // define all local paths by combining the sanitzed artist (if checked by user) with the santized title
             FinalizePropertiesForTracks(tracks);
 
+            SyncCancellationSource.Token.ThrowIfCancellationRequested();
+
             // determine which new tracks should be downloaded
             NewTracksToDownload(tracks, tracksToDownload);
+
+            SyncCancellationSource.Token.ThrowIfCancellationRequested();
 
             // deletes, retags, or sets track in tracksToDownload for download
             AnalyseManifestTracks(tracks, tracksToDownload);
 
+            SyncCancellationSource.Token.ThrowIfCancellationRequested();
+
             // download the relevant tracks and continuously update the manifest
-            DownloadUtil.DownloadSongs(tracksToDownload);
-      
-            if(_createPlaylists) PlaylistUtil.CreateSimpleM3U(); //Create playlist file       
+            DownloadUtil.DownloadSongs(tracksToDownload, SyncCancellationSource);
+
+            if (_createPlaylists) PlaylistUtil.CreateSimpleM3U(); //Create playlist file       
         }
 
 

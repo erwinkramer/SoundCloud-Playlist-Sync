@@ -7,15 +7,18 @@ namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class ProgressUtils
     {
-        public bool IsActive { get; set; }
+        public bool IsAborted { get; set; }
+        public bool IsAborting { get; set; }
         public int SongsToDownload;
         public int SongsDownloaded;
+        public int SongsProcessing;
+
         public bool Completed { get; set; }
         public bool Exiting { get; set; }
         public bool IsError { get; set; }
         public ConcurrentQueue<Exception> Exceptions { get; set; }
-        public static readonly int MaximumExceptionsCount = 10;
         public int CurrentAmountOfExceptions { get; set; }
+        public static double MaximumExceptionThreshHoldPercentage { get; set; }
 
         private ConcurrentDictionary<string, string> TrackProgress = new ConcurrentDictionary<string, string>();
 
@@ -24,8 +27,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
             Completed = true;
             Exiting = false;
             IsError = false;
-            IsActive = false;
+            IsAborted = false;
+            IsAborting = false;
             SongsDownloaded = 0;
+            MaximumExceptionThreshHoldPercentage = 15.00;
+            SongsProcessing = 0;
             SongsToDownload = 0;
             TrackProgress = new ConcurrentDictionary<string, string>();
             Exceptions = new ConcurrentQueue<Exception>();
@@ -78,7 +84,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
             SongsToDownload = 0;
             TrackProgress = new ConcurrentDictionary<string, string>();
             Exceptions = new ConcurrentQueue<Exception>();
-            IsActive = true;
+            IsAborted = false;
+            IsAborting = false;
             IsError = false;
             CurrentAmountOfExceptions = 0;
         }
