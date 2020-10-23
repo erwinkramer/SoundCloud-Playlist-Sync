@@ -104,7 +104,7 @@ namespace Soundcloud_Playlist_Downloader.Language
                 { "STR_MAIN_STATUS_NULLURL", "Enter the download url" },
                 { "STR_MAIN_STATUS_NULLDIR", "Enter local directory path" },
                 { "STR_MAIN_STATUS_EXIT", "Preparing for exit... Please Wait." },
-                { "STR_MAIN_STATUS_SYNCING", "Sync is progressing... Are you sure to exit?" },
+                { "STR_MAIN_STATUS_SYNCING", "Are you sure to exit?" },
                 { "STR_UPDATE_AVAILABLE_TITLE", "Update Available" },
                 { "STR_UPDATE_AVAILABLE_TEXT", "An update is available. Would you like to update the application now?" },
                 { "STR_UPDATE_ERROR_TITLE", "Update Error" },

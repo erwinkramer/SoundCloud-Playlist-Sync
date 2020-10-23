@@ -23,7 +23,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public ProgressUtils()
         {
-            Completed = true;
+            Completed = false;
             Aborted = false;
             IsExiting = false;
             IsError = false;
@@ -84,6 +84,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             TrackProgress = new ConcurrentDictionary<string, string>();
             Exceptions = new ConcurrentQueue<Exception>();
             Aborted = false;
+            Completed = false;
             IsAborting = false;
             IsError = false;
             CurrentAmountOfExceptions = 0;

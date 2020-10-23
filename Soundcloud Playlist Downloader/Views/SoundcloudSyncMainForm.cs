@@ -179,7 +179,6 @@ namespace Soundcloud_Playlist_Downloader.Views
                 syncButton.Text = LanguageManager.Language[syncButton.Tag.ToString()];
                 status.Tag = "STR_MAIN_STATUS_CHECK";
                 status.Text = LanguageManager.Language[status.Tag.ToString()];
-                progressUtil.Completed = false;
 
                 progressBar.Value = 0;
                 progressBar.Maximum = 0;
@@ -280,7 +279,7 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!progressUtil.Completed && MessageBox.Show(LanguageManager.Language["STR_MAIN_STATUS_SYNCING"], this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+            if (MessageBox.Show(LanguageManager.Language["STR_MAIN_STATUS_SYNCING"], this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
             {
                 e.Cancel = true;
             }
