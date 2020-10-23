@@ -130,6 +130,9 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void InvokeUpdateStatus()
         {
             statusStrip1.Invoke(_performStatusUpdateImplementation);
+            this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = progressUtil.GetTrackProgressValues()));
+            this.Invoke((MethodInvoker)(() => lb_progressOfTracks.Refresh()));
+            progressBar.Invoke(_progressBarUpdateImplementation);
         }
 
         private void UpdateProgressBar()
@@ -137,11 +140,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             progressBar.Minimum = 0;
             progressBar.Maximum = progressUtil.SongsToDownload;
             progressBar.Value = progressUtil.SongsDownloaded;
-        }
-
-        private void InvokeUpdateProgressBar()
-        {
-            progressBar.Invoke(_progressBarUpdateImplementation);
         }
 
         private void InvokeSyncComplete()
@@ -237,17 +235,11 @@ namespace Soundcloud_Playlist_Downloader.Views
                     while (this.IsHandleCreated && !progressUtil.IsExiting && !progressUtil.Completed)
                     {
                         InvokeUpdateStatus();
-                        this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = progressUtil.GetTrackProgressValues()));
-                        this.Invoke((MethodInvoker)(() => lb_progressOfTracks.Refresh()));
-                        InvokeUpdateProgressBar();
                         Thread.Sleep(500);
                     }
                     if (this.IsHandleCreated && !progressUtil.IsExiting) // update just once more
                     {
                         InvokeUpdateStatus();
-                        this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = progressUtil.GetTrackProgressValues()));
-                        this.Invoke((MethodInvoker)(() => lb_progressOfTracks.Refresh()));
-                        InvokeUpdateProgressBar();
                     }
                 }).Start();
 
