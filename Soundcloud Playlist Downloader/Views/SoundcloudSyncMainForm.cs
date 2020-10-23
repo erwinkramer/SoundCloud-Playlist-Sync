@@ -25,14 +25,13 @@ namespace Soundcloud_Playlist_Downloader.Views
         private static string ConfigStateCurrentIndex = "1";
         private static string FormatForName = "%user% - %title% %quality%";
         private static string FormatForTag = "%user% - %title% %quality%";
-
         private readonly BoxAbout _aboutWindow = new BoxAbout();
         private readonly API_Config _apiConfigSettings;
 
         private readonly PerformStatusUpdate _performStatusUpdateImplementation;
-
         private readonly PerformSyncComplete _performSyncCompleteImplementation;
         private readonly ProgressBarUpdate _progressBarUpdateImplementation;
+
         private ProgressUtils progressUtil;
         private ClientIDsUtils clientIdUtil;
         private UpdateUtils updateUtil;
