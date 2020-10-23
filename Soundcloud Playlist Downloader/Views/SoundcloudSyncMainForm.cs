@@ -307,8 +307,7 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
-            if (MessageBox.Show(LanguageManager.Language["STR_MAIN_STATUS_SYNCING"], this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+            if (!progressUtil.Completed && MessageBox.Show(LanguageManager.Language["STR_MAIN_STATUS_SYNCING"], this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
             {
                 e.Cancel = true;
             }
