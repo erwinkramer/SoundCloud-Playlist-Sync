@@ -25,7 +25,7 @@ namespace Soundcloud_Playlist_Downloader.Views
         private static string ConfigStateCurrentIndex = "1";
         private static string FormatForName = "%user% - %title% %quality%";
         private static string FormatForTag = "%user% - %title% %quality%";
-        
+
         private readonly BoxAbout _aboutWindow = new BoxAbout();
         private readonly API_Config _apiConfigSettings;
 
@@ -129,7 +129,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                     status.Tag = new string[] { "STR_MAIN_STATUS_FETCH", plural };
                     status.Text = string.Format(LanguageManager.Language["STR_MAIN_STATUS_FETCH"], plural);
                 }
-                
+
             }
             else if (progressUtil.Completed)
             {
@@ -166,7 +166,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 progressUtil.IsAborting = false;
             }
 
-            if(!progressUtil.Exiting)
+            if (!progressUtil.Exiting)
                 syncButton.Invoke(_performSyncCompleteImplementation);
         }
 
@@ -198,7 +198,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 IsSyncButtonClicked = true;
                 syncButton.Tag = "STR_ABORT";
                 syncButton.Text = LanguageManager.Language[syncButton.Tag.ToString()];
-                status.Tag ="STR_MAIN_STATUS_CHECK";
+                status.Tag = "STR_MAIN_STATUS_CHECK";
                 status.Text = LanguageManager.Language[status.Tag.ToString()];
                 progressUtil.Completed = false;
 
@@ -257,7 +257,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                     while (this.IsHandleCreated && !progressUtil.Exiting && !progressUtil.Completed)
                     {
                         InvokeUpdateStatus();
-                        
+
                         this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = progressUtil.GetTrackProgressValues()));
                         this.Invoke((MethodInvoker)(() => lb_progressOfTracks.Refresh()));
 
@@ -307,27 +307,16 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            syncButton.Enabled = false;
-            if (IsSyncButtonClicked)
+            if (MessageBox.Show(LanguageManager.Language["STR_MAIN_STATUS_SYNCING"], this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
             {
-                if(MessageBox.Show(LanguageManager.Language["STR_MAIN_STATUS_SYNCING"], this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                {
-                    syncButton.Enabled = true;
-                    e.Cancel = true;
-                }
-                else
-                {
-                    status.Tag = "STR_MAIN_STATUS_EXIT";
-                    status.Text = LanguageManager.Language[status.Tag.ToString()];
-                    progressUtil.Exiting = true;
-                    syncCancellationSource?.Cancel();
-                }
+                e.Cancel = true;
             }
             else
             {
-                IsSyncButtonClicked = true;
-                syncButton.Tag = "STR_ABORT";
-                syncButton.Text = LanguageManager.Language[syncButton.Tag.ToString()];
+                status.Tag = "STR_MAIN_STATUS_EXIT";
+                status.Text = LanguageManager.Language[status.Tag.ToString()];
+                progressUtil.Exiting = true;
+                syncCancellationSource?.Cancel();
             }
         }
 
