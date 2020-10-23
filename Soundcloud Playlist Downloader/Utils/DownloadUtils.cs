@@ -43,7 +43,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return httpClientWithBrowserheaders;
         }
 
-        public void DownloadSongs(IList<Track> tracksToDownload, CancellationTokenSource SyncCancellationSource)
+        public void DownloadSongs(IList<Track> tracksToDownload, CancellationTokenSource syncCancellationSource)
         {
             Interlocked.Add(ref ManifestUtil.ProgressUtil.SongsToDownload, tracksToDownload.Count);
 
@@ -52,7 +52,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 throw new Exception(LanguageManager.Language["STR_DOWNLOAD_SONG_EX"]);
             var po = new ParallelOptions
             {
-                CancellationToken = SyncCancellationSource.Token,
+                CancellationToken = syncCancellationSource.Token,
                 MaxDegreeOfParallelism = ConcurrentDownloads
             };
             try
@@ -86,7 +86,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                             if (exceptionPercentage  >= ProgressUtils.MaximumExceptionThreshHoldPercentage)
                             {
                                 ManifestUtil.ProgressUtil.IsError = true;
-                                SyncCancellationSource.Cancel();
+                                syncCancellationSource.Cancel();
                             }
                         }
                     });
