@@ -77,12 +77,12 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void UpdateStatus()
         {
-            if (progressUtil.Exiting)
+            if (progressUtil.IsExiting)
             {
                 status.Tag = "STR_MAIN_STATUS_EXIT";
                 status.Text = LanguageManager.Language[status.Tag.ToString()];
             }
-            else if (progressUtil.IsAborted)
+            else if (progressUtil.Aborted)
             {
                 status.Tag = "STR_MAIN_STATUS_ABORTED";
                 status.Text = LanguageManager.Language[status.Tag.ToString()];
@@ -150,11 +150,11 @@ namespace Soundcloud_Playlist_Downloader.Views
             progressUtil.Completed = true;
             if (progressUtil.IsAborting)
             {
-                progressUtil.IsAborted = true;
+                progressUtil.Aborted = true;
                 progressUtil.IsAborting = false;
             }
 
-            if (!progressUtil.Exiting)
+            if (!progressUtil.IsExiting)
                 syncButton.Invoke(_performSyncCompleteImplementation);
         }
 
@@ -163,10 +163,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             syncButton.Tag = "STR_SYNCHRONIZE";
             syncButton.Text = LanguageManager.Language[syncButton.Tag.ToString()];
             syncButton.Enabled = true;
-            if (progressUtil.Exiting)
-            {
-                Dispose();
-            }
         }
 
         private void syncButton_Click(object sender, EventArgs e)
@@ -239,7 +235,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 }
                 new Thread(() =>
                 {
-                    while (this.IsHandleCreated && !progressUtil.Exiting && !progressUtil.Completed)
+                    while (this.IsHandleCreated && !progressUtil.IsExiting && !progressUtil.Completed)
                     {
                         InvokeUpdateStatus();
                         this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = progressUtil.GetTrackProgressValues()));
@@ -247,7 +243,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                         InvokeUpdateProgressBar();
                         Thread.Sleep(500);
                     }
-                    if (this.IsHandleCreated && !progressUtil.Exiting) // update just once more
+                    if (this.IsHandleCreated && !progressUtil.IsExiting) // update just once more
                     {
                         InvokeUpdateStatus();
                         this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = progressUtil.GetTrackProgressValues()));
@@ -299,7 +295,7 @@ namespace Soundcloud_Playlist_Downloader.Views
             }
             else
             {
-                progressUtil.Exiting = true;
+                progressUtil.IsExiting = true;
                 syncCancellationSource?.Cancel();
             }
         }
