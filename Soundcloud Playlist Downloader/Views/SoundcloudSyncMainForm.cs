@@ -254,15 +254,15 @@ namespace Soundcloud_Playlist_Downloader.Views
                 new Thread(() =>
                 {
                     // perform progress updates
-                    while (!progressUtil.Exiting)
+                    while (this.IsHandleCreated && !progressUtil.Exiting && !progressUtil.Completed)
                     {
-                        Thread.Sleep(500);
                         InvokeUpdateStatus();
-
+                        
                         this.Invoke((MethodInvoker)(() => lb_progressOfTracks.DataSource = progressUtil.GetTrackProgressValues()));
                         this.Invoke((MethodInvoker)(() => lb_progressOfTracks.Refresh()));
 
                         InvokeUpdateProgressBar();
+                        Thread.Sleep(500);
                     }
                     if (!progressUtil.Exiting)
                     {
@@ -308,18 +308,18 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             syncButton.Enabled = false;
-            progressUtil.Exiting = true;
-
-            status.Tag = "STR_MAIN_STATUS_EXIT";
-            status.Text = LanguageManager.Language[status.Tag.ToString()];
             if (IsSyncButtonClicked)
             {
                 if(MessageBox.Show(LanguageManager.Language["STR_MAIN_STATUS_SYNCING"], this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                 {
+                    syncButton.Enabled = true;
                     e.Cancel = true;
                 }
                 else
                 {
+                    status.Tag = "STR_MAIN_STATUS_EXIT";
+                    status.Text = LanguageManager.Language[status.Tag.ToString()];
+                    progressUtil.Exiting = true;
                     syncCancellationSource?.Cancel();
                 }
             }
