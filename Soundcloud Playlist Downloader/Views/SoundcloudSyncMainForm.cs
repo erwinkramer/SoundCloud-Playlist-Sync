@@ -307,6 +307,7 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            
             if (MessageBox.Show(LanguageManager.Language["STR_MAIN_STATUS_SYNCING"], this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
             {
                 e.Cancel = true;
@@ -322,7 +323,8 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LoadSettingsFromCurrentConfig(SyncSetting.settings.Get("ConfigStateCurrentIndex"));
+            ConfigStateCurrentIndex = SyncSetting.settings.Get("ConfigStateCurrentIndex");
+            LoadSettingsFromCurrentConfig(ConfigStateCurrentIndex);
         }
 
         private void SaveSettingsToConfig(string currentIndex)
