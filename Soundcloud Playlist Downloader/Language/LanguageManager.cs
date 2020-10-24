@@ -97,7 +97,7 @@ namespace Soundcloud_Playlist_Downloader.Language
                 { "STR_MAIN_STATUS_ABORTING", "Aborting downloads... Please Wait." },
                 { "STR_MAIN_STATUS_ABORTED", "Aborted" },
                 { "STR_MAIN_STATUS_FETCH_S", "s" },
-                { "STR_MAIN_STATUS_FETCH", "Fetching track{0} to download..." },
+                { "STR_MAIN_STATUS_FETCH", "Fetching {0} track{1}..." },
                 { "STR_MAIN_STATUS_CHECK", "Checking for track changes..." },
                 { "STR_MAIN_STATUS_INVALIDURL", "Invalid URL" },
                 { "STR_MAIN_STATUS_DIFFMANY", "Change settings or directory." },

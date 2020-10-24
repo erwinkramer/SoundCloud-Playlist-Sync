@@ -16,7 +16,6 @@ namespace Soundcloud_Playlist_Downloader
             MergePlaylists = mergePlaylists;
             _syncUtil = syncUtil;
             JsonUtil = new JsonUtils(_syncUtil.ManifestUtil, _syncUtil.DownloadUtil.ClientIDsUtil.ClientIdCurrentValue);
-            _syncUtil.ManifestUtil.ProgressUtil.ResetProgress();
         }
         private void VerifyParameters(Dictionary<string, string> parameters)
         {
@@ -24,7 +23,7 @@ namespace Soundcloud_Playlist_Downloader
             {
                 if (string.IsNullOrWhiteSpace(parameter.Value))
                 {
-                    _syncUtil.ManifestUtil.ProgressUtil.IsError = true;
+                    _syncUtil.ManifestUtil.ProgressUtil.HasErrors = true;
                     throw new Exception($"{parameter.Key} must be specified");
                 }
             }
@@ -39,7 +38,6 @@ namespace Soundcloud_Playlist_Downloader
                     {"Client ID", _syncUtil.DownloadUtil.ClientIDsUtil.ClientIdCurrentValue}
                 }
                 );
-            _syncUtil.ManifestUtil.ProgressUtil.ResetProgress();
 
             string apiUrl;
             switch (_syncUtil.ManifestUtil.DownloadMode)
@@ -69,13 +67,13 @@ namespace Soundcloud_Playlist_Downloader
                     SynchronizeSingleTrack(track);
                     break;
                 default:
-                    _syncUtil.ManifestUtil.ProgressUtil.IsError = true;
+                    _syncUtil.ManifestUtil.ProgressUtil.HasErrors = true;
                     throw new NotImplementedException("Unknown download mode");
             }
 
             if (_syncUtil.ManifestUtil.FileSystemUtil.ErrorsLogged)
             {
-                _syncUtil.ManifestUtil.ProgressUtil.IsError = true;
+                _syncUtil.ManifestUtil.ProgressUtil.HasErrors = true;
                 _syncUtil.ManifestUtil.ProgressUtil.ThrowAllExceptionsWithMessage("Some tracks failed to download.You might need to try a few more times before they can download correctly. " +
                    "The following tracks were not downloaded: ");
             }
@@ -96,7 +94,7 @@ namespace Soundcloud_Playlist_Downloader
             }
             catch (Exception e)
             {
-                _syncUtil.ManifestUtil.ProgressUtil.IsError = true;
+                _syncUtil.ManifestUtil.ProgressUtil.HasErrors = true;
                 throw new Exception("Invalid playlist url: " + e.Message);
             }
 

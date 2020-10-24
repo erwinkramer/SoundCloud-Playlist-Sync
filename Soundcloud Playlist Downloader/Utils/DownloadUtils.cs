@@ -85,7 +85,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                             double exceptionPercentage = ((double)ManifestUtil.ProgressUtil.CurrentAmountOfExceptions / (double)ManifestUtil.ProgressUtil.SongsProcessing) * 100;
                             if (exceptionPercentage  >= ProgressUtils.MaximumExceptionThreshHoldPercentage)
                             {
-                                ManifestUtil.ProgressUtil.IsError = true;
+                                ManifestUtil.ProgressUtil.HasErrors = true;
                                 syncCancellationSource.Cancel();
                             }
                         }
@@ -248,7 +248,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             catch (Exception e)
             {
-                ManifestUtil.ProgressUtil.IsError = true;
+                ManifestUtil.ProgressUtil.HasErrors = true;
                 throw new Exception("Invalid profile url: " + e.Message);
             }
         }

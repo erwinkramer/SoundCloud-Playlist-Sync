@@ -10,11 +10,19 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public int SongsToDownload;
         public int SongsDownloaded;
         public int SongsProcessing;
-        public bool Completed { get; set; }
-        public bool Aborted { get; set; }
-        public bool IsAborting { get; set; }
-        public bool IsExiting { get; set; }
-        public bool IsError { get; set; }
+
+        public enum StatusType
+        {
+            NotStarted,
+            Started,
+            Completed,
+            Aborted,
+            IsAborting,
+            IsExiting
+        }
+        public StatusType Status { get; set; }
+
+        public bool HasErrors { get; set; }
         public ConcurrentQueue<Exception> Exceptions { get; set; }
         public int CurrentAmountOfExceptions { get; set; }
         public static double MaximumExceptionThreshHoldPercentage { get; set; }
@@ -23,11 +31,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public ProgressUtils()
         {
-            Completed = false;
-            Aborted = false;
-            IsExiting = false;
-            IsError = false;
-            IsAborting = false;
+            Status = StatusType.NotStarted;
+            HasErrors = false;
             SongsDownloaded = 0;
             MaximumExceptionThreshHoldPercentage = 15.00;
             SongsProcessing = 0;
@@ -80,14 +85,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public void ResetProgress()
         {
             SongsDownloaded = 0;
+            SongsProcessing = 0;
             SongsToDownload = 0;
             TrackProgress = new ConcurrentDictionary<string, string>();
             Exceptions = new ConcurrentQueue<Exception>();
-            Aborted = false;
-            Completed = false;
-            IsAborting = false;
-            IsError = false;
+            Status = StatusType.NotStarted;
+            HasErrors = false;
             CurrentAmountOfExceptions = 0;
+
         }
     }
 

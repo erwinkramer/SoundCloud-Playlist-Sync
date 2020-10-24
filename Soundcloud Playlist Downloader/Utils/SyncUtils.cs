@@ -136,7 +136,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             catch (Exception e)
             {
-                ManifestUtil.ProgressUtil.IsError = true;
+                ManifestUtil.ProgressUtil.HasErrors = true;
                 throw new Exception(string.Format(LanguageManager.Language["STR_EXCEPTION_SYNC"], oldTrack?.uri, oldTrack?.LocalPath, e));
             }
         }

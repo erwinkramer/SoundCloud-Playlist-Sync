@@ -62,7 +62,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             catch (Exception e)
             {
-                _manifestUtil.ProgressUtil.IsError = true;
+                _manifestUtil.ProgressUtil.HasErrors = true;
                 ExceptionHandlerUtils.HandleException(e);
             }
 
@@ -91,7 +91,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 return matchingPlaylistItem.id.ToString();
             }
-            _manifestUtil.ProgressUtil.IsError = true;
+            _manifestUtil.ProgressUtil.HasErrors = true;
             throw new Exception(LanguageManager.Language["STR_EXCEPTION_JSONUTIL1"]);
         }
 
@@ -140,7 +140,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             catch (Exception e)
             {
-                _manifestUtil.ProgressUtil.IsError = true;
+                _manifestUtil.ProgressUtil.HasErrors = true;
                 throw new Exception(LanguageManager.Language["STR_EXCEPTION_JSONUTIL2"], e);
             }
             return playlistsitems;
@@ -180,7 +180,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
             catch (Exception e)
             {
-                _manifestUtil.ProgressUtil.IsError = true;
+                _manifestUtil.ProgressUtil.HasErrors = true;
                 throw new Exception(LanguageManager.Language["STR_EXCEPTION_JSONUTIL3"], e);
             }
             return tracks;
