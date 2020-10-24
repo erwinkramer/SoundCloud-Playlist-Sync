@@ -27,7 +27,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 mp3Bytes = ConvertWavToMp3(strangefile);
                 if (mp3Bytes != null)
                 {
-                    song.LocalPath += ".mp3"; //conversion wil result in an mp3
+                    song.LocalPath += ".mp3"; //conversion resulted in an mp3
                     File.WriteAllBytes(song.LocalPath, mp3Bytes);
                     return true;
                 }
@@ -38,7 +38,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 var succesfullAiffConvert = ConvertAiffToMp3(strangefile, directory, out mp3Bytes);
                 if (succesfullAiffConvert && mp3Bytes != null)
                 {
-                    song.LocalPath += ".mp3"; //conversion wil result in an mp3
+                    song.LocalPath += ".mp3"; //conversion resulted in an mp3
                     File.WriteAllBytes(song.LocalPath, mp3Bytes);
                     return true;
                 }
@@ -62,12 +62,16 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 using (var ms = new MemoryStream(wavFile))
                 using (var rdr = new WaveFileReader(ms))
                 {
-                    if (rdr.WaveFormat.BitsPerSample == 24)
-                        //can't go from 24 bits wav to mp3 directly, create temporary 16 bit wav 
+                    if (rdr.WaveFormat.BitsPerSample == 24) //Can't go from 24 bits wav to mp3 directly, create temporary 16 bit wav 
                     {
                         ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr); //24 bit to sample
-                        var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate);
-                            //sample to new sample rate
+                        var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate); //sample to new sample rate
+                        WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
+                        mp3Bytes = ConvertWavFileToMp3(tempFile, true); //file to mp3 bytes
+                    }
+                    else if (rdr.WaveFormat.SampleRate == 88200) //Can't go from 88200 Sample Rate wav to mp3 directly
+                    {
+                        var resampler = new WdlResamplingSampleProvider(rdr.ToSampleProvider(), SampleRate); //sample to new sample rate
                         WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
                         mp3Bytes = ConvertWavFileToMp3(tempFile, true); //file to mp3 bytes
                     }
