@@ -10,7 +10,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public int SongsToDownload;
         public int SongsDownloaded;
         public int SongsProcessing;
-        public enum StatusType { NotStarted, Started, Completed, Aborted, IsAborting, IsExiting }
+        public enum StatusType { NotStarted, Started, Completed, Aborted, IsAborting, IsExiting}
         public StatusType Status { get; set; }
         public bool HasErrors { get; set; }
         public ConcurrentQueue<Exception> Exceptions { get; set; }

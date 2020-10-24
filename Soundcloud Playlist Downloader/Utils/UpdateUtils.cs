@@ -12,7 +12,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
     public class UpdateUtils
     {
         public enum UpdateCheckStatus {
-            NoUpdateAvailable,  OptionalUpdateAvailable, MandatoryUpdateAvailable, IsNotNetworkDeployed, InError };
+            NoUpdateAvailable,  OptionalUpdateAvailable, MandatoryUpdateAvailable, IsNotNetworkDeployed, InError, Updating};
 
         public Exception InErrorException;
         public UpdateCheckStatus CurrentStatus;
@@ -68,6 +68,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     return " [✓]";
                 case UpdateCheckStatus.IsNotNetworkDeployed:
                     return " [~]";
+                case UpdateCheckStatus.Updating:
+                    return " [^]";
                 case UpdateCheckStatus.InError:
                     return " [x]";
                 default:
@@ -121,6 +123,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         DialogResult dr = MessageBox.Show(LanguageManager.Language["STR_UPDATE_AVAILABLE_TEXT"], LanguageManager.Language["STR_UPDATE_AVAILABLE_TITLE"], MessageBoxButtons.OKCancel);
                         if ((DialogResult.OK == dr))
                         {
+                            CurrentStatus = UpdateCheckStatus.Updating;
                             try
                             {
                                 DownloadUpdate();
