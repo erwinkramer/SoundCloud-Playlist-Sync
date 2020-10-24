@@ -82,9 +82,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
             Status = StatusType.NotStarted;
             HasErrors = false;
             CurrentAmountOfExceptions = 0;
-
         }
     }
-
-
 }
