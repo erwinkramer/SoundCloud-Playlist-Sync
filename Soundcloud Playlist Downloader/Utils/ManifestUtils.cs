@@ -78,7 +78,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public void WriteManifestToFile(List<Track> manifest)
         {
-            if (manifest.Count < 1) return;
             var manifestPath = DetermineManifestPath();
             ReadWriteManifestLock.AcquireWriterLock(WriteLockTimeoutMs);
             try

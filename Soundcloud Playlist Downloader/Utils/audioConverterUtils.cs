@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using NAudio.Lame;
 using NAudio.MediaFoundation;
@@ -15,6 +16,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
         //      download the low quality stream (128 bit) and forget about converting
         private const int BitRate = 320;
         private const int SampleRate = 44100; //44100 Hz Sample rate 
+        private static List<int> SupportedMPEGSampleRates = new List<int>() { 8000 , 11025 , 12000 , 16000 , 22050 , 24000 , 32000, 44100, 48000 };  //MPEG-1 + MPEG-2 + MPEG-2.5
+
         private static int _uniqueTempFileCounter;
 
         public static bool ConvertAllTheThings(byte[] strangefile, ref Track song, string extension)
@@ -69,7 +72,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                         WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
                         mp3Bytes = ConvertWavFileToMp3(tempFile, true); //file to mp3 bytes
                     }
-                    else if (rdr.WaveFormat.SampleRate == 88200) //Can't go from 88200 Sample Rate wav to mp3 directly
+                    else if (!SupportedMPEGSampleRates.Contains(rdr.WaveFormat.SampleRate)) //Can't go from unsupported Sample Rate wav to mp3 directly
                     {
                         var resampler = new WdlResamplingSampleProvider(rdr.ToSampleProvider(), SampleRate); //sample to new sample rate
                         WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
