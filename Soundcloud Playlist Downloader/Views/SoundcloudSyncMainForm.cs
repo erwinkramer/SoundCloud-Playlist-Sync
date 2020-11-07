@@ -226,8 +226,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                 var syncUtil = new SyncUtils(CreatePlaylists, manifestUtil, downloadUtil, playlistUtil, syncCancellationSource);
                 if (_dlMode != EnumUtil.DownloadMode.Track)
                 {
-                    bool differentmanifest;
-                    if (!manifestUtil.FindManifestAndBackup(out differentmanifest))
+                    if (!manifestUtil.FindManifestAndBackup(out bool differentmanifest))
                     {
                         if (differentmanifest)
                         {
@@ -567,9 +566,8 @@ namespace Soundcloud_Playlist_Downloader.Views
             rbttn_twoWay.Text = LanguageManager.Language["STR_MAIN_BASIC_SM2"];
 
             if (status.Tag == null) status.Text = LanguageManager.Language["STR_MAIN_STATUS_READY"];
-            else if (status.Tag is string[])
+            else if (status.Tag is string[] s)
             {
-                string[] s = (string[])status.Tag;
                 status.Text = string.Format(LanguageManager.Language[s[0]], LanguageManager.Language[s[1]]);
             }
             else status.Text = LanguageManager.Language[status.Tag.ToString()];
