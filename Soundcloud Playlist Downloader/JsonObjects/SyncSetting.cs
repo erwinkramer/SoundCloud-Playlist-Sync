@@ -17,9 +17,15 @@ namespace SC_SYNC_Base.JsonObjects
             //create directory or else it won't create the file
             Directory.CreateDirectory(settingsfolderInDocumentStore);
 
-            var settingsfileInSource = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "appsettings.json");
             if (!File.Exists(settingsfileInDocumentStore))
-                File.Copy(settingsfileInSource, settingsfileInDocumentStore);
+            {
+                var resourceName = $"SoundCloud_Playlist_Sync_4.appsettings.json";
+                var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+                using (var sr = new StreamReader(stream))
+                {
+                    File.WriteAllText(settingsfileInDocumentStore, sr.ReadToEnd());
+                }
+            }
             return new ConfigurationBuilder<ISyncSetting>().UseJsonFile(settingsfileInDocumentStore).Build();
         }
 

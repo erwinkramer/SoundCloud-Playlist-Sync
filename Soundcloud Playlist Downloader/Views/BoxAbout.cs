@@ -66,7 +66,7 @@ namespace Soundcloud_Playlist_Downloader.Views
                         return titleAttribute.Title;
                     }
                 }
-                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(AppContext.BaseDirectory);
             }
         }
 

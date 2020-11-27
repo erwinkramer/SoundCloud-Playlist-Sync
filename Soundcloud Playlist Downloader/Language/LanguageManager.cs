@@ -1,11 +1,14 @@
-﻿//Language Manager class ⓒ Author by HongSic
-using SC_SYNC_Base.JsonObjects;
+﻿using SC_SYNC_Base.JsonObjects;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
 namespace Soundcloud_Playlist_Downloader.Language
 {
+    /// <summary>
+    /// Language Manager class ⓒ Author by HongSic
+    /// </summary>
     public class LanguageManager
     {
         public LanguageManager() { }
@@ -14,26 +17,39 @@ namespace Soundcloud_Playlist_Downloader.Language
         public static void SetLanguage(int indexFromDropDown)
         {
             SyncSetting.settings.Set("Language", indexFromDropDown.ToString());
+       
             switch (indexFromDropDown)
             {
-                case 1: SetLanguageDictionary(File.ReadAllLines(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "Language", SyncSetting.LoadSettingFromConfig("Language_Korean") + ".txt"))); break;
+                case 1:
+                    var resourceName = $"SoundCloud_Playlist_Sync_4.Language.{SyncSetting.LoadSettingFromConfig("Language_Korean")}.txt";
+                    var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName);
+                    var list = new List<string>();
+                    using (var sr = new StreamReader(stream))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            list.Add(line);
+                        }
+                    }
+                    SetLanguageDictionary(list); break;
                 default: SetLanguageDictionaryForDefaultLanguage(); break;
             }
         }
 
-        public static void SetLanguageDictionary(string[] wordsInForeignLanguage)
+        public static void SetLanguageDictionary(List<string> wordsInForeignLanguage)
         {
             Language = new Dictionary<string, string>();
-            for (int i = 0; i < wordsInForeignLanguage.Length; i++)
+            foreach(var word in wordsInForeignLanguage)
             {
-                if (!string.IsNullOrEmpty(wordsInForeignLanguage[i]) &&
-                    (wordsInForeignLanguage[i][0] >= 'A' && wordsInForeignLanguage[i][0] <= 'Z'))
+                if (!string.IsNullOrEmpty(word) &&
+                    (word[0] >= 'A' && word[0] <= 'Z'))
                 {
-                    int index = wordsInForeignLanguage[i].IndexOf('=');
+                    int index = word.IndexOf('=');
                     if (index > 0)
                     {
-                        string key = wordsInForeignLanguage[i].Remove(index);
-                        Language.TryAdd(key, wordsInForeignLanguage[i].Substring(index + 1).Replace("\\n", "\n"));
+                        string key = word.Remove(index);
+                        Language.TryAdd(key, word.Substring(index + 1).Replace("\\n", "\n"));
                     }
                 }
             }

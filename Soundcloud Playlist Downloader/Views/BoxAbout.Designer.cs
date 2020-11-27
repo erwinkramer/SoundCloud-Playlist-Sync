@@ -64,7 +64,7 @@
             // 
             this.link_github.AutoSize = true;
             this.link_github.Location = new System.Drawing.Point(122, 18);
-            this.link_github.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.link_github.Margin = new System.Windows.Forms.Padding(0);
             this.link_github.Name = "link_github";
             this.link_github.Size = new System.Drawing.Size(216, 15);
             this.link_github.TabIndex = 2;
@@ -375,7 +375,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BoxAbout";
-            this.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.Padding = new System.Windows.Forms.Padding(10);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
