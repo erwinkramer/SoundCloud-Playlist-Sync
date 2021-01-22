@@ -56,7 +56,7 @@
 	<ItemGroup>
 		<PackageReference Include="Config.Net.Json" Version="4.15.0" />
 		<PackageReference Include="HtmlAgilityPack">
-			<Version>1.11.28</Version>
+			<Version>1.11.29</Version>
 		</PackageReference>
 		<PackageReference Include="NAudio" Version="1.10.0" />
 		<PackageReference Include="NAudio.Lame" Version="1.1.6" />
