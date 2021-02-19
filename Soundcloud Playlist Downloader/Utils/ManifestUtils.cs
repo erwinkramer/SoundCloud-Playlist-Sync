@@ -32,7 +32,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         static readonly ReaderWriterLock UpdateManifestLock = new ReaderWriterLock();
 
         const int ReadLockTimeoutMs = 500;
-        const int WriteLockTimeoutMs = 1000;
+        const int WriteLockTimeoutMs = 10000;
 
         public string DetermineManifestPath()
         {
