@@ -29,7 +29,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             LogPath = $"{OriginalDirectory.FullName}\\log.txt";
         }
 
-        public void LogTrackWithError(Track trackWithErrors, Exception e)
+        public void LogTrackException(Track trackWithErrors, Exception e, bool isUnhandled = true)
         {
             string textError = e.Message;
             if(e.InnerException?.InnerException != null)
@@ -37,7 +37,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
             string textTrack = "Title: " + trackWithErrors.Title + ", Artist: " + trackWithErrors.Artist;
             UpdateLog($"{textTrack} Exception: \"{textError}\"" + Environment.NewLine);
-            ErrorsLogged = true;
+            if(isUnhandled) ErrorsLogged = true;
         }
 
         public void UpdateLog(string logLine)

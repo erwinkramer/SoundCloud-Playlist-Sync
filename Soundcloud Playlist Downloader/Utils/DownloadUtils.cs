@@ -14,7 +14,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
     public class DownloadUtils
     {
         public bool ConvertToMp3;
-        public bool Highqualitysong;
+        public bool ChooseHighqualitysong;
         public bool ExcludeM4A;
         public bool ExcludeAac;
         ManifestUtils ManifestUtil;
@@ -26,7 +26,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             ExcludeM4A = excludeM4A;
             ExcludeAac = excludeAac;
-            Highqualitysong = highqualitysong;
+            ChooseHighqualitysong = highqualitysong;
             ManifestUtil = manifestUtil;
             ConvertToMp3 = convertToMp3;
             ClientIDsUtil = clientIDsUtil;
@@ -70,12 +70,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
                             po.CancellationToken.ThrowIfCancellationRequested();
                             ManifestUtil.ProgressUtil.AddOrUpdateInProgressTrack(track);
 
-                            if (!DownloadTrackAndTag(ref track))
-                            {
-                                ManifestUtil.ProgressUtil.AddOrUpdateNotDownloadableTrack(track);
-                                Interlocked.Decrement(ref ManifestUtil.ProgressUtil.SongsToDownload);
-                                return;
-                            }
+                            DownloadTrackAndTag(ref track);             
+                            //if not downloadable
+                            //ManifestUtil.ProgressUtil.AddOrUpdateNotDownloadableTrack(track);
+                            //Interlocked.Decrement(ref ManifestUtil.ProgressUtil.SongsToDownload);
 
                             track.IsDownloaded = true;
                             ManifestUtil.ProgressUtil.AddOrUpdateSuccessFullTrack(track);
@@ -83,9 +81,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
                             pumd(track);
                         }
                         catch (Exception e)
-                        {                          
+                        {
                             ManifestUtil.ProgressUtil.AddOrUpdateFailedTrack(track, e);
-                            ManifestUtil.FileSystemUtil.LogTrackWithError(track, e);
+                            ManifestUtil.FileSystemUtil.LogTrackException(track, e);
 
                             double exceptionPercentage = ((double)ManifestUtil.ProgressUtil.CurrentAmountOfExceptions / (double)ManifestUtil.ProgressUtil.SongsProcessing) * 100;
                             if (exceptionPercentage  >= ProgressUtils.MaximumExceptionThreshHoldPercentage)
@@ -120,7 +118,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public string GetEffectiveDownloadUrlForHQ(string downloadUrl, bool downloadable)
         {
-            if (Highqualitysong && !string.IsNullOrWhiteSpace(downloadUrl) && downloadable) //user has selected to download high quality songs if available
+            if (ChooseHighqualitysong && !string.IsNullOrWhiteSpace(downloadUrl) && downloadable) //user has selected to download high quality songs if available
             {
                 return RemoveCarriageReturnAndLineFeed(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
             }
@@ -132,54 +130,84 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return value.Replace("\r", "").Replace("\n", "");
         }
 
-        public bool DownloadTrackAndTag(ref Track song)
+        public void DownloadTrackAndTag(ref Track song)
         {
             if (song?.LocalPath == null)
-                return false;
+                throw new Exception("Local path empty");
+
             Directory.CreateDirectory(Path.GetDirectoryName(song.LocalPath));
 
             song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForHQ(song.download_url, song.downloadable);
-            string extension = DetermineExtension(song);
-            var allowedExtension = DetermineAllowedFormats().Contains(extension);
 
-            bool succesfulConvert = false;
-            if (!string.IsNullOrWhiteSpace(song.EffectiveDownloadUrl) && song.IsHD && ConvertToMp3 && allowedExtension)
+            if (song.downloadable && !string.IsNullOrWhiteSpace(song.EffectiveDownloadUrl) && song.IsHD)
             {
-                //get the wav song as byte data, as we won't store it just yet
-                var soundStream = httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result;
-                //convert to mp3 & then write bytes to file
+                var extensionForHQ = DetermineExtensionForHQ(song);
+                var highQualitySoundMemoryStream = new MemoryStream();
+                using (var highQualitySoundStream = httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result)
+                {
+                    highQualitySoundStream.CopyToAsync(highQualitySoundMemoryStream).GetAwaiter().GetResult();
+                    highQualitySoundMemoryStream.Position = 0;
+                }
 
-                try
+                if (ConvertToMp3 && DetermineAllowedFormatsForConversion().Contains(extensionForHQ))
                 {
-                    AudioConverterUtils.ConvertAllTheThings(soundStream, ref song, extension);
-                    succesfulConvert = true;
+                    try
+                    {
+                        AudioConverterUtils.ConvertHighQualityAudioFormats(highQualitySoundMemoryStream, ref song, extensionForHQ);
+                        highQualitySoundMemoryStream.DisposeAsync();
+                    }
+                    catch (Exception e)
+                    {
+                        ManifestUtil.FileSystemUtil.LogTrackException(song, e, false);
+                        PersistStreamToDisk(ref song, highQualitySoundMemoryStream, true, extensionForHQ);
+                    }
+
+                    //high quality track converted or not converted because of exception
+                    MetadataTaggingUtils.TagIt(song);
+                    Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
+                    return;
                 }
-                catch (Exception e)
+                else
                 {
-                    ManifestUtil.FileSystemUtil.LogTrackWithError(song, e);
+                    //high quality track not converted because not chosen as option 
+                    PersistStreamToDisk(ref song, highQualitySoundMemoryStream, true, extensionForHQ);
+                    MetadataTaggingUtils.TagIt(song);
+                    Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
+                    return;
                 }
+               
             }
-                
-            if(!succesfulConvert) 
-            {
-                song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForStream(song.id);
-                if (string.IsNullOrWhiteSpace(song.EffectiveDownloadUrl))
-                    return false;
 
-                song.LocalPath += ".mp3";
-                using (var download = httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result)
-                using (var fs = new FileStream(song.LocalPath, FileMode.Create))
-                {
-                    download.CopyToAsync(fs).GetAwaiter().GetResult();
-                }
-            }
-
+            //low quality track
+            PersistStreamToDisk(ref song, DownloadStreamingTrack(ref song), false);
             MetadataTaggingUtils.TagIt(song);
             Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
-            return true;
+            return;
         }
 
-        private List<string> DetermineAllowedFormats()
+
+        private void PersistStreamToDisk(ref Track song, Stream soundSteam, bool isHQ, string extensionForHQ = null)
+        {
+            if (isHQ)
+                song.LocalPath += extensionForHQ;
+            else
+                song.LocalPath += ".mp3";
+
+            soundSteam.Position = 0;
+            using (soundSteam)
+            using (var fs = new FileStream(song.LocalPath, FileMode.Create))
+            {
+                soundSteam.CopyToAsync(fs).GetAwaiter().GetResult();
+            }
+        }
+
+        private Stream DownloadStreamingTrack(ref Track song)
+        {
+            song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForStream(song.id);
+            return httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result;
+        }
+
+        private List<string> DetermineAllowedFormatsForConversion()
         {
             var formats = new List<string>
             {
@@ -192,10 +220,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return formats;
         }
 
-        public static string DetermineExtension(Track song)
+        public static string DetermineExtensionForHQ(Track song)
         {
-            if (!song.downloadable)
-                return ".mp3";
             try
             {
                 return GetExtensionFromWebRequest(song.EffectiveDownloadUrl);

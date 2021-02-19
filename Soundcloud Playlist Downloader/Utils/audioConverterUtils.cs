@@ -20,12 +20,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         private static int _uniqueTempFileCounter;
 
-        public static void ConvertAllTheThings(Stream soundStream, ref Track song, string extension)
+        public static void ConvertHighQualityAudioFormats(MemoryStream soundMemoryStream, ref Track song, string extension)
         {
             var directory = Path.GetDirectoryName(song.LocalPath);
-            var soundMemoryStream = new MemoryStream();
-            soundStream.CopyToAsync(soundMemoryStream).GetAwaiter().GetResult();
-            soundMemoryStream.Position = 0;
 
             if (extension == ".wav")
             {
@@ -48,9 +45,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 song.LocalPath += ".mp3"; //conversion resulted in an mp3
                 CopyToFile(song.LocalPath, soundMemoryStream);
             }
-
-            soundMemoryStream.DisposeAsync();
-            soundStream.DisposeAsync();
         }
 
         private static void CopyToFile(string localPath, Stream soundStream)
