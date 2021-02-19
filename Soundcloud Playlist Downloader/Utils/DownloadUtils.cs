@@ -142,9 +142,18 @@ namespace Soundcloud_Playlist_Downloader.Utils
             if (!string.IsNullOrWhiteSpace(song.EffectiveDownloadUrl) && song.IsHD && ConvertToMp3 && allowedExtension)
             {
                 //get the wav song as byte data, as we won't store it just yet
-                var soundbytes = httpClient.GetByteArrayAsync(song.EffectiveDownloadUrl).Result;
+                var soundStream = httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result;
                 //convert to mp3 & then write bytes to file
-                succesfulConvert = AudioConverterUtils.ConvertAllTheThings(soundbytes, ref song, extension);
+
+                try
+                {
+                    AudioConverterUtils.ConvertAllTheThings(soundStream, ref song, extension);
+                    succesfulConvert = true;
+                }
+                catch (Exception e)
+                {
+                    ManifestUtil.FileSystemUtil.LogTrackWithError(song, e);
+                }
             }
                 
             if(!succesfulConvert) 
@@ -154,10 +163,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     return false;
 
                 song.LocalPath += ".mp3";
-                using (var download = httpClient.GetAsync(song.EffectiveDownloadUrl).Result)
+                using (var download = httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result)
                 using (var fs = new FileStream(song.LocalPath, FileMode.Create))
                 {
-                    download.Content.CopyToAsync(fs).GetAwaiter().GetResult();
+                    download.CopyToAsync(fs).GetAwaiter().GetResult();
                 }
             }
 
@@ -170,7 +179,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             var formats = new List<string>
             {
-                ".wav", ".aiff", ".aif", ".m4a", ".aac"            
+                ".wav", ".aiff", ".aif", ".m4a", ".aac", ".mp3"
             };
             if (ExcludeAac)
                 formats.Remove(".aac");

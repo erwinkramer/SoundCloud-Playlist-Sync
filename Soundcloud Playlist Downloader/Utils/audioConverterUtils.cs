@@ -20,80 +20,81 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         private static int _uniqueTempFileCounter;
 
-        public static bool ConvertAllTheThings(byte[] strangefile, ref Track song, string extension)
+        public static void ConvertAllTheThings(Stream soundStream, ref Track song, string extension)
         {
             var directory = Path.GetDirectoryName(song.LocalPath);
-            byte[] mp3Bytes;
+            var soundMemoryStream = new MemoryStream();
+            soundStream.CopyToAsync(soundMemoryStream).GetAwaiter().GetResult();
+            soundMemoryStream.Position = 0;
 
             if (extension == ".wav")
             {
-                mp3Bytes = ConvertWavToMp3(strangefile);
-                if (mp3Bytes != null)
-                {
-                    song.LocalPath += ".mp3"; //conversion resulted in an mp3
-                    File.WriteAllBytes(song.LocalPath, mp3Bytes);
-                    return true;
-                }
-                return false;
+                var convertedStream = ConvertWavToMp3(soundMemoryStream);
+                song.LocalPath += ".mp3"; //conversion resulted in an mp3
+                CopyToFile(song.LocalPath, convertedStream);
             }
-            if (extension == ".aiff" || extension == ".aif")
+            else if (extension == ".aiff" || extension == ".aif")
             {
-                var succesfullAiffConvert = ConvertAiffToMp3(strangefile, directory, out mp3Bytes);
-                if (succesfullAiffConvert && mp3Bytes != null)
-                {
-                    song.LocalPath += ".mp3"; //conversion resulted in an mp3
-                    File.WriteAllBytes(song.LocalPath, mp3Bytes);
-                    return true;
-                }
-                return false;
+                var convertedStream = ConvertAiffToMp3(soundMemoryStream, directory);
+                song.LocalPath += ".mp3"; //conversion resulted in an mp3
+                CopyToFile(song.LocalPath, convertedStream);
             }
-            if ((extension == ".m4a" || extension == ".aac") && IsWindows8_OrHigher())
+            else if ((extension == ".m4a" || extension == ".aac") && IsWindows8_OrHigher())
             {
-                return ConvertM4AToMp3(strangefile, directory, ref song);
+                ConvertM4AToMp3(soundMemoryStream, directory, ref song);
             }
-            return false;
+            else if(extension == ".mp3")
+            {
+                song.LocalPath += ".mp3"; //conversion resulted in an mp3
+                CopyToFile(song.LocalPath, soundMemoryStream);
+            }
+
+            soundMemoryStream.DisposeAsync();
+            soundStream.DisposeAsync();
         }
 
-        public static byte[] ConvertWavToMp3(byte[] wavFile)
+        private static void CopyToFile(string localPath, Stream soundStream)
         {
-            byte[] mp3Bytes = null;
-            try
-            {
-                _uniqueTempFileCounter += 1;
-                var tempFile = Path.GetTempFileName();
+            if (soundStream == null || soundStream.Length == 0)
+                throw new Exception("Sound stream was empty during check before writing");
 
-                using (var ms = new MemoryStream(wavFile))
-                using (var rdr = new WaveFileReader(ms))
+            using (var fs = new FileStream(localPath, FileMode.Create))
+            {
+                soundStream.Position = 0;
+                soundStream.CopyToAsync(fs).GetAwaiter().GetResult();
+            }
+        }
+
+        public static Stream ConvertWavToMp3(Stream wavStream)
+        {
+            _uniqueTempFileCounter += 1;
+            var tempFile = Path.GetTempFileName();
+
+            using (var rdr = new WaveFileReader(wavStream))
+            {
+                if (rdr.WaveFormat.BitsPerSample == 24) //Can't go from 24 bits wav to mp3 directly, create temporary 16 bit wav 
                 {
-                    if (rdr.WaveFormat.BitsPerSample == 24) //Can't go from 24 bits wav to mp3 directly, create temporary 16 bit wav 
+                    ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr); //24 bit to sample
+                    var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate); //sample to new sample rate
+                    WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
+                    return ConvertWavFileToMp3MemoryStream(tempFile, true); //file to mp3 bytes
+                }
+                else if (!SupportedMPEGSampleRates.Contains(rdr.WaveFormat.SampleRate)) //Can't go from unsupported Sample Rate wav to mp3 directly
+                {
+                    var resampler = new WdlResamplingSampleProvider(rdr.ToSampleProvider(), SampleRate); //sample to new sample rate
+                    WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
+                    return ConvertWavFileToMp3MemoryStream(tempFile, true); //file to mp3 bytes
+                }
+                else
+                {
+                    var retMs = new MemoryStream();
+                    using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, BitRate))
                     {
-                        ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr); //24 bit to sample
-                        var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate); //sample to new sample rate
-                        WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
-                        mp3Bytes = ConvertWavFileToMp3(tempFile, true); //file to mp3 bytes
-                    }
-                    else if (!SupportedMPEGSampleRates.Contains(rdr.WaveFormat.SampleRate)) //Can't go from unsupported Sample Rate wav to mp3 directly
-                    {
-                        var resampler = new WdlResamplingSampleProvider(rdr.ToSampleProvider(), SampleRate); //sample to new sample rate
-                        WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
-                        mp3Bytes = ConvertWavFileToMp3(tempFile, true); //file to mp3 bytes
-                    }
-                    else
-                    {
-                        using (var retMs = new MemoryStream())
-                        using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, BitRate))
-                        {
-                            rdr.CopyTo(wtr);
-                            mp3Bytes = retMs.ToArray();
-                        }
+                        rdr.CopyTo(wtr);
+                        return retMs;
                     }
                 }
             }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            return mp3Bytes;
         }
 
         /// <summary>
@@ -102,95 +103,58 @@ namespace Soundcloud_Playlist_Downloader.Utils
         /// <param name="wavFile"></param>
         /// <param name="deleteWavAfter"></param>
         /// <returns></returns>
-        public static byte[] ConvertWavFileToMp3(string wavFile, bool deleteWavAfter)
+        public static Stream ConvertWavFileToMp3MemoryStream(string wavFile, bool deleteWavAfter)
         {
-            byte[] mp3Bytes = null;
-            try
+            var mp3MemoryStream = new MemoryStream();
+            using (var rdr = new WaveFileReader(wavFile))
+            using (var wtr = new LameMP3FileWriter(mp3MemoryStream, rdr.WaveFormat, BitRate))
             {
-                using (var retMs = new MemoryStream())
-                using (var rdr = new WaveFileReader(wavFile))
-                using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, BitRate))
-                {
-                    rdr.CopyTo(wtr);
-                    mp3Bytes = retMs.ToArray();
-                }
-                if (deleteWavAfter)
-                {
-                    File.Delete(wavFile);
-                }
+                rdr.CopyToAsync(wtr).GetAwaiter().GetResult();
             }
-            catch (Exception e)
+            if (deleteWavAfter)
             {
-                throw e;
+                File.Delete(wavFile);
             }
-            return mp3Bytes;
+            return mp3MemoryStream;
         }
 
-        public static bool ConvertAiffToMp3(byte[] aiffFile, string directory, out byte[] mp3Bytes)
+        public static Stream ConvertAiffToMp3(Stream aiffStream, string directory)
         {
-            mp3Bytes = null;
-            try
+            _uniqueTempFileCounter += 1;
+            var tempFile = Path.GetTempFileName();
+            using (var rdr = new AiffFileReader(aiffStream))
             {
-                _uniqueTempFileCounter += 1;
-                var tempFile = Path.GetTempFileName();
-
-                using (var ms = new MemoryStream(aiffFile))
-                using (var rdr = new AiffFileReader(ms))
+                //can't go from 24 bits aif to mp3 directly, create temporary 16 bit wav 
+                if (rdr.WaveFormat.BitsPerSample == 24)
                 {
-                    //can't go from 24 bits aif to mp3 directly, create temporary 16 bit wav 
-                    if (rdr.WaveFormat.BitsPerSample == 24)
+                    ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr); //24 bit to sample
+                    var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate); //sample to new sample rate
+                    WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
+                    return ConvertWavFileToMp3MemoryStream(tempFile, true); //file to mp3 bytes                       
+                }
+                else
+                {
+                    var retMs = new MemoryStream();
+                    using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, BitRate))
                     {
-                        ISampleProvider sampleprovider = new Pcm24BitToSampleProvider(rdr); //24 bit to sample
-                        var resampler = new WdlResamplingSampleProvider(sampleprovider, SampleRate); //sample to new sample rate
-                        WaveFileWriter.CreateWaveFile16(tempFile, resampler); //sample to actual wave file
-                        mp3Bytes = ConvertWavFileToMp3(tempFile, true); //file to mp3 bytes                       
-                    }
-                    else
-                    {
-                        using (var retMs = new MemoryStream())
-                        using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, BitRate))
-                        {
-                            rdr.CopyTo(wtr);
-                            mp3Bytes = retMs.ToArray();
-                        }
+                        rdr.CopyTo(wtr);
+                        return retMs;
                     }
                 }
-                return true;
-            }
-            catch (Exception e)
-            {
-                throw e;
             }
         }
 
-        public static bool ConvertM4AToMp3(byte[] m4AFile, string directory, ref Track song)
+        public static void ConvertM4AToMp3(Stream m4AStream, string directory, ref Track song)
             //requires windows 8 or higher
         {
-            var tempFile = Path.Combine(directory, "tempdata" + _uniqueTempFileCounter + ".m4a");
-            //
+            using (var reader = new StreamMediaFoundationReader(m4AStream)) //this reader supports: MP3, AAC and WAV
+            {
+                var aaCtype = AudioSubtypes.MFAudioFormat_AAC;
+                var bitrates = MediaFoundationEncoder.GetEncodeBitrates(aaCtype, reader.WaveFormat.SampleRate,
+                    reader.WaveFormat.Channels);
 
-            try
-            {
-                _uniqueTempFileCounter += 1;
-                File.WriteAllBytes(tempFile, m4AFile);
                 song.LocalPath += ".mp3"; //conversion wil result in an mp3
-                using (var reader = new MediaFoundationReader(tempFile)) //this reader supports: MP3, AAC and WAV
-                {
-                    var aaCtype = AudioSubtypes.MFAudioFormat_AAC;
-                    var bitrates = MediaFoundationEncoder.GetEncodeBitrates(aaCtype, reader.WaveFormat.SampleRate,
-                        reader.WaveFormat.Channels);
-                    MediaFoundationEncoder.EncodeToMp3(reader, song.LocalPath, bitrates[bitrates.GetUpperBound(0)]);
-                }
-                File.Delete(tempFile);
-                return true;
-            }
-            catch (Exception)
-            {
-                if (File.Exists(tempFile))
-                {
-                    File.Delete(tempFile);
-                }
-                return false;
+                MediaFoundationEncoder.EncodeToMp3(reader, song.LocalPath, bitrates[bitrates.GetUpperBound(0)]);
             }
         }
 
