@@ -116,13 +116,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return null;
         }
 
-        public string GetEffectiveDownloadUrlForHQ(string downloadUrl, bool downloadable)
+        public string GetEffectiveDownloadUrlForHQ(string downloadUrl)
         {
-            if (ChooseHighqualitysong && !string.IsNullOrWhiteSpace(downloadUrl) && downloadable) //user has selected to download high quality songs if available
-            {
-                return RemoveCarriageReturnAndLineFeed(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
-            }
-            return null;
+            return RemoveCarriageReturnAndLineFeed(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
         }
 
         public string RemoveCarriageReturnAndLineFeed(string value)
@@ -137,49 +133,45 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
             Directory.CreateDirectory(Path.GetDirectoryName(song.LocalPath));
 
-            song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForHQ(song.download_url, song.downloadable);
-
-            if (song.downloadable && !string.IsNullOrWhiteSpace(song.EffectiveDownloadUrl) && song.IsHD)
+            if (!ChooseHighqualitysong || (ChooseHighqualitysong && !song.downloadable && !song.IsHD) )
             {
-                var extensionForHQ = DetermineExtensionForHQ(song);
-                var highQualitySoundMemoryStream = new MemoryStream();
-                using (var highQualitySoundStream = httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result)
-                {
-                    highQualitySoundStream.CopyToAsync(highQualitySoundMemoryStream).GetAwaiter().GetResult();
-                    highQualitySoundMemoryStream.Position = 0;
-                }
+                PersistStreamToDisk(ref song, DownloadStreamingTrack(ref song), false);
+                MetadataTaggingUtils.TagIt(song);
+                Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
+                return;
+            }
+  
+            var extensionForHQ = DetermineExtensionForHQ(song);
+            song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForHQ(song.download_url);
 
-                if (ConvertToMp3 && DetermineAllowedFormatsForConversion().Contains(extensionForHQ))
-                {
-                    try
-                    {
-                        AudioConverterUtils.ConvertHighQualityAudioFormats(highQualitySoundMemoryStream, ref song, extensionForHQ);
-                        highQualitySoundMemoryStream.DisposeAsync();
-                    }
-                    catch (Exception e)
-                    {
-                        ManifestUtil.FileSystemUtil.LogTrackException(song, e, false);
-                        PersistStreamToDisk(ref song, highQualitySoundMemoryStream, true, extensionForHQ);
-                    }
-
-                    //high quality track converted or not converted because of exception
-                    MetadataTaggingUtils.TagIt(song);
-                    Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
-                    return;
-                }
-                else
-                {
-                    //high quality track not converted because not chosen as option 
-                    PersistStreamToDisk(ref song, highQualitySoundMemoryStream, true, extensionForHQ);
-                    MetadataTaggingUtils.TagIt(song);
-                    Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
-                    return;
-                }
-               
+            var highQualitySoundMemoryStream = new MemoryStream();
+            using (var highQualitySoundStream = httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result)
+            {
+                highQualitySoundStream.CopyToAsync(highQualitySoundMemoryStream).GetAwaiter().GetResult();
+                highQualitySoundMemoryStream.Position = 0;
             }
 
-            //low quality track
-            PersistStreamToDisk(ref song, DownloadStreamingTrack(ref song), false);
+            if (!ConvertToMp3 || (ConvertToMp3 && !DetermineAllowedFormatsForConversion().Contains(extensionForHQ)))
+            {
+                //not able to convert or not chosen
+                PersistStreamToDisk(ref song, highQualitySoundMemoryStream, true, extensionForHQ);
+                MetadataTaggingUtils.TagIt(song);
+                Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
+                return;
+            }
+         
+            try
+            {
+                AudioConverterUtils.ConvertHighQualityAudioFormats(highQualitySoundMemoryStream, ref song, extensionForHQ);
+                highQualitySoundMemoryStream.DisposeAsync();
+            }
+            catch (Exception e)
+            {
+                ManifestUtil.FileSystemUtil.LogTrackException(song, e, false);
+                PersistStreamToDisk(ref song, highQualitySoundMemoryStream, true, extensionForHQ);
+            }
+
+            //high quality track converted or not converted because of exception
             MetadataTaggingUtils.TagIt(song);
             Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
             return;

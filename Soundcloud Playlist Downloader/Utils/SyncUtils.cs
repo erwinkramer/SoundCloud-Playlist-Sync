@@ -172,7 +172,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public void FinalizePropertiesForTrack(Track track)
         {  
             //assume it's downloadable when a purchase link is not available
-            if (track.downloadable == true && track.purchase_url == null)
+            if (!string.IsNullOrWhiteSpace(track.download_url) && track.downloadable)
             {                         
                 //really make sure it's downloadable           
                 track.downloadable = DownloadUtil.IsDownloadable(track.download_url);
