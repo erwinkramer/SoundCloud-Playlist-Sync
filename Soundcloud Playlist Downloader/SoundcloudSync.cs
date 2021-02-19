@@ -15,7 +15,7 @@ namespace Soundcloud_Playlist_Downloader
         {
             MergePlaylists = mergePlaylists;
             _syncUtil = syncUtil;
-            JsonUtil = new JsonUtils(_syncUtil.ManifestUtil, _syncUtil.DownloadUtil.ClientIDsUtil.ClientIdCurrentValue);
+            JsonUtil = new JsonUtils(_syncUtil.ManifestUtil, _syncUtil.DownloadUtil.ClientIDsUtil);
         }
         private void VerifyParameters(Dictionary<string, string> parameters)
         {

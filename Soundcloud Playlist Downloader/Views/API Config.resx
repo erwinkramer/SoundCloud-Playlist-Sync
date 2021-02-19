@@ -57,4 +57,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lbl_info.Text" xml:space="preserve">
+    <value>If the API returns unauthorized it will be likely that the client ID or OAuth token is not working anymore. 
+Open a browser with a logged in Soundcloud session, and retrieve the OAuth token from the Authorization: OAuth request header and the Cliend ID from the client_id query string parameter
+</value>
+  </data>
 </root>

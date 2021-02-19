@@ -22,6 +22,8 @@ namespace Soundcloud_Playlist_Downloader.Views
                 ClientIDsUtil.ClientIdCustom = txt_CustomClientID.Text.Trim();
                 txt_CustomClientID.Text = ClientIDsUtil.ClientIdCustom;
             }
+            ClientIDsUtil.OAuthToken = txt_OAuthToken.Text.Trim();
+
             Hide();
         }
 
@@ -44,6 +46,10 @@ namespace Soundcloud_Playlist_Downloader.Views
                 default:
                     break;
             }
+
+            if (ClientIDsUtil.OAuthToken == null)
+                ClientIDsUtil.OAuthToken = ClientIDsUtil.DefaultOAuthToken;
+            txt_OAuthToken.Text = ClientIDsUtil.OAuthToken;
         }
 
         private void API_Config_FormClosing(object sender, FormClosingEventArgs e)
@@ -51,8 +57,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             Hide();
             e.Cancel = true;
         }
-
-      
 
         private void txt_stockClientID_TextChanged(object sender, EventArgs e)
         {
@@ -80,26 +84,15 @@ namespace Soundcloud_Playlist_Downloader.Views
             ClientIDsUtil.ClientIdCurrentName = "clientID1";
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ProcessStartInfo psi = new ProcessStartInfo
-            {
-                FileName = "http://soundcloud.com/you/apps/new",
-                UseShellExecute = true
-            };
-            Process.Start(psi);
-        }
-
         internal void LoadLanguage()
         {
             this.Text = LanguageManager.Language["STR_APICONFIG_TITLE"];
-            this.label1.Text = LanguageManager.Language["STR_APICONFIG_DESC"];
+            this.lbl_info.Text = LanguageManager.Language["STR_APICONFIG_DESC"];
             this.label5.Text = LanguageManager.Language["STR_APICONFIG_ACTIVE"];
             this.rbutton_clientid1.Text = LanguageManager.Language["STR_APICONFIG_CLIENTID"] + " 1:";
             this.rbutton_clientid2.Text = LanguageManager.Language["STR_APICONFIG_CLIENTID"] + " 2:";
             this.rbutton_clientidcustom.Text = LanguageManager.Language["STR_APICONFIG_CUSTOMID"];
             this.bttn_save.Text = LanguageManager.Language["STR_APICONFIG_SAVE"];
-            this.linkLabel1.Text = LanguageManager.Language["STR_APICONFIG_LINK"];
         }
     }
 }

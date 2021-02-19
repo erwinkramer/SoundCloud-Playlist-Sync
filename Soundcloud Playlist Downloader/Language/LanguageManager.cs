@@ -130,7 +130,7 @@ namespace Soundcloud_Playlist_Downloader.Language
                 { "STR_UPDATE_ERROR1_TITLE", "Update Checking Error" },
                 { "STR_UPDATE_ERROR1_TEXT", "Exception while checking for updates available. Exception thrown" },
                 { "STR_APICONFIG_TITLE", "API Config" },
-                { "STR_APICONFIG_DESC", "This setting changes your client ID.\nIf the API returns unauthorized it will be likely that the client ID is not working anymore.\nCreate a new ID by signing up for an application under the button." },
+                { "STR_APICONFIG_DESC", "If the API returns unauthorized it will be likely that the client ID or OAuth token is not working anymore. \nOpen a browser with a logged in Soundcloud session, and retrieve the OAuth token from the Authorization: OAuth request header and the Cliend ID from the client_id query string parameter." },
                 { "STR_APICONFIG_ACTIVE", "Active" },
                 { "STR_APICONFIG_CLIENTID", "Client ID" },
                 { "STR_APICONFIG_CUSTOMID", "Custom ID" },

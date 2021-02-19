@@ -31,22 +31,24 @@ namespace Soundcloud_Playlist_Downloader.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(API_Config));
             this.bttn_save = new System.Windows.Forms.Button();
             this.txt_CustomClientID = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.txt_stockClientID = new System.Windows.Forms.TextBox();
             this.txt_stockClientID2 = new System.Windows.Forms.TextBox();
             this.rbutton_clientid1 = new System.Windows.Forms.RadioButton();
             this.rbutton_clientid2 = new System.Windows.Forms.RadioButton();
             this.rbutton_clientidcustom = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txt_OAuthToken = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lbl_info = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // bttn_save
             // 
-            this.bttn_save.Location = new System.Drawing.Point(8, 218);
+            this.bttn_save.Location = new System.Drawing.Point(6, 258);
             this.bttn_save.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.bttn_save.Name = "bttn_save";
             this.bttn_save.Size = new System.Drawing.Size(337, 26);
@@ -62,16 +64,6 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.txt_CustomClientID.Name = "txt_CustomClientID";
             this.txt_CustomClientID.Size = new System.Drawing.Size(217, 23);
             this.txt_CustomClientID.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(10, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(320, 94);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "This setting changes your client ID.\nIf the API returns unauthorized it will be l" +
-    "ikely that the client ID is not working anymore.\nCreate a new ID by signing up f" +
-    "or an application under the button.";
             // 
             // txt_stockClientID
             // 
@@ -140,31 +132,44 @@ namespace Soundcloud_Playlist_Downloader.Views
             this.label5.TabIndex = 14;
             this.label5.Text = "Active:";
             // 
-            // linkLabel1
+            // txt_OAuthToken
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(6, 249);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(147, 15);
-            this.linkLabel1.TabIndex = 15;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Click here to create new ID";
-            this.toolTip1.SetToolTip(this.linkLabel1, "http://soundcloud.com/you/apps/new");
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.txt_OAuthToken.Location = new System.Drawing.Point(128, 228);
+            this.txt_OAuthToken.Name = "txt_OAuthToken";
+            this.txt_OAuthToken.Size = new System.Drawing.Size(215, 23);
+            this.txt_OAuthToken.TabIndex = 15;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 231);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(75, 15);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "OAuth token";
+            // 
+            // lbl_info
+            // 
+            this.lbl_info.Location = new System.Drawing.Point(6, 9);
+            this.lbl_info.Name = "lbl_info";
+            this.lbl_info.Size = new System.Drawing.Size(330, 97);
+            this.lbl_info.TabIndex = 17;
+            this.lbl_info.Text = resources.GetString("lbl_info.Text");
             // 
             // API_Config
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(348, 275);
-            this.Controls.Add(this.linkLabel1);
+            this.ClientSize = new System.Drawing.Size(348, 297);
+            this.Controls.Add(this.lbl_info);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txt_OAuthToken);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.rbutton_clientidcustom);
             this.Controls.Add(this.rbutton_clientid2);
             this.Controls.Add(this.rbutton_clientid1);
             this.Controls.Add(this.txt_stockClientID2);
             this.Controls.Add(this.txt_stockClientID);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.txt_CustomClientID);
             this.Controls.Add(this.bttn_save);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -182,14 +187,15 @@ namespace Soundcloud_Playlist_Downloader.Views
 
         private System.Windows.Forms.Button bttn_save;
         private System.Windows.Forms.TextBox txt_CustomClientID;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_stockClientID;
         private System.Windows.Forms.TextBox txt_stockClientID2;
         private System.Windows.Forms.RadioButton rbutton_clientid1;
         private System.Windows.Forms.RadioButton rbutton_clientid2;
         private System.Windows.Forms.RadioButton rbutton_clientidcustom;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox txt_OAuthToken;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbl_info;
     }
 }

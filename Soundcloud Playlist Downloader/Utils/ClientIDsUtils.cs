@@ -14,9 +14,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
 
         }
-        //OLD CLIENT_ID = "376f225bf427445fc4bfb6b99b72e0bf";
-        //OLD key (not working anymore) should fix same reason as stated here: 
-        //https://stackoverflow.com/questions/29914622/get-http-mp3-stream-from-every-song/30018216#30018216
+
+        public string DefaultOAuthToken = "2-291834-4570680-lpD214XFqfKQZS6d";
+
         public string ClientId1
         {
             get
@@ -52,6 +52,18 @@ namespace Soundcloud_Playlist_Downloader.Utils
             set
             {
                 SyncSetting.settings.Set("clientIDcurrentSelected", value);
+            }
+        }
+
+        public string OAuthToken
+        {
+            get
+            {
+                return SyncSetting.settings.Get("oAuthToken");
+            }
+            set
+            {
+                SyncSetting.settings.Set("oAuthToken", value);
             }
         }
 

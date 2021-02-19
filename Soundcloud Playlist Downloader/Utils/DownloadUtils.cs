@@ -21,7 +21,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public int ConcurrentDownloads;
         public ClientIDsUtils ClientIDsUtil;
         public static HttpClient httpClient = new HttpClient();
-        public static HttpClient httpClientWithBrowserheaders = CreateHttpClientWithBrowserheaders();
        
         public DownloadUtils(ClientIDsUtils clientIDsUtil, bool excludeM4A, bool excludeAac, bool convertToMp3, ManifestUtils manifestUtil, bool highqualitysong, int concurrentDownloads)
         {
@@ -34,14 +33,19 @@ namespace Soundcloud_Playlist_Downloader.Utils
             ConcurrentDownloads = concurrentDownloads;
         }   
 
-        public static HttpClient CreateHttpClientWithBrowserheaders()
+        public static HttpRequestMessage RequestMessageWithHeaders(string uri, HttpMethod method, string oAuthToken = null)
         {
-            var httpClientWithBrowserheaders = new HttpClient();
-            httpClientWithBrowserheaders.DefaultRequestHeaders.Add("Accept-Language", "en-US");
-            httpClientWithBrowserheaders.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("OAuth", "2-291834-4570680-lpD214XFqfKQZS6d");
-            httpClientWithBrowserheaders.DefaultRequestHeaders.Add("Accept", "text/html, application/xhtml+xml, */*");
-            httpClientWithBrowserheaders.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
-            return httpClientWithBrowserheaders;
+            var httpRequestMessage = new HttpRequestMessage();
+            httpRequestMessage.Method = method;
+            httpRequestMessage.RequestUri = new Uri(uri);
+            httpRequestMessage.Headers.Add("Accept-Language", "en-US");
+            httpRequestMessage.Headers.Add("Accept", "text/html, application/xhtml+xml, */*");
+            httpRequestMessage.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
+            
+            if(oAuthToken != null)
+                httpRequestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("OAuth", oAuthToken);
+            
+            return httpRequestMessage;
         }
 
         public void DownloadSongs(IList<Track> tracksToDownload, CancellationTokenSource syncCancellationSource)
@@ -103,12 +107,12 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public string GetEffectiveDownloadUrlForStream(int id)
         {
-            var track = new JsonUtils(ManifestUtil, ClientIDsUtil.ClientIdCurrentValue).RetrieveJsonTrackFromV2Url(id);
+            var track = new JsonUtils(ManifestUtil, ClientIDsUtil).RetrieveJsonTrackFromV2Url(id);
             foreach(var transcoding in track.media.transcodings)
             {
                 if (transcoding.format.protocol == "progressive")
                 {
-                    return new JsonUtils(ManifestUtil, ClientIDsUtil.ClientIdCurrentValue).GetDownloadUrlFromProgressiveUrl(transcoding.url);
+                    return new JsonUtils(ManifestUtil, ClientIDsUtil).GetDownloadUrlFromProgressiveUrl(transcoding.url);
                 }
             }
             return null;
@@ -241,7 +245,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public string ParseUserIdFromProfileUrl(string url)
         {        
-            return new JsonUtils(ManifestUtil, ClientIDsUtil.ClientIdCurrentValue).RetrieveUserIdFromUserName(GetUserNameFromProfileUrl(url));
+            return new JsonUtils(ManifestUtil, ClientIDsUtil).RetrieveUserIdFromUserName(GetUserNameFromProfileUrl(url));
         }
         
         private string GetUserNameFromProfileUrl(string url)
@@ -278,8 +282,9 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public static HtmlAgilityPack.HtmlDocument DownloadPageFromUrl(string url)
         {
-            var doc = new HtmlAgilityPack.HtmlDocument(); 
-            doc.LoadHtml(httpClientWithBrowserheaders.GetStringAsync(url).Result);
+            var doc = new HtmlAgilityPack.HtmlDocument();
+            var page = DownloadUtils.httpClient.SendAsync(DownloadUtils.RequestMessageWithHeaders(url, HttpMethod.Get)).Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            doc.LoadHtml(page);
             return doc;
         }
     }

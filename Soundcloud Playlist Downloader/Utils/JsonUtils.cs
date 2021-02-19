@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Soundcloud_Playlist_Downloader.JsonObjects;
@@ -12,24 +13,26 @@ namespace Soundcloud_Playlist_Downloader.Utils
     {
         private ManifestUtils _manifestUtil;
         private string _clientID;
+        private string _oauthToken;
 
-        public JsonUtils(ManifestUtils manifestUtil, string clientID)
+        public JsonUtils(ManifestUtils manifestUtil, ClientIDsUtils ClientIDsUtil)
         {
             _manifestUtil = manifestUtil;
-            _clientID = clientID;
+            _clientID = ClientIDsUtil.ClientIdCurrentValue;
+            _oauthToken = ClientIDsUtil.OAuthToken;
         }
 
         public JsonObjectsV2.Track RetrieveJsonTrackFromV2Url(int trackId)
         {
             string json = string.Empty;
-            json = DownloadUtils.httpClientWithBrowserheaders.GetStringAsync("https://" + $"api-v2.soundcloud.com/tracks/{trackId}?client_id={_clientID}").Result;
+            json = DownloadUtils.httpClient.SendAsync(DownloadUtils.RequestMessageWithHeaders($"https://" + $"api-v2.soundcloud.com/tracks/{trackId}?client_id={_clientID}", HttpMethod.Get, _oauthToken)).Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             return JsonConvert.DeserializeObject<JsonObjectsV2.Track>(json);
         }
 
         public string GetDownloadUrlFromProgressiveUrl(string progressiveUrl)
         {
             string json = string.Empty;
-            json = DownloadUtils.httpClientWithBrowserheaders.GetStringAsync($"{progressiveUrl}?client_id={_clientID}").Result;
+            json = DownloadUtils.httpClient.SendAsync(DownloadUtils.RequestMessageWithHeaders($"{progressiveUrl}?client_id={_clientID}", HttpMethod.Get, _oauthToken)).Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             return JObject.Parse(json)["url"].Value<string>();
         }
 
