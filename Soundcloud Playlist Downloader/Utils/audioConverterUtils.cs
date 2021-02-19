@@ -40,11 +40,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 ConvertM4AToMp3(soundMemoryStream, directory, ref song);
             }
-            else if(extension == ".mp3")
-            {
-                song.LocalPath += ".mp3"; //conversion resulted in an mp3
-                CopyToFile(song.LocalPath, soundMemoryStream);
-            }
         }
 
         private static void CopyToFile(string localPath, Stream soundStream)

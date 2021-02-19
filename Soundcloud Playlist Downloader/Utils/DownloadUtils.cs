@@ -201,7 +201,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             var formats = new List<string>
             {
-                ".wav", ".aiff", ".aif", ".m4a", ".aac", ".mp3"
+                ".wav", ".aiff", ".aif", ".m4a", ".aac"
             };
             if (ExcludeAac)
                 formats.Remove(".aac");
