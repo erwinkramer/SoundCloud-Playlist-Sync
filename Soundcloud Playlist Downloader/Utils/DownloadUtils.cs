@@ -38,6 +38,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             var httpClientWithBrowserheaders = new HttpClient();
             httpClientWithBrowserheaders.DefaultRequestHeaders.Add("Accept-Language", "en-US");
+            httpClientWithBrowserheaders.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("OAuth", "2-291834-4570680-lpD214XFqfKQZS6d");
             httpClientWithBrowserheaders.DefaultRequestHeaders.Add("Accept", "text/html, application/xhtml+xml, */*");
             httpClientWithBrowserheaders.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
             return httpClientWithBrowserheaders;
@@ -105,7 +106,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             var track = new JsonUtils(ManifestUtil, ClientIDsUtil.ClientIdCurrentValue).RetrieveJsonTrackFromV2Url(id);
             foreach(var transcoding in track.media.transcodings)
             {
-                if (transcoding.format.protocol == "progressive")
+                if (transcoding.format.protocol == "hls" && transcoding.format.mime_type == "audio/mpeg")
                 {
                     return new JsonUtils(ManifestUtil, ClientIDsUtil.ClientIdCurrentValue).GetDownloadUrlFromProgressiveUrl(transcoding.url);
                 }
