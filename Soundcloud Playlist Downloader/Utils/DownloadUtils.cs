@@ -116,9 +116,11 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return null;
         }
 
-        public string GetEffectiveDownloadUrlForHQ(string downloadUrl)
+        public string GetEffectiveDownloadUrlForHQ(string downloadUrl, out string extension)
         {
-            return RemoveCarriageReturnAndLineFeed(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
+            downloadUrl = RemoveCarriageReturnAndLineFeed(downloadUrl + $"?client_id={ClientIDsUtil.ClientIdCurrentValue}");
+            extension = DetermineExtensionForHQ(downloadUrl);
+            return downloadUrl;
         }
 
         public string RemoveCarriageReturnAndLineFeed(string value)
@@ -135,14 +137,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
             if (!ChooseHighqualitysong || (ChooseHighqualitysong && !song.downloadable && !song.IsHD) )
             {
-                PersistStreamToDisk(ref song, DownloadStreamingTrack(ref song), false);
+                song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForStream(song.id);
+                PersistStreamToDisk(ref song, httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result, false);
                 MetadataTaggingUtils.TagIt(song);
                 Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
                 return;
             }
   
-            var extensionForHQ = DetermineExtensionForHQ(song);
-            song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForHQ(song.download_url);
+            song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForHQ(song.download_url, out string extensionForHQ);
 
             var highQualitySoundMemoryStream = new MemoryStream();
             using (var highQualitySoundStream = httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result)
@@ -181,22 +183,18 @@ namespace Soundcloud_Playlist_Downloader.Utils
         private void PersistStreamToDisk(ref Track song, Stream soundSteam, bool isHQ, string extensionForHQ = null)
         {
             if (isHQ)
+            {
+                soundSteam.Position = 0;
                 song.LocalPath += extensionForHQ;
+            }
             else
                 song.LocalPath += ".mp3";
 
-            soundSteam.Position = 0;
             using (soundSteam)
             using (var fs = new FileStream(song.LocalPath, FileMode.Create))
             {
                 soundSteam.CopyToAsync(fs).GetAwaiter().GetResult();
             }
-        }
-
-        private Stream DownloadStreamingTrack(ref Track song)
-        {
-            song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForStream(song.id);
-            return httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result;
         }
 
         private List<string> DetermineAllowedFormatsForConversion()
@@ -210,19 +208,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
             if (ExcludeM4A)
                 formats.Remove(".m4a");
             return formats;
-        }
-
-        public static string DetermineExtensionForHQ(Track song)
-        {
-            try
-            {
-                return GetExtensionFromWebRequest(song.EffectiveDownloadUrl);
-            }
-            catch (Exception)
-            {
-                // ignored
-            }
-            return ".mp3";
         }
 
         public bool IsDownloadable(string downloadUrl)
@@ -243,22 +228,28 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return false;
         }
 
-
-        public static string GetExtensionFromWebRequest(string requestUrl)
+        public static string DetermineExtensionForHQ(string downloadUrl)
         {
-            string extension = "";
-            var result = httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead).Result;
             try
             {
-                extension = Path.GetExtension(result.Content.Headers.ContentDisposition.FileName.Replace("\"", String.Empty));
+                var result = httpClient.GetAsync(downloadUrl, HttpCompletionOption.ResponseHeadersRead).Result;
+                try
+                {
+                    return Path.GetExtension(result.Content.Headers.ContentDisposition.FileName.Replace("\"", String.Empty));
+                }
+                catch (Exception) { }
+                try
+                {
+                    //If it fails to get extention from disposition (if ContentDisposition works it gives more reliable results)
+                    return $".{result.Content.Headers.GetValues("x-amz-meta-file-type").First().Replace("\"", String.Empty)}";
+                }
+                catch (Exception) { }
             }
-            catch (FormatException)
+            catch (Exception)
             {
-                //If it fails to get extention from disposition (if ContentDisposition works it gives more reliable results)
-                extension = $".{result.Content.Headers.GetValues("x-amz-meta-file-type").First().Replace("\"", String.Empty)}";
+                // ignored
             }
-                   
-            return extension;
+            return ".mp3";
         }
 
         public string ParseUserIdFromProfileUrl(string url)
