@@ -106,7 +106,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             var track = new JsonUtils(ManifestUtil, ClientIDsUtil.ClientIdCurrentValue).RetrieveJsonTrackFromV2Url(id);
             foreach(var transcoding in track.media.transcodings)
             {
-                if (transcoding.format.protocol == "hls" && transcoding.format.mime_type == "audio/mpeg")
+                if (transcoding.format.protocol == "progressive")
                 {
                     return new JsonUtils(ManifestUtil, ClientIDsUtil.ClientIdCurrentValue).GetDownloadUrlFromProgressiveUrl(transcoding.url);
                 }
