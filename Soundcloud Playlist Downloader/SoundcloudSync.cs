@@ -169,7 +169,7 @@ namespace Soundcloud_Playlist_Downloader
                 var tracks = new List<Track>();
                 foreach (var playlist in playlists)
                 {
-                    tracks.AddRange(JsonUtil.RetrieveTracksFromUrl(playlist.uri, false));
+                    tracks.AddRange(playlist.tracks);
                 }
                 _syncUtil.Synchronize(tracks);
             }
@@ -177,9 +177,8 @@ namespace Soundcloud_Playlist_Downloader
             {
                 foreach (var playlist in playlists)
                 {
-                    var tracks = (JsonUtil.RetrieveTracksFromUrl(playlist.uri, false));
                     _syncUtil.ManifestUtil.FileSystemUtil.ChangeDirectoryInfo(playlist.permalink);
-                    _syncUtil.Synchronize(tracks);
+                    _syncUtil.Synchronize(playlist.tracks);
                 }
             }
         }

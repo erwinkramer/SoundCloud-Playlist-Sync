@@ -123,22 +123,28 @@ namespace Soundcloud_Playlist_Downloader.Utils
         public IList<PlaylistItem> RetrievePlaylistsFromUrl(string url)
         {
             // parse each playlist out, match the name based on the
-            // permalink, and return the id of the matching playlist.           
-            var playlistsJson = RetrieveJson(url);
-            var playlists = JArray.Parse(playlistsJson);
-
-            IList<JToken> results = playlists.Children().ToList();
+            // permalink, and return the id of the matching playlist.  
+            var limit = 200;
             IList<PlaylistItem> playlistsitems = new List<PlaylistItem>();
-
+            var lastStep = false;
             try
             {
-                if (playlistsJson != null)
+                var playlistsJson = RetrieveJson(url, limit);
+                while (playlistsJson != null)
                 {
+                    var playlists = JObject.Parse(playlistsJson);
+                    IList<JToken> results = playlists["collection"].Children().ToList();
                     foreach (var result in results)
                     {
                         var playlistsitem = JsonConvert.DeserializeObject<PlaylistItem>(result.ToString());
                         playlistsitems.Add(playlistsitem);
                     }
+                    if (lastStep)
+                        break;
+                    var linkedPartitioningUrl = JsonConvert.DeserializeObject<NextInfo>(playlistsJson).next_href;
+                    playlistsJson = RetrieveJson(linkedPartitioningUrl);
+                    if (!string.IsNullOrEmpty(playlistsJson)) continue;
+                    lastStep = true;
                 }
             }
             catch (Exception e)
