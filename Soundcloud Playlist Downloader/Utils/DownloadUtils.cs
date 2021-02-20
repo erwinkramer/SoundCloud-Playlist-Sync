@@ -245,10 +245,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 }
                 catch (Exception) { }
             }
-            catch (Exception)
-            {
-                // ignored
-            }
+            catch (Exception) { }
             return ".mp3";
         }
 
