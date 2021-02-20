@@ -156,6 +156,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     }
                     var artwork = new Picture(avatarFilepath) {
                         Type = PictureType.FrontCover,
+                        MimeType = "image/jpg",
                         Description = "cover"
                 };
                     tagFile.Tag.Pictures = new [] {artwork};
@@ -192,6 +193,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     var artwork = new Picture(artworkFilepath)
                     {
                         Type = PictureType.FrontCover,
+                        MimeType = "image/jpg",
                         Description = "cover"
                     };
                     tagFile.Tag.Pictures = new [] {artwork};
