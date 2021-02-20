@@ -80,6 +80,14 @@ namespace Soundcloud_Playlist_Downloader.Utils
                             ProcessUpdateManifestDelegate pumd = ManifestUtil.UpdateManifest;
                             pumd(track);
                         }
+                        catch(TagLib.CorruptFileException)
+                        {
+                            //tagging went wrong but treat as successfull anyway
+                            track.IsDownloaded = true;
+                            ManifestUtil.ProgressUtil.AddOrUpdateSuccessFullTrack(track);
+                            ProcessUpdateManifestDelegate pumd = ManifestUtil.UpdateManifest;
+                            pumd(track);
+                        }
                         catch (Exception e)
                         {
                             ManifestUtil.ProgressUtil.AddOrUpdateFailedTrack(track, e);
