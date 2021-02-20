@@ -18,7 +18,7 @@ namespace Soundcloud_Playlist_Downloader
                 UpdateUtils.CompleteUpdate_part2();
             else
             {
-                Application.EnableVisualStyles();
+                //Application.EnableVisualStyles(); //issue with loading: https://github.com/dotnet/winforms/issues/4145#issuecomment-714028387
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new SoundcloudSyncMainForm());
             }

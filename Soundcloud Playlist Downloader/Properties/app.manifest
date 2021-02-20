@@ -49,7 +49,7 @@
     </application>
   </compatibility>
   <!-- Enable themes for Windows common controls and dialogs (Windows XP and later) -->
-  <!-- <dependency>
+   <dependency>
     <dependentAssembly>
       <assemblyIdentity
           type="win32"
@@ -60,5 +60,5 @@
           language="*"
         />
     </dependentAssembly>
-  </dependency>-->
+  </dependency>
 </asmv1:assembly>
