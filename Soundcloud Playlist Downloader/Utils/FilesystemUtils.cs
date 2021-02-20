@@ -33,7 +33,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         {
             string textError = e.Message;
             if(e.InnerException?.InnerException != null)
-                textError = e.InnerException?.InnerException?.Message;
+                textError += " With inner exception: " + e.InnerException?.InnerException?.Message;
 
             string textTrack = "Title: " + trackWithErrors.Title + ", Artist: " + trackWithErrors.Artist;
             UpdateLog($"{textTrack} Exception: \"{textError}\"" + Environment.NewLine);

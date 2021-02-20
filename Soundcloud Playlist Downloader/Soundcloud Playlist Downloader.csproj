@@ -8,8 +8,12 @@
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<ApplicationIcon>Resources\MainIcon.ico</ApplicationIcon>
 	<Win32Resource />
+	<PublishSingleFile>true</PublishSingleFile>
+	<SelfContained>true</SelfContained>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
 	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 	<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+	<RuntimeIdentifier>win-x64</RuntimeIdentifier><!--Specify the appropriate runtime here-->
   </PropertyGroup>
 
 	<PropertyGroup>
@@ -72,27 +76,14 @@
 	  <Folder Include="Releases\" />
 	</ItemGroup>
 
-
 	<ItemGroup>
-	  <Content Update="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.1\build\libmp3lame.32.dll">
+	  <Content Update="C:\Users\erwin\.nuget\packages\naudio.lame\2.0.0\build\libmp3lame.64.dll">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Update="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.1\build\libmp3lame.64.dll">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Update="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.2\build\libmp3lame.64.dll">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Update="C:\Users\erwin\.nuget\packages\naudio.lame\1.1.2\build\libmp3lame.32.dll">
+	  <Content Update="C:\Users\erwin\.nuget\packages\naudio.lame\2.0.0\build\libmp3lame.32.dll">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
