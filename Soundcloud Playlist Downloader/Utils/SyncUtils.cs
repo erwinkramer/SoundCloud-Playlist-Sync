@@ -109,7 +109,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
                     {
                         manifest.Remove(oldTrack);
                         index--;
-                        DeleteFile(oldTrack.LocalPath);
                         tracksToDownload.Add(matchedTrack);
                         continue;
                     }

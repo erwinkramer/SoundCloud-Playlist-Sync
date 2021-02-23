@@ -187,13 +187,15 @@ namespace Soundcloud_Playlist_Downloader.Utils
             return;
         }
 
-
         private void PersistStreamToDisk(ref Track song, Stream soundSteam, bool isHQ, string extensionForHQ = null)
         {
             if (isHQ)
             {
-                soundSteam.Position = 0;
+                var localPathOldStreamFile = song.LocalPath + ".mp3";
+                if (File.Exists(localPathOldStreamFile))
+                    File.Delete(localPathOldStreamFile);
                 song.LocalPath += extensionForHQ;
+                soundSteam.Position = 0;
             }
             else
                 song.LocalPath += ".mp3";
