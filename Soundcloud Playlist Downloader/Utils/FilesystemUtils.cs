@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
+using Microsoft.IO;
 using Soundcloud_Playlist_Downloader.JsonObjects;
 using Soundcloud_Playlist_Downloader.Language;
 
@@ -10,6 +11,8 @@ namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class FilesystemUtils
     {
+        public static readonly RecyclableMemoryStreamManager recyclableMemoryStreamManager = new RecyclableMemoryStreamManager();
+
         public DirectoryInfo Directory;
         public DirectoryInfo OriginalDirectory;
         public string Format;

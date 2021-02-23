@@ -154,7 +154,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
   
             song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForHQ(song.download_url, out string extensionForHQ);
 
-            var highQualitySoundMemoryStream = new MemoryStream();
+            var highQualitySoundMemoryStream = FilesystemUtils.recyclableMemoryStreamManager.GetStream();
             using (var highQualitySoundStream = httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result)
             {
                 highQualitySoundStream.CopyToAsync(highQualitySoundMemoryStream).GetAwaiter().GetResult();

@@ -76,7 +76,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 }
                 else
                 {
-                    var retMs = new MemoryStream();
+                    var retMs = FilesystemUtils.recyclableMemoryStreamManager.GetStream();
                     using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, BitRate))
                     {
                         rdr.CopyTo(wtr);
@@ -94,7 +94,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
         /// <returns></returns>
         public static Stream ConvertWavFileToMp3MemoryStream(string wavFile, bool deleteWavAfter)
         {
-            var mp3MemoryStream = new MemoryStream();
+            var mp3MemoryStream = FilesystemUtils.recyclableMemoryStreamManager.GetStream();
             using (var rdr = new WaveFileReader(wavFile))
             using (var wtr = new LameMP3FileWriter(mp3MemoryStream, rdr.WaveFormat, BitRate))
             {
@@ -123,7 +123,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 }
                 else
                 {
-                    var retMs = new MemoryStream();
+                    var retMs = FilesystemUtils.recyclableMemoryStreamManager.GetStream();
                     using (var wtr = new LameMP3FileWriter(retMs, rdr.WaveFormat, BitRate))
                     {
                         rdr.CopyTo(wtr);
