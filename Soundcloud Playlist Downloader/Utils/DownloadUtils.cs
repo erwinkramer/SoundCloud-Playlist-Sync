@@ -80,14 +80,6 @@ namespace Soundcloud_Playlist_Downloader.Utils
                             ProcessUpdateManifestDelegate pumd = ManifestUtil.UpdateManifest;
                             pumd(track);
                         }
-                        catch(TagLib.CorruptFileException)
-                        {
-                            //tagging went wrong but treat as successfull anyway
-                            track.IsDownloaded = true;
-                            ManifestUtil.ProgressUtil.AddOrUpdateSuccessFullTrack(track);
-                            ProcessUpdateManifestDelegate pumd = ManifestUtil.UpdateManifest;
-                            pumd(track);
-                        }
                         catch (Exception e)
                         {
                             ManifestUtil.ProgressUtil.AddOrUpdateFailedTrack(track, e);
@@ -147,7 +139,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 song.EffectiveDownloadUrl = GetEffectiveDownloadUrlForStream(song.id);
                 PersistStreamToDisk(ref song, httpClient.GetStreamAsync(song.EffectiveDownloadUrl).Result, false);
-                MetadataTaggingUtils.TagIt(song);
+                MetadataTaggingUtils.TagIt(song, this.ManifestUtil.FileSystemUtil);
                 Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
                 return;
             }
@@ -165,7 +157,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             {
                 //not able to convert or not chosen
                 PersistStreamToDisk(ref song, highQualitySoundMemoryStream, true, extensionForHQ);
-                MetadataTaggingUtils.TagIt(song);
+                MetadataTaggingUtils.TagIt(song, this.ManifestUtil.FileSystemUtil);
                 Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
                 return;
             }
@@ -182,7 +174,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
             }
 
             //high quality track converted or not converted because of exception
-            MetadataTaggingUtils.TagIt(song);
+            MetadataTaggingUtils.TagIt(song, this.ManifestUtil.FileSystemUtil);
             Interlocked.Increment(ref ManifestUtil.ProgressUtil.SongsDownloaded);
             return;
         }

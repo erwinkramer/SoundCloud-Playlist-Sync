@@ -127,7 +127,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
                             DeleteEmptyDirectory(oldTrack.LocalPath);
                         }
 
-                        MetadataTaggingUtils.TagIt(matchedTrack);
+                        MetadataTaggingUtils.TagIt(matchedTrack, this.ManifestUtil.FileSystemUtil);
                         continue;
                     }            
                 }

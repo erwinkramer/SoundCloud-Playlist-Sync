@@ -12,85 +12,91 @@ namespace Soundcloud_Playlist_Downloader.Utils
 {
     public class MetadataTaggingUtils
     {      
-        public static void TagIt(Track song)
+        public static void TagIt(Track song, FilesystemUtils filesystemUtils)
         {
-            // metadata tagging
-            Tag.DefaultVersion = 3;
-            Tag.ForceDefaultVersion = true;
-            // Possible values for DefaultVersion are 2(id3v2.2), 3(id3v2.3) or 4(id3v2.4)
-            // it seems that id3v2.4 is more prone to misinterpret utf-8. id3v2.3 seems most stable. 
-
-            File tagFile = File.Create(song.LocalPath, ReadStyle.Average);
-            
-            var creationDate = DateTime.Today; //If somehow the datetime string can't be parsed it will just use today
-            if (!string.IsNullOrEmpty(song.created_at))
+            try
             {
-                DateTime.TryParse(song.created_at, out creationDate);
-            }
+                // metadata tagging
+                Tag.DefaultVersion = 3;
+                Tag.ForceDefaultVersion = true;
+                // Possible values for DefaultVersion are 2(id3v2.2), 3(id3v2.3) or 4(id3v2.4)
+                // it seems that id3v2.4 is more prone to misinterpret utf-8. id3v2.3 seems most stable. 
 
-            if (tagFile.Writeable)
+                File tagFile = File.Create(song.LocalPath, ReadStyle.Average);
+
+                var creationDate = DateTime.Today; //If somehow the datetime string can't be parsed it will just use today
+                if (!string.IsNullOrEmpty(song.created_at))
+                {
+                    DateTime.TryParse(song.created_at, out creationDate);
+                }
+
+                if (tagFile.Writeable)
+                {
+                    //Make use of Conductor field to write soundcloud song ID and user ID for future features (conductor field is never used anyway)
+                    tagFile.Tag.Conductor = "SC_SONG_ID," + song.id + ",SC_USER_ID," + song.user_id;
+
+                    //tag all other metadata fields
+                    tagFile.Tag.Title = song.Title;
+                    tagFile.Tag.Year = Convert.ToUInt32(creationDate.Year);
+
+                    if (!string.IsNullOrEmpty(song.Username))
+                    {
+                        tagFile.Tag.AlbumArtists = new[] { song.Username };
+                        tagFile.Tag.Performers = new[] { song.Username };
+                    }
+                    else
+                    {
+                        tagFile.Tag.AlbumArtists = new[] { "<blank>" }; //<blank> is how an empty user shows up in SoundCloud
+                        tagFile.Tag.Performers = new[] { "<blank>" };
+                    }
+
+                    if (song.bpm.HasValue)
+                    {
+                        var bpm = (float)song.bpm;
+                        tagFile.Tag.BeatsPerMinute = Convert.ToUInt32(bpm);
+                    }
+                    if (!string.IsNullOrEmpty(song.permalink_url))
+                    {
+                        tagFile.Tag.Composers = new[] { song.permalink_url };
+                    }
+
+                    if (!string.IsNullOrEmpty(song.license))
+                    {
+                        tagFile.Tag.Copyright = song.license;
+                    }
+
+                    if (!string.IsNullOrEmpty(song.genre))
+                    {
+                        tagFile.Tag.Genres = new[] { song.genre };
+                    }
+                    if (!string.IsNullOrEmpty(song.tag_list))
+                    {
+                        tagFile.Tag.Genres = BuildTagList(song).ToArray();
+                    }
+                    if (!string.IsNullOrEmpty(song.description))
+                    {
+                        tagFile.Tag.Comment = song.description;
+                    }
+                    if (!string.IsNullOrEmpty(song.artwork_url))
+                    {
+                        GetArtwork(ref tagFile, ref song);
+                    }
+                    else
+                    {
+                        GetAvatarImg(ref tagFile, ref song);
+                    }
+                    tagFile.Save();
+                    tagFile.Dispose();
+                }
+                // Sets file creation time to creation time that matches with Soundcloud track
+                System.IO.File.SetCreationTime(song.LocalPath, creationDate);
+                // Set last write time to original file creation date
+                System.IO.File.SetLastWriteTime(song.LocalPath, creationDate);
+            }
+            catch (TagLib.CorruptFileException e)
             {
-                //Make use of Conductor field to write soundcloud song ID and user ID for future features (conductor field is never used anyway)
-                tagFile.Tag.Conductor = "SC_SONG_ID," + song.id + ",SC_USER_ID," + song.user_id;
-
-                //tag all other metadata fields
-                tagFile.Tag.Title = song.Title;
-                tagFile.Tag.Year = Convert.ToUInt32(creationDate.Year);
-
-                if (!string.IsNullOrEmpty(song.Username))
-                {
-                    tagFile.Tag.AlbumArtists = new[] {song.Username};
-                    tagFile.Tag.Performers = new[] {song.Username};
-                }
-                else
-                {
-                    tagFile.Tag.AlbumArtists = new[] {"<blank>"}; //<blank> is how an empty user shows up in SoundCloud
-                    tagFile.Tag.Performers = new[] {"<blank>"};
-                }
-
-                if (song.bpm.HasValue)
-                {
-                    var bpm = (float) song.bpm;
-                    tagFile.Tag.BeatsPerMinute = Convert.ToUInt32(bpm);
-                }
-                if (!string.IsNullOrEmpty(song.permalink_url))
-                {
-                    tagFile.Tag.Composers = new[] {song.permalink_url};
-                }
-
-                if (!string.IsNullOrEmpty(song.license))
-                {
-                    tagFile.Tag.Copyright = song.license;
-                }
-
-                if (!string.IsNullOrEmpty(song.genre))
-                {
-                    tagFile.Tag.Genres = new []{song.genre};
-                }
-                if (!string.IsNullOrEmpty(song.tag_list))
-                {
-                    tagFile.Tag.Genres = BuildTagList(song).ToArray();
-                }
-                if (!string.IsNullOrEmpty(song.description))
-                {
-                    tagFile.Tag.Comment = song.description;
-                }
-                if (!string.IsNullOrEmpty(song.artwork_url))
-                {
-                    GetArtwork(ref tagFile, ref song);
-                }
-                else
-                {
-                    GetAvatarImg(ref tagFile, ref song);
-                }
-                tagFile.Save();
-                tagFile.Dispose();
+                filesystemUtils.LogTrackException(song, e, false);
             }
-
-            // Sets file creation time to creation time that matches with Soundcloud track
-            System.IO.File.SetCreationTime(song.LocalPath, creationDate);
-            // Set last write time to original file creation date
-            System.IO.File.SetLastWriteTime(song.LocalPath, creationDate);         
         }
 
         private static List<string> BuildTagList(Track song)
