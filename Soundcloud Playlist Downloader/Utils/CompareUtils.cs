@@ -12,7 +12,13 @@ namespace Soundcloud_Playlist_Downloader.Utils
         #region IEqualityComparer<BaseClass> Members
         public bool Equals(SoundcloudBaseTrack a, SoundcloudBaseTrack b)
         {
-            if (a.label != null && a.label.id != b.label.id)
+            //if (a.label != null && b.label == null)
+            //    return false;
+
+            //if (a.label == null && b.label != null)
+            //    return false;
+
+            if (a.label?.id != b.label?.id)
                 return false;
 
             if (a.commentable == b.commentable &&
