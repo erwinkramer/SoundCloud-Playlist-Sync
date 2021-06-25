@@ -117,7 +117,7 @@
             this.lbl_copy.Name = "lbl_copy";
             this.lbl_copy.Size = new System.Drawing.Size(336, 15);
             this.lbl_copy.TabIndex = 29;
-            this.lbl_copy.Text = "Copyright © 2013-2020. The SoundCloud-Playlist-Sync project";
+            this.lbl_copy.Text = "Copyright © 2013-2021. The SoundCloud-Playlist-Sync project";
             // 
             // lbl_info1
             // 

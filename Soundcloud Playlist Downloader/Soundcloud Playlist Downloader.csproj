@@ -60,10 +60,10 @@
 	<ItemGroup>
 		<PackageReference Include="Config.Net.Json" Version="4.15.0" />
 		<PackageReference Include="HtmlAgilityPack">
-			<Version>1.11.33</Version>
+			<Version>1.11.34</Version>
 		</PackageReference>
-		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.0.0" />
-		<PackageReference Include="NAudio" Version="2.0.0" />
+		<PackageReference Include="Microsoft.IO.RecyclableMemoryStream" Version="2.1.2" />
+		<PackageReference Include="NAudio" Version="2.0.1" />
 		<PackageReference Include="NAudio.Lame" Version="2.0.0" />
 		<PackageReference Include="Newtonsoft.Json">
 			<Version>13.0.1</Version>
