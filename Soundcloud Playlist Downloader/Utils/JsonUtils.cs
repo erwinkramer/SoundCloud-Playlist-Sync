@@ -61,7 +61,10 @@ namespace Soundcloud_Playlist_Downloader.Utils
                 if (limit != null)
                     url += "&linked_partitioning=1"; //will add next_href to the response
 
-                json = DownloadUtils.httpClient.GetStringAsync(url).Result;
+                var result = DownloadUtils.httpClient.SendAsync(DownloadUtils.RequestMessageWithHeaders($"{url}", HttpMethod.Get)).Result;
+                json = result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                if (!result.IsSuccessStatusCode)
+                    throw new Exception(json);
             }
             catch (Exception e)
             {
@@ -111,7 +114,7 @@ namespace Soundcloud_Playlist_Downloader.Utils
 
         public string RetrieveUserIdFromUserName(string username)
         {
-            var userJson = RetrieveJson("https://api.soundcloud.com/resolve.json?url=http://soundcloud.com/" + username);
+            var userJson = RetrieveJson("https://api.soundcloud.com/resolve.json?url=https://soundcloud.com/" + username);
             JObject user = JObject.Parse(userJson);
             if (user == null)
                 return null;
